@@ -27,9 +27,7 @@
 *                                                                           *
 *****************************************************************************/
 
-//#include "MyOwnSourceHeader1.h"
-//#include "MyOwnSourceHeader2.h"
-//#include "MyOwnSourceHeader3.h"
+#include "HD/D2HDPatches.h"
 
 // end of file --------------------------------------------------------------
 #endif

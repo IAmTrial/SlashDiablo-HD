@@ -54,7 +54,11 @@
 *   D2CLIENT.DLL POINTERS                                                       *
 *                                                                               *
 *********************************************************************************/
+D2VAR(D2CLIENT, ScreenSizeX, DWORD, 0xDBC48);
+D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
 
+D2VAR(D2CLIENT, PanelOffsetX, DWORD, 0x11B9A0);
+D2VAR(D2CLIENT, PanelOffsetY, DWORD, 0x11B9A4);
 
 
 /********************************************************************************
@@ -64,6 +68,12 @@
 *********************************************************************************/
 
 
+/********************************************************************************
+*                                                                               *
+*   D2GFX.DLL POINTERS                                                          *
+*                                                                               *
+*********************************************************************************/
+D2FUNC(D2GFX, DrawUIPanelBorder, void, __stdcall, (int* pFrameNumber, int xOffset, int yOffset, DWORD color, DWORD unknown, DWORD unknown2), 0xB080)
 
 // end of file -----------------------------------------------------------------
 #endif

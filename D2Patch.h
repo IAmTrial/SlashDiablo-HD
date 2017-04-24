@@ -34,11 +34,20 @@
 
 static const DLLPatchStrc gptTemplatePatches[] =
 {
-    /*
-        All your patches should be added here
-        Keep it organized to save yourself some headache
-    */
-    
+	// Panel Positioning Fix
+	{ D2DLL_D2CLIENT, 0xC39F6, 0, PATCH_CALL, FALSE },
+	{ D2DLL_D2CLIENT, 0xC39F7, 38, (int)HD::PanelPosition_Interception, TRUE },
+
+	// Enable Panel Borders Fix
+	{ D2DLL_D2CLIENT, 0x29262, 0, PATCH_CALL, FALSE },
+	{ D2DLL_D2CLIENT, 0x29263, 4, (int)HD::EnableUIPanelBorders_Interception, TRUE },
+
+	// Redraw UI Panel Border Fix
+	{ D2DLL_D2CLIENT, 0x271ED, 0, PATCH_CALL, FALSE },
+	{ D2DLL_D2CLIENT, 0x271EE, 153, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE },
+	{ D2DLL_D2CLIENT, 0x270F2, 0, PATCH_CALL, FALSE },
+	{ D2DLL_D2CLIENT, 0x270F3, 186, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE },
+
     {D2DLL_INVALID} // this must be the last entry in the array!
 };
 

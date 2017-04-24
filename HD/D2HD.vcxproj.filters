@@ -45,9 +45,15 @@
     <ClInclude Include="..\D2PatchConst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D2HDPatches.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDPatches.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
