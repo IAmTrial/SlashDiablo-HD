@@ -4,7 +4,7 @@
 
 void HD::PanelPosition_Interception() {
 	*D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
-	*D2CLIENT_PanelOffsetX = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
+	*D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 void HD::RedrawUILeftPanelBorders_Interception() {

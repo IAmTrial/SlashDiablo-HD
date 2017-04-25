@@ -35,21 +35,29 @@
 static const DLLPatchStrc gptTemplatePatches[] =
 {
 	// Panel Positioning Fix
-	{ D2DLL_D2CLIENT, 0xC39F6, 0, PATCH_CALL, FALSE },
-	{ D2DLL_D2CLIENT, 0xC39F7, 38, (int)HD::PanelPosition_Interception, TRUE },
+	{ D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
+	{ D2DLL_D2CLIENT, 0xC39F6, PATCH_CALL, FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0xC39F7, (int)HD::PanelPosition_Interception, TRUE, 0 },
 
 	// Enable Panel Borders Fix
-	{ D2DLL_D2CLIENT, 0x29262, 0, PATCH_CALL, FALSE },
-	{ D2DLL_D2CLIENT, 0x29263, 4, (int)HD::EnableUIPanelBorders_Interception, TRUE },
+	{ D2DLL_D2CLIENT, 0x29262, PATCH_NOPBLOCK, FALSE, 5 },
+	{ D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0x29263, (int)HD::EnableUIPanelBorders_Interception, TRUE, 0 },
 
 	// Redraw UI Panel Border Fix
-	{ D2DLL_D2CLIENT, 0x271ED, 0, PATCH_CALL, FALSE },
-	{ D2DLL_D2CLIENT, 0x271EE, 153, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE },
-	{ D2DLL_D2CLIENT, 0x270F2, 0, PATCH_CALL, FALSE },
-	{ D2DLL_D2CLIENT, 0x270F3, 186, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE },
+	{ D2DLL_D2CLIENT, 0x271ED, PATCH_NOPBLOCK, FALSE, 154 },
+	{ D2DLL_D2CLIENT, 0x271ED, PATCH_CALL, FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0x271EE, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x270F2, PATCH_NOPBLOCK, FALSE, 187 },
+	{ D2DLL_D2CLIENT, 0x270F2, PATCH_CALL, FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0x270F3, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
 
     {D2DLL_INVALID} // this must be the last entry in the array!
 };
+
+//Patch* redrawLeftPanelBorderPatch = new Patch(Call, D2CLIENT, 0x271ED, (int)RedrawUILeftPanelBorders_Interception, 154);
+//Patch* redrawRightPanelBorderPatch = new Patch(Call, D2CLIENT, 0x270F2, (int)RedrawUIRightPanelBorders_Interception, 187);
+
 
 // end of file --------------------------------------------------------------
 #endif

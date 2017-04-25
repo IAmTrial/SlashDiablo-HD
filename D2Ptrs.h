@@ -57,8 +57,8 @@
 D2VAR(D2CLIENT, ScreenSizeX, DWORD, 0xDBC48);
 D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
 
-D2VAR(D2CLIENT, PanelOffsetX, DWORD, 0x11B9A0);
-D2VAR(D2CLIENT, PanelOffsetY, DWORD, 0x11B9A4);
+D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
+D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 
 
 /********************************************************************************
