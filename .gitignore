@@ -1,3 +1,11 @@
+*.sdf
+*.opensdf
+*.pdb
+*.log
+*.tlog
+*.idb
+*.ilk
+
 # Compiled Object files
 *.slo
 *.lo
