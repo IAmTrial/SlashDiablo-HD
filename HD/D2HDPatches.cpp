@@ -97,6 +97,10 @@ void HD::RedrawUILeftPanelBorders_Interception() {
 
 void HD::RedrawUIRightPanelBorders_Interception() {
 	__asm {
+		xor eax, eax
+		mov ecx, 18
+		lea edi, [ebp + 0x0C]
+		repe stosd
 		mov dword ptr ds : [ebp + 0x30], edx
 	}
 

@@ -86,9 +86,5 @@ static const DLLPatchStrc gptTemplatePatches[] =
     {D2DLL_INVALID} // this must be the last entry in the array!
 };
 
-//Patch* redrawLeftPanelBorderPatch = new Patch(Call, D2CLIENT, 0x271ED, (int)RedrawUILeftPanelBorders_Interception, 154);
-//Patch* redrawRightPanelBorderPatch = new Patch(Call, D2CLIENT, 0x270F2, (int)RedrawUIRightPanelBorders_Interception, 187);
-
-
 // end of file --------------------------------------------------------------
 #endif
