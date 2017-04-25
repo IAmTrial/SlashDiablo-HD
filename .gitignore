@@ -5,6 +5,7 @@
 *.tlog
 *.idb
 *.ilk
+*.suo
 
 # Compiled Object files
 *.slo
