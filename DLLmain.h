@@ -52,6 +52,7 @@
 #define DLLBASE_IJL11           (DWORD)LoadLibraryA("ijl11.dll")
 #define DLLBASE_BINKW32         (DWORD)LoadLibraryA("binkw32.dll")
 #define DLLBASE_SMACKW32        (DWORD)LoadLibraryA("SmackW32.dll")
+#define DLLBASE_GLIDE3X         (DWORD)LoadLibraryA("glide3x.dll")
 
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -96,6 +97,7 @@ enum D2TEMPLATE_DLL_FILES
     D2DLL_D2SOUND,
     D2DLL_D2WIN,
     D2DLL_FOG,
+	D2DLL_GLIDE3X,
     D2DLL_IJL11,
     D2DLL_SMACKW32,
     D2DLL_STORM,
@@ -123,6 +125,7 @@ static DLLBaseStrc gptDllFiles [] =
     {"D2Sound.dll",         NULL},
     {"D2Win.dll",           NULL},
     {"Fog.dll",             NULL},
+	{"Glide3x.dll",         NULL},
     {"Ijl11.dll",           NULL},
     {"SmackW32.dll",        NULL},
     {"Storm.dll",           NULL},
