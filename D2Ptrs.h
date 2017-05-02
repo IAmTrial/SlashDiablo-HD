@@ -69,6 +69,13 @@ D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 
 /********************************************************************************
 *                                                                               *
+*   D2DDRAW.DLL POINTERS                                                        *
+*                                                                               *
+*********************************************************************************/
+D2VAR(D2DDRAW, GameWindowSizeY, DWORD*, 0x101D8);
+
+/********************************************************************************
+*                                                                               *
 *   D2GDI.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
@@ -79,7 +86,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *   D2GFX.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2GFX, DrawUIPanelBorder, void, __stdcall, (int* pFrameNumber, int xOffset, int yOffset, DWORD color, DWORD unknown, DWORD unknown2), 0xB080)
+D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080)
 
 /********************************************************************************
 *                                                                               *
