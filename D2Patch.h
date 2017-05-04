@@ -42,7 +42,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	// Enable Panel Borders Fix
 	{ D2DLL_D2CLIENT, 0x29262, PATCH_NOPBLOCK, FALSE, 5 },
 	{ D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
-	{ D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::EnableUIPanelBorders_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
 	// Redraw UI Panel Border Fix
 	{ D2DLL_D2CLIENT, 0x271ED, PATCH_NOPBLOCK, FALSE, 154 },
@@ -51,6 +51,18 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2CLIENT, 0x270F2, PATCH_NOPBLOCK, FALSE, 187 },
 	{ D2DLL_D2CLIENT, 0x270F2, PATCH_CALL, FALSE, 0 },
 	{ D2DLL_D2CLIENT, 0x270F2 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
+
+	// Fix Click Register Issue
+	{ D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+	{ D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
 	// Replace for HD, Resize Game Window
 	{ D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },

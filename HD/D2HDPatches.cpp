@@ -163,8 +163,8 @@ void HD::RedrawUIRightPanelBorders_Interception() {
 	frameNumber++;
 }
 
-// This enables the expansion panel borders when you open
-// panels (char menu, skill menu...)
-int __fastcall HD::EnableUIPanelBorders_Interception() {
+// This function is used to replace code to prevent
+// running unwanted 640 code.
+int __fastcall HD::GetResolutionMode_Interception() {
 	return (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }
