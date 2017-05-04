@@ -60,11 +60,14 @@ void HD::Replace640_ResizeGlideWindow_Interception() {
 	}
 }
 
+// Repositions panels in the correct location, independent of resolution.
 void HD::PanelPosition_Interception() {
 	*D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
 	*D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
+// Redraws the left side panel borders in the correct places, independent of resolution.
+// In addition, also draws a background to cover up extra space.
 void HD::RedrawUILeftPanelBorders_Interception() {
 	__asm {
 		mov dword ptr ds : [ebp + 0x30], eax
@@ -112,6 +115,8 @@ void HD::RedrawUILeftPanelBorders_Interception() {
 	frameNumber++;
 }
 
+// Redraws the right side panel borders in the correct places, independent of resolution.
+// In addition, also draws a background to cover up extra space.
 void HD::RedrawUIRightPanelBorders_Interception() {
 	__asm {
 		xor eax, eax
@@ -163,8 +168,7 @@ void HD::RedrawUIRightPanelBorders_Interception() {
 	frameNumber++;
 }
 
-// This function is used to replace code to prevent
-// running unwanted 640 code.
+// This function is used to prevent running unwanted 640 code.
 int __fastcall HD::GetResolutionMode_Interception() {
 	return (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }

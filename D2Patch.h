@@ -117,8 +117,6 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2GFX, 0x8797 + 3 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
-	// Modify d2gfx.dll+83b5 (the setter) and 8399 (the compare), watch 11260
-
 	// Replace for HD, Resize Foreground Rendering Width
 	{ D2DLL_D2GDI, 0x706B + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GDI, 0x7051 + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
@@ -153,10 +151,12 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2GLIDE, 0xDC00 + 2 + 4, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 }, 
 
 	// Replace for HD, Resize Glide Game Window
-	/*{ D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+	/* No longer needed due to custom glide3x.dll
+	{ D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_GLIDE3X, 0xCAE7 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 	{ D2DLL_GLIDE3X, 0xCAF7 + 2, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-	{ D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },*/
+	{ D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
+	*/
 	
 
     {D2DLL_INVALID} // this must be the last entry in the array!
