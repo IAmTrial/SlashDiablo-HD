@@ -52,18 +52,6 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2CLIENT, 0x270F2, PATCH_CALL, FALSE, 0 },
 	{ D2DLL_D2CLIENT, 0x270F2 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
 
-	// Fix Click Register Issue
-	{ D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-	{ D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
 	// Replace for HD, Resize Game Window
 	{ D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GFX, 0x7FEE + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
@@ -73,11 +61,11 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2GFX, 0x801C + 2, RESOLUTION_1344_TO_HD_HEIGHT, FALSE, 0 },
 
 	// Replace for HD, Resize Rendering Resolution
-	{ D2DLL_D2GDI, 0x6D55 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+	{ D2DLL_D2GDI, 0x6D55 + 1, (RESOLUTION_640_TO_HD_WIDTH - (RESOLUTION_640_TO_HD_WIDTH % 4)), FALSE, 0 },
 	{ D2DLL_D2GDI, 0x6D5A + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-	{ D2DLL_D2GDI, 0x6D3D + 1, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 }, // Doesn't work
+	{ D2DLL_D2GDI, 0x6D3D + 1, (RESOLUTION_800_TO_HD_WIDTH - (RESOLUTION_800_TO_HD_WIDTH % 4)), FALSE, 0 }, // Doesn't work
 	{ D2DLL_D2GDI, 0x6D42 + 1, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 }, // Doesn't work
-	{ D2DLL_D2GDI, 0x6D3D + 1, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
+	{ D2DLL_D2GDI, 0x6D3D + 1, (RESOLUTION_1344_TO_HD_WIDTH - (RESOLUTION_1344_TO_HD_WIDTH % 4)), FALSE, 0 },
 	{ D2DLL_D2GDI, 0x6D42 + 1, RESOLUTION_1344_TO_HD_HEIGHT, FALSE, 0 },
 
 	// Other Patches, Unsure what they do
@@ -117,17 +105,15 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2GFX, 0x8797 + 3 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
-	// Modify d2gfx.dll+83b5 (the setter) and 8399 (the compare), watch 11260
-
 	// Replace for HD, Resize Foreground Rendering Width
 	{ D2DLL_D2GDI, 0x706B + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GDI, 0x7051 + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GDI, 0x705E + 2 + 4, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
 
 	// Replace for HD, Resize Game Logic Resolution and FOV
-	{ D2DLL_D2CLIENT, 0x10E29 + 1, (RESOLUTION_640_TO_HD_WIDTH - (RESOLUTION_640_TO_HD_WIDTH % 4)), FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0x10E29 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2CLIENT, 0x10E33 + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-	{ D2DLL_D2CLIENT, 0x10E09 + 1, (RESOLUTION_800_TO_HD_WIDTH - (RESOLUTION_800_TO_HD_WIDTH % 4)), FALSE, 0 },
+	{ D2DLL_D2CLIENT, 0x10E09 + 1, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2CLIENT, 0x10E13 + 2 + 4, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
 	// { D2DLL_D2CLIENT, UKNOWN + 1, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
 	// { D2DLL_D2CLIENT, UKNOWN + 2 + 4, RESOLUTION_1344_TO_HD_HEIGHT, FALSE, 0 },
@@ -146,7 +132,6 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
 	// Replace for HD, Resize Glide Render Logic Resolution
 	{ D2DLL_D2GLIDE, 0xDCD0 + 1, 0x0FF, FALSE, 0 },
-	// { D2DLL_D2GLIDE, 0xDCD0 + 1, 0x0E, FALSE, 0 },
 	{ D2DLL_D2GLIDE, 0xDCD5 + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_D2GLIDE, 0xDCDF + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
@@ -154,13 +139,55 @@ static const DLLPatchStrc gptTemplatePatches[] =
 	{ D2DLL_D2GLIDE, 0xDC00 + 2 + 4, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 }, 
 
 	// Replace for HD, Resize Glide Game Window
-	/*{ D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+	/* No longer needed due to custom glide3x.dll
+	{ D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
 	{ D2DLL_GLIDE3X, 0xCAE7 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 	{ D2DLL_GLIDE3X, 0xCAF7 + 2, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-	{ D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },*/
+	{ D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
+	*/
 	
 
     {D2DLL_INVALID} // this must be the last entry in the array!
+};
+
+// Fixes border panel click detection issue for HD mode. Shouldn't need to be disabled.
+static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
+	// Left panel click block
+	{ D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Right panel click block
+	{ D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	{ D2DLL_INVALID }
+};
+
+
+static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Skill button animation click detection
+	{ D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Stat button animation click detection
+	{ D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Skill button click detection
+	{ D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Stat button click detection
+	{ D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	{ D2DLL_INVALID }
 };
 
 // end of file --------------------------------------------------------------
