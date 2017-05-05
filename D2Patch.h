@@ -150,37 +150,44 @@ static const DLLPatchStrc gptTemplatePatches[] =
     {D2DLL_INVALID} // this must be the last entry in the array!
 };
 
-// Fixes click register issue for HD mode.
-static const DLLPatchStrc clickRegistrationPatches[] = {
-	// Unknown
-	// { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Skill button animation click detection
-	// { D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Unknown
-	// { D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Stat button animation click detection
-	// { D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Unknown
-	// { D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Skill button click detection
-	// { D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Unknown
-	// { D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
-	// Stat button click detection
-	// { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-
+// Fixes border panel click detection issue for HD mode. Shouldn't need to be disabled.
+static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
 	// Left panel click block
 	{ D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
 	// Right panel click block
 	{ D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	{ D2DLL_INVALID }
+};
+
+
+static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Skill button animation click detection
+	{ D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Stat button animation click detection
+	{ D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Skill button click detection
+	{ D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Unknown
+	{ D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	// Stat button click detection
+	{ D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+	{ D2DLL_INVALID }
 };
 
 // end of file --------------------------------------------------------------
