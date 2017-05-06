@@ -190,5 +190,12 @@ static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
     { D2DLL_INVALID }
 };
 
+static const DLLPatchStrc moviePatches[] = {
+    { D2DLL_SMACKW32, 0x3DFF + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+    { D2DLL_SMACKW32, 0x3E07 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
+
+    { D2DLL_INVALID }
+};
+
 // end of file --------------------------------------------------------------
 #endif
