@@ -70,7 +70,9 @@ int HD::SetupGlideRenderResolution_Interception() {
     switch (newResolutionMode) {
     case 0:
         if (*STORM_IsCinematic || firstStart) {
-            firstStart--;
+            if (firstStart) {
+                firstStart--;
+            }
             glideVideoMode = 7;
             *D2GLIDE_ScreenSizeX = 640;
             *D2GLIDE_ScreenSizeY = 480;
