@@ -87,8 +87,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *   D2GFX.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2GFX, GetResolutionMode, int, 0xB320);
-
+D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
 D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
