@@ -60,6 +60,41 @@ void HD::Replace640_ResizeGlideWindow_Interception() {
     }
 }
 
+int HD::firstStart = 2;
+
+int HD::SetupGlideRenderResolution_Interception() {
+    int newResolutionMode, glideVideoMode;
+    __asm mov newResolutionMode, esi
+    __asm mov edx, 0
+
+    switch (newResolutionMode) {
+    case 0:
+        if (*STORM_IsCinematic || firstStart) {
+            firstStart--;
+            glideVideoMode = 7;
+            *D2GLIDE_ScreenSizeX = 640;
+            *D2GLIDE_ScreenSizeY = 480;
+        }
+        else {
+            glideVideoMode =  0xFF;
+            *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
+            *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
+        }
+        
+        break;
+
+    case 1:
+    case 2:
+        glideVideoMode = 8;
+        *D2GLIDE_ScreenSizeX = RESOLUTION_800_TO_HD_WIDTH;
+        *D2GLIDE_ScreenSizeY = RESOLUTION_800_TO_HD_HEIGHT;
+        break;
+    }
+    __asm mov ecx, glideVideoMode
+    __asm mov esi, newResolutionMode
+    return newResolutionMode;
+}
+
 // Repositions panels in the correct location, independent of resolution.
 void HD::PanelPosition_Interception() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;

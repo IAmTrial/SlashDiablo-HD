@@ -106,5 +106,12 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 D2VAR(GLIDE3X, GameWindowSizeX, DWORD*, 0x1C9A0);
 D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C);
 
+/********************************************************************************
+*                                                                               *
+*   STORM.DLL POINTERS                                                          *
+*                                                                               *
+*********************************************************************************/
+D2VAR(STORM, IsCinematic, BOOL, 0x54D74);
+
 // end of file -----------------------------------------------------------------
 #endif
