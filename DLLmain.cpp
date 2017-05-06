@@ -40,7 +40,7 @@ BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
         int nReturn = 0;
         int nDLL = hPatch->nDLL;
         if (nDLL < 0 || nDLL >= D2DLL_INVALID) return FALSE;
-        
+
         DWORD dwAddress = hPatch->dwAddress;
         if (!dwAddress) return FALSE;
 
@@ -48,10 +48,10 @@ BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
         if (!dwBaseAddress) return FALSE;
 
         dwAddress += dwBaseAddress;
-        
+
         DWORD dwData = hPatch->dwData;
         if (hPatch->bRelative){ dwData = dwData - (dwAddress + sizeof(dwData)); }
-        
+
         void* hAddress = (void*)dwAddress;
         DWORD dwOldPage;
 
@@ -73,12 +73,12 @@ BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
             nReturn = WriteProcessMemory(hGame, hAddress, &dwData, sizeof(dwData), 0);
             VirtualProtect(hAddress, sizeof(dwData), dwOldPage, 0);
         }
-        
+
         if (nReturn == 0) return FALSE;
-        
+
         hPatch++;
     }
-    
+
     return TRUE;
 }
 
@@ -87,7 +87,7 @@ BOOL __fastcall D2TEMPLATE_LoadModules()
     for (int i = 0; i < D2DLL_INVALID; i++)
     {
         DLLBaseStrc* hDllFile = &gptDllFiles[i];
-        
+
         void* hModule = GetModuleHandle(hDllFile->szName);
         if (!hModule)
         {
@@ -106,13 +106,13 @@ int __fastcall D2TEMPLATE_GetDebugPrivilege()
     LUID luid;
     TOKEN_PRIVILEGES tokenPrivileges;
 
-    if (OpenProcessToken(GetCurrentProcess(),TOKEN_ALL_ACCESS,&hToken) == 0)
+    if (OpenProcessToken(GetCurrentProcess(), TOKEN_ALL_ACCESS, &hToken) == 0)
     {
         D2TEMPLATE_FatalError("OpenProcessToken Failed");
         return 0;
     }
 
-    if (LookupPrivilegeValue(0,SE_DEBUG_NAME,&luid) == 0)
+    if (LookupPrivilegeValue(0, SE_DEBUG_NAME, &luid) == 0)
     {
         D2TEMPLATE_FatalError("LookupPrivilegeValue Failed");
         CloseHandle(hToken);
@@ -122,7 +122,7 @@ int __fastcall D2TEMPLATE_GetDebugPrivilege()
     tokenPrivileges.PrivilegeCount = 1;
     tokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     tokenPrivileges.Privileges[0].Luid = luid;
-    if (AdjustTokenPrivileges(hToken,0,&tokenPrivileges,sizeof(tokenPrivileges),0,0) == 0)
+    if (AdjustTokenPrivileges(hToken, 0, &tokenPrivileges, sizeof(tokenPrivileges), 0, 0) == 0)
     {
         D2TEMPLATE_FatalError("AdjustTokenPrivileges Failed");
         CloseHandle(hToken);
@@ -138,7 +138,7 @@ int __stdcall DllAttach()
     D2TEMPLATE_GetDebugPrivilege();
 
     void* hGame = GetCurrentProcess();
-    if (!hGame) 
+    if (!hGame)
     {
         D2TEMPLATE_FatalError("Failed to retrieve process");
         return 0;
@@ -151,7 +151,7 @@ int __stdcall DllAttach()
     }
 
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
-	D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
+    D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
 
     return 1;
 }
@@ -160,11 +160,11 @@ int __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, void* lpReserved)
 {
     switch (dwReason)
     {
-        case DLL_PROCESS_ATTACH:
-        {
-            if (!DllAttach()) D2TEMPLATE_FatalError("Couldn't attach to Diablo II");
-            break;
-        }
+    case DLL_PROCESS_ATTACH:
+    {
+        if (!DllAttach()) D2TEMPLATE_FatalError("Couldn't attach to Diablo II");
+        break;
+    }
     }
 
     return TRUE;
