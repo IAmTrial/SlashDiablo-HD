@@ -69,7 +69,7 @@ int HD::SetupGlideRenderResolution_Interception() {
 
     switch (newResolutionMode) {
     case 0:
-        if (!*FOG_InGame && (*STORM_IsCinematic || firstStart)) {
+        if ((/*!*FOG_InGame && (*STORM_IsCinematic ||*/ firstStart)) {
             if (firstStart > 0) {
                 firstStart--;
             }
