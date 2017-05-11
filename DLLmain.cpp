@@ -33,6 +33,50 @@ void __fastcall D2TEMPLATE_FatalError(char* szMessage)
     TerminateProcess(GetCurrentProcess(), -1);
 }
 
+void __fastcall D2Template_ReadSettings() {
+    char path[] = "./D2HD.ini";
+    char sectionName[] = "Settings";
+    const DWORD defaultColor = 0xFFFFFFFF;
+    DWORD tempColor;
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Background Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Left Panel Background Color", defaultColorStr.c_str(), path);
+    }
+
+    LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Border Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Left Panel Border Color", defaultColorStr.c_str(), path);
+    }
+    LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Border Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Right Panel Border Color", defaultColorStr.c_str(), path);
+    }
+    RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Background Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Right Panel Background Color", defaultColorStr.c_str(), path);
+    }
+    RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+}
+
 BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
 {
     while (hPatch->nDLL != D2DLL_INVALID)
@@ -149,6 +193,8 @@ int __stdcall DllAttach()
         D2TEMPLATE_FatalError("Failed to load modules");
         return 0;
     }
+
+    D2Template_ReadSettings();
 
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);

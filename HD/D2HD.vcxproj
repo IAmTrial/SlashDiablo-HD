@@ -22,10 +22,12 @@
     <ClInclude Include="..\DLLmain.h" />
     <ClInclude Include="..\TemplateIncludes.h" />
     <ClInclude Include="D2HDPatches.h" />
+    <ClInclude Include="D2HDStructs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp" />
     <ClCompile Include="D2HDPatches.cpp" />
+    <ClCompile Include="D2HDStructs.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7848D7C-A05C-4DED-A363-B9555FF791A1}</ProjectGuid>
