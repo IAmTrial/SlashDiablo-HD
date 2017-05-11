@@ -41,26 +41,38 @@ void __fastcall D2Template_ReadSettings() {
 
     tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Background Color", defaultColor, path);
     if (tempColor == defaultColor) {
-        WritePrivateProfileStringA(sectionName, "Left Panel Background Color", std::to_string(defaultColor).c_str(), path);
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Left Panel Background Color", defaultColorStr.c_str(), path);
     }
 
     LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
 
     tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Border Color", defaultColor, path);
     if (tempColor == defaultColor) {
-        WritePrivateProfileStringA(sectionName, "Left Panel Border Color", std::to_string(defaultColor).c_str(), path);
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Left Panel Border Color", defaultColorStr.c_str(), path);
     }
     LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
 
     tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Border Color", defaultColor, path);
     if (tempColor == defaultColor) {
-        WritePrivateProfileStringA(sectionName, "Right Panel Border Color", std::to_string(defaultColor).c_str(), path);
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Right Panel Border Color", defaultColorStr.c_str(), path);
     }
     RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
 
     tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Background Color", defaultColor, path);
     if (tempColor == defaultColor) {
-        WritePrivateProfileStringA(sectionName, "Right Panel Background Color", std::to_string(defaultColor).c_str(), path);
+        std::stringstream stream;
+        stream << "0x" << std::hex << defaultColor;
+        std::string defaultColorStr = stream.str();
+        WritePrivateProfileStringA(sectionName, "Right Panel Background Color", defaultColorStr.c_str(), path);
     }
     RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
 }
