@@ -33,6 +33,15 @@ void __fastcall D2TEMPLATE_FatalError(char* szMessage)
     TerminateProcess(GetCurrentProcess(), -1);
 }
 
+void __fastcall D2Template_ReadSettings() {
+    char path[] = "./D2HD.ini";
+    char sectionName[] = "Settings";
+    LeftPanelBorderColor = GetPrivateProfileIntA(sectionName, "Left Panel Border Color", 0xFFFFFFFF, path);
+    LeftPanelBackgroundColor = GetPrivateProfileIntA(sectionName, "Left Panel Background Color", 0xFFFFFFFF, path);
+    RightPanelBorderColor = GetPrivateProfileIntA(sectionName, "Right Panel Border Color", 0xFFFFFFFF, path);
+    RightPanelBackgroundColor = GetPrivateProfileIntA(sectionName, "Right Panel Background Color", 0xFFFFFFFF, path);
+}
+
 BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
 {
     while (hPatch->nDLL != D2DLL_INVALID)
@@ -149,6 +158,8 @@ int __stdcall DllAttach()
         D2TEMPLATE_FatalError("Failed to load modules");
         return 0;
     }
+
+    D2Template_ReadSettings();
 
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
