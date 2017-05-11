@@ -29,6 +29,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sstream>
 
 #define DLLBASE_BNCLIENT        (DWORD)LoadLibraryA("Bnclient.dll")
 #define DLLBASE_D2CLIENT        (DWORD)LoadLibraryA("D2Client.dll")
@@ -97,38 +98,38 @@ enum D2TEMPLATE_DLL_FILES
     D2DLL_D2SOUND,
     D2DLL_D2WIN,
     D2DLL_FOG,
-	D2DLL_GLIDE3X,
+    D2DLL_GLIDE3X,
     D2DLL_IJL11,
     D2DLL_SMACKW32,
     D2DLL_STORM,
     D2DLL_INVALID
 };
 
-static DLLBaseStrc gptDllFiles [] =
+static DLLBaseStrc gptDllFiles[] =
 {
-    {"Binkw32.dll",         NULL},
-    {"BnClient.dll",        NULL},
-    {"D2Client.dll",        NULL},
-    {"D2CMP.dll",           NULL},
-    {"D2Common.dll",        NULL},
-    {"D2DDraw.dll",         NULL},
-    {"D2Direct3D.dll",      NULL},
-    {"D2Game.dll",          NULL},
-    {"D2Gdi.dll",           NULL},
-    {"D2Gfx.dll",           NULL},
-    {"D2Glide.dll",         NULL},
-    {"D2Lang.dll",          NULL},
-    {"D2Launch.dll",        NULL},
-    {"D2MCPClient.dll",     NULL},
-    {"D2Multi.dll",         NULL},
-    {"D2Net.dll",           NULL},
-    {"D2Sound.dll",         NULL},
-    {"D2Win.dll",           NULL},
-    {"Fog.dll",             NULL},
-	{"Glide3x.dll",         NULL},
-    {"Ijl11.dll",           NULL},
-    {"SmackW32.dll",        NULL},
-    {"Storm.dll",           NULL},
+    { "Binkw32.dll", NULL },
+    { "BnClient.dll", NULL },
+    { "D2Client.dll", NULL },
+    { "D2CMP.dll", NULL },
+    { "D2Common.dll", NULL },
+    { "D2DDraw.dll", NULL },
+    { "D2Direct3D.dll", NULL },
+    { "D2Game.dll", NULL },
+    { "D2Gdi.dll", NULL },
+    { "D2Gfx.dll", NULL },
+    { "D2Glide.dll", NULL },
+    { "D2Lang.dll", NULL },
+    { "D2Launch.dll", NULL },
+    { "D2MCPClient.dll", NULL },
+    { "D2Multi.dll", NULL },
+    { "D2Net.dll", NULL },
+    { "D2Sound.dll", NULL },
+    { "D2Win.dll", NULL },
+    { "Fog.dll", NULL },
+    { "Glide3x.dll", NULL },
+    { "Ijl11.dll", NULL },
+    { "SmackW32.dll", NULL },
+    { "Storm.dll", NULL },
 };
 
 void __fastcall D2TEMPLATE_FatalError(char* szMessage);

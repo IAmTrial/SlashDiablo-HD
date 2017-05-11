@@ -60,10 +60,10 @@ struct D2UnitStrc
 
 struct D2ImageDrawStrc      //sizeof 0x48
 {
-	unsigned long dw1[15];   //+00
-	const void* pCellFile;   //+3C
-	int nFrame;            //+40
-	unsigned long dw2;      //+44
+    unsigned long dw1[15];   //+00
+    const void* pCellFile;   //+3C
+    int nFrame;            //+40
+    unsigned long dw2;      //+44
 };
 
 // end of file --------------------------------------------------------------
