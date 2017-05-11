@@ -36,10 +36,33 @@ void __fastcall D2TEMPLATE_FatalError(char* szMessage)
 void __fastcall D2Template_ReadSettings() {
     char path[] = "./D2HD.ini";
     char sectionName[] = "Settings";
-    LeftPanelBorderColor = GetPrivateProfileIntA(sectionName, "Left Panel Border Color", 0xFFFFFFFF, path);
-    LeftPanelBackgroundColor = GetPrivateProfileIntA(sectionName, "Left Panel Background Color", 0xFFFFFFFF, path);
-    RightPanelBorderColor = GetPrivateProfileIntA(sectionName, "Right Panel Border Color", 0xFFFFFFFF, path);
-    RightPanelBackgroundColor = GetPrivateProfileIntA(sectionName, "Right Panel Background Color", 0xFFFFFFFF, path);
+    const DWORD defaultColor = 0xFFFFFFFF;
+    DWORD tempColor;
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Background Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        WritePrivateProfileStringA(sectionName, "Left Panel Background Color", std::to_string(defaultColor).c_str(), path);
+    }
+
+    LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Left Panel Border Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        WritePrivateProfileStringA(sectionName, "Left Panel Border Color", std::to_string(defaultColor).c_str(), path);
+    }
+    LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Border Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        WritePrivateProfileStringA(sectionName, "Right Panel Border Color", std::to_string(defaultColor).c_str(), path);
+    }
+    RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+
+    tempColor = GetPrivateProfileIntA(sectionName, "Right Panel Background Color", defaultColor, path);
+    if (tempColor == defaultColor) {
+        WritePrivateProfileStringA(sectionName, "Right Panel Background Color", std::to_string(defaultColor).c_str(), path);
+    }
+    RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
 }
 
 BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)

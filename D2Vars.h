@@ -35,12 +35,10 @@ VAR(void*, SampleVariable2)
 
 VAR(char, SampleVariable3[256])
 
-VAR(DWORD, LeftPanelBorderColor)
 
 VAR(DWORD, LeftPanelBackgroundColor)
-
+VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
-
 VAR(DWORD, RightPanelBackgroundColor)
 
 // end of file ---------------------------------------------------------------

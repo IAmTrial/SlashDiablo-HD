@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="D2HD">
+      <UniqueIdentifier>{0a67e69b-2f69-4fc0-bfa6-d0cf5f70a8d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\D2Constants.h">
@@ -46,7 +49,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D2HDPatches.h">
-      <Filter>Header Files</Filter>
+      <Filter>D2HD</Filter>
+    </ClInclude>
+    <ClInclude Include="D2HDStructs.h">
+      <Filter>D2HD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +60,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D2HDPatches.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>D2HD</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDStructs.cpp">
+      <Filter>D2HD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
