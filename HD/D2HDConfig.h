@@ -8,4 +8,6 @@
 
 namespace Config {
     void ReadConfig();
+    void ReadMainSettings(std::string path);
+    void ReadExperimentalSettings(std::string path);
 }
