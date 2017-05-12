@@ -48,7 +48,6 @@
 *********************************************************************************/
 
 
-
 /********************************************************************************
 *                                                                               *
 *   D2CLIENT.DLL POINTERS                                                       *
@@ -56,10 +55,8 @@
 *********************************************************************************/
 D2VAR(D2CLIENT, ScreenSizeX, DWORD, 0xDBC48);
 D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
-
 D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
-
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 
 /********************************************************************************
@@ -87,8 +84,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *   D2GFX.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2GFX, GetResolutionMode, int, 0xB320);
-
+D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
 D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
@@ -106,6 +102,20 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 *********************************************************************************/
 D2VAR(GLIDE3X, GameWindowSizeX, DWORD*, 0x1C9A0);
 D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C);
+
+/********************************************************************************
+*                                                                               *
+*   FOG.DLL POINTERS                                                            *
+*                                                                               *
+*********************************************************************************/
+D2VAR(FOG, InGame, BOOL, 0x4C804);
+
+/********************************************************************************
+*                                                                               *
+*   STORM.DLL POINTERS                                                          *
+*                                                                               *
+*********************************************************************************/
+D2VAR(STORM, IsCinematic, BOOL, 0x54D74);
 
 // end of file -----------------------------------------------------------------
 #endif

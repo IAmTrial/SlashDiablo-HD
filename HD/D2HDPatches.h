@@ -17,6 +17,8 @@ everything up.
 #define RESOLUTION_1344_TO_HD_HEIGHT 600
 
 namespace HD {
+    extern int firstStart;
+
     void Replace640_ResizeWindow_Interception();
     void Replace640_ResizeRenderResolution_Interception();
     void Replace640_ResizeForgroundRenderWidth_Interception();
@@ -25,6 +27,7 @@ namespace HD {
     void Replace640_ResizeD2D_Interception1();
     void Replace640_ResizeGlideRenderResolution_Interception();
     void Replace640_ResizeGlideWindow_Interception();
+    int SetupGlideRenderResolution_Interception();
 
     void PanelPosition_Interception();
     void RedrawUILeftPanelBorders_Interception();

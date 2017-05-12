@@ -131,21 +131,9 @@ static const DLLPatchStrc gptTemplatePatches[] =
     */
 
     // Replace for HD, Resize Glide Render Logic Resolution
-    { D2DLL_D2GLIDE, 0xDCD0 + 1, 0x0FF, FALSE, 0 },
-    { D2DLL_D2GLIDE, 0xDCD5 + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2GLIDE, 0xDCDF + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-
-    { D2DLL_D2GLIDE, 0xDCF6 + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2GLIDE, 0xDC00 + 2 + 4, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
-
-    // Replace for HD, Resize Glide Game Window
-    /* No longer needed due to custom glide3x.dll
-    { D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_GLIDE3X, 0xCAE7 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_GLIDE3X, 0xCAF7 + 2, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
-    */
-
+    { D2DLL_D2GLIDE, 0xDCC6, PATCH_NOPBLOCK, FALSE, 70 },
+    { D2DLL_D2GLIDE, 0xDCC6, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2GLIDE, 0xDCC6 + 1, (int)HD::SetupGlideRenderResolution_Interception, TRUE, 0 },
 
     { D2DLL_INVALID } // this must be the last entry in the array!
 };
@@ -161,6 +149,15 @@ static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
     { D2DLL_INVALID }
 };
 
+// Replace for HD, Resize Glide Game Window, but not used if using custom glide3x.dll
+static const DLLPatchStrc glide3xPatches[] = {
+    { D2DLL_GLIDE3X, 0xCADB + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+    { D2DLL_GLIDE3X, 0xCAE7 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
+    { D2DLL_GLIDE3X, 0xCAF7 + 2, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
+    { D2DLL_GLIDE3X, 0xCB03 + 2, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
+    
+    { D2DLL_INVALID }
+};
 
 static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
     // Unknown
@@ -186,6 +183,13 @@ static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
 
     // Stat button click detection
     { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+    { D2DLL_INVALID }
+};
+
+static const DLLPatchStrc moviePatches[] = {
+    { D2DLL_SMACKW32, 0x3DFF + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
+    { D2DLL_SMACKW32, 0x3E07 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
     { D2DLL_INVALID }
 };

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef _D2VARS_H
 #define VAR(Type, Name)         Type Name;
 #else
@@ -35,11 +37,12 @@ VAR(void*, SampleVariable2)
 
 VAR(char, SampleVariable3[256])
 
-
 VAR(DWORD, LeftPanelBackgroundColor)
 VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
 VAR(DWORD, RightPanelBackgroundColor)
+
+VAR(BOOL, EnableCinematicsFix)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

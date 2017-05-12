@@ -27,6 +27,11 @@ void Config::ReadMainSettings(std::string path) {
 
 void Config::ReadExperimentalSettings(std::string path) {
     std::string sectionName = "Experimental";
+
+    EnableCinematicsFix = GetPrivateProfileIntA(sectionName.c_str(), "Enable Cinematics Fix", false, path.c_str());
+    if (EnableCinematicsFix == false) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Enable Cinematics Fix", "0", path.c_str());
+    }
 }
 
 DWORD ReadColor(std::string sectionName, std::string keyName, DWORD defaultColor, std::string path) {
