@@ -54,6 +54,9 @@
     <ClInclude Include="D2HDStructs.h">
       <Filter>D2HD</Filter>
     </ClInclude>
+    <ClInclude Include="D2HDConfig.h">
+      <Filter>D2HD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp">
@@ -63,6 +66,9 @@
       <Filter>D2HD</Filter>
     </ClCompile>
     <ClCompile Include="D2HDStructs.cpp">
+      <Filter>D2HD</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDConfig.cpp">
       <Filter>D2HD</Filter>
     </ClCompile>
   </ItemGroup>
