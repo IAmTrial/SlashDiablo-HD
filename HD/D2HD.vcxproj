@@ -21,11 +21,13 @@
     <ClInclude Include="..\D2Vars.h" />
     <ClInclude Include="..\DLLmain.h" />
     <ClInclude Include="..\TemplateIncludes.h" />
+    <ClInclude Include="D2HDConfig.h" />
     <ClInclude Include="D2HDPatches.h" />
     <ClInclude Include="D2HDStructs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp" />
+    <ClCompile Include="D2HDConfig.cpp" />
     <ClCompile Include="D2HDPatches.cpp" />
     <ClCompile Include="D2HDStructs.cpp" />
   </ItemGroup>

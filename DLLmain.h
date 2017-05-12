@@ -29,7 +29,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sstream>
+#include "HD/D2HDConfig.h"
 
 #define DLLBASE_BNCLIENT        (DWORD)LoadLibraryA("Bnclient.dll")
 #define DLLBASE_D2CLIENT        (DWORD)LoadLibraryA("D2Client.dll")
