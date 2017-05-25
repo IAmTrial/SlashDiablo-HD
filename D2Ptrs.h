@@ -59,7 +59,7 @@ D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
-D2VAR(D2CLIENT, Something, DWORD, 0x119854);
+D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
 
 D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
 

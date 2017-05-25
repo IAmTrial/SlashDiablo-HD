@@ -140,9 +140,15 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
 // Enables border backgrounds for opened panels.
 static const DLLPatchStrc panelBackgroundDrawPatches[] = {
-    // Left panel click block
-    { D2DLL_D2CLIENT, 0x9AE80, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x9AE80 + 1, (int)HD::DrawUIMercenaryInventoryBackground, TRUE, 0 },
+    /* Assumption is that this patch is already enabled.
+    { D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
+    { D2DLL_D2CLIENT, 0xC39F6, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0xC39F6 + 1, (int)HD::PanelPosition_Interception, TRUE, 0 },
+    */
+
+    // Draw background
+    { D2DLL_D2CLIENT, 0xC39FB, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0xC39FB + 1, (int)HD::DrawUIPanelBackground, TRUE, 0 },
 
     { D2DLL_INVALID }
 };

@@ -198,9 +198,24 @@ void HD::RedrawUIRightPanelBorders_Interception() {
     __asm pop edi
 }
 
-int HD::DrawUIMercenaryInventoryBackground() {
-    DrawUILeftPanelBackground();
-    return *D2CLIENT_Something;
+void HD::DrawUIPanelBackground() {
+    switch (*D2CLIENT_PanelOpenMode) {
+    case 1:
+        DrawUIRightPanelBackground();
+        break;
+
+    case 2:
+        DrawUILeftPanelBackground();
+        break;
+
+    case 3:
+        DrawUILeftPanelBackground();
+        DrawUIRightPanelBackground();
+        break;
+
+    default:
+        break;
+    }
 }
 
 // Draws a background on opened left panels to cover up extra space.
@@ -222,9 +237,9 @@ void DrawUILeftPanelBackground() {
     for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
         DWORD backBasePositionY = ((row + 1) * backHeight);
 
-        for (int col = 0; (int)((basePositionX + 80) - (col * backWidth)) >= 0; col++) {
+        for (int col = 0; (int)(basePositionX - (col * backWidth)) >= 0; col++) {
             image.nFrame = ((row % 2) * 2) + (col % 2);
-            DWORD backBasePositionX = (basePositionX + 80) - ((col + 1) * backWidth);
+            DWORD backBasePositionX = basePositionX - ((col + 1) * backWidth);
 
             D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, 0);
         }
@@ -250,7 +265,7 @@ void DrawUIRightPanelBackground() {
     for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
         DWORD backBasePositionY = ((row + 1) * backHeight);
         for (int col = 0; basePositionX + (col * backWidth) < *D2CLIENT_ScreenSizeX; col++) {
-            image.nFrame = ((row % 2) * 2) + (col % 2);
+            image.nFrame = ((row % 2) * 2) + ((col + 1) % 2);
             DWORD backBasePositionX = basePositionX + (col * backWidth);
 
             D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, RightPanelBackgroundColor, 5, 0);

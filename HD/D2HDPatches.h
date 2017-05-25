@@ -32,8 +32,7 @@ namespace HD {
     void PanelPosition_Interception();
     void RedrawUILeftPanelBorders_Interception();
     void RedrawUIRightPanelBorders_Interception();
-    
-    int DrawUIMercenaryInventoryBackground();
+    void DrawUIPanelBackground();
 
     int __fastcall GetResolutionMode_Interception();
 }
