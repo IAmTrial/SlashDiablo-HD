@@ -138,6 +138,15 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_INVALID } // this must be the last entry in the array!
 };
 
+// Enables border backgrounds for opened panels.
+static const DLLPatchStrc panelBackgroundDrawPatches[] = {
+    // Left panel click block
+    { D2DLL_D2CLIENT, 0x9AE80, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x9AE80 + 1, (int)HD::DrawUIMercenaryInventoryBackground, TRUE, 0 },
+
+    { D2DLL_INVALID }
+};
+
 // Fixes border panel click detection issue for HD mode. Shouldn't need to be disabled.
 static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
     // Left panel click block
