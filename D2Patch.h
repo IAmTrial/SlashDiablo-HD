@@ -45,12 +45,12 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
     // Redraw UI Panel Border Fix
-    { D2DLL_D2CLIENT, 0x271ED, PATCH_NOPBLOCK, FALSE, 154 },
-    { D2DLL_D2CLIENT, 0x271ED, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x271ED + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x270F2, PATCH_NOPBLOCK, FALSE, 187 },
-    { D2DLL_D2CLIENT, 0x270F2, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x270F2 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
 
     // Replace for HD, Resize Game Window
     { D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },

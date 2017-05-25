@@ -58,6 +58,9 @@ D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
 D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
+D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
+
+D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
 
 /********************************************************************************
 *                                                                               *
@@ -85,7 +88,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
-D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
+D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (D2ImageDrawStrc* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
 *                                                                               *
