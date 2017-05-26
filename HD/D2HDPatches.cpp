@@ -138,6 +138,27 @@ void HD::RedrawUILeftPanelBorders_Interception() {
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
+    // Draw top border pieces
+    D2ImageDrawStrc borderTop = { 0 };
+    borderTop.nFrame = 0;
+    borderTop.pCellFile = D2MRFancyBorderTop;
+
+    D2GFX_DrawImage(&borderTop, (basePositionX + 56), (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
+    borderTop.nFrame++;
+    D2GFX_DrawImage(&borderTop, (basePositionX + 56) + 256, (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
+
+
+    // Draw bottom border pieces
+    D2ImageDrawStrc borderBottom = { 0 };
+    borderBottom.nFrame = 0;
+    borderBottom.pCellFile = D2MRFancyBorderBottom;
+
+    D2GFX_DrawImage(&borderBottom, (basePositionX + 56), (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
+    borderBottom.nFrame++;
+    D2GFX_DrawImage(&borderBottom, (basePositionX + 56) + 256, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
+
+    // Draw corner border pieces
+
     // Draw left border pieces
     D2ImageDrawStrc borderLeft = { 0 };
     borderLeft.nFrame = 0;
@@ -148,12 +169,6 @@ void HD::RedrawUILeftPanelBorders_Interception() {
     D2GFX_DrawImage(&borderLeft, basePositionX, (basePositionY + 256) + 256, LeftPanelBorderColor, 5, nullptr);
     borderLeft.nFrame++;
     D2GFX_DrawImage(&borderLeft, basePositionX, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
-
-    // Draw upper border pieces
-
-    // Draw lower border pieces
-
-    // Draw corner border pieces
 
 
 
