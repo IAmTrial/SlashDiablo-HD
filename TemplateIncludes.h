@@ -29,6 +29,7 @@
 
 #include "HD/D2HDPatches.h"
 #include "HD/D2HDStructs.h"
+#include "HD/D2HDDraw.h"
 
 // end of file --------------------------------------------------------------
 #endif
