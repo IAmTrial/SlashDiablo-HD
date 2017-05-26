@@ -246,7 +246,7 @@ void HD::DrawUIPanelBackground() {
 
 // Draws a background on opened left panels to cover up extra space.
 void DrawUILeftPanelBackground() {
-    if (D2MRStoneBack == NULL) {
+    if (D2MRStoneBack == nullptr) {
         D2MRStoneBack = LoadCellFile(/*"data/global/ui/*/"Panel/D2MRStoneBack");
     }
 
@@ -274,7 +274,7 @@ void DrawUILeftPanelBackground() {
 
 // Draws a background on opened right panels to cover up extra space.
 void DrawUIRightPanelBackground() {
-    if (D2MRStoneBack == NULL) {
+    if (D2MRStoneBack == nullptr) {
         D2MRStoneBack = LoadCellFile("Panel/D2MRStoneBack");
     }
 
