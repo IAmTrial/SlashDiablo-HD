@@ -44,6 +44,7 @@ VAR(DWORD, RightPanelBackgroundColor)
 
 VAR(BOOL, EnableCinematicsFix)
 VAR(BOOL, EnableD2MRPanelBorderStyle)
+VAR(BOOL, InvertD2MRControlPanel)
 
 VAR(void*, D2MRArchive)
 
@@ -54,6 +55,9 @@ VAR(void*, D2MRFancyBorderBottom)
 VAR(void*, D2MRFancyBorderInterfaceLeft)
 VAR(void*, D2MRFancyBorderInterfaceRight)
 VAR(void*, D2MRFancyBorderTop)
+VAR(void*, D2MRFancyPanelBar)
+VAR(void*, D2MRFancyPanelLeft)
+VAR(void*, D2MRFancyPanelRight)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

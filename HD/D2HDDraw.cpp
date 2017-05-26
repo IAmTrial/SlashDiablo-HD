@@ -298,3 +298,33 @@ void DrawUIRightPanelBackground() {
         }
     }
 }
+
+void HD::DrawUIControlPanel() {
+    if (D2MRFancyPanelLeft == nullptr) {
+        D2MRFancyPanelLeft = InvertD2MRControlPanel ? LoadCellFile("Panel/D2MRFancyPanelInvertLeft") : LoadCellFile("Panel/D2MRFancyPanelLeft");
+    }
+    if (D2MRFancyPanelRight == nullptr) {
+        D2MRFancyPanelRight = InvertD2MRControlPanel ? LoadCellFile("Panel/D2MRFancyPanelInvertRight") : LoadCellFile("Panel/D2MRFancyPanelRight");
+    }
+    if (D2MRFancyPanelBar == nullptr) {
+        D2MRFancyPanelBar = InvertD2MRControlPanel ? LoadCellFile("Panel/D2MRFancyPanelInvertBar") : LoadCellFile("Panel/D2MRFancyPanelBar");
+    }
+
+    D2ImageDrawStrc panelLeft = { 0 };
+    panelLeft.pCellFile = D2MRFancyPanelLeft;
+    panelLeft.nFrame = 0;
+    D2GFX_DrawImage(&panelLeft, (117 + 48), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+    
+    D2ImageDrawStrc panelRight = { 0 };
+    panelRight.pCellFile = D2MRFancyPanelRight;
+    panelRight.nFrame = 0;
+    D2GFX_DrawImage(&panelRight, (*D2CLIENT_ScreenSizeX - 117 - 48 - 238), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+
+    D2ImageDrawStrc panelBar = { 0 };
+    panelBar.pCellFile = D2MRFancyPanelBar;
+    panelBar.nFrame = 0;
+
+    for (int i = 0; ((i * 254) + (117 + 48 + 238)) < ((*D2CLIENT_ScreenSizeX / 2) - 128); i++) {
+        D2GFX_DrawImage(&panelBar, ((i * 254) + (117 + 48 + 238)), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+    }
+}

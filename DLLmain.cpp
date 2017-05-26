@@ -154,7 +154,7 @@ int __stdcall DllAttach()
 
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
-    D2TEMPLATE_ApplyPatch(hGame, panelBackgroundDrawPatches);
+    D2TEMPLATE_ApplyPatch(hGame, drawPatches);
 
     return 1;
 }
