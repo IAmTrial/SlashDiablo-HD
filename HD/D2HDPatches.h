@@ -30,7 +30,6 @@ namespace HD {
     int SetupGlideRenderResolution_Interception();
 
     void PanelPosition_Interception();
-    void DrawUIPanelBackground();
 
     int __fastcall GetResolutionMode_Interception();
 }
