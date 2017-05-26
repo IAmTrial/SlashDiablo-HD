@@ -327,4 +327,8 @@ void HD::DrawUIControlPanel() {
     for (int i = 0; ((i * 254) + (117 + 48 + 238)) < ((*D2CLIENT_ScreenSizeX / 2) - 128); i++) {
         D2GFX_DrawImage(&panelBar, ((i * 254) + (117 + 48 + 238)), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
     }
+
+    for (int i = 0; ((*D2CLIENT_ScreenSizeX - 117 - 48 - 238) - (i * 254)) > ((*D2CLIENT_ScreenSizeX / 2) + 128); i++) {
+        D2GFX_DrawImage(&panelBar, ((*D2CLIENT_ScreenSizeX - 117 - 48 - 238) - ((i + 1) * 254)), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+    }
 }
