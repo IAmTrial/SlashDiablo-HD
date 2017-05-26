@@ -2,6 +2,9 @@
 #include "../DLLmain.h"
 #include "../D2Ptrs.h"
 
+void DrawUILeftPanelBackground();
+void DrawUIRightPanelBackground();
+
 void HD::Replace640_ResizeWindow_Interception() {
     __asm {
         mov dword ptr ds : [eax], RESOLUTION_640_TO_HD_WIDTH; Requires registers due to the
@@ -103,70 +106,129 @@ void HD::PanelPosition_Interception() {
     *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
-// Redraws the left side panel borders in the correct places, independent of resolution.
-// In addition, also draws a background to cover up extra space.
-void HD::RedrawUILeftPanelBorders_Interception() {
-    __asm {
-        mov dword ptr ds : [ebp + 0x30], eax
+__declspec(naked) void* __stdcall LoadCellFile(const char* szBuffer)
+{
+    __asm
+    {
+        PUSH ESI
+            MOV ESI, [ESP + 8]
+            CALL[D2CLIENT_LoadUIImage]
+            POP ESI
+            RETN 4
     }
+}
+
+// Redraws the left side panel borders in the correct places, independent of resolution.
+void HD::RedrawUILeftPanelBorders_Interception() {
+    __asm push edi
+
+    if (*D2CLIENT_PanelBorderImage == NULL) {
+        *D2CLIENT_PanelBorderImage = LoadCellFile("Panel/800BorderFrame");
+    }
+
+    D2ImageDrawStrc image = { 0 };
+    image.pCellFile = *D2CLIENT_PanelBorderImage;
+    image.nFrame = 10;
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
-    int frameNumber = 10;
 
-    // Draw background pieces
-    const DWORD backWidth = 256;
-    const DWORD backHeight = 256;
-
-    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
-        DWORD backBasePositionY = ((row + 1) * backHeight);
-
-        for (int col = 0; (int)((basePositionX + 80) - (col * backWidth)) >= 0; col++) {
-            frameNumber = 10 + ((row % 2) * 2) + (col % 2);
-            DWORD backBasePositionX = (basePositionX + 80) - ((col + 1) * backWidth);
-
-            D2GFX_D2DrawImage(&frameNumber, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, 0);
-        }
-    }
-
-    frameNumber = 0;
+    image.nFrame = 0;
 
     // Frame 0
-    D2GFX_D2DrawImage(&frameNumber, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2GFX_DrawImage(&image, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
+    image.nFrame++;
 
     // Frame 1
-    D2GFX_D2DrawImage(&frameNumber, basePositionX + 256, basePositionY + 63, LeftPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 63, LeftPanelBorderColor, 5, 0);
+    image.nFrame++;
 
     // Frame 2
-    D2GFX_D2DrawImage(&frameNumber, basePositionX, basePositionY + 484, LeftPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2GFX_DrawImage(&image, basePositionX, basePositionY + 484, LeftPanelBorderColor, 5, 0);
+    image.nFrame++;
 
     // Frame 3
-    D2GFX_D2DrawImage(&frameNumber, basePositionX, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, LeftPanelBorderColor, 5, 0);
+    image.nFrame++;
 
     // Frame 4
-    D2GFX_D2DrawImage(&frameNumber, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    __asm pop edi
 }
 
 // Redraws the right side panel borders in the correct places, independent of resolution.
-// In addition, also draws a background to cover up extra space.
 void HD::RedrawUIRightPanelBorders_Interception() {
-    __asm {
-        xor eax, eax
-            mov ecx, 18
-            lea edi, [ebp + 0x0C]
-            repe stosd
-            mov dword ptr ds : [ebp + 0x30], edx
+    __asm push edi
+
+    if (*D2CLIENT_PanelBorderImage == NULL) {
+        *D2CLIENT_PanelBorderImage = LoadCellFile("Panel/800BorderFrame");
     }
+
+    D2ImageDrawStrc image = { 0 };
+    image.pCellFile = *D2CLIENT_PanelBorderImage;
+    image.nFrame = 10;
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
-    int frameNumber = 10;
 
+    image.nFrame = 5;
+
+    // Frame 5
+    D2GFX_DrawImage(&image, basePositionX, basePositionY + 63, RightPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    // Frame 6
+    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 253, RightPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    // Frame 7
+    D2GFX_DrawImage(&image, basePositionX + 313, basePositionY + 484, RightPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    // Frame 8
+    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 553, RightPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    // Frame 9
+    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, RightPanelBorderColor, 5, 0);
+    image.nFrame++;
+
+    __asm pop edi
+}
+
+void HD::DrawUIPanelBackground() {
+    switch (*D2CLIENT_PanelOpenMode) {
+    case 1:
+        DrawUIRightPanelBackground();
+        break;
+
+    case 2:
+        DrawUILeftPanelBackground();
+        break;
+
+    case 3:
+        DrawUILeftPanelBackground();
+        DrawUIRightPanelBackground();
+        break;
+
+    default:
+        break;
+    }
+}
+
+// Draws a background on opened left panels to cover up extra space.
+void DrawUILeftPanelBackground() {
+    if (D2MRStoneBackground == NULL) {
+        D2MRStoneBackground = LoadCellFile(/*"data/global/ui/*/"Panel/D2MRStoneBack");
+    }
+
+    D2ImageDrawStrc image = { 0 };
+    image.pCellFile = D2MRStoneBackground;
+    image.nFrame = 0;
+
+    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
 
     // Draw background pieces
     const DWORD backWidth = 256;
@@ -174,35 +236,41 @@ void HD::RedrawUIRightPanelBorders_Interception() {
 
     for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
         DWORD backBasePositionY = ((row + 1) * backHeight);
-        for (int col = 0; (basePositionX + 320) + (col * backWidth) < *D2CLIENT_ScreenSizeX; col++) {
-            frameNumber = 10 + ((row % 2) * 2) + (col % 2);
-            DWORD backBasePositionX = (basePositionX + 320) + (col * backWidth);
 
-            D2GFX_D2DrawImage(&frameNumber, backBasePositionX, backBasePositionY, RightPanelBackgroundColor, 5, 0);
+        for (int col = 0; (int)(basePositionX - (col * backWidth)) >= 0; col++) {
+            image.nFrame = ((row % 2) * 2) + (col % 2);
+            DWORD backBasePositionX = basePositionX - ((col + 1) * backWidth);
+
+            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, 0);
         }
     }
+}
 
-    frameNumber = 5;
+// Draws a background on opened right panels to cover up extra space.
+void DrawUIRightPanelBackground() {
+    if (D2MRStoneBackground == NULL) {
+        D2MRStoneBackground = LoadCellFile("Panel/D2MRStoneBack");
+    }
 
-    // Frame 5
-    D2GFX_D2DrawImage(&frameNumber, basePositionX, basePositionY + 63, RightPanelBorderColor, 5, 0);
-    frameNumber++;
+    D2ImageDrawStrc image = { 0 };
+    image.pCellFile = D2MRStoneBackground;
+    image.nFrame = 0;
 
-    // Frame 6
-    D2GFX_D2DrawImage(&frameNumber, basePositionX + 144, basePositionY + 253, RightPanelBorderColor, 5, 0);
-    frameNumber++;
+    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
 
-    // Frame 7
-    D2GFX_D2DrawImage(&frameNumber, basePositionX + 313, basePositionY + 484, RightPanelBorderColor, 5, 0);
-    frameNumber++;
+    // Draw background pieces
+    const DWORD backWidth = 256;
+    const DWORD backHeight = 256;
 
-    // Frame 8
-    D2GFX_D2DrawImage(&frameNumber, basePositionX + 144, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    frameNumber++;
+    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
+        DWORD backBasePositionY = ((row + 1) * backHeight);
+        for (int col = 0; basePositionX + (col * backWidth) < *D2CLIENT_ScreenSizeX; col++) {
+            image.nFrame = ((row % 2) * 2) + ((col + 1) % 2);
+            DWORD backBasePositionX = basePositionX + (col * backWidth);
 
-    // Frame 9
-    D2GFX_D2DrawImage(&frameNumber, basePositionX, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    frameNumber++;
+            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, RightPanelBackgroundColor, 5, 0);
+        }
+    }
 }
 
 // This function is used to prevent running unwanted 640 code.

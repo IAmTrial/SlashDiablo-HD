@@ -44,5 +44,9 @@ VAR(DWORD, RightPanelBackgroundColor)
 
 VAR(BOOL, EnableCinematicsFix)
 
+VAR(void*, D2MRArchive)
+
+VAR(void*, D2MRStoneBackground)
+
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

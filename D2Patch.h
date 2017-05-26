@@ -45,12 +45,12 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
     // Redraw UI Panel Border Fix
-    { D2DLL_D2CLIENT, 0x271ED, PATCH_NOPBLOCK, FALSE, 154 },
-    { D2DLL_D2CLIENT, 0x271ED, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x271ED + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x270F2, PATCH_NOPBLOCK, FALSE, 187 },
-    { D2DLL_D2CLIENT, 0x270F2, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x270F2 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
 
     // Replace for HD, Resize Game Window
     { D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
@@ -136,6 +136,21 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GLIDE, 0xDCC6 + 1, (int)HD::SetupGlideRenderResolution_Interception, TRUE, 0 },
 
     { D2DLL_INVALID } // this must be the last entry in the array!
+};
+
+// Enables border backgrounds for opened panels.
+static const DLLPatchStrc panelBackgroundDrawPatches[] = {
+    /* Assumption is that this patch is already enabled.
+    { D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
+    { D2DLL_D2CLIENT, 0xC39F6, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0xC39F6 + 1, (int)HD::PanelPosition_Interception, TRUE, 0 },
+    */
+
+    // Draw background
+    { D2DLL_D2CLIENT, 0xC39FB, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0xC39FB + 1, (int)HD::DrawUIPanelBackground, TRUE, 0 },
+
+    { D2DLL_INVALID }
 };
 
 // Fixes border panel click detection issue for HD mode. Shouldn't need to be disabled.

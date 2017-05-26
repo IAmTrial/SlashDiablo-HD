@@ -58,6 +58,19 @@ D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
 D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
+D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
+D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
+
+D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
+
+// Only use as a reference! Called inside of D2client.dll+C39E0
+D2FUNC(D2CLIENT, DrawMercenaryInventoryPanel, void*, __fastcall, (), 0x9AE80);
+D2FUNC(D2CLIENT, DrawInfusScrollPanel, void*, __fastcall, (), 0x7DE00);
+D2FUNC(D2CLIENT, DrawInventoryPanel, void*, __fastcall, (), 0x99440);
+D2FUNC(D2CLIENT, DrawQuestPanel, void*, __fastcall, (), 0x1EF10);
+D2FUNC(D2CLIENT, DrawSkillPanel, void*, __fastcall, (), 0x78F20);
+D2FUNC(D2CLIENT, DrawStatPanel, void*, __fastcall, (), 0xBCEA0);
+
 
 /********************************************************************************
 *                                                                               *
@@ -85,7 +98,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
-D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
+D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
 *                                                                               *
@@ -94,6 +107,13 @@ D2FUNC(D2GFX, D2DrawImage, void, __stdcall, (int* pFrameNumber, int nXpos, int n
 *********************************************************************************/
 D2VAR(D2GLIDE, ScreenSizeX, DWORD, 0x15A68);
 D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
+
+/********************************************************************************
+*                                                                               *
+*   D2WIN.DLL POINTERS                                                          *
+*                                                                               *
+*********************************************************************************/
+D2FUNC(D2WIN, LoadArchive, void*, __stdcall, (const char* pDllName, const char* pMPQName, const char* pMPQTitle, DWORD dwZero, DWORD dwZero2, DWORD dwZero3, DWORD dwOverideFlag), 0x0);
 
 /********************************************************************************
 *                                                                               *
