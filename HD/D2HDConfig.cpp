@@ -23,6 +23,11 @@ void Config::ReadMainSettings(std::string path) {
 
     tempColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor, path);
     RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+
+    EnableD2MRPanelBorderStyle = GetPrivateProfileIntA(sectionName.c_str(), "Enable D2MR Border Panel Style", true, path.c_str());
+    if (EnableD2MRPanelBorderStyle == true) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Enable D2MR Border Panel Style", "1", path.c_str());
+    }
 }
 
 void Config::ReadExperimentalSettings(std::string path) {
