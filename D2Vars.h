@@ -46,7 +46,13 @@ VAR(BOOL, EnableCinematicsFix)
 
 VAR(void*, D2MRArchive)
 
-VAR(void*, D2MRStoneBackground)
+VAR(void*, D2MRStoneBack)
+
+VAR(void*, D2MRFancyBorderCorner)
+VAR(void*, D2MRFancyBorderBottom)
+VAR(void*, D2MRFancyBorderInterfaceLeft)
+VAR(void*, D2MRFancyBorderInterfaceRight)
+VAR(void*, D2MRFancyBorderTop)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

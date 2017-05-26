@@ -81,11 +81,11 @@ int HD::SetupGlideRenderResolution_Interception() {
             *D2GLIDE_ScreenSizeY = 480;
         }
         else {
-            glideVideoMode =  0xFF;
+            glideVideoMode = 0xFF;
             *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
             *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
         }
-        
+
         break;
 
     case 1:
@@ -122,20 +122,42 @@ __declspec(naked) void* __stdcall LoadCellFile(const char* szBuffer)
 void HD::RedrawUILeftPanelBorders_Interception() {
     __asm push edi
 
-    if (*D2CLIENT_PanelBorderImage == NULL) {
-        *D2CLIENT_PanelBorderImage = LoadCellFile("Panel/800BorderFrame");
+    if (D2MRFancyBorderInterfaceLeft == nullptr) {
+        D2MRFancyBorderInterfaceLeft = LoadCellFile("Panel/D2MRFancyBorderInterfaceLeft");
     }
-
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = *D2CLIENT_PanelBorderImage;
-    image.nFrame = 10;
+    if (D2MRFancyBorderBottom == nullptr) {
+        D2MRFancyBorderBottom = LoadCellFile("Panel/D2MRFancyBorderBottom");
+    }
+    if (D2MRFancyBorderTop == nullptr) {
+        D2MRFancyBorderTop = LoadCellFile("Panel/D2MRFancyBorderTop");
+    }
+    if (D2MRFancyBorderCorner == nullptr) {
+        D2MRFancyBorderCorner = LoadCellFile("Panel/D2MRFancyBorderCorner");
+    }
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
-    image.nFrame = 0;
+    // Draw left border pieces
+    D2ImageDrawStrc borderLeft = { 0 };
+    borderLeft.nFrame = 0;
+    borderLeft.pCellFile = D2MRFancyBorderInterfaceLeft;
 
-    // Frame 0
+    D2GFX_DrawImage(&borderLeft, basePositionX, (basePositionY + 256), LeftPanelBorderColor, 5, nullptr);
+    borderLeft.nFrame++;
+    D2GFX_DrawImage(&borderLeft, basePositionX, (basePositionY + 256) + 256, LeftPanelBorderColor, 5, nullptr);
+    borderLeft.nFrame++;
+    D2GFX_DrawImage(&borderLeft, basePositionX, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
+
+    // Draw upper border pieces
+
+    // Draw lower border pieces
+
+    // Draw corner border pieces
+
+
+
+    /*
     D2GFX_DrawImage(&image, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
     image.nFrame++;
 
@@ -153,7 +175,7 @@ void HD::RedrawUILeftPanelBorders_Interception() {
 
     // Frame 4
     D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    image.nFrame++;*/
 
     __asm pop edi
 }
@@ -220,12 +242,12 @@ void HD::DrawUIPanelBackground() {
 
 // Draws a background on opened left panels to cover up extra space.
 void DrawUILeftPanelBackground() {
-    if (D2MRStoneBackground == NULL) {
-        D2MRStoneBackground = LoadCellFile(/*"data/global/ui/*/"Panel/D2MRStoneBack");
+    if (D2MRStoneBack == NULL) {
+        D2MRStoneBack = LoadCellFile(/*"data/global/ui/*/"Panel/D2MRStoneBack");
     }
 
     D2ImageDrawStrc image = { 0 };
-    image.pCellFile = D2MRStoneBackground;
+    image.pCellFile = D2MRStoneBack;
     image.nFrame = 0;
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
@@ -248,12 +270,12 @@ void DrawUILeftPanelBackground() {
 
 // Draws a background on opened right panels to cover up extra space.
 void DrawUIRightPanelBackground() {
-    if (D2MRStoneBackground == NULL) {
-        D2MRStoneBackground = LoadCellFile("Panel/D2MRStoneBack");
+    if (D2MRStoneBack == NULL) {
+        D2MRStoneBack = LoadCellFile("Panel/D2MRStoneBack");
     }
 
     D2ImageDrawStrc image = { 0 };
-    image.pCellFile = D2MRStoneBackground;
+    image.pCellFile = D2MRStoneBack;
     image.nFrame = 0;
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
