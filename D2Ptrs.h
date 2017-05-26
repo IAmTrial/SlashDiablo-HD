@@ -61,6 +61,7 @@ D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
 
+// Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
 
 // Only use as a reference! Called inside of D2client.dll+C39E0
