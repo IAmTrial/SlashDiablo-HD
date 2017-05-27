@@ -314,6 +314,22 @@ void DrawUILeftPanelBackground() {
         D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + (256 + 256 + 40)), LeftPanelBackgroundColor, 5, nullptr);
         D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + 60), LeftPanelBackgroundColor, 5, nullptr);
     }
+
+    D2ImageDrawStrc verticalBar = { 0 };
+    verticalBar.pCellFile = D2MRFancyVerticalBar;
+    verticalBar.nFrame = 2;
+
+    D2GFX_DrawImage(&verticalBar, (basePositionX - 400), (basePositionY), LeftPanelBackgroundColor, 5, nullptr);
+
+    for (int i = 0; ((basePositionY - 35) - (i * 256)) >= 0; i++) {
+        verticalBar.nFrame = std::abs(i - 1) % 2;
+        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY - 35) - (i * 256)), LeftPanelBackgroundColor, 5, nullptr);
+    }
+
+    for (int i = 0; ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY); i++) {
+        verticalBar.nFrame = i % 2;
+        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), LeftPanelBackgroundColor, 5, nullptr);
+    }
 }
 
 // Draws a background on opened right panels to cover up extra space.
