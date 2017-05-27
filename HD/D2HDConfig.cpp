@@ -33,6 +33,11 @@ void Config::ReadMainSettings(std::string path) {
     if (InvertD2MRControlPanel == true) {
         WritePrivateProfileStringA(sectionName.c_str(), "Invert D2MR Bottom Control Panel", "1", path.c_str());
     }
+
+    EnableD2MRBackgroundRibbon = GetPrivateProfileIntA(sectionName.c_str(), "Enable D2MR Panel Background Ribbon", true, path.c_str());
+    if (EnableD2MRBackgroundRibbon == true) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Enable D2MR Panel Background Ribbon", "1", path.c_str());
+    }
 }
 
 void Config::ReadExperimentalSettings(std::string path) {

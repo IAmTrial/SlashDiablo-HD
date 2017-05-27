@@ -210,7 +210,7 @@ void RedrawUILeftPanelBorders_D2MR() {
     borderCorner.pCellFile = D2MRFancyBorderCorner;
 
     D2GFX_DrawImage(&borderCorner, (basePositionX + 56) + 284, (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
-    D2GFX_DrawImage(&borderCorner, (basePositionX + 56) + 284, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
+    D2GFX_DrawImage(&borderCorner, (basePositionX + 56) + 284, (basePositionY)+(256 + 256 + 40), LeftPanelBorderColor, 5, nullptr);
 
     // Draw left border pieces
     D2ImageDrawStrc borderLeft = { 0 };
@@ -267,8 +267,52 @@ void DrawUILeftPanelBackground() {
             image.nFrame = ((row % 2) * 2) + (col % 2);
             DWORD backBasePositionX = basePositionX - ((col + 1) * backWidth);
 
-            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, 0);
+            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, nullptr);
         }
+    }
+
+    // Draw the ribbons only if the user has it enabled AND the game resolution allows the ribbons to be drawn without
+    // problems.
+    if (!EnableD2MRBackgroundRibbon && ((*D2CLIENT_ScreenSizeY - ((256 + 256 + 40) + 48)) <= (2 * (256 + 28)))) {
+        return;
+    }
+
+    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
+
+    if (D2MRFancyBorderLeft == nullptr) {
+        D2MRFancyBorderLeft = LoadCellFile("Panel/D2MRFancyBorderLeft");
+    }
+
+    if (D2MRFancyHorizontalBar == nullptr) {
+        D2MRFancyHorizontalBar = LoadCellFile("Panel/D2MRFancyHorizontalBar");
+    }
+
+    if (D2MRFancyVerticalBar == nullptr) {
+        D2MRFancyVerticalBar = LoadCellFile("Panel/D2MRFancyVerticalBar");
+    }
+
+    D2ImageDrawStrc borderLeft = { 0 };
+    borderLeft.pCellFile = D2MRFancyBorderLeft;
+    borderLeft.nFrame = 0;
+
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256) + (256 + 256 + 40), LeftPanelBackgroundColor, 5, nullptr);
+    borderLeft.nFrame++;
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256 + 28), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY), LeftPanelBackgroundColor, 5, nullptr);
+    borderLeft.nFrame--;
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY - 28), LeftPanelBackgroundColor, 5, nullptr);
+
+    D2ImageDrawStrc horizontalBar = { 0 };
+    horizontalBar.pCellFile = D2MRFancyHorizontalBar;
+    horizontalBar.nFrame = 2;
+
+    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + (256 + 256 + 40)), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + 60), LeftPanelBackgroundColor, 5, nullptr);
+
+    for (int i = 0; (basePositionX - 400 - 35) - (i * 256) >= 0; i++) {
+        horizontalBar.nFrame = std::abs(i - 1) % 2;
+        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + (256 + 256 + 40)), LeftPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + 60), LeftPanelBackgroundColor, 5, nullptr);
     }
 }
 
@@ -314,7 +358,7 @@ void HD::DrawUIControlPanel() {
     panelLeft.pCellFile = D2MRFancyPanelLeft;
     panelLeft.nFrame = 0;
     D2GFX_DrawImage(&panelLeft, (117 + 48), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
-    
+
     D2ImageDrawStrc panelRight = { 0 };
     panelRight.pCellFile = D2MRFancyPanelRight;
     panelRight.nFrame = 0;

@@ -99,7 +99,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
-D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
+D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pImage, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
 *                                                                               *
