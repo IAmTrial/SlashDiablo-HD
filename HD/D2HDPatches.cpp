@@ -2,9 +2,6 @@
 #include "../DLLmain.h"
 #include "../D2Ptrs.h"
 
-void DrawUILeftPanelBackground();
-void DrawUIRightPanelBackground();
-
 void HD::Replace640_ResizeWindow_Interception() {
     __asm {
         mov dword ptr ds : [eax], RESOLUTION_640_TO_HD_WIDTH; Requires registers due to the
@@ -79,13 +76,12 @@ int HD::SetupGlideRenderResolution_Interception() {
             glideVideoMode = 7;
             *D2GLIDE_ScreenSizeX = 640;
             *D2GLIDE_ScreenSizeY = 480;
-        }
-        else {
-            glideVideoMode =  0xFF;
+        } else {
+            glideVideoMode = 0xFF;
             *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
             *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
         }
-        
+
         break;
 
     case 1:
@@ -104,173 +100,6 @@ int HD::SetupGlideRenderResolution_Interception() {
 void HD::PanelPosition_Interception() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
     *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
-}
-
-__declspec(naked) void* __stdcall LoadCellFile(const char* szBuffer)
-{
-    __asm
-    {
-        PUSH ESI
-            MOV ESI, [ESP + 8]
-            CALL[D2CLIENT_LoadUIImage]
-            POP ESI
-            RETN 4
-    }
-}
-
-// Redraws the left side panel borders in the correct places, independent of resolution.
-void HD::RedrawUILeftPanelBorders_Interception() {
-    __asm push edi
-
-    if (*D2CLIENT_PanelBorderImage == NULL) {
-        *D2CLIENT_PanelBorderImage = LoadCellFile("Panel/800BorderFrame");
-    }
-
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = *D2CLIENT_PanelBorderImage;
-    image.nFrame = 10;
-
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
-
-    image.nFrame = 0;
-
-    // Frame 0
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 1
-    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 63, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 2
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 484, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 3
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 4
-    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    __asm pop edi
-}
-
-// Redraws the right side panel borders in the correct places, independent of resolution.
-void HD::RedrawUIRightPanelBorders_Interception() {
-    __asm push edi
-
-    if (*D2CLIENT_PanelBorderImage == NULL) {
-        *D2CLIENT_PanelBorderImage = LoadCellFile("Panel/800BorderFrame");
-    }
-
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = *D2CLIENT_PanelBorderImage;
-    image.nFrame = 10;
-
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
-
-    image.nFrame = 5;
-
-    // Frame 5
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 63, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 6
-    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 253, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 7
-    D2GFX_DrawImage(&image, basePositionX + 313, basePositionY + 484, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 8
-    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    // Frame 9
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
-
-    __asm pop edi
-}
-
-void HD::DrawUIPanelBackground() {
-    switch (*D2CLIENT_PanelOpenMode) {
-    case 1:
-        DrawUIRightPanelBackground();
-        break;
-
-    case 2:
-        DrawUILeftPanelBackground();
-        break;
-
-    case 3:
-        DrawUILeftPanelBackground();
-        DrawUIRightPanelBackground();
-        break;
-
-    default:
-        break;
-    }
-}
-
-// Draws a background on opened left panels to cover up extra space.
-void DrawUILeftPanelBackground() {
-    if (D2MRStoneBackground == NULL) {
-        D2MRStoneBackground = LoadCellFile(/*"data/global/ui/*/"Panel/D2MRStoneBack");
-    }
-
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = D2MRStoneBackground;
-    image.nFrame = 0;
-
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
-
-    // Draw background pieces
-    const DWORD backWidth = 256;
-    const DWORD backHeight = 256;
-
-    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
-        DWORD backBasePositionY = ((row + 1) * backHeight);
-
-        for (int col = 0; (int)(basePositionX - (col * backWidth)) >= 0; col++) {
-            image.nFrame = ((row % 2) * 2) + (col % 2);
-            DWORD backBasePositionX = basePositionX - ((col + 1) * backWidth);
-
-            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, LeftPanelBackgroundColor, 5, 0);
-        }
-    }
-}
-
-// Draws a background on opened right panels to cover up extra space.
-void DrawUIRightPanelBackground() {
-    if (D2MRStoneBackground == NULL) {
-        D2MRStoneBackground = LoadCellFile("Panel/D2MRStoneBack");
-    }
-
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = D2MRStoneBackground;
-    image.nFrame = 0;
-
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
-
-    // Draw background pieces
-    const DWORD backWidth = 256;
-    const DWORD backHeight = 256;
-
-    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
-        DWORD backBasePositionY = ((row + 1) * backHeight);
-        for (int col = 0; basePositionX + (col * backWidth) < *D2CLIENT_ScreenSizeX; col++) {
-            image.nFrame = ((row % 2) * 2) + ((col + 1) % 2);
-            DWORD backBasePositionX = basePositionX + (col * backWidth);
-
-            D2GFX_DrawImage(&image, backBasePositionX, backBasePositionY, RightPanelBackgroundColor, 5, 0);
-        }
-    }
 }
 
 // This function is used to prevent running unwanted 640 code.

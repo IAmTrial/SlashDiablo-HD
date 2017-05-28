@@ -44,14 +44,6 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
-    // Redraw UI Panel Border Fix
-    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
-    { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
-    { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
-
     // Replace for HD, Resize Game Window
     { D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x7FEE + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
@@ -139,8 +131,16 @@ static const DLLPatchStrc gptTemplatePatches[] =
 };
 
 // Enables border backgrounds for opened panels.
-static const DLLPatchStrc panelBackgroundDrawPatches[] = {
-    /* Assumption is that this patch is already enabled.
+static const DLLPatchStrc drawPatches[] = {
+    // Redraw UI Panel Border Fix
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
+
+    /* Assumption is that this patch is already enabled. Patches below will not work without this!
     { D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
     { D2DLL_D2CLIENT, 0xC39F6, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0xC39F6 + 1, (int)HD::PanelPosition_Interception, TRUE, 0 },
@@ -149,6 +149,10 @@ static const DLLPatchStrc panelBackgroundDrawPatches[] = {
     // Draw background
     { D2DLL_D2CLIENT, 0xC39FB, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0xC39FB + 1, (int)HD::DrawUIPanelBackground, TRUE, 0 },
+
+    // Draw bottom control panel
+    { D2DLL_D2CLIENT, 0xC3A00, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0xC3A00 + 1, (int)HD::DrawUIControlPanel, TRUE, 0 },
 
     { D2DLL_INVALID }
 };

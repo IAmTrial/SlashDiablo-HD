@@ -61,6 +61,7 @@ D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
 
+// Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
 
 // Only use as a reference! Called inside of D2client.dll+C39E0
@@ -98,7 +99,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
-D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pFrameNumber, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
+D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pImage, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
 *                                                                               *

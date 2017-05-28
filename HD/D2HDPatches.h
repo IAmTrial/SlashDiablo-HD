@@ -1,21 +1,3 @@
-/*
-To define your own custom replacement for 640x480, simply
-change the values of the definition below.
-
-I highly do NOT recommend changing the 800x600 values. The
-values you place are overriden in the D2GDI code and messes
-everything up.
-*/
-
-#define RESOLUTION_640_TO_HD_WIDTH 1068
-#define RESOLUTION_640_TO_HD_HEIGHT 600
-
-#define RESOLUTION_800_TO_HD_WIDTH 800
-#define RESOLUTION_800_TO_HD_HEIGHT 600
-
-#define RESOLUTION_1344_TO_HD_WIDTH 800
-#define RESOLUTION_1344_TO_HD_HEIGHT 600
-
 namespace HD {
     extern int firstStart;
 
@@ -30,9 +12,6 @@ namespace HD {
     int SetupGlideRenderResolution_Interception();
 
     void PanelPosition_Interception();
-    void RedrawUILeftPanelBorders_Interception();
-    void RedrawUIRightPanelBorders_Interception();
-    void DrawUIPanelBackground();
 
     int __fastcall GetResolutionMode_Interception();
 }
