@@ -155,6 +155,9 @@ int __stdcall DllAttach()
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
     D2TEMPLATE_ApplyPatch(hGame, drawPatches);
+    if (Enable800ControlPanel) {
+        D2TEMPLATE_ApplyPatch(hGame, controlPanel800Patches);
+    }
 
     return 1;
 }

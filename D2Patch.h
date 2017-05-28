@@ -178,7 +178,7 @@ static const DLLPatchStrc glide3xPatches[] = {
     { D2DLL_INVALID }
 };
 
-static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
+static const DLLPatchStrc controlPanel800Patches[] = {
     // Unknown
     { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
@@ -202,6 +202,28 @@ static const DLLPatchStrc levelButtonClickDetectionPatches[] = {
 
     // Stat button click detection
     { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+    // Control panel to 800 control panel.
+    { D2DLL_D2CLIENT, 0x272A2 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+    // Stats button fix (greyed out)
+    { D2DLL_D2CLIENT, 0x50103 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+    // Stats level up button fix
+    { D2DLL_D2CLIENT, 0x50447 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x504EC + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50563 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x505C8 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    
+    // Skill button fix (greyed out)
+    { D2DLL_D2CLIENT, 0x50023 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+
+    // Skill level up button fix
+    { D2DLL_D2CLIENT, 0x50207 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x502A5 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x5031C + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50380 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x503A1 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
 
     { D2DLL_INVALID }
 };
