@@ -295,40 +295,40 @@ void DrawUILeftPanelBackground() {
     borderLeft.pCellFile = D2MRFancyBorderLeft;
     borderLeft.nFrame = 0;
 
-    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256) + (256 + 256 + 40), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256) + (256 + 256 + 40), LeftPanelBorderColor, 5, nullptr);
     borderLeft.nFrame++;
-    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256 + 28), LeftPanelBackgroundColor, 5, nullptr);
-    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY + 256 + 28), LeftPanelBorderColor, 5, nullptr);
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY), LeftPanelBorderColor, 5, nullptr);
     borderLeft.nFrame--;
-    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY - 28), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY - 28), LeftPanelBorderColor, 5, nullptr);
 
     D2ImageDrawStrc horizontalBar = { 0 };
     horizontalBar.pCellFile = D2MRFancyHorizontalBar;
     horizontalBar.nFrame = 2;
 
-    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + (256 + 256 + 40)), LeftPanelBackgroundColor, 5, nullptr);
-    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + 60), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + (256 + 256 + 40)), LeftPanelBorderColor, 5, nullptr);
+    D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35), (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
 
     for (int i = 0; (basePositionX - 400 - 35) - (i * 256) >= 0; i++) {
         horizontalBar.nFrame = std::abs(i - 1) % 2;
-        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + (256 + 256 + 40)), LeftPanelBackgroundColor, 5, nullptr);
-        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + 60), LeftPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + (256 + 256 + 40)), LeftPanelBorderColor, 5, nullptr);
+        D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
     }
 
     D2ImageDrawStrc verticalBar = { 0 };
     verticalBar.pCellFile = D2MRFancyVerticalBar;
     verticalBar.nFrame = 2;
 
-    D2GFX_DrawImage(&verticalBar, (basePositionX - 400), (basePositionY), LeftPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&verticalBar, (basePositionX - 400), (basePositionY), LeftPanelBorderColor, 5, nullptr);
 
     for (int i = 0; ((basePositionY - 35) - (i * 256)) >= 0; i++) {
         verticalBar.nFrame = std::abs(i - 1) % 2;
-        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY - 35) - (i * 256)), LeftPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY - 35) - (i * 256)), LeftPanelBorderColor, 5, nullptr);
     }
 
     for (int i = 0; ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY); i++) {
         verticalBar.nFrame = i % 2;
-        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), LeftPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&verticalBar, (basePositionX - 400), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), LeftPanelBorderColor, 5, nullptr);
     }
 }
 
@@ -382,36 +382,36 @@ void DrawUIRightPanelBackground() {
     borderRight.pCellFile = D2MRFancyBorderRight;
     borderRight.nFrame = 0;
 
-    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY + 256) + (256 + 256 + 40), RightPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY + 256) + (256 + 256 + 40), RightPanelBorderColor, 5, nullptr);
     borderRight.nFrame++;
-    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY + 256 + 28), RightPanelBackgroundColor, 5, nullptr);
-    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY), RightPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY + 256 + 28), RightPanelBorderColor, 5, nullptr);
+    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY), RightPanelBorderColor, 5, nullptr);
     borderRight.nFrame--;
-    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY - 28), RightPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY - 28), RightPanelBorderColor, 5, nullptr);
 
     D2ImageDrawStrc horizontalBar = { 0 };
     horizontalBar.pCellFile = D2MRFancyHorizontalBar;
 
     for (int i = 0; (basePositionX + 400) + (i * 256) < (*D2CLIENT_ScreenSizeX); i++) {
         horizontalBar.nFrame = i % 2;
-        D2GFX_DrawImage(&horizontalBar, (basePositionX + 400) + (i * 256), (basePositionY + (256 + 256 + 40)), RightPanelBackgroundColor, 5, nullptr);
-        D2GFX_DrawImage(&horizontalBar, (basePositionX + 400) + (i * 256), (basePositionY + 60), RightPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&horizontalBar, (basePositionX + 400) + (i * 256), (basePositionY + (256 + 256 + 40)), RightPanelBorderColor, 5, nullptr);
+        D2GFX_DrawImage(&horizontalBar, (basePositionX + 400) + (i * 256), (basePositionY + 60), RightPanelBorderColor, 5, nullptr);
     }
 
     D2ImageDrawStrc verticalBar = { 0 };
     verticalBar.pCellFile = D2MRFancyVerticalBar;
     verticalBar.nFrame = 2;
 
-    D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), (basePositionY), RightPanelBackgroundColor, 5, nullptr);
+    D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), (basePositionY), RightPanelBorderColor, 5, nullptr);
 
     for (int i = 0; ((basePositionY - 35) - (i * 256)) >= 0; i++) {
         verticalBar.nFrame = std::abs(i - 1) % 2;
-        D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), ((basePositionY - 35) - (i * 256)), RightPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), ((basePositionY - 35) - (i * 256)), RightPanelBorderColor, 5, nullptr);
     }
 
     for (int i = 0; ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY); i++) {
         verticalBar.nFrame = i % 2;
-        D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), RightPanelBackgroundColor, 5, nullptr);
+        D2GFX_DrawImage(&verticalBar, (basePositionX + 400 - 60), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), RightPanelBorderColor, 5, nullptr);
     }
 }
 
