@@ -38,6 +38,11 @@ void Config::ReadMainSettings(std::string path) {
     if (EnableD2MRBackgroundRibbon == true) {
         WritePrivateProfileStringA(sectionName.c_str(), "Enable D2MR Panel Background Ribbon", "1", path.c_str());
     }
+
+    Enable800ControlPanel = GetPrivateProfileIntA(sectionName.c_str(), "Enable 800x600 Style Control Panel", false, path.c_str());
+    if (Enable800ControlPanel == false) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Enable 800x600 Style Control Panel", "0", path.c_str());
+    }
 }
 
 void Config::ReadExperimentalSettings(std::string path) {
