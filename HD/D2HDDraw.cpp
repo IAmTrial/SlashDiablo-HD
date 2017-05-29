@@ -448,3 +448,32 @@ void HD::DrawUIControlPanel() {
         D2GFX_DrawImage(&panelBar, ((*D2CLIENT_ScreenSizeX - 117 - 48 - 238) - ((i + 1) * 254)), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
     }
 }
+
+void UnloadCellFile(void** cellFile) {
+    if (*cellFile != nullptr) {
+        D2CMP_D2FreeCellFile(*cellFile);
+        if (*cellFile != nullptr) {
+            FOG_Unload(*cellFile, *D2CLIENT_ArchiveCpp, 122, nullptr);
+        }
+
+        *cellFile = nullptr;
+    }
+}
+
+void HD::UnloadCellFiles() {
+    UnloadCellFile(&D2MRStoneBack);
+    UnloadCellFile(&D2MRFancyBorderBottom);
+    UnloadCellFile(&D2MRFancyBorderCorner);
+    UnloadCellFile(&D2MRFancyBorderInterfaceLeft);
+    UnloadCellFile(&D2MRFancyBorderInterfaceRight);
+    UnloadCellFile(&D2MRFancyBorderLeft);
+    UnloadCellFile(&D2MRFancyBorderRight);
+    UnloadCellFile(&D2MRFancyBorderTop);
+    UnloadCellFile(&D2MRFancyHorizontalBar);
+    UnloadCellFile(&D2MRFancyPanelBar);
+    UnloadCellFile(&D2MRFancyPanelLeft);
+    UnloadCellFile(&D2MRFancyPanelRight);
+    UnloadCellFile(&D2MRFancyVerticalBar);
+
+    __asm mov ecx, 12
+}

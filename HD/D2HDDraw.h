@@ -3,4 +3,5 @@ namespace HD {
     void RedrawUIRightPanelBorders_Interception();
     void DrawUIPanelBackground();
     void DrawUIControlPanel();
+    void UnloadCellFiles();
 }
