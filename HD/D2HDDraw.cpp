@@ -449,14 +449,14 @@ void HD::DrawUIControlPanel() {
     }
 }
 
-void UnloadCellFile(void** cellFile) {
-    if (*cellFile != nullptr) {
-        D2CMP_D2FreeCellFile(*cellFile);
-        if (*cellFile != nullptr) {
-            FOG_Unload(*cellFile, *D2CLIENT_ArchiveCpp, 122, nullptr);
+void UnloadCellFile(void** ppCellFile) {
+    if (*ppCellFile != nullptr) {
+        D2CMP_FreeCellFile(*ppCellFile);
+        if (*ppCellFile != nullptr) {
+            FOG_Unload(*ppCellFile, *D2CLIENT_ArchiveCpp, 122, nullptr);
         }
 
-        *cellFile = nullptr;
+        *ppCellFile = nullptr;
     }
 }
 
