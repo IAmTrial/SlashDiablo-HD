@@ -46,7 +46,7 @@
 *   D2CMP.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (void* pFile), 0x11520); // Called at D2Client.dll+26E1C
+D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (void* pFile), 0x11520); // Called at D2Client.dll+26E1C,8022E
 
 /********************************************************************************
 *                                                                               *
@@ -122,6 +122,7 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2WIN, LoadArchive, void*, __stdcall, (const char* pDllName, const char* pMPQName, const char* pMPQTitle, DWORD dwZero, DWORD dwZero2, DWORD dwZero3, DWORD dwOverideFlag), 0x0);
+D2FUNC(D2WIN, LoadCellFile, void*, __fastcall, (const char* szFile, int Type), 0xA7A0);
 
 /********************************************************************************
 *                                                                               *
@@ -138,7 +139,7 @@ D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C);
 *********************************************************************************/
 D2VAR(FOG, InGame, BOOL, 0x4C804);
 
-D2FUNC(FOG, Unload, void, __fastcall, (void* pCellFile, const char* cppFileName, DWORD dw1, void* unknown2), 0x1CCF0);
+D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), 0x1CCF0);
 
 /********************************************************************************
 *                                                                               *

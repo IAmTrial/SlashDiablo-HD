@@ -4,6 +4,8 @@
     me double-check whether I was going toward the right direction.
 */
 
+#pragma once
+
 namespace HD {
     void RedrawUILeftPanelBorders_Interception();
     void RedrawUIRightPanelBorders_Interception();
