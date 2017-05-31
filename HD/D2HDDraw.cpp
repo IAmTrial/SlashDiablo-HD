@@ -453,7 +453,7 @@ void UnloadCellFile(void** ppCellFile) {
     if (*ppCellFile != nullptr) {
         D2CMP_FreeCellFile(*ppCellFile);
         if (*ppCellFile != nullptr) {
-            FOG_Unload(*ppCellFile, *D2CLIENT_ArchiveCpp, 122, nullptr);
+            FOG_Unload(*ppCellFile, __FILE__, __LINE__, nullptr);
         }
 
         *ppCellFile = nullptr;

@@ -46,7 +46,7 @@
 *   D2CMP.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2CMP, FreeCellFile, void, __stdcall, (void* pFile), 0x11520); // Called at D2Client.dll+0x26E1C
+D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (void* pFile), 0x11520); // Called at D2Client.dll+26E1C
 
 /********************************************************************************
 *                                                                               *
@@ -67,8 +67,6 @@ D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
-
-D2VAR(D2CLIENT, ArchiveCpp, const char*, 0xD6AB0);
 
 // Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
