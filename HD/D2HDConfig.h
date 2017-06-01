@@ -1,10 +1,10 @@
+#pragma once
+
 #include <Windows.h>
 #include <string>
 #include <sstream>
 #include "D2HDStructs.h"
 #include "../D2Vars.h"
-
-#pragma once
 
 /*
 To define your own custom replacement for 640x480, simply
