@@ -48,7 +48,7 @@ VAR(BOOL, InvertD2MRControlPanel)
 VAR(BOOL, EnableD2MRBackgroundRibbon)
 VAR(BOOL, Enable800ControlPanel)
 
-VAR(void*, D2MRArchive)
+VAR(HANDLE, D2MRArchive)
 
 VAR(void*, D2MRStoneBack)
 

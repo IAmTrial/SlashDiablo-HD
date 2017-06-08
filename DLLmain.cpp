@@ -152,6 +152,11 @@ int __stdcall DllAttach()
 
     Config::ReadConfig();
 
+    std::ifstream in("./D2MultiRes.mpq");
+    if (in.good()) {
+        D2MRArchive = STUB_D2WIN_LoadMPQ(5000, "D2HD.dll", "./D2MultiRes.mpq", "D2HD", 0, nullptr);
+    }
+
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
     D2TEMPLATE_ApplyPatch(hGame, drawPatches);

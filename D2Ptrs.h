@@ -121,7 +121,6 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 *   D2WIN.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2WIN, LoadArchive, void*, __stdcall, (const char* pDllName, const char* pMPQName, const char* pMPQTitle, DWORD dwZero, DWORD dwZero2, DWORD dwZero3, DWORD dwOverideFlag), 0x0);
 D2FUNC(D2WIN, LoadCellFile, void*, __fastcall, (const char* szFile, int Type), 0xA7A0);
 
 D2PTR(D2WIN, LoadMpq_I, 0x7E60);
