@@ -31,12 +31,6 @@
 *                                                                           *
 *****************************************************************************/
 
-VAR(DWORD, SampleVariable1)
-
-VAR(void*, SampleVariable2)
-
-VAR(char, SampleVariable3[256])
-
 VAR(DWORD, LeftPanelBackgroundColor)
 VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
