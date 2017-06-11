@@ -24,6 +24,8 @@ everything up.
 #define RESOLUTION_1344_TO_HD_WIDTH 800
 #define RESOLUTION_1344_TO_HD_HEIGHT 600
 
+#define USE_CUSTOM_MPQ_FILE 0
+
 namespace Config {
     extern std::string archiveName;
 

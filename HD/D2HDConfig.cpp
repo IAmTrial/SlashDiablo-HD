@@ -13,14 +13,17 @@ void Config::ReadConfig() {
 void Config::ReadMainSettings(std::string path) {
     const std::string sectionName = "Settings";
 
+#if USE_CUSTOM_MPQ_FILE
     char tempArchiveName[MAX_PATH] = { '\0' };
     GetPrivateProfileStringA(sectionName.c_str(), "MPQ Name", nullptr, tempArchiveName, MAX_PATH, path.c_str());
+
     if (std::strcmp(tempArchiveName, "") == 0) {
         std::strcpy(tempArchiveName, "D2MultiRes.mpq");
         WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", tempArchiveName, path.c_str());
     }
 
     archiveName = std::string(tempArchiveName);
+#endif
 
     const DWORD defaultColor = 0xFFFFFFFF;
 
