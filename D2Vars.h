@@ -31,12 +31,6 @@
 *                                                                           *
 *****************************************************************************/
 
-VAR(DWORD, SampleVariable1)
-
-VAR(void*, SampleVariable2)
-
-VAR(char, SampleVariable3[256])
-
 VAR(DWORD, LeftPanelBackgroundColor)
 VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
@@ -48,7 +42,7 @@ VAR(BOOL, InvertD2MRControlPanel)
 VAR(BOOL, EnableD2MRBackgroundRibbon)
 VAR(BOOL, Enable800ControlPanel)
 
-VAR(void*, D2MRArchive)
+VAR(HANDLE, D2MRArchive)
 
 VAR(void*, D2MRStoneBack)
 

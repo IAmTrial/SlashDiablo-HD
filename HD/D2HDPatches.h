@@ -15,5 +15,3 @@ namespace HD {
 
     int __fastcall GetResolutionMode_Interception();
 }
-
-
