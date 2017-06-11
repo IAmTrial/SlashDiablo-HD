@@ -25,6 +25,8 @@ everything up.
 #define RESOLUTION_1344_TO_HD_HEIGHT 600
 
 namespace Config {
+    extern std::string archiveName;
+
     void ReadConfig();
     void ReadMainSettings(std::string path);
     void ReadExperimentalSettings(std::string path);

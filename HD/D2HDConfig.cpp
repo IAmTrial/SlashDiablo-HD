@@ -1,5 +1,7 @@
 #include "D2HDConfig.h"
 
+std::string Config::archiveName;
+
 DWORD ReadColor(std::string sectionName, std::string keyName, DWORD defaultColor, std::string path);
 
 void Config::ReadConfig() {
@@ -9,7 +11,17 @@ void Config::ReadConfig() {
 }
 
 void Config::ReadMainSettings(std::string path) {
-    std::string sectionName = "Settings";
+    const std::string sectionName = "Settings";
+
+    char tempArchiveName[MAX_PATH] = { '\0' };
+    GetPrivateProfileStringA(sectionName.c_str(), "MPQ Name", nullptr, tempArchiveName, MAX_PATH, path.c_str());
+    if (std::strcmp(tempArchiveName, "") == 0) {
+        std::strcpy(tempArchiveName, "D2MultiRes.mpq");
+        WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", tempArchiveName, path.c_str());
+    }
+
+    archiveName = std::string(tempArchiveName);
+
     const DWORD defaultColor = 0xFFFFFFFF;
 
     DWORD tempColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor, path);
