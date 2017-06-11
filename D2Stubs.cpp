@@ -1,6 +1,6 @@
 #include "D2Stubs.h"
 
-__declspec(naked) void* __stdcall STUB_D2CLIENT_LoadCellFile(const char* szBuffer) {
+__declspec(naked) CellFile* __stdcall STUB_D2CLIENT_LoadCellFile(const char* szBuffer) {
     __asm
     {
         PUSH ESI
