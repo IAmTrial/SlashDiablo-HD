@@ -46,7 +46,7 @@
 *   D2CMP.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (void* pFile), 0x11520); // Called at D2Client.dll+26E1C,8022E
+D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (CellFile* pCellFile), 0x11520); // Called at D2Client.dll+26E1C,8022E
 
 /********************************************************************************
 *                                                                               *
@@ -65,11 +65,11 @@ D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
 D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
-D2VAR(D2CLIENT, PanelBorderImage, void*, 0x11A77C);
+D2VAR(D2CLIENT, PanelBorderImage, CellFile*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
 
 // Do not call this function directly unless you insert arg0 into EDI
-D2FUNC(D2CLIENT, LoadUIImage, void*, __fastcall, (const char* szImage), 0xBF6C0);
+D2FUNC(D2CLIENT, LoadUIImage, CellFile*, __fastcall, (const char* szImage), 0xBF6C0);
 
 // Only use as a reference! Called inside of D2client.dll+C39E0
 D2FUNC(D2CLIENT, DrawMercenaryInventoryPanel, void*, __fastcall, (), 0x9AE80);
@@ -106,7 +106,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
-D2FUNC(D2GFX, DrawImage, void, __stdcall, (D2ImageDrawStrc* pImage, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
+D2FUNC(D2GFX, DrawImage, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
 /********************************************************************************
 *                                                                               *
@@ -121,7 +121,7 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 *   D2WIN.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2WIN, LoadCellFile, void*, __fastcall, (const char* szFile, int Type), 0xA7A0);
+D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), 0xA7A0);
 
 D2PTR(D2WIN, LoadMpq_I, 0x7E60);
 

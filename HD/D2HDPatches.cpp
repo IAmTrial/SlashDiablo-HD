@@ -62,7 +62,7 @@ void HD::Replace640_ResizeGlideWindow_Interception() {
 
 int HD::firstStart = 2;
 
-int HD::SetupGlideRenderResolution_Interception() {
+int HD::SetupGlideRenderResolution() {
     int newResolutionMode, glideVideoMode;
     __asm mov newResolutionMode, esi
     __asm mov edx, 0
@@ -97,12 +97,12 @@ int HD::SetupGlideRenderResolution_Interception() {
 }
 
 // Repositions panels in the correct location, independent of resolution.
-void HD::PanelPosition_Interception() {
+void HD::RepositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
     *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 // This function is used to prevent running unwanted 640 code.
-int __fastcall HD::GetResolutionMode_Interception() {
+int HD::GetResolutionMode_Patch() {
     return (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }

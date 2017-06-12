@@ -9,9 +9,9 @@ namespace HD {
     void Replace640_ResizeD2D_Interception1();
     void Replace640_ResizeGlideRenderResolution_Interception();
     void Replace640_ResizeGlideWindow_Interception();
-    int SetupGlideRenderResolution_Interception();
+    int SetupGlideRenderResolution();
 
-    void PanelPosition_Interception();
+    void RepositionPanels();
 
-    int __fastcall GetResolutionMode_Interception();
+    int GetResolutionMode_Patch();
 }

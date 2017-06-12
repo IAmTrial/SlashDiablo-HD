@@ -10,7 +10,7 @@ void RedrawUIRightPanelBorders_D2MR();
 void RedrawUIRightPanelBorders_Original();
 
 // Redraws the left side panel borders in the correct places, independent of resolution.
-void HD::RedrawUILeftPanelBorders_Interception() {
+void HD::RedrawUILeftPanelBorders() {
     __asm push edi
 
     if (EnableD2MRPanelBorderStyle) {
@@ -23,7 +23,7 @@ void HD::RedrawUILeftPanelBorders_Interception() {
 }
 
 // Redraws the right side panel borders in the correct places, independent of resolution.
-void HD::RedrawUIRightPanelBorders_Interception() {
+void HD::RedrawUIRightPanelBorders() {
     __asm push edi
 
     if (EnableD2MRPanelBorderStyle) {
@@ -53,7 +53,7 @@ void RedrawUIRightPanelBorders_D2MR() {
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
     // Draw top border pieces
-    D2ImageDrawStrc borderTop = { 0 };
+    CellContext borderTop = { 0 };
     borderTop.nFrame = 0;
     borderTop.pCellFile = D2MRFancyBorderTop;
 
@@ -63,7 +63,7 @@ void RedrawUIRightPanelBorders_D2MR() {
 
 
     // Draw bottom border pieces
-    D2ImageDrawStrc borderBottom = { 0 };
+    CellContext borderBottom = { 0 };
     borderBottom.nFrame = 0;
     borderBottom.pCellFile = D2MRFancyBorderBottom;
 
@@ -72,7 +72,7 @@ void RedrawUIRightPanelBorders_D2MR() {
     D2GFX_DrawImage(&borderBottom, (basePositionX + 60) + 256, (basePositionY + 256) + (256 + 40), RightPanelBorderColor, 5, nullptr);
 
     // Draw corner border pieces
-    D2ImageDrawStrc borderCorner = { 0 };
+    CellContext borderCorner = { 0 };
     borderCorner.nFrame = 0;
     borderCorner.pCellFile = D2MRFancyBorderCorner;
 
@@ -80,7 +80,7 @@ void RedrawUIRightPanelBorders_D2MR() {
     D2GFX_DrawImage(&borderCorner, (basePositionX), (basePositionY + 256) + (256 + 40), RightPanelBorderColor, 5, nullptr);
 
     // Draw left border pieces
-    D2ImageDrawStrc borderRight = { 0 };
+    CellContext borderRight = { 0 };
     borderRight.nFrame = 0;
     borderRight.pCellFile = D2MRFancyBorderInterfaceRight;
 
@@ -96,32 +96,32 @@ void RedrawUIRightPanelBorders_Original() {
         *D2CLIENT_PanelBorderImage = STUB_D2CLIENT_LoadCellFile("Panel\\800BorderFrame");
     }
 
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = *D2CLIENT_PanelBorderImage;
-    image.nFrame = 5;
+    CellContext cellContext = { 0 };
+    cellContext.pCellFile = *D2CLIENT_PanelBorderImage;
+    cellContext.nFrame = 5;
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
     // Frame 5
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 63, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX, basePositionY + 63, RightPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 6
-    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 253, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX + 144, basePositionY + 253, RightPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 7
-    D2GFX_DrawImage(&image, basePositionX + 313, basePositionY + 484, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX + 313, basePositionY + 484, RightPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 8
-    D2GFX_DrawImage(&image, basePositionX + 144, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX + 144, basePositionY + 553, RightPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 9
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, RightPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX, basePositionY + 553, RightPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 }
 
 void RedrawUILeftPanelBorders_Original() {
@@ -132,29 +132,29 @@ void RedrawUILeftPanelBorders_Original() {
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
-    D2ImageDrawStrc image = { 0 };
-    image.pCellFile = *D2CLIENT_PanelBorderImage;
-    image.nFrame = 0;
+    CellContext cellContext = { 0 };
+    cellContext.pCellFile = *D2CLIENT_PanelBorderImage;
+    cellContext.nFrame = 0;
 
     // Frame 0
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX, basePositionY + 253, LeftPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 1
-    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 63, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX + 256, basePositionY + 63, LeftPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 2
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 484, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX, basePositionY + 484, LeftPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 3
-    D2GFX_DrawImage(&image, basePositionX, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX, basePositionY + 553, LeftPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 
     // Frame 4
-    D2GFX_DrawImage(&image, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
-    image.nFrame++;
+    D2GFX_DrawImage(&cellContext, basePositionX + 256, basePositionY + 553, LeftPanelBorderColor, 5, 0);
+    cellContext.nFrame++;
 }
 
 void RedrawUILeftPanelBorders_D2MR() {
@@ -175,7 +175,7 @@ void RedrawUILeftPanelBorders_D2MR() {
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
 
     // Draw top border pieces
-    D2ImageDrawStrc borderTop = { 0 };
+    CellContext borderTop = { 0 };
     borderTop.nFrame = 0;
     borderTop.pCellFile = D2MRFancyBorderTop;
 
@@ -185,7 +185,7 @@ void RedrawUILeftPanelBorders_D2MR() {
 
 
     // Draw bottom border pieces
-    D2ImageDrawStrc borderBottom = { 0 };
+    CellContext borderBottom = { 0 };
     borderBottom.nFrame = 0;
     borderBottom.pCellFile = D2MRFancyBorderBottom;
 
@@ -194,7 +194,7 @@ void RedrawUILeftPanelBorders_D2MR() {
     D2GFX_DrawImage(&borderBottom, (basePositionX + 56) + 256, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
 
     // Draw corner border pieces
-    D2ImageDrawStrc borderCorner = { 0 };
+    CellContext borderCorner = { 0 };
     borderCorner.nFrame = 0;
     borderCorner.pCellFile = D2MRFancyBorderCorner;
 
@@ -202,7 +202,7 @@ void RedrawUILeftPanelBorders_D2MR() {
     D2GFX_DrawImage(&borderCorner, (basePositionX + 56) + 284, (basePositionY)+(256 + 256 + 40), LeftPanelBorderColor, 5, nullptr);
 
     // Draw left border pieces
-    D2ImageDrawStrc borderLeft = { 0 };
+    CellContext borderLeft = { 0 };
     borderLeft.nFrame = 0;
     borderLeft.pCellFile = D2MRFancyBorderInterfaceLeft;
 
@@ -239,7 +239,7 @@ void DrawUILeftPanelBackground() {
         D2MRStoneBack = D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRStoneBack", 0);
     }
 
-    D2ImageDrawStrc image = { 0 };
+    CellContext image = { 0 };
     image.pCellFile = D2MRStoneBack;
     image.nFrame = 0;
 
@@ -280,7 +280,7 @@ void DrawUILeftPanelBackground() {
         D2MRFancyVerticalBar = D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyVerticalBar", 0);
     }
 
-    D2ImageDrawStrc borderLeft = { 0 };
+    CellContext borderLeft = { 0 };
     borderLeft.pCellFile = D2MRFancyBorderLeft;
     borderLeft.nFrame = 0;
 
@@ -291,7 +291,7 @@ void DrawUILeftPanelBackground() {
     borderLeft.nFrame--;
     D2GFX_DrawImage(&borderLeft, (basePositionX - 60), (basePositionY - 28), LeftPanelBorderColor, 5, nullptr);
 
-    D2ImageDrawStrc horizontalBar = { 0 };
+    CellContext horizontalBar = { 0 };
     horizontalBar.pCellFile = D2MRFancyHorizontalBar;
     horizontalBar.nFrame = 2;
 
@@ -304,7 +304,7 @@ void DrawUILeftPanelBackground() {
         D2GFX_DrawImage(&horizontalBar, (basePositionX - 400 - 35) - ((i + 1) * 256), (basePositionY + 60), LeftPanelBorderColor, 5, nullptr);
     }
 
-    D2ImageDrawStrc verticalBar = { 0 };
+    CellContext verticalBar = { 0 };
     verticalBar.pCellFile = D2MRFancyVerticalBar;
     verticalBar.nFrame = 2;
 
@@ -327,7 +327,7 @@ void DrawUIRightPanelBackground() {
         D2MRStoneBack = D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRStoneBack", 0);
     }
 
-    D2ImageDrawStrc image = { 0 };
+    CellContext image = { 0 };
     image.pCellFile = D2MRStoneBack;
     image.nFrame = 0;
 
@@ -367,7 +367,7 @@ void DrawUIRightPanelBackground() {
         D2MRFancyVerticalBar = D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyVerticalBar", 0);
     }
 
-    D2ImageDrawStrc borderRight = { 0 };
+    CellContext borderRight = { 0 };
     borderRight.pCellFile = D2MRFancyBorderRight;
     borderRight.nFrame = 0;
 
@@ -378,7 +378,7 @@ void DrawUIRightPanelBackground() {
     borderRight.nFrame--;
     D2GFX_DrawImage(&borderRight, (basePositionX), (basePositionY - 28), RightPanelBorderColor, 5, nullptr);
 
-    D2ImageDrawStrc horizontalBar = { 0 };
+    CellContext horizontalBar = { 0 };
     horizontalBar.pCellFile = D2MRFancyHorizontalBar;
 
     for (int i = 0; (basePositionX + 400) + (i * 256) < (*D2CLIENT_ScreenSizeX); i++) {
@@ -387,7 +387,7 @@ void DrawUIRightPanelBackground() {
         D2GFX_DrawImage(&horizontalBar, (basePositionX + 400) + (i * 256), (basePositionY + 60), RightPanelBorderColor, 5, nullptr);
     }
 
-    D2ImageDrawStrc verticalBar = { 0 };
+    CellContext verticalBar = { 0 };
     verticalBar.pCellFile = D2MRFancyVerticalBar;
     verticalBar.nFrame = 2;
 
@@ -415,17 +415,17 @@ void HD::DrawUIControlPanel() {
         D2MRFancyPanelBar = InvertD2MRControlPanel ? D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyPanelInvertBar", 0) : D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyPanelBar", 0);
     }
 
-    D2ImageDrawStrc panelLeft = { 0 };
+    CellContext panelLeft = { 0 };
     panelLeft.pCellFile = D2MRFancyPanelLeft;
     panelLeft.nFrame = 0;
     D2GFX_DrawImage(&panelLeft, (117 + 48), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
 
-    D2ImageDrawStrc panelRight = { 0 };
+    CellContext panelRight = { 0 };
     panelRight.pCellFile = D2MRFancyPanelRight;
     panelRight.nFrame = 0;
     D2GFX_DrawImage(&panelRight, (*D2CLIENT_ScreenSizeX - 117 - 48 - 238), *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
 
-    D2ImageDrawStrc panelBar = { 0 };
+    CellContext panelBar = { 0 };
     panelBar.pCellFile = D2MRFancyPanelBar;
     panelBar.nFrame = 0;
 
@@ -438,7 +438,7 @@ void HD::DrawUIControlPanel() {
     }
 }
 
-void UnloadCellFile(void** ppCellFile) {
+void UnloadCellFile(CellFile** ppCellFile) {
     if (*ppCellFile != nullptr) {
         D2CMP_FreeCellFile(*ppCellFile);
         FOG_FreeClientMemory(*ppCellFile, __FILE__, __LINE__, nullptr);

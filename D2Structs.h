@@ -39,8 +39,7 @@
 *                                                                           *
 *****************************************************************************/
 
-struct D2GameStrc;
-struct D2UnitStrc;
+struct CellFile;
 
 /****************************************************************************
 *                                                                           *
@@ -48,21 +47,11 @@ struct D2UnitStrc;
 *                                                                           *
 *****************************************************************************/
 
-struct D2GameStrc
-{
-    //...
-};
-
-struct D2UnitStrc
-{
-    //...
-};
-
-struct D2ImageDrawStrc      //sizeof 0x48
+struct CellContext      //sizeof 0x48
 {
     int nFrame; // 0x00
     int dw1[12];    // 0x04
-    const void* pCellFile;  // 0x34
+    const CellFile* pCellFile;  // 0x34
     int dw2[2]; // 0x38
     int dw3;    // 0x40
     int dw4;    // 0x44

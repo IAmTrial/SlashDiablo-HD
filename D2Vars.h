@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2Structs.h"
+
 #ifdef _D2VARS_H
 #define VAR(Type, Name)         Type Name;
 #else
@@ -43,21 +45,19 @@ VAR(BOOL, EnableD2MRBackgroundRibbon)
 VAR(BOOL, Enable800ControlPanel)
 
 VAR(HANDLE, D2MRArchive)
-
-VAR(void*, D2MRStoneBack)
-
-VAR(void*, D2MRFancyBorderBottom)
-VAR(void*, D2MRFancyBorderCorner)
-VAR(void*, D2MRFancyBorderInterfaceLeft)
-VAR(void*, D2MRFancyBorderInterfaceRight)
-VAR(void*, D2MRFancyBorderLeft)
-VAR(void*, D2MRFancyBorderRight)
-VAR(void*, D2MRFancyBorderTop)
-VAR(void*, D2MRFancyHorizontalBar)
-VAR(void*, D2MRFancyPanelBar)
-VAR(void*, D2MRFancyPanelLeft)
-VAR(void*, D2MRFancyPanelRight)
-VAR(void*, D2MRFancyVerticalBar)
+VAR(CellFile*, D2MRStoneBack)
+VAR(CellFile*, D2MRFancyBorderBottom)
+VAR(CellFile*, D2MRFancyBorderCorner)
+VAR(CellFile*, D2MRFancyBorderInterfaceLeft)
+VAR(CellFile*, D2MRFancyBorderInterfaceRight)
+VAR(CellFile*, D2MRFancyBorderLeft)
+VAR(CellFile*, D2MRFancyBorderRight)
+VAR(CellFile*, D2MRFancyBorderTop)
+VAR(CellFile*, D2MRFancyHorizontalBar)
+VAR(CellFile*, D2MRFancyPanelBar)
+VAR(CellFile*, D2MRFancyPanelLeft)
+VAR(CellFile*, D2MRFancyPanelRight)
+VAR(CellFile*, D2MRFancyVerticalBar)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H
