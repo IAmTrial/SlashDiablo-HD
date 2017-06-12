@@ -45,9 +45,7 @@ VAR(BOOL, EnableD2MRBackgroundRibbon)
 VAR(BOOL, Enable800ControlPanel)
 
 VAR(HANDLE, D2MRArchive)
-
 VAR(CellFile*, D2MRStoneBack)
-
 VAR(CellFile*, D2MRFancyBorderBottom)
 VAR(CellFile*, D2MRFancyBorderCorner)
 VAR(CellFile*, D2MRFancyBorderInterfaceLeft)
