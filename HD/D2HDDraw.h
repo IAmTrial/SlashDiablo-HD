@@ -7,8 +7,8 @@
 #pragma once
 
 namespace HD {
-    void RedrawUILeftPanelBorders_Interception();
-    void RedrawUIRightPanelBorders_Interception();
+    void RedrawUILeftPanelBorders();
+    void RedrawUIRightPanelBorders();
     void DrawUIPanelBackground();
     void DrawUIControlPanel();
     void UnloadCellFiles();

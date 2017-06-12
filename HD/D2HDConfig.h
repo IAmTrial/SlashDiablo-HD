@@ -7,12 +7,17 @@
 #include "../D2Vars.h"
 
 /*
-To define your own custom replacement for 640x480, simply
-change the values of the definition below.
+    It is here that mod-makers can modify macros to apply acceptable
+    settings for their users.
+*/
 
-I highly do NOT recommend changing the 800x600 values. The
-values you place are overriden in the D2GDI code and messes
-everything up.
+/*
+    To define your own custom replacement for 640x480, simply
+    change the values of the definition below.
+
+    I highly do NOT recommend changing the 800x600 values. The
+    values you place are overriden in the D2GDI code and messes
+    everything up.
 */
 
 #define RESOLUTION_640_TO_HD_WIDTH 1068
@@ -24,6 +29,11 @@ everything up.
 #define RESOLUTION_1344_TO_HD_WIDTH 800
 #define RESOLUTION_1344_TO_HD_HEIGHT 600
 
+/*
+    Determines whether you want a separate MPQ file to be used to
+    load the HD assets. Keep it to 0 if you are having the HD
+    assets included in the Patch_D2.mpq file.
+*/
 #define USE_CUSTOM_MPQ_FILE 0
 
 namespace Config {

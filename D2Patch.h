@@ -37,12 +37,12 @@ static const DLLPatchStrc gptTemplatePatches[] =
     // Panel Positioning Fix
     { D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
     { D2DLL_D2CLIENT, 0xC39F6, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0xC39F6 + 1, (int)HD::PanelPosition_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0xC39F6 + 1, (int)HD::RepositionPanels, TRUE, 0 },
 
     // Enable Panel Borders Fix
     { D2DLL_D2CLIENT, 0x29262, PATCH_NOPBLOCK, FALSE, 5 },
     { D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Replace for HD, Resize Game Window
     { D2DLL_D2GFX, 0x7FE8 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
@@ -125,7 +125,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     // Replace for HD, Resize Glide Render Logic Resolution
     { D2DLL_D2GLIDE, 0xDCC6, PATCH_NOPBLOCK, FALSE, 70 },
     { D2DLL_D2GLIDE, 0xDCC6, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2GLIDE, 0xDCC6 + 1, (int)HD::SetupGlideRenderResolution_Interception, TRUE, 0 },
+    { D2DLL_D2GLIDE, 0xDCC6 + 1, (int)HD::SetupGlideRenderResolution, TRUE, 0 },
 
     { D2DLL_INVALID } // this must be the last entry in the array!
 };
@@ -135,10 +135,10 @@ static const DLLPatchStrc drawPatches[] = {
     // Redraw UI Panel Border Fix
     { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
     { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders, TRUE, 0 },
     { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
     { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders, TRUE, 0 },
 
     /* Assumption is that this patch is already enabled. Patches below will not work without this!
     { D2DLL_D2CLIENT, 0xC39F6, PATCH_NOPBLOCK, FALSE, 39 },
@@ -164,10 +164,10 @@ static const DLLPatchStrc drawPatches[] = {
 // Fixes border panel click detection issue for HD mode. Shouldn't need to be disabled.
 static const DLLPatchStrc borderPanelClickDetectionPatches[] = {
     // Left panel click block
-    { D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0xBCB30 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Right panel click block
-    { D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x8F880 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     { D2DLL_INVALID }
 };
@@ -184,50 +184,50 @@ static const DLLPatchStrc glide3xPatches[] = {
 
 static const DLLPatchStrc controlPanel800Patches[] = {
     // Unknown
-    { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill button animation click detection
-    { D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stat button animation click detection
-    { D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill button click detection
-    { D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stat button click detection
-    { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Control panel to 800 control panel.
-    { D2DLL_D2CLIENT, 0x272A2 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x272A2 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stats button fix (greyed out)
-    { D2DLL_D2CLIENT, 0x50103 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50103 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stats level up button fix
-    { D2DLL_D2CLIENT, 0x50447 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x504EC + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x50563 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x505C8 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50447 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x504EC + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50563 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x505C8 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
     
     // Skill button fix (greyed out)
-    { D2DLL_D2CLIENT, 0x50023 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50023 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill level up button fix
-    { D2DLL_D2CLIENT, 0x50207 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x502A5 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x5031C + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x50380 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x503A1 + 1, (int)HD::GetResolutionMode_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50207 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x502A5 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x5031C + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x50380 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x503A1 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     { D2DLL_INVALID }
 };

@@ -10,7 +10,7 @@ void RedrawUIRightPanelBorders_D2MR();
 void RedrawUIRightPanelBorders_Original();
 
 // Redraws the left side panel borders in the correct places, independent of resolution.
-void HD::RedrawUILeftPanelBorders_Interception() {
+void HD::RedrawUILeftPanelBorders() {
     __asm push edi
 
     if (EnableD2MRPanelBorderStyle) {
@@ -23,7 +23,7 @@ void HD::RedrawUILeftPanelBorders_Interception() {
 }
 
 // Redraws the right side panel borders in the correct places, independent of resolution.
-void HD::RedrawUIRightPanelBorders_Interception() {
+void HD::RedrawUIRightPanelBorders() {
     __asm push edi
 
     if (EnableD2MRPanelBorderStyle) {
