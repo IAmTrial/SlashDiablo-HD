@@ -1,7 +1,7 @@
 namespace HD {
     extern int firstStart;
 
-    void Replace640_ResizeWindow_Interception();
+    void ResizeWindow_Interception();
     void Replace640_ResizeRenderResolution_Interception();
     void Replace640_ResizeForgroundRenderWidth_Interception();
     int Replace640_ResizeGameLogicResolution_Interception();

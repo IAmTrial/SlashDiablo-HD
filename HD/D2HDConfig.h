@@ -36,6 +36,8 @@
 */
 #define USE_CUSTOM_MPQ_FILE 0
 
+#define NUMBER_OF_CUSTOM_RESOLUTIONS 20
+
 namespace Config {
     extern std::string archiveName;
 

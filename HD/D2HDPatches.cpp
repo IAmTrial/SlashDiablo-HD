@@ -2,10 +2,42 @@
 #include "../DLLmain.h"
 #include "../D2Ptrs.h"
 
-void HD::Replace640_ResizeWindow_Interception() {
+void __stdcall ResizeWindow(int mode, int* width, int* height);
+
+void __declspec(naked) HD::ResizeWindow_Interception() {
     __asm {
-        mov dword ptr ds : [eax], RESOLUTION_640_TO_HD_WIDTH; Requires registers due to the
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT; use of ESP to access memory
+        PUSH [ESP + 0x10]
+        PUSH [ESP + 0x10]
+        PUSH [ESP + 0x10]
+        CALL [ResizeWindow]
+        RET
+    }
+}
+
+void __stdcall ResizeWindow(int mode, int* width, int* height) {
+    switch (mode) {
+    case 0:
+        *width = RESOLUTION_640_TO_HD_WIDTH;
+        *height = RESOLUTION_640_TO_HD_HEIGHT;
+        break;
+
+    case 1:
+        *width = 800;
+        *height = 600;
+        break;
+
+    case 2:
+        *width = 800;
+        *height = 600;
+        break;
+
+    case 3:
+        *width = 1344;
+        *height = 700;
+        break;
+
+    default:
+        break;
     }
 }
 
