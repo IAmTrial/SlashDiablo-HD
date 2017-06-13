@@ -3,7 +3,7 @@ namespace HD {
 
     void ResizeWindow_Interception();
     void ResizeRenderResolution_Interception();
-    void Replace640_ResizeForgroundRenderWidth_Interception();
+    void ResizeForgroundRenderWidth_Interception();
     int Replace640_ResizeGameLogicResolution_Interception();
     void Replace640_ResizeD2DWindow_Interception();
     void Replace640_ResizeD2D_Interception1();

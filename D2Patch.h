@@ -96,9 +96,11 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
     // Replace for HD, Resize Foreground Rendering Width
-    { D2DLL_D2GDI, 0x706B + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2GDI, 0x7051 + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2GDI, 0x705E + 2 + 4, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
+    { D2DLL_D2GDI, 0x7044, PATCH_NOPBLOCK, FALSE, 51 },
+    { D2DLL_D2GDI, 0x7044, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2GDI, 0x7044 + 1, (int)HD::ResizeForgroundRenderWidth_Interception, TRUE, 0 },
+    { D2DLL_D2GDI, 0x7044 + 5, 0x90905E5F, FALSE, 0 },
+    { D2DLL_D2GDI, 0x7044 + 7, PATCH_RETN | 0x90909000, FALSE, 0 },
 
     // Replace for HD, Resize Game Logic Resolution and FOV
     { D2DLL_D2CLIENT, 0x10E29 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },

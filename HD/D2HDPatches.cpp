@@ -57,8 +57,13 @@ void __declspec(naked) HD::ResizeRenderResolution_Interception() {
     }
 }
 
-void HD::Replace640_ResizeForgroundRenderWidth_Interception() {
-    *D2GDI_ForegroundRenderWidth = RESOLUTION_640_TO_HD_WIDTH;
+void HD::ResizeForgroundRenderWidth_Interception() {
+    int mode, temp;
+    __asm MOV mode, ESI
+
+    ResizeWindow(mode, D2GDI_ForegroundRenderWidth, &temp);
+
+    __asm MOV EAX, 0x1
 }
 
 int HD::Replace640_ResizeGameLogicResolution_Interception() {
