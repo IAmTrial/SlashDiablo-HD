@@ -66,10 +66,12 @@ void HD::ResizeForgroundRenderWidth_Interception() {
     __asm MOV EAX, 0x1
 }
 
-int HD::Replace640_ResizeGameLogicResolution_Interception() {
-    *D2CLIENT_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-    *D2CLIENT_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-    return *D2CLIENT_ScreenSizeX;
+void HD::ResizeGameLogicResolution_Interception() {
+    int mode;
+    __asm MOV mode, ESI
+
+    ResizeWindow(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
+    *D2CLIENT_InventoryArrangeMode = (mode > 0) ? 1 : 0;
 }
 
 void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {

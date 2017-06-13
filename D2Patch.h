@@ -103,12 +103,9 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GDI, 0x7044 + 7, PATCH_RETN | 0x90909000, FALSE, 0 },
 
     // Replace for HD, Resize Game Logic Resolution and FOV
-    { D2DLL_D2CLIENT, 0x10E29 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x10E33 + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x10E09 + 1, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x10E13 + 2 + 4, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 },
-    // { D2DLL_D2CLIENT, UKNOWN + 1, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
-    // { D2DLL_D2CLIENT, UKNOWN + 2 + 4, RESOLUTION_1344_TO_HD_HEIGHT, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x10DFD, PATCH_NOPBLOCK, FALSE, 0x10E49 - 0x10DFD },
+    { D2DLL_D2CLIENT, 0x10DFD, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x10DFD + 1, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
 
     // Replace 640 with HD, Fix D2DDraw Fullscreen
     /* Highly unstable! Currently not functional!
