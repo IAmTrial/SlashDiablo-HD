@@ -44,7 +44,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
-    // Replace for HD, Resize Game Window
+    // Replace for HD, Resize Game Window; D2GFX.Ordinal10025
     { D2DLL_D2GFX, 0x7FD4, 0x81, FALSE, 1 },
     { D2DLL_D2GFX, 0x7FD4 + 2, NUMBER_OF_CUSTOM_RESOLUTIONS, FALSE, 0 },
     { D2DLL_D2GFX, 0x7FDA, 0x4977, FALSE, 0 },
@@ -54,12 +54,9 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x7FE1, PATCH_RETN0C | 0x90000000, FALSE, 0 },
 
     // Replace for HD, Resize Rendering Resolution
-    { D2DLL_D2GDI, 0x6D55 + 1, (RESOLUTION_640_TO_HD_WIDTH - (RESOLUTION_640_TO_HD_WIDTH % 4)), FALSE, 0 },
-    { D2DLL_D2GDI, 0x6D5A + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2GDI, 0x6D3D + 1, (RESOLUTION_800_TO_HD_WIDTH - (RESOLUTION_800_TO_HD_WIDTH % 4)), FALSE, 0 }, // Doesn't work
-    { D2DLL_D2GDI, 0x6D42 + 1, RESOLUTION_800_TO_HD_HEIGHT, FALSE, 0 }, // Doesn't work
-    { D2DLL_D2GDI, 0x6D3D + 1, (RESOLUTION_1344_TO_HD_WIDTH - (RESOLUTION_1344_TO_HD_WIDTH % 4)), FALSE, 0 },
-    { D2DLL_D2GDI, 0x6D42 + 1, RESOLUTION_1344_TO_HD_HEIGHT, FALSE, 0 },
+    { D2DLL_D2GDI, 0x6D34, PATCH_NOPBLOCK, FALSE, 43 },
+    { D2DLL_D2GDI, 0x6D34, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2GDI, 0x6D34 + 1, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },
 
     // Other Patches, Unsure what they do
     { D2DLL_D2GDI, 0x62C7 + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },

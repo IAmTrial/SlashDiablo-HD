@@ -41,11 +41,19 @@ void __stdcall ResizeWindow(int mode, int* width, int* height) {
     }
 }
 
-void __declspec(naked) HD::Replace640_ResizeRenderResolution_Interception() {
+void __declspec(naked) HD::ResizeRenderResolution_Interception() {
     __asm {
-        mov esi, (RESOLUTION_640_TO_HD_WIDTH - (RESOLUTION_640_TO_HD_WIDTH % 4))
-            mov edx, RESOLUTION_640_TO_HD_HEIGHT
-            ret
+        SUB ESP, 0x8
+        LEA ESI, [ESP+0x4]
+        LEA EDX, [ESP]
+        PUSH ESI
+        PUSH EDX
+        PUSH EAX
+        CALL[ResizeWindow]
+        MOV ESI, [ESP]
+        MOV EDX, [ESP+0x4]
+        ADD ESP, 0x8
+        RET
     }
 }
 
