@@ -44,7 +44,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
-    // Replace for HD, Resize Game Window; D2GFX.Ordinal10025
+    // Resize Game Window; D2GFX.Ordinal10025
     { D2DLL_D2GFX, 0x7FD4, 0x81, FALSE, 1 },
     { D2DLL_D2GFX, 0x7FD4 + 2, NUMBER_OF_CUSTOM_RESOLUTIONS, FALSE, 0 },
     { D2DLL_D2GFX, 0x7FDA, 0x4977, FALSE, 0 },
@@ -53,7 +53,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x7FDC + 1, (int)HD::ResizeWindow_Interception, TRUE, 0 },
     { D2DLL_D2GFX, 0x7FE1, PATCH_RETN0C | 0x90000000, FALSE, 0 },
 
-    // Replace for HD, Resize Rendering Resolution
+    // Resize Rendering Resolution
     { D2DLL_D2GDI, 0x6D34, PATCH_NOPBLOCK, FALSE, 43 },
     { D2DLL_D2GDI, 0x6D34, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2GDI, 0x6D34 + 1, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },
@@ -84,7 +84,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
     // Untested possibly suspect pointers: D2GFX+1FF8D,818d2 && D2Client.dll+232E8
 
-    // Replace for HD, Correct Resizing of Window from HD back to 800 mode.
+    // Correct Resizing of Window from HD back to 800 mode.
     { D2DLL_D2GFX, 0x83F0 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x8403 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
     { D2DLL_D2GFX, 0x8747 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
@@ -95,17 +95,22 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x8797 + 3 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
 
-    // Replace for HD, Resize Foreground Rendering Width
+    // Resize Foreground Rendering Width
     { D2DLL_D2GDI, 0x7044, PATCH_NOPBLOCK, FALSE, 51 },
     { D2DLL_D2GDI, 0x7044, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2GDI, 0x7044 + 1, (int)HD::ResizeForgroundRenderWidth_Interception, TRUE, 0 },
     { D2DLL_D2GDI, 0x7044 + 5, 0x90905E5F, FALSE, 0 },
     { D2DLL_D2GDI, 0x7044 + 7, PATCH_RETN | 0x90909000, FALSE, 0 },
 
-    // Replace for HD, Resize Game Logic Resolution and FOV
+    // Resize Game Logic Resolution and FOV
     { D2DLL_D2CLIENT, 0x10DFD, PATCH_NOPBLOCK, FALSE, 0x10E49 - 0x10DFD },
     { D2DLL_D2CLIENT, 0x10DFD, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x10DFD + 1, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
+
+    // Add New Resolutions Without Replacement
+    { D2DLL_D2CLIENT, 0x662C5, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, 0x662C5, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x662C5 + 1, (int)HD::SetResolutionModeId_Interception, TRUE, 0 },
 
     // Replace 640 with HD, Fix D2DDraw Fullscreen
     /* Highly unstable! Currently not functional!

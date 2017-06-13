@@ -3,6 +3,7 @@
 #include "../D2Ptrs.h"
 
 void __stdcall ResizeWindow(int mode, int* width, int* height);
+int __stdcall GetNewResolutionId();
 
 void __declspec(naked) HD::ResizeWindow_Interception() {
     __asm {
@@ -72,6 +73,28 @@ void HD::ResizeGameLogicResolution_Interception() {
 
     ResizeWindow(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
     *D2CLIENT_InventoryArrangeMode = (mode > 0) ? 1 : 0;
+}
+
+void __declspec(naked) HD::SetResolutionModeId_Interception() {
+    __asm {
+        CALL[GetNewResolutionId]
+        MOV ESI, EAX
+        RET
+    }
+}
+
+int __stdcall GetNewResolutionId() {
+    int mode = D2GFX_GetResolutionMode();
+
+    if (mode >= NUMBER_OF_CUSTOM_RESOLUTIONS) {
+        mode = 0;
+    } else if (mode == 0) {
+        mode = 2;
+    } else {
+        mode++;
+    }
+
+    return mode;
 }
 
 void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {
@@ -146,7 +169,7 @@ int HD::SetupGlideRenderResolution() {
 // Repositions panels in the correct location, independent of resolution.
 void HD::RepositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
-    *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
+    *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 // This function is used to prevent running unwanted 640 code.
