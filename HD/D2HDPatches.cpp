@@ -18,8 +18,8 @@ void __declspec(naked) HD::ResizeWindow_Interception() {
 void __stdcall ResizeWindow(int mode, int* width, int* height) {
     switch (mode) {
     case 0:
-        *width = RESOLUTION_640_TO_HD_WIDTH;
-        *height = RESOLUTION_640_TO_HD_HEIGHT;
+        *width = 640;
+        *height = 480;
         break;
 
     case 1:
@@ -37,7 +37,14 @@ void __stdcall ResizeWindow(int mode, int* width, int* height) {
         *height = 700;
         break;
 
+    case 4:
+        *width = 1068;
+        *height = 600;
+        break;
+
     default:
+        *width = 640;
+        *height = 480;
         break;
     }
 }
@@ -137,30 +144,22 @@ int HD::SetupGlideRenderResolution() {
     __asm mov newResolutionMode, esi
     __asm mov edx, 0
 
+    ResizeWindow(newResolutionMode, D2GLIDE_ScreenSizeX, D2GLIDE_ScreenSizeY);
+
     switch (newResolutionMode) {
     case 0:
-        if (EnableCinematicsFix && (/*!*FOG_InGame && (*STORM_IsCinematic ||*/ firstStart)) {
-            if (firstStart > 0) {
-                firstStart--;
-            }
-            glideVideoMode = 7;
-            *D2GLIDE_ScreenSizeX = 640;
-            *D2GLIDE_ScreenSizeY = 480;
-        } else {
-            glideVideoMode = 0xFF;
-            *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-            *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-        }
-
+        glideVideoMode = 7;
         break;
 
     case 1:
-    case 2:
         glideVideoMode = 8;
-        *D2GLIDE_ScreenSizeX = RESOLUTION_800_TO_HD_WIDTH;
-        *D2GLIDE_ScreenSizeY = RESOLUTION_800_TO_HD_HEIGHT;
+        break;
+
+    default:
+        glideVideoMode = 8 + (glideVideoMode - 2);
         break;
     }
+
     __asm mov ecx, glideVideoMode
     __asm mov esi, newResolutionMode
     return newResolutionMode;

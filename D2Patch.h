@@ -59,10 +59,11 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GDI, 0x6D34 + 1, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },
 
     // Other Patches, Unsure what they do
+    /* Unused?
     { D2DLL_D2GDI, 0x62C7 + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GDI, 0x62B1 + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GDI, 0x62BC + 2 + 4, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
-
+    */
     { D2DLL_D2GDI, 0x716E + 2 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GDI, 0x714D + 2 + 4, RESOLUTION_800_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GDI, 0x715D + 2 + 4, RESOLUTION_1344_TO_HD_WIDTH, FALSE, 0 },
@@ -85,8 +86,10 @@ static const DLLPatchStrc gptTemplatePatches[] =
     // Untested possibly suspect pointers: D2GFX+1FF8D,818d2 && D2Client.dll+232E8
 
     // Correct Resizing of Window from HD back to 800 mode.
-    { D2DLL_D2GFX, 0x83F0 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2GFX, 0x8403 + 2, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
+    { D2DLL_D2GFX, 0x83F0 + 1, INT_MAX, FALSE, 0 },
+    { D2DLL_D2GFX, 0x8403 + 2, INT_MAX, FALSE, 0 },
+
+    /* This is called on startup and is irrelevant. D2GFX.Ordinal10072
     { D2DLL_D2GFX, 0x8747 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x8750 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x8759 + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
@@ -94,6 +97,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x876B + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x8797 + 3 + 4, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
+    */
 
     // Resize Foreground Rendering Width
     { D2DLL_D2GDI, 0x7044, PATCH_NOPBLOCK, FALSE, 51 },
@@ -111,6 +115,14 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x662C5, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, 0x662C5, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x662C5 + 1, (int)HD::SetResolutionModeId_Interception, TRUE, 0 },
+
+    // Change Maximum Recognized Resolutions from Registry
+    // { D2DLL_D2CLIENT, 0xEABD8, 2, FALSE, 0 },
+
+    // Modify Resolution Display in Options
+    { D2DLL_D2CLIENT, 0x653FF, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, 0x653FF, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x653FF + 1, (int)HD::DetermineText, TRUE, 0 },
 
     // Replace 640 with HD, Fix D2DDraw Fullscreen
     /* Highly unstable! Currently not functional!

@@ -12,4 +12,5 @@ namespace HD {
     void DrawUIPanelBackground();
     void DrawUIControlPanel();
     void UnloadCellFiles();
+    void DetermineText();
 }
