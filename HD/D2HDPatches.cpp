@@ -4,6 +4,7 @@
 
 void __stdcall ResizeWindow(int mode, int* width, int* height);
 int __stdcall GetNewResolutionId();
+int __stdcall GetNewResolutionOnGameStart();
 
 void __declspec(naked) HD::ResizeWindow_Interception() {
     __asm {
@@ -90,6 +91,18 @@ void __declspec(naked) HD::SetResolutionModeId_Interception() {
     }
 }
 
+void __declspec(naked) HD::SetResolutionModeOnGameStart_Interception() {
+    __asm {
+        PUSH EAX
+        PUSH ECX
+        CALL[GetNewResolutionOnGameStart]
+        MOV ESI, EAX
+        POP ECX
+        POP EAX
+        RET
+    }
+}
+
 int __stdcall GetNewResolutionId() {
     int mode = D2GFX_GetResolutionMode();
 
@@ -104,21 +117,26 @@ int __stdcall GetNewResolutionId() {
     return mode;
 }
 
+int __stdcall GetNewResolutionOnGameStart() {
+    int mode = *D2CLIENT_CurrentRegistryResolutionMode;
+
+    if (mode == 1) {
+        return 2;
+    } else {
+        return mode;
+    }
+}
+
 void __declspec(naked) HD::SetRegistryResolutionModeId_Interception() {
     __asm {
         PUSHAD
-        PUSH ESI
-        PUSH EDI
 
         PUSH ECX
         CALL [GetNewResolutionId]
         POP ECX
         MOV [ECX + 0x124], EAX
 
-        POP EDI
-        POP ESI
         POPAD
-
         RET
     }
 }
