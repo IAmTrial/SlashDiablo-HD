@@ -6,6 +6,7 @@ namespace HD {
     void ResizeForgroundRenderWidth_Interception();
     void ResizeGameLogicResolution_Interception();
     void SetResolutionModeId_Interception();
+    void SetRegistryResolutionModeId_Interception();
     void Replace640_ResizeD2DWindow_Interception();
     void Replace640_ResizeD2D_Interception1();
     void Replace640_ResizeGlideRenderResolution_Interception();

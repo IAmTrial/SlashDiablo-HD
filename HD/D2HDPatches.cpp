@@ -104,6 +104,25 @@ int __stdcall GetNewResolutionId() {
     return mode;
 }
 
+void __declspec(naked) HD::SetRegistryResolutionModeId_Interception() {
+    __asm {
+        PUSHAD
+        PUSH ESI
+        PUSH EDI
+
+        PUSH ECX
+        CALL [GetNewResolutionId]
+        POP ECX
+        MOV [ECX + 0x124], EAX
+
+        POP EDI
+        POP ESI
+        POPAD
+
+        RET
+    }
+}
+
 void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {
     __asm {
         mov ecx, D2DDRAW_GameWindowSizeY

@@ -85,7 +85,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
     // Untested possibly suspect pointers: D2GFX+1FF8D,818d2 && D2Client.dll+232E8
 
-    // Correct Resizing of Window from HD back to 800 mode.
+    // Correct Resizing of Window from any resolution to a smaller one.
     { D2DLL_D2GFX, 0x83F0 + 1, INT_MAX, FALSE, 0 },
     { D2DLL_D2GFX, 0x8403 + 2, INT_MAX, FALSE, 0 },
 
@@ -123,6 +123,11 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x653FF, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, 0x653FF, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x653FF + 1, (int)HD::DetermineText, TRUE, 0 },
+
+    // Modify the value of the registry resolution ID
+    { D2DLL_D2CLIENT, 0x651E0, PATCH_NOPBLOCK, FALSE, 0x651EA - 0x651E0 },
+    { D2DLL_D2CLIENT, 0x651E0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x651E0 + 1, (int)HD::SetRegistryResolutionModeId_Interception, TRUE, 0 },
 
     // Replace 640 with HD, Fix D2DDraw Fullscreen
     /* Highly unstable! Currently not functional!
