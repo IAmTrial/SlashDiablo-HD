@@ -165,14 +165,13 @@ void __declspec(naked) HD::Replace640_ResizeD2D_Interception1() {
 
 void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     __asm {
-        PUSH ESI
         PUSH EBX
         PUSH EDI
         CALL [SetupGlideRenderResolution]
         MOV ECX, EAX
         POP EDI
         POP EBX
-        POP ESI
+        MOV ESI, 0
         MOV EDX, 0; Set EDX to 0
         RET
     }
@@ -201,25 +200,25 @@ int __stdcall SetupGlideRenderResolution() {
     return glideVideoMode;
 }
 
-void HD::SetupGlideWindowSize() {
+void __stdcall HD::SetupGlideWindowSize() {
     __asm PUSHAD
 
     int newGlideVideoMode;
     __asm MOV newGlideVideoMode, EAX
 
-    int resolutionMode = (newGlideVideoMode == 7) ? 0 : (newGlideVideoMode - 8) + 2;
+    int resolutionMode = (newGlideVideoMode == 7) ? 0 : ((newGlideVideoMode - 8) + 2);
     ResizeWindow(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
 
     __asm POPAD
 }
 
 // Repositions panels in the correct location, independent of resolution.
-void HD::RepositionPanels() {
+void __stdcall HD::RepositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
     *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 // This function is used to prevent running unwanted 640 code.
-int HD::GetResolutionMode_Patch() {
+int __stdcall HD::GetResolutionMode_Patch() {
     return (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }

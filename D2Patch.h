@@ -250,7 +250,6 @@ static const DLLPatchStrc controlPanel800Patches[] = {
     { D2DLL_D2CLIENT, 0x502A5 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
     { D2DLL_D2CLIENT, 0x5031C + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
     { D2DLL_D2CLIENT, 0x50380 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x503A1 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     { D2DLL_INVALID }
 };
