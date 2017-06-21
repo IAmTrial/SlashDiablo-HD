@@ -5,6 +5,7 @@
 void __stdcall ResizeWindow(int mode, int* width, int* height);
 int __stdcall GetNewResolutionId();
 int __stdcall GetNewResolutionOnGameStart();
+int __stdcall SetupGlideRenderResolution();
 
 void __declspec(naked) HD::ResizeWindow_Interception() {
     __asm {
@@ -76,11 +77,15 @@ void HD::ResizeForgroundRenderWidth_Interception() {
 }
 
 void HD::ResizeGameLogicResolution_Interception() {
+    __asm PUSHAD
+
     int mode;
     __asm MOV mode, ESI
 
     ResizeWindow(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
-    *D2CLIENT_InventoryArrangeMode = (mode > 0) ? 1 : 0;
+    *D2CLIENT_InventoryArrangeMode = (mode == 2) ? 1 : 0;
+
+    __asm POPAD
 }
 
 void __declspec(naked) HD::SetResolutionModeId_Interception() {
@@ -158,28 +163,24 @@ void __declspec(naked) HD::Replace640_ResizeD2D_Interception1() {
     }
 }
 
-void HD::Replace640_ResizeGlideRenderResolution_Interception() {
-    *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-    *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-}
-
-void HD::Replace640_ResizeGlideWindow_Interception() {
-    DWORD* pWidth = *GLIDE3X_GameWindowSizeX;
-    DWORD* pHeight = *GLIDE3X_GameWindowSizeY;
+void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     __asm {
-        mov edx, pWidth
-            mov dword ptr ds : [edx], RESOLUTION_640_TO_HD_WIDTH
-            mov ecx, pHeight
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT
+        PUSH ESI
+        PUSH EBX
+        PUSH EDI
+        CALL [SetupGlideRenderResolution]
+        MOV ECX, EAX
+        POP EDI
+        POP EBX
+        POP ESI
+        MOV EDX, 0; Set EDX to 0
+        RET
     }
 }
 
-int HD::firstStart = 2;
-
-int HD::SetupGlideRenderResolution() {
+int __stdcall SetupGlideRenderResolution() {
     int newResolutionMode, glideVideoMode;
-    __asm mov newResolutionMode, esi
-    __asm mov edx, 0
+    __asm MOV newResolutionMode, ESI
 
     ResizeWindow(newResolutionMode, D2GLIDE_ScreenSizeX, D2GLIDE_ScreenSizeY);
 
@@ -193,13 +194,23 @@ int HD::SetupGlideRenderResolution() {
         break;
 
     default:
-        glideVideoMode = 8 + (glideVideoMode - 2);
+        glideVideoMode = (glideVideoMode - 2) + 8;
         break;
     }
 
-    __asm mov ecx, glideVideoMode
-    __asm mov esi, newResolutionMode
-    return newResolutionMode;
+    return glideVideoMode;
+}
+
+void HD::SetupGlideWindowSize() {
+    __asm PUSHAD
+
+    int newGlideVideoMode;
+    __asm MOV newGlideVideoMode, EAX
+
+    int resolutionMode = (newGlideVideoMode == 7) ? 0 : (newGlideVideoMode - 8) + 2;
+    ResizeWindow(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
+
+    __asm POPAD
 }
 
 // Repositions panels in the correct location, independent of resolution.

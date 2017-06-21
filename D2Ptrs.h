@@ -132,8 +132,8 @@ D2PTR(D2WIN, LoadMpq_I, 0x7E60);
 *   GLIDE3X.DLL POINTERS                                                        *
 *                                                                               *
 *********************************************************************************/
-D2VAR(GLIDE3X, GameWindowSizeX, DWORD*, 0x1C9A0);
-D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C);
+D2VAR(GLIDE3X, GameWindowSizeX, int*, 0x1C9A0);
+D2VAR(GLIDE3X, GameWindowSizeY, int*, 0x1C82C);
 
 /********************************************************************************
 *                                                                               *
