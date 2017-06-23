@@ -111,10 +111,20 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x10DFD, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x10DFD + 1, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
 
+    // Read From D2HD.ini Instead of Registry
+    { D2DLL_D2CLIENT, 0x66279, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
+    { D2DLL_D2CLIENT, 0x66279, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x66279 + 1, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
+
     // Properly transfer back to a valid resolution
     { D2DLL_D2CLIENT, 0x6628F, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, 0x6628F, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x6628F + 1, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
+
+    // Write to D2HD.ini Instead of Registry
+    { D2DLL_D2CLIENT, 0x662AB, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
+    { D2DLL_D2CLIENT, 0x662AB, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x662AB + 1, (int)HD::SaveRegistryResolution_Interception, TRUE, 0 },
 
     // Add New Resolutions Without Replacement
     { D2DLL_D2CLIENT, 0x662C5, PATCH_NOPBLOCK, FALSE, 7 },

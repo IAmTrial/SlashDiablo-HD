@@ -38,7 +38,6 @@ VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
 VAR(DWORD, RightPanelBackgroundColor)
 
-VAR(BOOL, EnableCinematicsFix)
 VAR(BOOL, EnableD2MRPanelBorderStyle)
 VAR(BOOL, InvertD2MRControlPanel)
 VAR(BOOL, EnableD2MRBackgroundRibbon)

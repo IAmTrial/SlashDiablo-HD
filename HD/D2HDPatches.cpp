@@ -17,6 +17,10 @@ void __declspec(naked) HD::ResizeWindow_Interception() {
     }
 }
 
+/*
+    General function to set width and height using mode value.
+    Modify this function to define new resolutions.
+*/
 void __stdcall ResizeWindow(int mode, int* width, int* height) {
     switch (mode) {
     case 0:
@@ -47,6 +51,8 @@ void __stdcall ResizeWindow(int mode, int* width, int* height) {
     default:
         *width = 640;
         *height = 480;
+        int response = MessageBoxA(nullptr, "It appears that you have specified a custom resolution, but you haven't defined its width and height.", "Missing Definition Case", MB_OK | MB_ICONSTOP);
+        exit(0);
         break;
     }
 }
@@ -143,6 +149,28 @@ void __declspec(naked) HD::SetRegistryResolutionModeId_Interception() {
 
         POPAD
         RET
+    }
+}
+
+void __declspec(naked) HD::SaveRegistryResolution_Interception(int mode) {
+    __asm {
+        MOV ESI, [ESP + 0x4]
+        PUSHAD
+        PUSH ESI
+        CALL [Config::WriteRegistryResolution]
+        POPAD
+        RET 0x4
+    }
+}
+
+void __declspec(naked) HD::LoadRegistryResolution_Interception(int* mode) {
+    __asm {
+        MOV ESI, [ESP + 0x4]
+        PUSHAD
+        PUSH ESI
+        CALL[Config::ReadRegistryResolution]
+        POPAD
+        RET 0x4
     }
 }
 
