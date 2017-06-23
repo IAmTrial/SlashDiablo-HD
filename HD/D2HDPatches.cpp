@@ -2,29 +2,176 @@
 #include "../DLLmain.h"
 #include "../D2Ptrs.h"
 
-void HD::Replace640_ResizeWindow_Interception() {
+void __stdcall ResizeWindow(int mode, int* width, int* height);
+int __stdcall GetNewResolutionId();
+int __stdcall GetNewResolutionOnGameStart();
+int __stdcall SetupGlideRenderResolution();
+
+void __declspec(naked) HD::ResizeWindow_Interception() {
     __asm {
-        mov dword ptr ds : [eax], RESOLUTION_640_TO_HD_WIDTH; Requires registers due to the
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT; use of ESP to access memory
+        PUSH [ESP + 0x10]
+        PUSH [ESP + 0x10]
+        PUSH [ESP + 0x10]
+        CALL [ResizeWindow]
+        RET
     }
 }
 
-void __declspec(naked) HD::Replace640_ResizeRenderResolution_Interception() {
-    __asm {
-        mov esi, (RESOLUTION_640_TO_HD_WIDTH - (RESOLUTION_640_TO_HD_WIDTH % 4))
-            mov edx, RESOLUTION_640_TO_HD_HEIGHT
-            ret
+/*
+    General function to set width and height using mode value.
+    Modify this function to define new resolutions.
+*/
+void __stdcall ResizeWindow(int mode, int* width, int* height) {
+    switch (mode) {
+    case 0:
+        *width = 640;
+        *height = 480;
+        break;
+
+    case 1:
+        *width = 800;
+        *height = 600;
+        break;
+
+    case 2:
+        *width = 800;
+        *height = 600;
+        break;
+
+    case 3:
+        *width = 1344;
+        *height = 700;
+        break;
+
+    case 4:
+        *width = 1068;
+        *height = 600;
+        break;
+
+    default:
+        *width = 640;
+        *height = 480;
+        int response = MessageBoxA(nullptr, "It appears that you have specified a custom resolution, but you haven't defined its width and height.", "Missing Definition Case", MB_OK | MB_ICONSTOP);
+        exit(0);
+        break;
     }
 }
 
-void HD::Replace640_ResizeForgroundRenderWidth_Interception() {
-    *D2GDI_ForegroundRenderWidth = RESOLUTION_640_TO_HD_WIDTH;
+void __declspec(naked) HD::ResizeRenderResolution_Interception() {
+    __asm {
+        SUB ESP, 0x8
+        LEA ESI, [ESP+0x4]
+        LEA EDX, [ESP]
+        PUSH ESI
+        PUSH EDX
+        PUSH EAX
+        CALL[ResizeWindow]
+        MOV ESI, [ESP]
+        MOV EDX, [ESP+0x4]
+        ADD ESP, 0x8
+        RET
+    }
 }
 
-int HD::Replace640_ResizeGameLogicResolution_Interception() {
-    *D2CLIENT_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-    *D2CLIENT_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-    return *D2CLIENT_ScreenSizeX;
+void HD::ResizeForgroundRenderWidth_Interception() {
+    int mode, temp;
+    __asm MOV mode, ESI
+
+    ResizeWindow(mode, D2GDI_ForegroundRenderWidth, &temp);
+
+    __asm MOV EAX, 0x1
+}
+
+void HD::ResizeGameLogicResolution_Interception() {
+    __asm PUSHAD
+
+    int mode;
+    __asm MOV mode, ESI
+
+    ResizeWindow(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
+    *D2CLIENT_InventoryArrangeMode = (mode == 2) ? 1 : 0;
+
+    __asm POPAD
+}
+
+void __declspec(naked) HD::SetResolutionModeId_Interception() {
+    __asm {
+        CALL[GetNewResolutionId]
+        MOV ESI, EAX
+        RET
+    }
+}
+
+void __declspec(naked) HD::SetResolutionModeOnGameStart_Interception() {
+    __asm {
+        PUSH EAX
+        PUSH ECX
+        CALL[GetNewResolutionOnGameStart]
+        MOV ESI, EAX
+        POP ECX
+        POP EAX
+        RET
+    }
+}
+
+int __stdcall GetNewResolutionId() {
+    int mode = D2GFX_GetResolutionMode();
+
+    if (mode >= NUMBER_OF_CUSTOM_RESOLUTIONS) {
+        mode = 0;
+    } else if (mode == 0) {
+        mode = 2;
+    } else {
+        mode++;
+    }
+
+    return mode;
+}
+
+int __stdcall GetNewResolutionOnGameStart() {
+    int mode = *D2CLIENT_CurrentRegistryResolutionMode;
+
+    if (mode == 1) {
+        return 2;
+    } else {
+        return mode;
+    }
+}
+
+void __declspec(naked) HD::SetRegistryResolutionModeId_Interception() {
+    __asm {
+        PUSHAD
+
+        PUSH ECX
+        CALL [GetNewResolutionId]
+        POP ECX
+        MOV [ECX + 0x124], EAX
+
+        POPAD
+        RET
+    }
+}
+
+void __declspec(naked) HD::SaveRegistryResolution_Interception(int mode) {
+    __asm {
+        MOV ESI, [ESP + 0x4]
+        PUSHAD
+        PUSH ESI
+        CALL [Config::WriteRegistryResolution]
+        POPAD
+        RET 0x4
+    }
+}
+
+void __declspec(naked) HD::LoadRegistryResolution_Interception(int* mode) {
+    __asm {
+        MOV ESI, [ESP + 0x4]
+        PUSHAD
+        PUSH ESI
+        CALL[Config::ReadRegistryResolution]
+        POPAD
+        RET 0x4
+    }
 }
 
 void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {
@@ -44,65 +191,62 @@ void __declspec(naked) HD::Replace640_ResizeD2D_Interception1() {
     }
 }
 
-void HD::Replace640_ResizeGlideRenderResolution_Interception() {
-    *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-    *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-}
-
-void HD::Replace640_ResizeGlideWindow_Interception() {
-    DWORD* pWidth = *GLIDE3X_GameWindowSizeX;
-    DWORD* pHeight = *GLIDE3X_GameWindowSizeY;
+void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     __asm {
-        mov edx, pWidth
-            mov dword ptr ds : [edx], RESOLUTION_640_TO_HD_WIDTH
-            mov ecx, pHeight
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT
+        PUSH EBX
+        PUSH EDI
+        CALL [SetupGlideRenderResolution]
+        MOV ECX, EAX
+        POP EDI
+        POP EBX
+        MOV ESI, 0
+        MOV EDX, 0; Set EDX to 0
+        RET
     }
 }
 
-int HD::firstStart = 2;
-
-int HD::SetupGlideRenderResolution() {
+int __stdcall SetupGlideRenderResolution() {
     int newResolutionMode, glideVideoMode;
-    __asm mov newResolutionMode, esi
-    __asm mov edx, 0
+    __asm MOV newResolutionMode, ESI
+
+    ResizeWindow(newResolutionMode, D2GLIDE_ScreenSizeX, D2GLIDE_ScreenSizeY);
 
     switch (newResolutionMode) {
     case 0:
-        if (EnableCinematicsFix && (/*!*FOG_InGame && (*STORM_IsCinematic ||*/ firstStart)) {
-            if (firstStart > 0) {
-                firstStart--;
-            }
-            glideVideoMode = 7;
-            *D2GLIDE_ScreenSizeX = 640;
-            *D2GLIDE_ScreenSizeY = 480;
-        } else {
-            glideVideoMode = 0xFF;
-            *D2GLIDE_ScreenSizeX = RESOLUTION_640_TO_HD_WIDTH;
-            *D2GLIDE_ScreenSizeY = RESOLUTION_640_TO_HD_HEIGHT;
-        }
-
+        glideVideoMode = 7;
         break;
 
     case 1:
-    case 2:
         glideVideoMode = 8;
-        *D2GLIDE_ScreenSizeX = RESOLUTION_800_TO_HD_WIDTH;
-        *D2GLIDE_ScreenSizeY = RESOLUTION_800_TO_HD_HEIGHT;
+        break;
+
+    default:
+        glideVideoMode = (glideVideoMode - 2) + 8;
         break;
     }
-    __asm mov ecx, glideVideoMode
-    __asm mov esi, newResolutionMode
-    return newResolutionMode;
+
+    return glideVideoMode;
+}
+
+void __stdcall HD::SetupGlideWindowSize() {
+    __asm PUSHAD
+
+    int newGlideVideoMode;
+    __asm MOV newGlideVideoMode, EAX
+
+    int resolutionMode = (newGlideVideoMode == 7) ? 0 : ((newGlideVideoMode - 8) + 2);
+    ResizeWindow(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
+
+    __asm POPAD
 }
 
 // Repositions panels in the correct location, independent of resolution.
-void HD::RepositionPanels() {
+void __stdcall HD::RepositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
-    *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
+    *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 // This function is used to prevent running unwanted 640 code.
-int HD::GetResolutionMode_Patch() {
+int __stdcall HD::GetResolutionMode_Patch() {
     return (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }

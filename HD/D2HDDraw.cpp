@@ -461,6 +461,34 @@ void HD::UnloadCellFiles() {
     UnloadCellFile(&D2MRFancyPanelLeft);
     UnloadCellFile(&D2MRFancyPanelRight);
     UnloadCellFile(&D2MRFancyVerticalBar);
+    UnloadCellFile(&OtherText);
 
     __asm mov ecx, 12
+}
+
+void HD::DetermineText() {
+    int assetValue;
+
+    __asm {
+        MOV assetValue, ESI
+        PUSH ECX
+        PUSH EAX
+    }
+    if (OtherText == nullptr) {
+        OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\OtherText", 0);
+    }
+
+    if (*D2CLIENT_CurrentRegistryResolutionMode >= 2 && assetValue == 0x154) {
+        __asm {
+            POP EAX
+            POP ECX
+            MOV ECX, OtherText
+        }
+    } else {
+        __asm {
+            POP EAX
+            POP ECX
+            MOV ECX, [EAX + ECX * 4 + 0x00000540]
+        }
+    }
 }

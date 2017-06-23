@@ -36,10 +36,16 @@
 */
 #define USE_CUSTOM_MPQ_FILE 0
 
+#define NUMBER_OF_CUSTOM_RESOLUTIONS 4
+
 namespace Config {
+    extern std::string configPath;
     extern std::string archiveName;
 
     void ReadConfig();
-    void ReadMainSettings(std::string path);
-    void ReadExperimentalSettings(std::string path);
+    void ReadMainSettings();
+    void ReadExperimentalSettings();
+
+    void __stdcall WriteRegistryResolution(int mode);
+    void __stdcall ReadRegistryResolution(int* mode);
 }

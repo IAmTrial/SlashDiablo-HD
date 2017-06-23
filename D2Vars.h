@@ -38,7 +38,6 @@ VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
 VAR(DWORD, RightPanelBackgroundColor)
 
-VAR(BOOL, EnableCinematicsFix)
 VAR(BOOL, EnableD2MRPanelBorderStyle)
 VAR(BOOL, InvertD2MRControlPanel)
 VAR(BOOL, EnableD2MRBackgroundRibbon)
@@ -58,6 +57,7 @@ VAR(CellFile*, D2MRFancyPanelBar)
 VAR(CellFile*, D2MRFancyPanelLeft)
 VAR(CellFile*, D2MRFancyPanelRight)
 VAR(CellFile*, D2MRFancyVerticalBar)
+VAR(CellFile*, OtherText)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

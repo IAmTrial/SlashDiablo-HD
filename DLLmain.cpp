@@ -160,6 +160,7 @@ int __stdcall DllAttach()
     }
 #endif
 
+    D2TEMPLATE_ApplyPatch(hGame, glide3xPatches);
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
     D2TEMPLATE_ApplyPatch(hGame, drawPatches);

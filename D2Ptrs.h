@@ -60,13 +60,15 @@ D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (CellFile* pCellFile), 0x11520); //
 *   D2CLIENT.DLL POINTERS                                                       *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2CLIENT, ScreenSizeX, DWORD, 0xDBC48);
-D2VAR(D2CLIENT, ScreenSizeY, DWORD, 0xDBC4C);
+D2VAR(D2CLIENT, ScreenSizeX, int, 0xDBC48);
+D2VAR(D2CLIENT, ScreenSizeY, int, 0xDBC4C);
 D2VAR(D2CLIENT, PanelOffsetX, int, 0x11B9A0);
 D2VAR(D2CLIENT, PanelOffsetY, int, 0x11B9A4);
 D2VAR(D2CLIENT, InventoryArrangeMode, int, 0x11B99C);
 D2VAR(D2CLIENT, PanelBorderImage, CellFile*, 0x11A77C);
 D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414);
+D2VAR(D2CLIENT, MaxRegistryResolutionMode, int, 0xEABD8);
+D2VAR(D2CLIENT, CurrentRegistryResolutionMode, int, 0xEABDC);
 
 // Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, CellFile*, __fastcall, (const char* szImage), 0xBF6C0);
@@ -105,6 +107,8 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, 0xCA9C);
 *   D2GFX.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
+D2VAR(D2GFX, GfxMode, int, 0x11258)
+
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320);
 D2FUNC(D2GFX, DrawImage, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080);
 
@@ -113,8 +117,8 @@ D2FUNC(D2GFX, DrawImage, void, __stdcall, (CellContext* pCellContext, int nXpos,
 *   D2GLIDE.DLL POINTERS                                                        *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2GLIDE, ScreenSizeX, DWORD, 0x15A68);
-D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
+D2VAR(D2GLIDE, ScreenSizeX, int, 0x15A68);
+D2VAR(D2GLIDE, ScreenSizeY, int, 0x15B04);
 
 /********************************************************************************
 *                                                                               *
@@ -130,8 +134,8 @@ D2PTR(D2WIN, LoadMpq_I, 0x7E60);
 *   GLIDE3X.DLL POINTERS                                                        *
 *                                                                               *
 *********************************************************************************/
-D2VAR(GLIDE3X, GameWindowSizeX, DWORD*, 0x1C9A0);
-D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C);
+D2VAR(GLIDE3X, GameWindowSizeX, int*, 0x1C9A0);
+D2VAR(GLIDE3X, GameWindowSizeY, int*, 0x1C82C);
 
 /********************************************************************************
 *                                                                               *

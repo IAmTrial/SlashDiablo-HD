@@ -1,17 +1,21 @@
 namespace HD {
-    extern int firstStart;
+    void ResizeWindow_Interception();
+    void ResizeRenderResolution_Interception();
+    void ResizeForgroundRenderWidth_Interception();
+    void ResizeGameLogicResolution_Interception();
+    void SetResolutionModeId_Interception();
+    void SetResolutionModeOnGameStart_Interception();
+    void SetRegistryResolutionModeId_Interception();
+    void SaveRegistryResolution_Interception(int mode);
+    void LoadRegistryResolution_Interception(int* mode);
 
-    void Replace640_ResizeWindow_Interception();
-    void Replace640_ResizeRenderResolution_Interception();
-    void Replace640_ResizeForgroundRenderWidth_Interception();
-    int Replace640_ResizeGameLogicResolution_Interception();
     void Replace640_ResizeD2DWindow_Interception();
     void Replace640_ResizeD2D_Interception1();
-    void Replace640_ResizeGlideRenderResolution_Interception();
-    void Replace640_ResizeGlideWindow_Interception();
-    int SetupGlideRenderResolution();
 
-    void RepositionPanels();
+    void SetupGlideRenderResolution_Interception();
+    void __stdcall SetupGlideWindowSize();
 
-    int GetResolutionMode_Patch();
+    void __stdcall RepositionPanels();
+
+    int __stdcall GetResolutionMode_Patch();
 }
