@@ -46,5 +46,45 @@ enum D2C_UnitTypes
     UNIT_TILE           // 5 - Tiles
 };
 
+/*
+Dump of Records from Inventory.Txt
+*/
+enum InventoryTxtRows
+{
+    INV_REC_AMAZON = 0,
+    INV_REC_SORCERESS,
+    INV_REC_NECROMANCER,
+    INV_REC_PALADIN,
+    INV_REC_BARB,
+    INV_REC_MONSTER,
+    INV_REC_TRADE_I,
+    INV_REC_TRADE_II,
+    INV_REC_BANK,
+    INV_REC_CUBE,
+    INV_REC_GUILD_VAULT,
+    INV_REC_TROPY_CASE,
+    INV_REC_BIG_BANK,
+    INV_REC_HIRELING,
+    INV_REC_DRUID,
+    INV_REC_ASSASSIN,
+    //--Expansion
+    INV_REC_EXP_AMAZON = 16,
+    INV_REC_EXP_SORCERESS,
+    INV_REC_EXP_NECROMANCER,
+    INV_REC_EXP_PALADIN,
+    INV_REC_EXP_BARB,
+    INV_REC_EXP_MONSTER,
+    INV_REC_EXP_TRADE_I,
+    INV_REC_EXP_TRADE_II,
+    INV_REC_EXP_BANK,
+    INV_REC_EXP_CUBE,
+    INV_REC_EXP_GUILD_VAULT,
+    INV_REC_EXP_TROPY_CASE,
+    INV_REC_EXP_BIG_BANK,
+    INV_REC_EXP_HIRELING,
+    INV_REC_EXP_DRUID,
+    INV_REC_EXP_ASSASSIN
+};
+
 // end of file ---------------------------------------------------------------
 #endif

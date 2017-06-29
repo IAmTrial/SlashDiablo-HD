@@ -1,8 +1,6 @@
 #include "D2HDPatches.h"
-#include "../DLLmain.h"
 #include "../D2Ptrs.h"
 
-void __stdcall ResizeWindow(int mode, int* width, int* height);
 int __stdcall GetNewResolutionId();
 int __stdcall GetNewResolutionOnGameStart();
 int __stdcall SetupGlideRenderResolution();
@@ -12,7 +10,7 @@ void __declspec(naked) HD::ResizeWindow_Interception() {
         PUSH [ESP + 0x10]
         PUSH [ESP + 0x10]
         PUSH [ESP + 0x10]
-        CALL [ResizeWindow]
+        CALL[HD::D2GFX_GetModeParams]
         RET
     }
 }
@@ -21,7 +19,7 @@ void __declspec(naked) HD::ResizeWindow_Interception() {
     General function to set width and height using mode value.
     Modify this function to define new resolutions.
 */
-void __stdcall ResizeWindow(int mode, int* width, int* height) {
+void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
     switch (mode) {
     case 0:
         *width = 640;
@@ -65,7 +63,7 @@ void __declspec(naked) HD::ResizeRenderResolution_Interception() {
         PUSH ESI
         PUSH EDX
         PUSH EAX
-        CALL[ResizeWindow]
+        CALL[HD::D2GFX_GetModeParams]
         MOV ESI, [ESP]
         MOV EDX, [ESP+0x4]
         ADD ESP, 0x8
@@ -74,10 +72,11 @@ void __declspec(naked) HD::ResizeRenderResolution_Interception() {
 }
 
 void HD::ResizeForgroundRenderWidth_Interception() {
-    int mode, temp;
+    int mode;
+    DWORD temp;
     __asm MOV mode, ESI
 
-    ResizeWindow(mode, D2GDI_ForegroundRenderWidth, &temp);
+    HD::D2GFX_GetModeParams(mode, D2GDI_ForegroundRenderWidth, &temp);
 
     __asm MOV EAX, 0x1
 }
@@ -88,8 +87,8 @@ void HD::ResizeGameLogicResolution_Interception() {
     int mode;
     __asm MOV mode, ESI
 
-    ResizeWindow(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
-    *D2CLIENT_InventoryArrangeMode = (mode == 2) ? 1 : 0;
+    HD::D2GFX_GetModeParams(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
+    *D2CLIENT_InventoryArrangeMode = mode;
 
     __asm POPAD
 }
@@ -209,7 +208,7 @@ int __stdcall SetupGlideRenderResolution() {
     int newResolutionMode, glideVideoMode;
     __asm MOV newResolutionMode, ESI
 
-    ResizeWindow(newResolutionMode, D2GLIDE_ScreenSizeX, D2GLIDE_ScreenSizeY);
+    HD::D2GFX_GetModeParams(newResolutionMode, D2GLIDE_ScreenSizeX, D2GLIDE_ScreenSizeY);
 
     switch (newResolutionMode) {
     case 0:
@@ -235,7 +234,7 @@ void __stdcall HD::SetupGlideWindowSize() {
     __asm MOV newGlideVideoMode, EAX
 
     int resolutionMode = (newGlideVideoMode == 7) ? 0 : ((newGlideVideoMode - 8) + 2);
-    ResizeWindow(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
+    HD::D2GFX_GetModeParams(resolutionMode, *GLIDE3X_GameWindowSizeX, *GLIDE3X_GameWindowSizeY);
 
     __asm POPAD
 }
@@ -243,7 +242,7 @@ void __stdcall HD::SetupGlideWindowSize() {
 // Repositions panels in the correct location, independent of resolution.
 void __stdcall HD::RepositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
-    *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
+    *D2CLIENT_PanelOffsetY = ((int)*D2CLIENT_ScreenSizeY - 480) / -2;
 }
 
 // This function is used to prevent running unwanted 640 code.

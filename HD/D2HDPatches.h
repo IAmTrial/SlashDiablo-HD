@@ -1,4 +1,8 @@
+#include "../DLLmain.h"
+
 namespace HD {
+    void __stdcall D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height);
+
     void ResizeWindow_Interception();
     void ResizeRenderResolution_Interception();
     void ResizeForgroundRenderWidth_Interception();

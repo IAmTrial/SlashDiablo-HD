@@ -63,6 +63,9 @@
     <ClInclude Include="..\D2Stubs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D2HDInventory.h">
+      <Filter>D2HD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="..\D2Stubs.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDInventory.cpp">
+      <Filter>D2HD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
