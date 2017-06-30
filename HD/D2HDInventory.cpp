@@ -76,7 +76,7 @@ void __stdcall Inventory::GetInventorySize(int nRecord, int nScreenMode, Invento
             xLeft = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Inventory.dwLeft;
             xRight = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Inventory.dwRight;
         }
-        xTop = (*D2CLIENT_ScreenSizeY / 2) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2);   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Inventory.dwTop));
+        xTop = (*D2CLIENT_ScreenSizeY / 2 - 20) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2);   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Inventory.dwTop));
         xBottom = xTop + pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop; //  (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Inventory.dwBottom));
 
         pOut->dwLeft = xLeft;
@@ -120,7 +120,7 @@ void __stdcall Inventory::GetInventoryGrid(int nRecord, int nScreenMode, Invento
             xInvBottomOffset -= 112;
         }
 
-        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
+        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 20) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
         int xBottom = pTxt->Grid.dwBottom == -1 ? -1 : xTop + (pTxt->Grid.dwBottom - pTxt->Grid.dwTop);  // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwBottom));
 
         pOut->nGridX = pTxt->Inventory.nGridX;
@@ -166,11 +166,11 @@ void __stdcall Inventory::GetInventoryField(int nRecord, int nScreenMode, Invent
         }
         int xInvBottomOffset = pTxt->Inventory.dwTop - pLayout->dwTop;
         if (nRecord == INV_REC_HIRELING) {
-            xInvBottomOffset += 218;
+            xInvBottomOffset += 222;//218;
         }
 
 
-        int xTop = pLayout->dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   //(*D2Vars.D2CLIENT_ScreenHeight - (480 - pLayout->dwTop));
+        int xTop = pLayout->dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 20) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   //(*D2Vars.D2CLIENT_ScreenHeight - (480 - pLayout->dwTop));
         int xBottom = pLayout->dwBottom == -1 ? -1 : xTop + (pLayout->dwBottom - pLayout->dwTop);    //(*D2Vars.D2CLIENT_ScreenHeight - (480 - pLayout->dwBottom));
 
         pOut->dwLeft = xLeft;
