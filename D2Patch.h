@@ -264,5 +264,35 @@ static const DLLPatchStrc controlPanel800Patches[] = {
     { D2DLL_INVALID }
 };
 
+// Patches inventory positions to be in the correct location. Credits to D2Ex.
+static const DLLPatchStrc inventoryPatches[] = {
+    // D2Common.Ordinal10333
+    { D2DLL_D2COMMON, 0x13340, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2COMMON, 0x13340, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2COMMON, 0x13340 + 1, (int)Inventory::GetBeltPos, TRUE, 0 },
+
+    // D2Common.Ordinal10991
+    { D2DLL_D2COMMON, 0x132A0, PATCH_NOPBLOCK, FALSE, 10 },
+    { D2DLL_D2COMMON, 0x132A0, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2COMMON, 0x132A0 + 1, (int)Inventory::GetBeltsTxtRecord, TRUE, 0 },
+
+    // D2Common.Ordinal11012
+    { D2DLL_D2COMMON, 0x82030, PATCH_NOPBLOCK, FALSE, 8 },
+    { D2DLL_D2COMMON, 0x82030, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2COMMON, 0x82030 + 1, (int)Inventory::GetInventorySize, TRUE, 0 },
+
+    // D2Common.Ordinal10760
+    { D2DLL_D2COMMON, 0x81FB0, PATCH_NOPBLOCK, FALSE, 8 },
+    { D2DLL_D2COMMON, 0x81FB0, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2COMMON, 0x81FB0 + 1, (int)Inventory::GetInventoryGrid, TRUE, 0 },
+
+    // D2Common.Ordinal10701
+    { D2DLL_D2COMMON, 0x81F20, PATCH_NOPBLOCK, FALSE, 8 },
+    { D2DLL_D2COMMON, 0x81F20, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2COMMON, 0x81F20 + 1, (int)Inventory::GetInventoryField, TRUE, 0 },
+
+    { D2DLL_INVALID }
+};
+
 // end of file --------------------------------------------------------------
 #endif
