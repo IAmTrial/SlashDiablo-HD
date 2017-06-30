@@ -475,7 +475,7 @@ void HD::DetermineText() {
         PUSH EAX
     }
     if (OtherText == nullptr) {
-        OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\OtherText", 0);
+        OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
     }
 
     if (*D2CLIENT_CurrentRegistryResolutionMode >= 2 && assetValue == 0x154) {

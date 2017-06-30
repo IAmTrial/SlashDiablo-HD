@@ -120,7 +120,7 @@ void __stdcall Inventory::GetInventoryGrid(int nRecord, int nScreenMode, Invento
             xInvBottomOffset -= 112;
         }
 
-        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 20) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
+        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 19) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
         int xBottom = pTxt->Grid.dwBottom == -1 ? -1 : xTop + (pTxt->Grid.dwBottom - pTxt->Grid.dwTop);  // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwBottom));
 
         pOut->nGridX = pTxt->Inventory.nGridX;
