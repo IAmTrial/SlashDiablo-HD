@@ -471,8 +471,7 @@ void HD::DetermineText() {
 
     __asm {
         MOV assetValue, ESI
-        PUSH ECX
-        PUSH EAX
+        PUSHAD
     }
     if (OtherText == nullptr) {
         OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
@@ -480,14 +479,12 @@ void HD::DetermineText() {
 
     if (*D2CLIENT_CurrentRegistryResolutionMode >= 2 && assetValue == 0x154) {
         __asm {
-            POP EAX
-            POP ECX
+            POPAD
             MOV ECX, OtherText
         }
     } else {
         __asm {
-            POP EAX
-            POP ECX
+            POPAD
             MOV ECX, [EAX + ECX * 4 + 0x00000540]
         }
     }
