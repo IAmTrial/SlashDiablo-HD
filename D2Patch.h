@@ -45,13 +45,9 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x29262 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Resize Game Window; D2GFX.Ordinal10025
-    { D2DLL_D2GFX, 0x7FD4, 0x81, FALSE, 1 },
-    { D2DLL_D2GFX, 0x7FD4 + 2, NUMBER_OF_CUSTOM_RESOLUTIONS, FALSE, 0 },
-    { D2DLL_D2GFX, 0x7FDA, 0x4977, FALSE, 0 },
-    { D2DLL_D2GFX, 0x7FDC, PATCH_NOPBLOCK, FALSE, 73 },
-    { D2DLL_D2GFX, 0x7FDC, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2GFX, 0x7FDC + 1, (int)HD::ResizeWindow_Interception, TRUE, 0 },
-    { D2DLL_D2GFX, 0x7FE1, PATCH_RETN0C | 0x90000000, FALSE, 0 },
+    { D2DLL_D2GFX, 0x7FD0, PATCH_NOPBLOCK, FALSE, 0x8022 - 0x7FD0 },
+    { D2DLL_D2GFX, 0x7FD0, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2GFX, 0x7FD0 + 1, (int)HD::D2GFX_GetModeParams, TRUE, 0 },
 
     // Resize Rendering Resolution
     { D2DLL_D2GDI, 0x6D34, PATCH_NOPBLOCK, FALSE, 43 },
