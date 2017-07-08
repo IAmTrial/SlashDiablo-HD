@@ -140,12 +140,16 @@ int __stdcall GetNewResolutionOnGameStart() {
 void __declspec(naked) HD::SetRegistryResolutionModeId_Interception() {
     __asm {
         PUSHAD
-
+        
+        ADD ECX, 0x124
+        MOV [ECX], 0
+        CMP ECX, D2CLIENT_CurrentRegistryResolutionMode
+        JNE SetRegistryResolutionModeId_Interception_Jump1
         PUSH ECX
         CALL [GetNewResolutionId]
         POP ECX
-        MOV [ECX + 0x124], EAX
-
+        MOV [ECX], EAX
+    SetRegistryResolutionModeId_Interception_Jump1:
         POPAD
         RET
     }
