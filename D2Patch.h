@@ -135,9 +135,6 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, 0x662C5, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x662C5 + 1, (int)HD::SetResolutionModeId_Interception, TRUE, 0 },
 
-    // Change Maximum Recognized Resolutions from Registry
-    // { D2DLL_D2CLIENT, 0xEABD8, 2, FALSE, 0 },
-
     // Modify Resolution Display in Options
     { D2DLL_D2CLIENT, 0x653FF, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, 0x653FF, PATCH_CALL, FALSE, 0 },
