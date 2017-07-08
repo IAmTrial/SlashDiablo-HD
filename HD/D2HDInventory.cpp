@@ -116,7 +116,7 @@ void __stdcall Inventory::GetInventoryGrid(int nRecord, int nScreenMode, Invento
         }
 
         int xInvBottomOffset = pTxt->Inventory.dwTop - pTxt->Grid.dwTop;
-        if (nRecord == INV_REC_CUBE || nRecord == INV_REC_BIG_BANK) {
+        if (nRecord == INV_REC_CUBE || nRecord == INV_REC_BIG_BANK || nRecord == INV_REC_BANK) {
             xInvBottomOffset -= 112;
         }
 
