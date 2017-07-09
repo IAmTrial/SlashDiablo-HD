@@ -190,8 +190,9 @@ static const DLLPatchStrc drawPatches[] = {
     { D2DLL_D2CLIENT, 0xC3A00 + 1, (int)HD::DrawUIControlPanel, TRUE, 0 },
 
     // Unload additional resources when game exits
-    { D2DLL_D2CLIENT, 0x26F8D, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x26F8D + 1, (int)HD::UnloadCellFiles, TRUE, 0 },
+    { D2DLL_D2CLIENT, 0x26E1C, PATCH_NOPBLOCK, FALSE, 6 },
+    { D2DLL_D2CLIENT, 0x26E1C, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x26E1C + 1, (int)HD::STUB_UnloadCellFiles, TRUE, 0 },
 
     { D2DLL_INVALID }
 };
