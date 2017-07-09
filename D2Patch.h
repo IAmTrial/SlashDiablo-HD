@@ -168,11 +168,13 @@ static const DLLPatchStrc gptTemplatePatches[] =
 // Enables border backgrounds for opened panels.
 static const DLLPatchStrc drawPatches[] = {
     // Redraw UI Panel Border Fix
-    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 203 },
-    { D2DLL_D2CLIENT, 0x271C0, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, 0x271C0 + 1, (int)HD::RedrawUILeftPanelBorders, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 225 },
-    { D2DLL_D2CLIENT, 0x270D0, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x271C0, PATCH_NOPBLOCK, FALSE, 6 },
+    { D2DLL_D2CLIENT, 0x271CB, PATCH_NOPBLOCK, FALSE, 0x27287 - 0x271CB },
+    { D2DLL_D2CLIENT, 0x271D1, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2CLIENT, 0x271D1 + 1, (int)HD::RedrawUILeftPanelBorders, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_NOPBLOCK, FALSE, 226 },
+    { D2DLL_D2CLIENT, 0x270D0, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2CLIENT, 0x270D0 + 1, (int)HD::RedrawUIRightPanelBorders, TRUE, 0 },
 
     /* Assumption is that this patch is already enabled. Patches below will not work without this!
