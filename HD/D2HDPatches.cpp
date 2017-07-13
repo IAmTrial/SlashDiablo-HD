@@ -42,8 +42,8 @@ void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
         break;
 
     case 4:
-        *width = 1068;
-        *height = 600;
+        *width = CustomWidth;
+        *height = CustomHeight;
         break;
 
     default:

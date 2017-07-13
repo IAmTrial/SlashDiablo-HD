@@ -43,6 +43,9 @@ VAR(BOOL, InvertD2MRControlPanel)
 VAR(BOOL, EnableD2MRBackgroundRibbon)
 VAR(BOOL, Enable800ControlPanel)
 
+VAR(unsigned int, CustomWidth)
+VAR(unsigned int, CustomHeight)
+
 VAR(HANDLE, D2MRArchive)
 VAR(CellFile*, D2MRStoneBack)
 VAR(CellFile*, D2MRFancyBorderBottom)

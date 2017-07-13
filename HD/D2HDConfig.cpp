@@ -30,7 +30,7 @@ void Config::ReadMainSettings() {
     DWORD tempColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
     LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
 
-    tempColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor); 
+    tempColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
     LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
 
     tempColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
@@ -62,6 +62,20 @@ void Config::ReadMainSettings() {
     int registryResolution = GetPrivateProfileIntA(sectionName.c_str(), "Resolution", 0, configPath.c_str());
     if (registryResolution == 0 || registryResolution < 0 || registryResolution > NUMBER_OF_CUSTOM_RESOLUTIONS) {
         WritePrivateProfileStringA(sectionName.c_str(), "Resolution", "0", configPath.c_str());
+    }
+
+    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", 1068, configPath.c_str());
+    if (CustomWidth == 1068) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", "1068", configPath.c_str());
+    } else if (CustomWidth >= 1344 || CustomWidth < 320) {
+        CustomWidth = 1344;
+    }
+
+    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), "Custom Height (can't be larger than 700)", 600, configPath.c_str());
+    if (CustomHeight == 600) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Custom Height (can't be larger than 700)", "600", configPath.c_str());
+    } else if (CustomHeight >= 700 || CustomHeight < 240) {
+        CustomHeight = 700;
     }
 }
 
