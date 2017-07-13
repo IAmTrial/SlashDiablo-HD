@@ -27,6 +27,7 @@
     <ClInclude Include="D2HDPatches.h" />
     <ClInclude Include="D2HDDraw.h" />
     <ClInclude Include="D2HDStructs.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\D2Stubs.cpp" />
@@ -36,6 +37,9 @@
     <ClCompile Include="D2HDPatches.cpp" />
     <ClCompile Include="D2HDDraw.cpp" />
     <ClCompile Include="D2HDStructs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D2HD.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7848D7C-A05C-4DED-A363-B9555FF791A1}</ProjectGuid>
