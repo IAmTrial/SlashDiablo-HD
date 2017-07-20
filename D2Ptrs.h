@@ -40,11 +40,15 @@ struct PointerOffset {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  These are the macros used by the template core to declare                                                                                                                                   ///
 //  pointers. Do not touch unless you know what you're doing                                                                                                                                    ///
-//                                                                                                                                                                                              ///
-#define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, OFFSET) typedef RETURN (##CONV##* DLL##_##NAME##_t ) ARGS; static DLL##_##NAME##_t DLL##_##NAME = (DLL##_##NAME##_t )( DLLBASE_##DLL + OFFSET);   ///
-#define D2VAR(DLL, NAME, TYPE, OFFSET) typedef TYPE DLL##_##NAME##_vt; static DLL##_##NAME##_vt * DLL##_##NAME = (DLL##_##NAME##_vt *)( DLLBASE_##DLL + OFFSET);                                ///
-#define D2PTR(DLL, NAME, OFFSET) static DWORD NAME = (DLLBASE_##DLL + OFFSET);                                                                                                                  ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, OFFSET) typedef RETURN (##CONV##* DLL##_##NAME##_t ) ARGS; static DLL##_##NAME##_t DLL##_##NAME = (DLL##_##NAME##_t )( DLLBASE_##DLL + OFFSET);
+
+#define D2VAR(DLL, NAME, TYPE, OFFSET) typedef TYPE DLL##_##NAME##_vt; static DLL##_##NAME##_vt * DLL##_##NAME = (DLL##_##NAME##_vt *)( DLLBASE_##DLL + OFFSET);
+
+#define D2PTR(DLL, NAME, ...) \
+    static PointerOffset NAME##_POINTERS = { __VA_ARGS__ }; \
+    static DWORD NAME = (DLLBASE_##DLL + *(&##NAME##_POINTERS.Pointer_113c + D2Version::versionID));
+
 
 /********************************************************************************
 *                                                                               *
@@ -134,8 +138,7 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04);
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), 0xA7A0);
-
-D2PTR(D2WIN, LoadMpq_I, 0x7E60);
+D2PTR(D2WIN, LoadMpq_I, 0x7E60, -1);
 
 /********************************************************************************
 *                                                                               *
