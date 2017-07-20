@@ -41,13 +41,18 @@ struct PointerOffset {
 //  These are the macros used by the template core to declare                                                                                                                                   ///
 //  pointers. Do not touch unless you know what you're doing                                                                                                                                    ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define OFFSET(DLL, NAME, DEFTYPE) *(&##DLL##_##NAME##_##DEFTYPE##_POINTERS.Pointer_113c + D2Version::versionID)
+
 #define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, OFFSET) typedef RETURN (##CONV##* DLL##_##NAME##_t ) ARGS; static DLL##_##NAME##_t DLL##_##NAME = (DLL##_##NAME##_t )( DLLBASE_##DLL + OFFSET);
 
-#define D2VAR(DLL, NAME, TYPE, OFFSET) typedef TYPE DLL##_##NAME##_vt; static DLL##_##NAME##_vt * DLL##_##NAME = (DLL##_##NAME##_vt *)( DLLBASE_##DLL + OFFSET);
+#define D2VAR(DLL, NAME, TYPE, ...) \
+    static PointerOffset DLL##_##NAME##_D2VAR_POINTERS = { __VA_ARGS__ }; \
+    typedef TYPE DLL##_##NAME##_vt; \
+    static DLL##_##NAME##_vt * DLL##_##NAME = (DLL##_##NAME##_vt *)( DLLBASE_##DLL + OFFSET(DLL, NAME, D2VAR));
 
 #define D2PTR(DLL, NAME, ...) \
-    static PointerOffset NAME##_POINTERS = { __VA_ARGS__ }; \
-    static DWORD NAME = (DLLBASE_##DLL + *(&##NAME##_POINTERS.Pointer_113c + D2Version::versionID));
+    static PointerOffset DLL##_##NAME##_D2PTR_POINTERS = { __VA_ARGS__ }; \
+    static DWORD NAME = (DLLBASE_##DLL + OFFSET(DLL, NAME, D2PTR));
 
 
 /********************************************************************************
