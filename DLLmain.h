@@ -63,6 +63,7 @@
 #include "D2Ptrs.h"
 #include "D2Vars.h"
 #include "D2Stubs.h"
+#include "D2Version.h"
 
 #include "TemplateIncludes.h"
 

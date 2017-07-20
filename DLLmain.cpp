@@ -150,6 +150,7 @@ int __stdcall DllAttach()
         return 0;
     }
 
+    D2Version::Init();
     Config::ReadConfig();
 
 #if USE_CUSTOM_MPQ_FILE
