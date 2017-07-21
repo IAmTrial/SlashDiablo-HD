@@ -76,7 +76,7 @@ struct DLLBaseStrc
 struct DLLPatchStrc
 {
     int nDLL;
-    DWORD dwAddress;
+    PointerOffset stAddresses;
     DWORD dwData;
     BOOL bRelative;
     size_t nPatchSize;
