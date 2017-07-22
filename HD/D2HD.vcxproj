@@ -20,17 +20,19 @@
     <ClInclude Include="..\D2Structs.h" />
     <ClInclude Include="..\D2Stubs.h" />
     <ClInclude Include="..\D2Vars.h" />
+    <ClInclude Include="..\D2Version.h" />
     <ClInclude Include="..\DLLmain.h" />
+    <ClInclude Include="..\Resource.h" />
     <ClInclude Include="..\TemplateIncludes.h" />
     <ClInclude Include="D2HDConfig.h" />
     <ClInclude Include="D2HDInventory.h" />
     <ClInclude Include="D2HDPatches.h" />
     <ClInclude Include="D2HDDraw.h" />
     <ClInclude Include="D2HDStructs.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\D2Stubs.cpp" />
+    <ClCompile Include="..\D2Version.cpp" />
     <ClCompile Include="..\DLLmain.cpp" />
     <ClCompile Include="D2HDConfig.cpp" />
     <ClCompile Include="D2HDInventory.cpp" />
@@ -39,7 +41,7 @@
     <ClCompile Include="D2HDStructs.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D2HD.rc" />
+    <ResourceCompile Include="..\D2HD.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7848D7C-A05C-4DED-A363-B9555FF791A1}</ProjectGuid>
@@ -108,7 +110,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BBGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>

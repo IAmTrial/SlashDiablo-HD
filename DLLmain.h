@@ -57,6 +57,7 @@
 #define DLLBASE_SMACKW32        (DWORD)LoadLibraryA("SmackW32.dll")
 #define DLLBASE_GLIDE3X         (DWORD)LoadLibraryA("glide3x.dll")
 
+#include "D2Version.h"
 #include "HD/D2HDConfig.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -75,7 +76,7 @@ struct DLLBaseStrc
 struct DLLPatchStrc
 {
     int nDLL;
-    DWORD dwAddress;
+    PointerOffset stAddresses;
     DWORD dwData;
     BOOL bRelative;
     size_t nPatchSize;

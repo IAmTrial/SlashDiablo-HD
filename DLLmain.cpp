@@ -35,13 +35,18 @@ void __fastcall D2TEMPLATE_FatalError(char* szMessage)
 
 BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
 {
+    if (D2Version::versionID == INVALID) {
+        int response = MessageBoxA(nullptr, "D2HD currently does not support this version of Diablo II.", "Unsupported Game Version", MB_OK | MB_ICONSTOP);
+        exit(1);
+    }
+
     while (hPatch->nDLL != D2DLL_INVALID)
     {
         int nReturn = 0;
         int nDLL = hPatch->nDLL;
         if (nDLL < 0 || nDLL >= D2DLL_INVALID) return FALSE;
 
-        DWORD dwAddress = hPatch->dwAddress;
+        DWORD dwAddress = *(&hPatch->stAddresses.Pointer_113c + D2Version::versionID);
         if (!dwAddress) return FALSE;
 
         DWORD dwBaseAddress = gptDllFiles[nDLL].dwAddress;

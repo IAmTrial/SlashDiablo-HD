@@ -66,7 +66,10 @@
     <ClInclude Include="D2HDInventory.h">
       <Filter>D2HD</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="..\D2Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,9 +95,12 @@
     <ClCompile Include="D2HDInventory.cpp">
       <Filter>D2HD</Filter>
     </ClCompile>
+    <ClCompile Include="..\D2Version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D2HD.rc">
+    <ResourceCompile Include="..\D2HD.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
