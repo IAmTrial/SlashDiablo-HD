@@ -46,13 +46,18 @@ BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
         int nDLL = hPatch->nDLL;
         if (nDLL < 0 || nDLL >= D2DLL_INVALID) return FALSE;
 
-        DWORD dwAddress = *(&hPatch->stAddresses.Pointer_113c + D2Version::versionID);
-        if (!dwAddress) return FALSE;
+        int offset = *(&hPatch->stAddresses.Pointer_113c + D2Version::versionID);
+        if (!offset) return FALSE;
 
         DWORD dwBaseAddress = gptDllFiles[nDLL].dwAddress;
         if (!dwBaseAddress) return FALSE;
 
-        dwAddress += dwBaseAddress;
+        DWORD dwAddress;
+        if (offset < 0) {
+            dwAddress = (DWORD) GetProcAddress((HMODULE)dwBaseAddress, (LPSTR)-offset);
+        } else {
+            dwAddress = dwBaseAddress + offset;
+        }
 
         DWORD dwData = hPatch->dwData;
         if (hPatch->bRelative){ dwData = dwData - (dwAddress + sizeof(dwData)); }
