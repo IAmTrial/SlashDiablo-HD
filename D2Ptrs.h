@@ -33,8 +33,8 @@
 *****************************************************************************/
 
 struct PointerOffset {
-    DWORD Pointer_113c;
-    DWORD Pointer_113d;
+    int Pointer_113c;
+    int Pointer_113d;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ struct PointerOffset {
 #define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, ...) \
     static PointerOffset DLL##_##NAME##_D2FUNC_POINTERS = { __VA_ARGS__ }; \
     typedef RETURN (##CONV##* DLL##_##NAME##_t ) ARGS; \
-    static DLL##_##NAME##_t DLL##_##NAME = (DLL##_##NAME##_t )( DLLBASE_##DLL + OFFSET(DLL, NAME, D2FUNC));
+    static DLL##_##NAME##_t DLL##_##NAME = (OFFSET(DLL, NAME, D2FUNC) < 0) ? ((DLL##_##NAME##_t )GetProcAddress((HMODULE)DLLBASE_##DLL, (LPCSTR) -(OFFSET(DLL, NAME, D2FUNC)))) : (DLL##_##NAME##_t )( DLLBASE_##DLL + OFFSET(DLL, NAME, D2FUNC));
 
 #define D2VAR(DLL, NAME, TYPE, ...) \
     static PointerOffset DLL##_##NAME##_D2VAR_POINTERS = { __VA_ARGS__ }; \
@@ -55,14 +55,14 @@ struct PointerOffset {
 
 #define D2PTR(DLL, NAME, ...) \
     static PointerOffset DLL##_##NAME##_D2PTR_POINTERS = { __VA_ARGS__ }; \
-    static DWORD NAME = (DLLBASE_##DLL + OFFSET(DLL, NAME, D2PTR));
+    static DWORD NAME = (OFFSET(DLL, NAME, D2PTR) < 0) ? ((DWORD)GetProcAddress((HMODULE)DLLBASE_##DLL, (LPCSTR) -(OFFSET(DLL, NAME, D2PTR)))) : (DLLBASE_##DLL + OFFSET(DLL, NAME, D2PTR));
 
 /********************************************************************************
 *                                                                               *
 *   D2CMP.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (CellFile* pCellFile), 0x11520, 0x135B0); // Called at D2Client.dll+26E1C,8022E
+D2FUNC(D2CMP, FreeCellFile, BOOL, __stdcall, (CellFile* pCellFile), -10065, -10020); // Called at D2Client.dll+26E1C,8022E
 
 /********************************************************************************
 *                                                                               *
@@ -128,8 +128,8 @@ D2VAR(D2GDI, ForegroundRenderWidth, DWORD, 0xCA9C, 0xCA98);
 D2VAR(D2GFX, GfxMode, int, 0x11258, -1); // Unused by D2HD
 D2VAR(D2GFX, ResolutionMode, int, 0x11260, 0x14A40);
 
-D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), 0xB320, 0xA940);
-D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), 0xB080, 0x7E60);
+D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), -10031, -10012);
+D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, DWORD color, int nTransTbl, unsigned char* pPalette), -10041, -10042);
 
 /********************************************************************************
 *                                                                               *
@@ -144,7 +144,7 @@ D2VAR(D2GLIDE, ScreenSizeY, DWORD, 0x15B04, 0x15B14);
 *   D2WIN.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), 0xA7A0, 0xCFC0);
+D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), -10111, -10023);
 D2PTR(D2WIN, LoadMpq_I, 0x7E60, 0x7E50);
 
 /********************************************************************************
@@ -162,14 +162,14 @@ D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C, 0x1C82C);
 *********************************************************************************/
 D2VAR(FOG, InGame, BOOL, 0x4C804, 0xF79E0);
 
-D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), 0x1CCF0, 0x1B350);
+D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), -10043, -10043);
 
 /********************************************************************************
 *                                                                               *
 *   STORM.DLL POINTERS                                                          *
 *                                                                               *
 *********************************************************************************/
-D2FUNC(STORM, CloseArchive, BOOL, __stdcall, (HANDLE hArchive), 0x26CB0, 0x2BA50) // Storm.Ordinal252
+D2FUNC(STORM, CloseArchive, BOOL, __stdcall, (HANDLE hArchive), -252, -252) // Storm.Ordinal252
 
 // end of file -----------------------------------------------------------------
 #endif
