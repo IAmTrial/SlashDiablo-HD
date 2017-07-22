@@ -41,7 +41,7 @@ struct PointerOffset {
 //  These are the macros used by the template core to declare                                                                                                                                   ///
 //  pointers. Do not touch unless you know what you're doing                                                                                                                                    ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define OFFSET(DLL, NAME, DEFTYPE) *(&##DLL##_##NAME##_##DEFTYPE##_POINTERS.Pointer_113c + D2Version::versionID)
+#define OFFSET(DLL, NAME, DEFTYPE) *(&##DLL##_##NAME##_##DEFTYPE##_POINTERS.Pointer_113c + D2Version::GetGameVersionID())
 
 #define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, ...) \
     static PointerOffset DLL##_##NAME##_D2FUNC_POINTERS = { __VA_ARGS__ }; \
@@ -153,7 +153,7 @@ D2PTR(D2WIN, LoadMpq_I, 0x7E60, 0x7E50);
 *                                                                               *
 *********************************************************************************/
 D2VAR(GLIDE3X, GameWindowSizeX, DWORD*, 0x1C9A0, 0x1C9A0);
-D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C, 0x1C9A0);
+D2VAR(GLIDE3X, GameWindowSizeY, DWORD*, 0x1C82C, 0x1C82C);
 
 /********************************************************************************
 *                                                                               *

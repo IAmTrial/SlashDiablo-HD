@@ -3,10 +3,10 @@
 
 #pragma comment(lib,"Version.lib")
 
-VersionID D2Version::versionID;
+VersionID D2Version::versionID = INVALID;
 
 void D2Version::Init() {
-    std::string version = GetGameVersion();
+    std::string version = GetGameVersionString();
 
     if (version == "1.0.13.60") {
         versionID = VERSION_113c;
@@ -17,8 +17,15 @@ void D2Version::Init() {
     }
 }
 
+VersionID D2Version::GetGameVersionID() {
+    if (versionID == INVALID) {
+        Init();
+    }
+    return versionID;
+}
+
 // Taken from StackOverflow user crashmstr
-std::string D2Version::GetGameVersion() {
+std::string D2Version::GetGameVersionString() {
     LPSTR szVersionFile = "Game.exe";
     DWORD  verHandle = 0;
     UINT   size = 0;

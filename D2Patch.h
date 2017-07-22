@@ -35,24 +35,24 @@
 static const DLLPatchStrc gptTemplatePatches[] =
 {
     // Panel Positioning Fix
-    /*{ D2DLL_D2CLIENT, { 0xC39F6, 0x1D3F6 }, PATCH_NOPBLOCK, FALSE, 39 },
+    { D2DLL_D2CLIENT, { 0xC39F6, 0x1D3F6 }, PATCH_NOPBLOCK, FALSE, 39 },
     { D2DLL_D2CLIENT, { 0xC39F6, 0x1D3F6 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0xC39F6 + 1, 0x1D3F6 + 1 }, (int)HD::RepositionPanels, TRUE, 0 },*/
+    { D2DLL_D2CLIENT, { 0xC39F6 + 1, 0x1D3F6 + 1 }, (int)HD::RepositionPanels, TRUE, 0 },
 
     // Enable Panel Borders Fix
-    /*{ D2DLL_D2CLIENT, { 0x29262, 0x6F312 }, PATCH_NOPBLOCK, FALSE, 5 },
+    { D2DLL_D2CLIENT, { 0x29262, 0x6F312 }, PATCH_NOPBLOCK, FALSE, 5 },
     { D2DLL_D2CLIENT, { 0x29262, 0x6F312 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x29262 + 1, 0x6F312 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-*/
+
     // Resize Game Window; D2GFX.Ordinal10025, D2GFX.Ordinal10064
-    /*{ D2DLL_D2GFX, { 0x7FD0, 0xB0E0 }, PATCH_NOPBLOCK, FALSE, 0x8022 - 0x7FD0 },
+    { D2DLL_D2GFX, { 0x7FD0, 0xB0E0 }, PATCH_NOPBLOCK, FALSE, 0x8022 - 0x7FD0 },
     { D2DLL_D2GFX, { 0x7FD0, 0xB0E0 }, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2GFX, { 0x7FD0 + 1, 0xB0E0 + 1 }, (int)HD::D2GFX_GetModeParams, TRUE, 0 },
-*/
+
     // Resize Rendering Resolution
-    /*{ D2DLL_D2GDI, { 0x6D34, 0x7B84 }, PATCH_NOPBLOCK, FALSE, 43 },
+    { D2DLL_D2GDI, { 0x6D34, 0x7B84 }, PATCH_NOPBLOCK, FALSE, 43 },
     { D2DLL_D2GDI, { 0x6D34, 0x7B84 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2GDI, { 0x6D34 + 1, 0x7B84 + 1 }, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },*/
+    { D2DLL_D2GDI, { 0x6D34 + 1, 0x7B84 + 1 }, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },
     
     // Correct Resizing of Window from any resolution to a smaller one.
     { D2DLL_D2GFX, { 0x83F0 + 1, 0xB42F + 1 }, INT_MAX, FALSE, 0 },
@@ -68,16 +68,16 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GFX, 0x87A2 + 3 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
     */
     // Resize Foreground Rendering Width
-    /*{ D2DLL_D2GDI, { 0x7044, 0x7E94 }, PATCH_NOPBLOCK, FALSE, 51 },
+    { D2DLL_D2GDI, { 0x7044, 0x7E94 }, PATCH_NOPBLOCK, FALSE, 51 },
     { D2DLL_D2GDI, { 0x7044, 0x7E94 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2GDI, { 0x7044 + 1, 0x7E94 + 1 }, (int)HD::ResizeForgroundRenderWidth_Interception, TRUE, 0 },
     { D2DLL_D2GDI, { 0x7044 + 5, 0x7E94 + 5 }, 0x90905E5F, FALSE, 0 },
-    { D2DLL_D2GDI, { 0x7044 + 7, 0x7E94 + 7 }, PATCH_RETN | 0x90909000, FALSE, 0 },*/
+    { D2DLL_D2GDI, { 0x7044 + 7, 0x7E94 + 7 }, PATCH_RETN | 0x90909000, FALSE, 0 },
 
     // Resize Game Logic Resolution and FOV
-    /*{ D2DLL_D2CLIENT, { 0x10DFD, 0x2C22D }, PATCH_NOPBLOCK, FALSE, 0x10E49 - 0x10DFD },
+    { D2DLL_D2CLIENT, { 0x10DFD, 0x2C22D }, PATCH_NOPBLOCK, FALSE, 0x10E49 - 0x10DFD },
     { D2DLL_D2CLIENT, { 0x10DFD, 0x2C22D }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x10DFD + 1, 0x2C22D + 1 }, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },*/
+    { D2DLL_D2CLIENT, { 0x10DFD + 1, 0x2C22D + 1 }, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
     
     // Read From D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
@@ -89,13 +89,13 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x44454 + 1, 0x454A4 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
     // Properly transfer back to a valid resolution
-    /*{ D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x6628F + 1, 0xC452F + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
     
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },*/
+    { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
     
     // Write to D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
@@ -103,9 +103,9 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x662AB + 1, 0xC454B + 1 }, (int)HD::SaveRegistryResolution_Interception, TRUE, 0 },
 
     // Add New Resolutions Without Replacement
-    /*{ D2DLL_D2CLIENT, { 0x662C5, 0xC4565 }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0x662C5, 0xC4565 }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x662C5, 0xC4565 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x662C5 + 1, 0xC4565 + 1 }, (int)HD::SetResolutionModeId_Interception, TRUE, 0 },*/
+    { D2DLL_D2CLIENT, { 0x662C5 + 1, 0xC4565 + 1 }, (int)HD::SetResolutionModeId_Interception, TRUE, 0 },
 
     // Modify Resolution Display in Options
     { D2DLL_D2CLIENT, { 0x653FF, 0xC369F }, PATCH_NOPBLOCK, FALSE, 7 },

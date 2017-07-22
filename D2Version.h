@@ -13,8 +13,9 @@ enum VersionID {
 
 namespace D2Version {
     extern VersionID versionID;
+    VersionID GetGameVersionID();
     void Init();
-    std::string GetGameVersion();
+    std::string GetGameVersionString();
 };
 
 #endif
