@@ -1,7 +1,7 @@
+#pragma once
+
 #include <Windows.h>
 #include <string>
-
-#pragma once
 
 namespace Color {
     struct RGBFormat {

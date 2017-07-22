@@ -1,3 +1,5 @@
+*.res
+*.aps
 *.sdf
 *.opensdf
 *.pdb

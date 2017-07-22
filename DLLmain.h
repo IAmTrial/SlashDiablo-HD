@@ -22,14 +22,16 @@
 *                                                                           *
 *****************************************************************************/
 
+#pragma once
+
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_DEPRECATE
 #define _WIN32_WINNT 0x600
 
 #include <windows.h>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "HD/D2HDConfig.h"
 
 #define DLLBASE_BNCLIENT        (DWORD)LoadLibraryA("Bnclient.dll")
 #define DLLBASE_D2CLIENT        (DWORD)LoadLibraryA("D2Client.dll")
@@ -55,10 +57,13 @@
 #define DLLBASE_SMACKW32        (DWORD)LoadLibraryA("SmackW32.dll")
 #define DLLBASE_GLIDE3X         (DWORD)LoadLibraryA("glide3x.dll")
 
+#include "D2Version.h"
+#include "HD/D2HDConfig.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Ptrs.h"
 #include "D2Vars.h"
+#include "D2Stubs.h"
 
 #include "TemplateIncludes.h"
 
@@ -71,7 +76,7 @@ struct DLLBaseStrc
 struct DLLPatchStrc
 {
     int nDLL;
-    DWORD dwAddress;
+    PointerOffset stAddresses;
     DWORD dwData;
     BOOL bRelative;
     size_t nPatchSize;

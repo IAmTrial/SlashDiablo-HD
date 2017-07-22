@@ -1,3 +1,7 @@
+#pragma once
+
+#include "D2Structs.h"
+
 #ifdef _D2VARS_H
 #define VAR(Type, Name)         Type Name;
 #else
@@ -29,17 +33,34 @@
 *                                                                           *
 *****************************************************************************/
 
-VAR(DWORD, SampleVariable1)
-
-VAR(void*, SampleVariable2)
-
-VAR(char, SampleVariable3[256])
-
-
 VAR(DWORD, LeftPanelBackgroundColor)
 VAR(DWORD, LeftPanelBorderColor)
 VAR(DWORD, RightPanelBorderColor)
 VAR(DWORD, RightPanelBackgroundColor)
+
+VAR(BOOL, EnableD2MRPanelBorderStyle)
+VAR(BOOL, InvertD2MRControlPanel)
+VAR(BOOL, EnableD2MRBackgroundRibbon)
+VAR(BOOL, Enable800ControlPanel)
+
+VAR(unsigned int, CustomWidth)
+VAR(unsigned int, CustomHeight)
+
+VAR(HANDLE, D2MRArchive)
+VAR(CellFile*, D2MRStoneBack)
+VAR(CellFile*, D2MRFancyBorderBottom)
+VAR(CellFile*, D2MRFancyBorderCorner)
+VAR(CellFile*, D2MRFancyBorderInterfaceLeft)
+VAR(CellFile*, D2MRFancyBorderInterfaceRight)
+VAR(CellFile*, D2MRFancyBorderLeft)
+VAR(CellFile*, D2MRFancyBorderRight)
+VAR(CellFile*, D2MRFancyBorderTop)
+VAR(CellFile*, D2MRFancyHorizontalBar)
+VAR(CellFile*, D2MRFancyPanelBar)
+VAR(CellFile*, D2MRFancyPanelLeft)
+VAR(CellFile*, D2MRFancyPanelRight)
+VAR(CellFile*, D2MRFancyVerticalBar)
+VAR(CellFile*, OtherText)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

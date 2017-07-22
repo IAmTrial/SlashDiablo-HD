@@ -39,8 +39,7 @@
 *                                                                           *
 *****************************************************************************/
 
-struct D2GameStrc;
-struct D2UnitStrc;
+struct CellFile;
 
 /****************************************************************************
 *                                                                           *
@@ -48,22 +47,36 @@ struct D2UnitStrc;
 *                                                                           *
 *****************************************************************************/
 
-struct D2GameStrc
+struct CellContext      //sizeof 0x48
 {
-    //...
+    int nFrame; // 0x00
+    int dw1[12];    // 0x04
+    const CellFile* pCellFile;  // 0x34
+    int dw2[2]; // 0x38
+    int dw3;    // 0x40
+    int dw4;    // 0x44
 };
 
-struct D2UnitStrc
+struct InventorySize // sizeof 0x10
 {
-    //...
+    DWORD dwLeft;		//0x00
+    DWORD dwRight;		//0x04
+    DWORD dwTop;		//0x08
+    DWORD dwBottom;		//0x0C
 };
 
-struct D2ImageDrawStrc      //sizeof 0x48
+struct InventoryGrid // sizeof 0x18
 {
-    unsigned long dw1[15];   //+00
-    const void* pCellFile;   //+3C
-    int nFrame;            //+40
-    unsigned long dw2;      //+44
+    BYTE nGridX;		//0x00
+    BYTE nGridY;		//0x01
+    WORD _align;		//0x02
+    DWORD dwLeft;		//0x04
+    DWORD dwRight;		//0x08
+    DWORD dwTop;		//0x0C
+    DWORD dwBottom;		//0x10
+    BYTE nGridWidth;	//0x14
+    BYTE nGridHeight;	//0x15
+    WORD _align2;		//0x16
 };
 
 // end of file --------------------------------------------------------------

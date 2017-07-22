@@ -57,6 +57,21 @@
     <ClInclude Include="D2HDConfig.h">
       <Filter>D2HD</Filter>
     </ClInclude>
+    <ClInclude Include="D2HDDraw.h">
+      <Filter>D2HD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\D2Stubs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D2HDInventory.h">
+      <Filter>D2HD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\D2Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp">
@@ -71,5 +86,22 @@
     <ClCompile Include="D2HDConfig.cpp">
       <Filter>D2HD</Filter>
     </ClCompile>
+    <ClCompile Include="D2HDDraw.cpp">
+      <Filter>D2HD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\D2Stubs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDInventory.cpp">
+      <Filter>D2HD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\D2Version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\D2HD.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
