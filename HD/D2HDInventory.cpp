@@ -116,11 +116,15 @@ void __stdcall Inventory::GetInventoryGrid(int nRecord, int nScreenMode, Invento
         }
 
         int xInvBottomOffset = pTxt->Inventory.dwTop - pTxt->Grid.dwTop;
-        if (nRecord == INV_REC_CUBE || nRecord == INV_REC_BIG_BANK || nRecord == INV_REC_BANK) {
-            xInvBottomOffset -= 112;
+        if (nRecord == INV_REC_CUBE || nRecord == INV_REC_BIG_BANK || nRecord == INV_REC_BANK || nRecord == INV_REC_TRADE_II) {
+            xInvBottomOffset -= 111;
+        } else if (nRecord == INV_REC_MONSTER) {
+            xInvBottomOffset -= 1;
+        } else if (nRecord == INV_REC_TRADE_I) {
+            xInvBottomOffset += 113;
         }
 
-        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 19) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
+        int xTop = pTxt->Grid.dwTop == -1 ? -1 : (*D2CLIENT_ScreenSizeY / 2 - 20) - ((pTxt->Inventory.dwBottom - pTxt->Inventory.dwTop) / 2) - xInvBottomOffset;   // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwTop));
         int xBottom = pTxt->Grid.dwBottom == -1 ? -1 : xTop + (pTxt->Grid.dwBottom - pTxt->Grid.dwTop);  // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwBottom));
 
         pOut->nGridX = pTxt->Inventory.nGridX;
@@ -166,7 +170,7 @@ void __stdcall Inventory::GetInventoryField(int nRecord, int nScreenMode, Invent
         }
         int xInvBottomOffset = pTxt->Inventory.dwTop - pLayout->dwTop;
         if (nRecord == INV_REC_HIRELING) {
-            xInvBottomOffset += 222;//218;
+            xInvBottomOffset += 221;//218;
         }
 
 
