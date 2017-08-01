@@ -214,6 +214,16 @@ void RedrawUILeftPanelBorders_D2MR() {
     D2GFX_DrawCellContext(&borderLeft, basePositionX, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
 }
 
+void __declspec(naked) HD::STUB_DrawUIPanelBackground() {
+    __asm {
+        PUSHAD
+        CALL[HD::DrawUIPanelBackground]
+        POPAD
+        ADD ESP, 0x128
+        RET
+    }
+}
+
 void HD::DrawUIPanelBackground() {
     switch (*D2CLIENT_PanelOpenMode) {
     case 1:
@@ -405,6 +415,17 @@ void DrawUIRightPanelBackground() {
     }
 }
 
+void __declspec(naked) HD::STUB_DrawUIControlPanel() {
+    __asm {
+        PUSHAD
+        CALL[HD::DrawUIControlPanel]
+        POPAD
+        XOR EDI, EDI
+        SUB EAX, 02
+        RET
+    }
+}
+
 void HD::DrawUIControlPanel() {
     if (D2MRFancyPanelLeft == nullptr) {
         D2MRFancyPanelLeft = InvertD2MRControlPanel ? D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyPanelInvertLeft", 0) : D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyPanelLeft", 0);
@@ -462,7 +483,7 @@ void UnloadCellFiles() {
     UnloadCellFile(&D2MRFancyPanelLeft);
     UnloadCellFile(&D2MRFancyPanelRight);
     UnloadCellFile(&D2MRFancyVerticalBar);
-    UnloadCellFile(&OtherText);
+    UnloadCellFile(&Blank);
 }
 
 void __declspec(naked) HD::STUB_UnloadCellFiles() {
@@ -474,26 +495,46 @@ void __declspec(naked) HD::STUB_UnloadCellFiles() {
     }
 }
 
-void HD::DetermineText() {
-    int assetValue;
+void __declspec(naked) HD::STUB_DetermineText() {
+    __asm {
+        MOV ECX, [EAX + ECX * 4 + 0x00000540]
+        PUSH EAX
+        PUSH EBX
+        PUSH EDX
+        PUSH ESI
+        PUSH EDI
+        CALL[HD::DetermineText]
+        MOV ECX, EAX
+        POP EDI
+        POP ESI
+        POP EDX
+        POP EBX
+        POP EAX
+        RET
+    }
+}
+
+void* HD::DetermineText() {
+    void* assetValueA;
+    DWORD assetValueB;
+    void* assetValueC;
+    void* returnValue;
 
     __asm {
-        MOV assetValue, ESI
-        PUSHAD
-    }
-    if (OtherText == nullptr) {
-        OtherText = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
+        MOV assetValueA, EAX
+        MOV assetValueB, ESI
+        MOV assetValueC, ECX
     }
 
-    if (*D2CLIENT_CurrentRegistryResolutionMode >= 2 && assetValue == 0x154) {
-        __asm {
-            POPAD
-            MOV ECX, OtherText
-        }
-    } else {
-        __asm {
-            POPAD
-            MOV ECX, [EAX + ECX * 4 + 0x00000540]
-        }
+    if (Blank == nullptr) {
+        Blank = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
     }
+
+    if (*D2CLIENT_CurrentRegistryResolutionMode >= 3 && assetValueA == D2CLIENT_VideoOptionCellFileStart && assetValueB == 0x154) {
+        returnValue = Blank;
+    } else {
+        returnValue = assetValueC;
+    }
+
+    return returnValue;
 }

@@ -54,9 +54,9 @@ void Config::ReadMainSettings() {
         WritePrivateProfileStringA(sectionName.c_str(), "Enable D2MR Panel Background Ribbon", "1", configPath.c_str());
     }
 
-    Enable800ControlPanel = GetPrivateProfileIntA(sectionName.c_str(), "Enable 800x600 Style Control Panel", false, configPath.c_str());
-    if (Enable800ControlPanel == false) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Enable 800x600 Style Control Panel", "0", configPath.c_str());
+    Enable800ControlPanel = GetPrivateProfileIntA(sectionName.c_str(), "Enable 800x600 Style Control Panel", true, configPath.c_str());
+    if (Enable800ControlPanel == true) {
+        WritePrivateProfileStringA(sectionName.c_str(), "Enable 800x600 Style Control Panel", "1", configPath.c_str());
     }
 
     int registryResolution = GetPrivateProfileIntA(sectionName.c_str(), "Resolution", 0, configPath.c_str());
