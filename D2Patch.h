@@ -149,12 +149,6 @@ static const DLLPatchStrc drawPatches[] = {
     { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x270D0 + 1, 0x6D1C0 + 1 }, (int)HD::RedrawUIRightPanelBorders, TRUE, 0 },
 
-    /* Assumption is that this patch is already enabled. Patches below will not work without this!
-    { D2DLL_D2CLIENT, PTRS, PATCH_NOPBLOCK, FALSE, 39 },
-    { D2DLL_D2CLIENT, PTRS, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, PTRS, (int)HD::PanelPosition_Interception, TRUE, 0 },
-    */
-
     // Draw background
     { D2DLL_D2CLIENT, { 0xBF361, 0x190B1 }, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0xBF361 + 1, 0x190B1 + 1 }, (int)HD::STUB_DrawUIPanelBackground, TRUE, 0 },
