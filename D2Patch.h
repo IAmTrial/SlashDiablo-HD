@@ -110,7 +110,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     // Modify Resolution Display in Options
     { D2DLL_D2CLIENT, { 0x653FF, 0xC369F }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x653FF, 0xC369F }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x653FF + 1, 0xC369F + 1 }, (int)HD::DetermineText, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x653FF + 1, 0xC369F + 1 }, (int)HD::STUB_DetermineText, TRUE, 0 },
 
     // Modify the value of the registry resolution ID
     { D2DLL_D2CLIENT, { 0x651E0, 0xC33A0 }, PATCH_NOPBLOCK, FALSE, 0x651EA - 0x651E0 },

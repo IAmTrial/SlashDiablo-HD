@@ -86,6 +86,7 @@ D2VAR(D2CLIENT, PanelOpenMode, int, 0x11C414, 0x11D070);
 D2VAR(D2CLIENT, MaxRegistryResolutionMode, int, 0xEABD8, -1); // Unused by D2HD
 D2VAR(D2CLIENT, CurrentRegistryResolutionMode, int, 0xEABDC, 0xE4F44);
 D2VAR(D2CLIENT, SelectedMenuOption, int, 0x11C058, -1); // Unused by D2HD
+D2VAR(D2CLIENT, VideoOptionCellFileStart, void*, 0xEA568, 0xE48D0);
 
 // Do not call this function directly unless you insert arg0 into EDI
 D2FUNC(D2CLIENT, LoadUIImage, CellFile*, __fastcall, (const char* szImage), 0xBF6C0, 0x191F0);

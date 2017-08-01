@@ -14,5 +14,6 @@ namespace HD {
     void STUB_DrawUIControlPanel();
     void DrawUIControlPanel();
     void STUB_UnloadCellFiles();
-    void DetermineText();
+    void STUB_DetermineText();
+    void* DetermineText();
 }
