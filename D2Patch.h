@@ -156,8 +156,8 @@ static const DLLPatchStrc drawPatches[] = {
     */
 
     // Draw background
-    { D2DLL_D2CLIENT, { 0xC39FB, 0x1D3FB }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0xC39FB + 1, 0x1D3FB + 1 }, (int)HD::DrawUIPanelBackground, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0xBF361, 0x190B1 }, PATCH_JMP, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xBF361 + 1, 0x190B1 + 1 }, (int)HD::STUB_DrawUIPanelBackground, TRUE, 0 },
 
     // Draw bottom control panel
     { D2DLL_D2CLIENT, { 0xC3A00, 0x1D400 }, PATCH_CALL, FALSE, 0 },

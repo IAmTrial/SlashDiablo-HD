@@ -9,6 +9,7 @@
 namespace HD {
     void RedrawUILeftPanelBorders();
     void RedrawUIRightPanelBorders();
+    void STUB_DrawUIPanelBackground();
     void DrawUIPanelBackground();
     void DrawUIControlPanel();
     void STUB_UnloadCellFiles();
