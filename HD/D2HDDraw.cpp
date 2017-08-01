@@ -214,6 +214,16 @@ void RedrawUILeftPanelBorders_D2MR() {
     D2GFX_DrawCellContext(&borderLeft, basePositionX, (basePositionY + 256) + (256 + 40), LeftPanelBorderColor, 5, nullptr);
 }
 
+void __declspec(naked) HD::STUB_DrawUIPanelBackground() {
+    __asm {
+        PUSHAD
+        CALL[HD::DrawUIPanelBackground]
+        POPAD
+        ADD ESP, 0x128
+        RET
+    }
+}
+
 void HD::DrawUIPanelBackground() {
     switch (*D2CLIENT_PanelOpenMode) {
     case 1:
@@ -402,6 +412,17 @@ void DrawUIRightPanelBackground() {
     for (int i = 0; ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY); i++) {
         verticalBar.nFrame = i % 2;
         D2GFX_DrawCellContext(&verticalBar, (basePositionX + 400 - 60), ((basePositionY + (256 + 256 + 40)) + ((i + 1) * 256)), RightPanelBorderColor, 5, nullptr);
+    }
+}
+
+void __declspec(naked) HD::STUB_DrawUIControlPanel() {
+    __asm {
+        PUSHAD
+        CALL[HD::DrawUIControlPanel]
+        POPAD
+        XOR EDI, EDI
+        SUB EAX, 02
+        RET
     }
 }
 

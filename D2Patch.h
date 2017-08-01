@@ -160,8 +160,8 @@ static const DLLPatchStrc drawPatches[] = {
     { D2DLL_D2CLIENT, { 0xBF361 + 1, 0x190B1 + 1 }, (int)HD::STUB_DrawUIPanelBackground, TRUE, 0 },
 
     // Draw bottom control panel
-    { D2DLL_D2CLIENT, { 0xC3A00, 0x1D400 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0xC3A00 + 1, 0x1D400 + 1 }, (int)HD::DrawUIControlPanel, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x272A7, 0x6D397 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x272A7 + 1, 0x6D397 + 1 }, (int)HD::STUB_DrawUIControlPanel, TRUE, 0 },
 
     // Unload additional resources when game exits
     { D2DLL_D2CLIENT, { 0x26E1C, 0x6CF0C }, PATCH_NOPBLOCK, FALSE, 6 },

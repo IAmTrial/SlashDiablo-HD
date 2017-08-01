@@ -11,6 +11,7 @@ namespace HD {
     void RedrawUIRightPanelBorders();
     void STUB_DrawUIPanelBackground();
     void DrawUIPanelBackground();
+    void STUB_DrawUIControlPanel();
     void DrawUIControlPanel();
     void STUB_UnloadCellFiles();
     void DetermineText();
