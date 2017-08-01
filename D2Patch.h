@@ -53,7 +53,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2GDI, { 0x6D34, 0x7B84 }, PATCH_NOPBLOCK, FALSE, 43 },
     { D2DLL_D2GDI, { 0x6D34, 0x7B84 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2GDI, { 0x6D34 + 1, 0x7B84 + 1 }, (int)HD::ResizeRenderResolution_Interception, TRUE, 0 },
-    
+
     // Correct Resizing of Window from any resolution to a smaller one.
     { D2DLL_D2GFX, { 0x83F0 + 1, 0xB42F + 1 }, INT_MAX, FALSE, 0 },
     { D2DLL_D2GFX, { 0x8403 + 2, 0xB43E + 2 }, INT_MAX, FALSE, 0 },
@@ -78,7 +78,7 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x10DFD, 0x2C22D }, PATCH_NOPBLOCK, FALSE, 0x10E49 - 0x10DFD },
     { D2DLL_D2CLIENT, { 0x10DFD, 0x2C22D }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x10DFD + 1, 0x2C22D + 1 }, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
-    
+
     // Read From D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
     { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_CALL, FALSE, 0 },
@@ -92,11 +92,11 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x6628F + 1, 0xC452F + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
-    
+
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
-    
+
     // Write to D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_CALL, FALSE, 0 },
@@ -187,55 +187,55 @@ static const DLLPatchStrc glide3xPatches[] = {
     { D2DLL_GLIDE3X, { 0xCA97, 0xCA97 }, PATCH_NOPBLOCK, FALSE, 0xCBA7 - 0xCA97 },
     { D2DLL_GLIDE3X, { 0xCA97, 0xCA97 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_GLIDE3X, { 0xCA97 + 1, 0xCA97 + 1 }, (int)HD::SetupGlideWindowSize, TRUE, 0 },
-    
+
     { D2DLL_INVALID }
 };
 
 static const DLLPatchStrc controlPanel800Patches[] = {
     // Unknown
-    { D2DLL_D2CLIENT, 0x506AF + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x506AF + 1, 0x211DF + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill button animation click detection
-    { D2DLL_D2CLIENT, 0x506C9 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x506C9 + 1, 0x211F9 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x5075F + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x5075F + 1, 0x2128F + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stat button animation click detection
-    { D2DLL_D2CLIENT, 0x5077D + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x5077D + 1, 0x212AD + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x50810 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50810 + 1, 0x21340 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill button click detection
-    { D2DLL_D2CLIENT, 0x5082E + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x5082E + 1, 0x2135E + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Unknown
-    { D2DLL_D2CLIENT, 0x50B70 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50B70 + 1, 0x216A0 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stat button click detection
-    { D2DLL_D2CLIENT, 0x50B8E + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50B8E + 1, 0x216BE + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Control panel to 800 control panel.
-    { D2DLL_D2CLIENT, 0x272A2 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x272A2 + 1, 0x6D392 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stats button fix (greyed out)
-    { D2DLL_D2CLIENT, 0x50103 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50103 + 1, 0x21093 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Stats level up button fix
-    { D2DLL_D2CLIENT, 0x50447 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x504EC + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x50563 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x505C8 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    
+    { D2DLL_D2CLIENT, { 0x50447 + 1, 0x20E67 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x504EC + 1, 0x20F0C + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50563 + 1, 0x20F83 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x505C8 + 1, 0x20FE8 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+
     // Skill button fix (greyed out)
-    { D2DLL_D2CLIENT, 0x50023 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50023 + 1, 0x20DA3 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     // Skill level up button fix
-    { D2DLL_D2CLIENT, 0x50207 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x502A5 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x5031C + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
-    { D2DLL_D2CLIENT, 0x50380 + 1, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50207 + 1, 0x20B77 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x502A5 + 1, 0x20C15 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x5031C + 1, 0x20C8C + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x50380 + 1, 0x20CF0 + 1 }, (int)HD::GetResolutionMode_Patch, TRUE, 0 },
 
     { D2DLL_INVALID }
 };
