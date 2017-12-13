@@ -228,15 +228,20 @@ void HD::DrawUIPanelBackground() {
     switch (*D2CLIENT_PanelOpenMode) {
     case 1:
         DrawUIRightPanelBackground();
+        RedrawUIRightPanelBorders();
         break;
 
     case 2:
         DrawUILeftPanelBackground();
+        RedrawUILeftPanelBorders();
         break;
 
     case 3:
         DrawUILeftPanelBackground();
         DrawUIRightPanelBackground();
+
+        RedrawUILeftPanelBorders();
+        RedrawUIRightPanelBorders();
         break;
 
     default:
