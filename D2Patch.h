@@ -102,6 +102,14 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x662AB + 1, 0xC454B + 1 }, (int)HD::SaveRegistryResolution_Interception, TRUE, 0 },
 
+    { D2DLL_D2CLIENT, { 0x65E47, -1 }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
+    { D2DLL_D2CLIENT, { 0x65E47, -1 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E47 + 1, -1 + 1 }, (int)HD::SaveRegistryResolution_Interception, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, { 0xAF951, -1 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
+    { D2DLL_D2CLIENT, { 0xAF951, -1 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF951 + 1, -1 + 1 }, (int)HD::SaveRegistryResolution_Interception, TRUE, 0 },
+
     // Add New Resolutions Without Replacement
     { D2DLL_D2CLIENT, { 0x662C5, 0xC4565 }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x662C5, 0xC4565 }, PATCH_CALL, FALSE, 0 },
