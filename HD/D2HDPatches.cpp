@@ -2,7 +2,7 @@
 #include "../D2Ptrs.h"
 
 int __stdcall GetNewResolutionId();
-int __stdcall GetNewResolutionOnGameStart();
+int __stdcall GetNewResolutionOnGameStart(int resolutionMode);
 int __stdcall SetupGlideRenderResolution();
 
 void __declspec(naked) HD::ResizeWindow_Interception() {
@@ -106,11 +106,29 @@ void __declspec(naked) HD::SetResolutionModeId_Interception() {
     }
 }
 
-void __declspec(naked) HD::SetResolutionModeOnGameStart_Interception() {
+void __declspec(naked) HD::SetResolutionModeOnGameStart001_Interception() {
     __asm {
         PUSH EAX
         PUSH ECX
+        ADD EAX, 01
+        PUSH EAX
         CALL[GetNewResolutionOnGameStart]
+        MOV ESI, EAX
+        POP ECX
+        POP EAX
+        RET
+    }
+}
+
+void __declspec(naked) HD::SetResolutionModeOnGameStart002_Interception() {
+    __asm {
+        PUSH EAX
+        PUSH ECX
+        PUSH EDI
+        ADD EDI, 01
+        PUSH EDI
+        CALL[GetNewResolutionOnGameStart]
+        POP EDI
         MOV ESI, EAX
         POP ECX
         POP EAX
@@ -132,8 +150,8 @@ int __stdcall GetNewResolutionId() {
     return mode;
 }
 
-int __stdcall GetNewResolutionOnGameStart() {
-    int mode = *D2CLIENT_CurrentRegistryResolutionMode;
+int __stdcall GetNewResolutionOnGameStart(int resolutionMode) {
+    int mode = resolutionMode;
 
     if (mode == 1) {
         return 2;

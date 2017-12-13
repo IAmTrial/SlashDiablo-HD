@@ -8,7 +8,8 @@ namespace HD {
     void ResizeForgroundRenderWidth_Interception();
     void ResizeGameLogicResolution_Interception();
     void SetResolutionModeId_Interception();
-    void SetResolutionModeOnGameStart_Interception();
+    void SetResolutionModeOnGameStart001_Interception();
+    void SetResolutionModeOnGameStart002_Interception();
     void SetRegistryResolutionModeId_Interception();
     void SaveRegistryResolution_Interception(int mode);
     void LoadRegistryResolution_Interception(int* mode);
