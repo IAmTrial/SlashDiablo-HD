@@ -147,17 +147,13 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
 // Enables border backgrounds for opened panels.
 static const DLLPatchStrc drawPatches[] = {
-    // Redraw UI Panel Border Fix
+    // Disable Blizzard's UI Panel Borders
     { D2DLL_D2CLIENT, { 0x271C0, 0x6D2B0 }, PATCH_NOPBLOCK, FALSE, 6 },
-    { D2DLL_D2CLIENT, { 0x271CB, 0x6D2BB }, PATCH_NOPBLOCK, FALSE, 0x27287 - 0x271CB },
-    { D2DLL_D2CLIENT, { 0x271D1, 0x6D2C1 }, PATCH_JMP, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x271D1 + 1, 0x6D2C1 + 1 }, (int)HD::RedrawUILeftPanelBorders, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x271CB, 0x6D2BB }, PATCH_NOPBLOCK, FALSE, 0x2728A - 0x271CA },
 
-    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_NOPBLOCK, FALSE, 226 },
-    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_JMP, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x270D0 + 1, 0x6D1C0 + 1 }, (int)HD::RedrawUIRightPanelBorders, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_NOPBLOCK, FALSE, 225 },
 
-    // Draw background
+    // Draw background and Redraw UI Panel Border Fix
     { D2DLL_D2CLIENT, { 0xBF361, 0x190B1 }, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0xBF361 + 1, 0x190B1 + 1 }, (int)HD::STUB_DrawUIPanelBackground, TRUE, 0 },
 
