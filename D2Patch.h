@@ -1,14 +1,10 @@
-#pragma once
-
-#ifndef _D2PATCH_H
-#define _D2PATCH_H
-
-#include "D2PatchConst.h"
-
 /****************************************************************************
 *                                                                           *
 *   D2Patch.h                                                               *
 *   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -31,6 +27,13 @@
 *   array, in order to be handled by D2Template's patcher                   *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
+
+#include "D2PatchConst.h"
 
 static const DLLPatchStrc gptTemplatePatches[] =
 {

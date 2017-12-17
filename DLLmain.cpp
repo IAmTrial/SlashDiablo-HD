@@ -1,11 +1,9 @@
-#define _D2VARS_H
-
-#include "DLLmain.h"
-#include "D2Patch.h"
-
 /****************************************************************************
 *                                                                           *
-*   DLLmain.h                                                               *
+*   DLLmain.cpp                                                             *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   /r/SlashDiablo HD Modifications: Copyright (c) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -26,6 +24,11 @@
 *   D2Template core file, do not modify unless you know what you're doing   *
 *                                                                           *
 *****************************************************************************/
+
+#define _D2VARS_H
+
+#include "DLLmain.h"
+#include "D2Patch.h"
 
 void __fastcall D2TEMPLATE_FatalError(char* szMessage)
 {

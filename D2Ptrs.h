@@ -1,11 +1,9 @@
-#pragma once
-
-#ifndef _D2PTRS_H
-#define _D2PTRS_H
-
 /****************************************************************************
 *                                                                           *
 *   D2Ptrs.h                                                                *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -31,6 +29,11 @@
 *   them by address can also end up being very useful                       *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2PTRS_H
+#define _D2PTRS_H
 
 struct PointerOffset {
     int Pointer_113c;

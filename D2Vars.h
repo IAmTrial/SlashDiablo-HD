@@ -1,16 +1,9 @@
-#pragma once
-
-#include "D2Structs.h"
-
-#ifdef _D2VARS_H
-#define VAR(Type, Name)         Type Name;
-#else
-#define VAR(Type, Name)         extern Type Name;
-#endif
-
 /****************************************************************************
 *                                                                           *
 *   D2Vars.h                                                                *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -32,6 +25,16 @@
 *   within your code. These variables can be used anywhere in your code     *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#include "D2Structs.h"
+
+#ifdef _D2VARS_H
+#define VAR(Type, Name)         Type Name;
+#else
+#define VAR(Type, Name)         extern Type Name;
+#endif
 
 VAR(DWORD, LeftPanelBackgroundColor)
 VAR(DWORD, LeftPanelBorderColor)

@@ -1,8 +1,3 @@
-#pragma once
-
-#ifndef _D2PATCHCONST_H
-#define _D2PATCHCONST_H
-
 /****************************************************************************
 *                                                                           *
 *   D2PatchConst.h                                                          *
@@ -29,6 +24,11 @@
 *   know what you're doing.                                                 *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2PATCHCONST_H
+#define _D2PATCHCONST_H
 
 #define PATCH_JMP               0x000000E9
 #define PATCH_CALL              0x000000E8
