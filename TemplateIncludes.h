@@ -1,11 +1,9 @@
-#pragma once
-
-#ifndef _TEMPLATEINCLUDES_H
-#define _TEMPLATEINCLUDES_H
-
 /****************************************************************************
 *                                                                           *
-*   DLLmain.h                                                               *
+*   TemplateIncludes.h                                                      *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -26,6 +24,11 @@
 *   This file is where you include new headers in your codebase             *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _TEMPLATEINCLUDES_H
+#define _TEMPLATEINCLUDES_H
 
 #include "HD/D2HDPatches.h"
 #include "HD/D2HDStructs.h"

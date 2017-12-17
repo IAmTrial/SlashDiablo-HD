@@ -1,15 +1,10 @@
-#pragma once
-
-#ifndef _D2STRUCTS_H
-#define _D2STRUCTS_H
-
-#include "D2DataTables.h"
-#include "D2PacketDef.h"
-#pragma pack(1)
-
 /****************************************************************************
 *                                                                           *
 *   D2Structs.h                                                             *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -32,6 +27,15 @@
 *   a unit entity, or a game entity                                         *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2STRUCTS_H
+#define _D2STRUCTS_H
+
+#include "D2DataTables.h"
+#include "D2PacketDef.h"
+#pragma pack(1)
 
 /****************************************************************************
 *                                                                           *
