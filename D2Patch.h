@@ -34,6 +34,7 @@
 #define _D2PATCH_H
 
 #include "D2PatchConst.h"
+#include "DLLmain.h"
 
 static const DLLPatchStrc gptTemplatePatches[] =
 {
@@ -87,34 +88,34 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x44454, 0x454A4 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x44454 + 1, 0x454A4 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
-    { D2DLL_D2CLIENT, { 0x65E47, -1 }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
-    { D2DLL_D2CLIENT, { 0x65E47, -1 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x65E47 + 1, -1 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E47, 0xC40E7 }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
+    { D2DLL_D2CLIENT, { 0x65E47, 0xC40E7 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E47 + 1, 0xC40E7 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
     { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
     { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x66279 + 1, 0xC4519 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
-    { D2DLL_D2CLIENT, { 0xAF951, -1 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
-    { D2DLL_D2CLIENT, { 0xAF951, -1 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0xAF951 + 1, -1 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF951, 0x85F61 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
+    { D2DLL_D2CLIENT, { 0xAF951, 0x85F61 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF951 + 1, 0x85F61 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
     // Properly transfer back to a valid resolution
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
 
-    { D2DLL_D2CLIENT, { 0x65E5F, -1 }, PATCH_NOPBLOCK, FALSE, 7 },
-    { D2DLL_D2CLIENT, { 0x65E5F, -1 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x65E5F + 1, -1 + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E5F, 0xC40FF }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0x65E5F, 0xC40FF }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E5F + 1, 0xC40FF + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
 
     { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x6628F + 1, 0xC452F + 1 }, (int)HD::SetResolutionModeOnGameStart002_Interception, TRUE, 0 },
 
-    { D2DLL_D2CLIENT, { 0xAF969, -1 }, PATCH_NOPBLOCK, FALSE, 7 },
-    { D2DLL_D2CLIENT, { 0xAF969, -1 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0xAF969 + 1, -1 + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF969, 0x85F79 }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0xAF969, 0x85F79 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF969 + 1, 0x85F79 + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
 
     // Write to D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },

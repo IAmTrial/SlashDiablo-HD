@@ -24,6 +24,7 @@
 
 #include "D2Version.h"
 #include <Windows.h>
+#include <sstream>
 
 #pragma comment(lib,"Version.lib")
 
@@ -66,18 +67,17 @@ std::string D2Version::GetGameVersionString() {
                 if (size) {
                     VS_FIXEDFILEINFO *verInfo = (VS_FIXEDFILEINFO *)lpBuffer;
                     if (verInfo->dwSignature == 0xfeef04bd) {
-                        char szBuffer[MAX_PATH];
                         // Doesn't matter if you are on 32 bit or 64 bit,
                         // DWORD is always 32 bits, so first two revision numbers
                         // come from dwFileVersionMS, last two come from dwFileVersionLS
-                        std::sprintf(szBuffer, "%d.%d.%d.%d",
-                            (verInfo->dwFileVersionMS >> 16) & 0xffff,
-                            (verInfo->dwFileVersionMS >> 0) & 0xffff,
-                            (verInfo->dwFileVersionLS >> 16) & 0xffff,
-                            (verInfo->dwFileVersionLS >> 0) & 0xffff
-                            );
+                        std::ostringstream stringStream;
 
-                        returnValue = std::string(szBuffer);
+                        stringStream << ((verInfo->dwFileVersionMS >> 16) & 0xffff) << ".";
+                        stringStream << ((verInfo->dwFileVersionMS >> 0) & 0xffff) << ".";
+                        stringStream << ((verInfo->dwFileVersionLS >> 16) & 0xffff) << ".";
+                        stringStream << ((verInfo->dwFileVersionLS >> 0) & 0xffff);
+
+                        returnValue = stringStream.str();
                     }
                 }
             }

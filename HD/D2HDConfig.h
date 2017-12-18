@@ -52,7 +52,7 @@
     load the HD assets. Keep it to 0 if you are having the HD
     assets included in the Patch_D2.mpq file.
 */
-#define USE_CUSTOM_MPQ_FILE 0
+#define USE_CUSTOM_MPQ_FILE 1
 
 /*
     Determines the number of custom resolutions available. This

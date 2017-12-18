@@ -42,13 +42,12 @@ void Config::ReadMainSettings() {
 #if USE_CUSTOM_MPQ_FILE
     char tempArchiveName[MAX_PATH] = { '\0' };
     GetPrivateProfileStringA(sectionName.c_str(), "MPQ Name", nullptr, tempArchiveName, MAX_PATH, configPath.c_str());
-
-    if (std::strcmp(tempArchiveName, "") == 0) {
-        std::strcpy(tempArchiveName, "D2MultiRes.mpq");
-        WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", tempArchiveName, configPath.c_str());
-    }
-
     archiveName = std::string(tempArchiveName);
+
+    if (archiveName == "") {
+        archiveName = "D2MultiRes.mpq";
+        WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", archiveName.c_str(), configPath.c_str());
+    }
 #endif
 
     const DWORD defaultColor = 0xFFFFFFFF;
