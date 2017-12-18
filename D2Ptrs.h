@@ -35,6 +35,8 @@
 #ifndef _D2PTRS_H
 #define _D2PTRS_H
 
+#include "DLLmain.h"
+
 struct PointerOffset {
     int Pointer_113c;
     int Pointer_113d;

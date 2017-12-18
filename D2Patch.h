@@ -34,6 +34,7 @@
 #define _D2PATCH_H
 
 #include "D2PatchConst.h"
+#include "DLLmain.h"
 
 static const DLLPatchStrc gptTemplatePatches[] =
 {
