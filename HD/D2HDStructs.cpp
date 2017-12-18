@@ -38,7 +38,7 @@ DWORD Color::FormatRGBtoBGR(DWORD color) {
     DWORD red = (color >> (4 * 4)) & 0x0000FF00;
     DWORD green = color & 0x00FF0000;
     DWORD blue = (color << (4 * 4)) & 0xFF000000;
-    DWORD tint = tint & 0x000000FF;
+    DWORD tint = color & 0x000000FF;
 
     return red | green | blue | tint;
 }
