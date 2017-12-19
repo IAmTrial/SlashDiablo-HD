@@ -117,7 +117,7 @@ D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, 0x9FA5C, 0xA4CAC);
 *   D2DDRAW.DLL POINTERS                                                        *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2DDRAW, GameWindowSizeY, DWORD*, 0x101D8, -1);
+D2VAR(D2DDRAW, GameWindowSizeY, DWORD, 0x101D8, -1);
 
 /********************************************************************************
 *                                                                               *

@@ -137,7 +137,19 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x651E0, 0xC33A0 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x651E0 + 1, 0xC33A0 + 1 }, (int)HD::SetRegistryResolutionModeId_Interception, TRUE, 0 },
 
-    // Replace 640 with HD, Fix D2DDraw Fullscreen
+    // Fix D2DDraw Fullscreen
+    /*
+    { D2DLL_D2DDRAW, { 0x69F9, -1 }, PATCH_NOPBLOCK, FALSE, 0x6A0F - 0x69F9 },
+    { D2DLL_D2DDRAW, { 0x69F9, -1 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DDRAW, { 0x69F9 + 1, -1 + 1 }, (int), TRUE, 0 },
+    */
+
+    { D2DLL_D2DDRAW, { 0x85C2, -1 }, PATCH_NOPBLOCK, FALSE, 0x85ED - 0x85C2 },
+    { D2DLL_D2DDRAW, { 0x85C2, -1 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DDRAW, { 0x85C2 + 1, -1 + 1 }, (DWORD)HD::ResizeD2DWindow_Interception, TRUE, 0 },
+
+    { D2DLL_D2DDRAW, { 0x85F9, -1 }, PATCH_NOPBLOCK, FALSE, 0x8600 - 0x85F9 },
+
     /* Highly unstable! Currently not functional!
     { D2DLL_D2DDRAW, 0x84CB + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
     { D2DLL_D2DDRAW, 0x84D0 + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },

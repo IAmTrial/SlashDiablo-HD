@@ -226,23 +226,6 @@ void __declspec(naked) HD::LoadRegistryResolution_Interception(int* mode) {
     }
 }
 
-void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {
-    __asm {
-        mov ecx, D2DDRAW_GameWindowSizeY
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT;
-        mov ecx, RESOLUTION_640_TO_HD_WIDTH;
-        ret
-    }
-}
-
-void __declspec(naked) HD::Replace640_ResizeD2D_Interception1() {
-    __asm {
-        mov edi, RESOLUTION_640_TO_HD_WIDTH
-            mov esi, RESOLUTION_640_TO_HD_HEIGHT
-            ret
-    }
-}
-
 void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     __asm {
         PUSH EBX
@@ -253,6 +236,29 @@ void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
         POP EBX
         MOV ESI, 0
         MOV EDX, 0; Set EDX to 0
+        RET
+    }
+}
+
+void __declspec(naked) HD::ResizeD2DWindow_Interception() {
+    __asm {
+        SUB ESP, 0x8
+        LEA ECX, DWORD PTR DS:[ESP]
+        LEA EDX, DWORD PTR DS:[ESP + 0x4]
+
+        PUSHAD
+        PUSH EDX
+        PUSH ECX
+        PUSH EAX
+        CALL D2GFX_GetModeParams
+        POPAD
+
+        MOV EDX, DWORD PTR DS:[EDX]
+        MOV EAX, DWORD PTR DS : [D2DDRAW_GameWindowSizeY]
+        MOV DWORD PTR DS : [EAX], EDX
+        MOV ECX, DWORD PTR DS:[ECX]
+
+        ADD ESP, 0x8
         RET
     }
 }
