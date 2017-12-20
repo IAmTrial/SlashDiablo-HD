@@ -137,17 +137,17 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x651E0, 0xC33A0 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x651E0 + 1, 0xC33A0 + 1 }, (int)HD::SetRegistryResolutionModeId_Interception, TRUE, 0 },
 
-    // Replace 640 with HD, Fix D2DDraw Fullscreen
-    /* Highly unstable! Currently not functional!
-    { D2DLL_D2DDRAW, 0x84CB + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x84D0 + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x9343 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85CB + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6, PATCH_NOPBLOCK, FALSE, 15 },
-    { D2DLL_D2DDRAW, 0x85C6, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6 + 1, (int)HD::Replace640_ResizeD2DWindow_Interception, TRUE, 0 },
-    */
+    // Fix D2DDraw Fullscreen
+    { D2DLL_D2DDRAW, { 0x85C2, 0x8202 }, PATCH_NOPBLOCK, FALSE, 0x85ED - 0x85C2 },
+    { D2DLL_D2DDRAW, { 0x85C2, 0x8202 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DDRAW, { 0x85C2 + 1, 0x8202 + 1 }, (DWORD)HD::ResizeDDrawWindow_Interception, TRUE, 0 },
+
+    { D2DLL_D2DDRAW, { 0x85F9, 0x8239 }, PATCH_NOPBLOCK, FALSE, 0x8600 - 0x85F9 },
+
+    // Fix Direct3D Fullscreen
+    { D2DLL_D2DIRECT3D, { 0xB9A4, 0xBE64 }, PATCH_NOPBLOCK, FALSE, /*0xB9D0*/ 0xB9DF - 0xB9A4 },
+    { D2DLL_D2DIRECT3D, { 0xB9A4, 0xBE64 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DIRECT3D, { 0xB9A4 + 1, 0xBE64 + 1 }, (DWORD)HD::ResizeD3DWindow_Interception, TRUE, 0 },
 
     // Replace for HD, Resize Glide Render Logic Resolution
     { D2DLL_D2GLIDE, { 0xDCC6, 0xD5D6 }, PATCH_NOPBLOCK, FALSE, 0xDD0A - 0xDCC6 },
