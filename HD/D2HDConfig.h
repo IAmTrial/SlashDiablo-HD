@@ -38,15 +38,6 @@
 #include "D2HDStructs.h"
 #include "../D2Vars.h"
 
-#define RESOLUTION_640_TO_HD_WIDTH 1068
-#define RESOLUTION_640_TO_HD_HEIGHT 600
-
-#define RESOLUTION_800_TO_HD_WIDTH 800
-#define RESOLUTION_800_TO_HD_HEIGHT 600
-
-#define RESOLUTION_1344_TO_HD_WIDTH 800
-#define RESOLUTION_1344_TO_HD_HEIGHT 600
-
 /*
     Determines whether you want a separate MPQ file to be used to
     load the HD assets. Keep it to 0 if you are having the HD

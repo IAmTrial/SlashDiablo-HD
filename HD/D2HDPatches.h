@@ -45,7 +45,8 @@ namespace HD {
     void SaveRegistryResolution_Interception(int mode);
     void LoadRegistryResolution_Interception(int* mode);
 
-    void ResizeD2DWindow_Interception();
+    void ResizeDDrawWindow_Interception();
+    void ResizeD3DWindow_Interception();
     void Replace640_ResizeD2D_Interception1();
 
     void SetupGlideRenderResolution_Interception();

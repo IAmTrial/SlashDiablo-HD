@@ -240,7 +240,7 @@ void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     }
 }
 
-void __declspec(naked) HD::ResizeD2DWindow_Interception() {
+void __declspec(naked) HD::ResizeDDrawWindow_Interception() {
     __asm {
         SUB ESP, 0x8
         LEA ECX, DWORD PTR DS:[ESP]
@@ -259,6 +259,18 @@ void __declspec(naked) HD::ResizeD2DWindow_Interception() {
         MOV ECX, DWORD PTR DS:[ECX]
 
         ADD ESP, 0x8
+        RET
+    }
+}
+
+void __declspec(naked) HD::ResizeD3DWindow_Interception() {
+    __asm {
+        PUSHAD
+        PUSH D2DIRECT3D_GameWindowSizeY
+        PUSH D2DIRECT3D_GameWindowSizeX
+        PUSH EAX
+        CALL D2GFX_GetModeParams
+        POPAD
         RET
     }
 }
