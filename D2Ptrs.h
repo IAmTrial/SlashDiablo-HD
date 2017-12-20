@@ -117,15 +117,15 @@ D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, 0x9FA5C, 0xA4CAC);
 *   D2DDRAW.DLL POINTERS                                                        *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2DDRAW, GameWindowSizeY, DWORD, 0x101D8, -1);
+D2VAR(D2DDRAW, GameWindowSizeY, DWORD, 0x101D8, 0x100E8);
 
 /********************************************************************************
 *                                                                               *
 *   D2DIRECT3D.DLL POINTERS                                                     *
 *                                                                               *
 *********************************************************************************/
-D2VAR(D2DIRECT3D, GameWindowSizeX, DWORD, 0x1AB44, -1);
-D2VAR(D2DIRECT3D, GameWindowSizeY, DWORD, 0x1AFD4, -1);
+D2VAR(D2DIRECT3D, GameWindowSizeX, DWORD, 0x1AB44, 0x3296C);
+D2VAR(D2DIRECT3D, GameWindowSizeY, DWORD, 0x1AFD4, 0X32DFC);
 
 /********************************************************************************
 *                                                                               *
