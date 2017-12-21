@@ -25,6 +25,7 @@
 *****************************************************************************/
 
 #include "D2HDConfig.h"
+#include "D2HDColor.h"
 
 std::string Config::archiveName;
 std::string Config::configPath = "./D2HD.ini";
@@ -52,17 +53,17 @@ void Config::ReadMainSettings() {
 
     const DWORD defaultColor = 0xFFFFFFFF;
 
-    DWORD tempColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
-    LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    DWORD rgbColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
+    LeftPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
-    LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
+    LeftPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
-    RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
+    RightPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
-    RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
+    RightPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
     EnableD2MRPanelBorderStyle = GetPrivateProfileIntA(sectionName.c_str(), "Enable D2MR Border Panel Style", true, configPath.c_str());
     if (EnableD2MRPanelBorderStyle == true) {

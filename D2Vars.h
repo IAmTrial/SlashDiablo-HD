@@ -29,6 +29,7 @@
 #pragma once
 
 #include "D2Structs.h"
+#include "HD/D2HDColor.h"
 
 #ifdef _D2VARS_H
 #define VAR(Type, Name)         Type Name;
@@ -36,10 +37,10 @@
 #define VAR(Type, Name)         extern Type Name;
 #endif
 
-VAR(DWORD, LeftPanelBackgroundColor)
-VAR(DWORD, LeftPanelBorderColor)
-VAR(DWORD, RightPanelBorderColor)
-VAR(DWORD, RightPanelBackgroundColor)
+VAR(HD::D2HDColor, LeftPanelBackgroundColor)
+VAR(HD::D2HDColor, LeftPanelBorderColor)
+VAR(HD::D2HDColor, RightPanelBorderColor)
+VAR(HD::D2HDColor, RightPanelBackgroundColor)
 
 VAR(BOOL, EnableD2MRPanelBorderStyle)
 VAR(BOOL, InvertD2MRControlPanel)

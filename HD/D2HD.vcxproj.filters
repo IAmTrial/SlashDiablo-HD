@@ -72,6 +72,9 @@
     <ClInclude Include="..\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D2HDColor.h">
+      <Filter>D2HD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DLLmain.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="..\D2Version.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D2HDColor.cpp">
+      <Filter>D2HD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
