@@ -46,7 +46,7 @@ struct PointerOffset {
 //  These are the macros used by the template core to declare                                                                                                                                   ///
 //  pointers. Do not touch unless you know what you're doing                                                                                                                                    ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define OFFSET(DLL, NAME, DEFTYPE) *(&##DLL##_##NAME##_##DEFTYPE##_POINTERS.Pointer_113c + D2Version::GetGameVersionID())
+#define OFFSET(DLL, NAME, DEFTYPE) *(&##DLL##_##NAME##_##DEFTYPE##_POINTERS.Pointer_113c + ((int)D2Version::GetGameVersionID()))
 
 #define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, ...) \
     static PointerOffset DLL##_##NAME##_D2FUNC_POINTERS = { __VA_ARGS__ }; \

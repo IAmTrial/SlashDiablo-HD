@@ -29,17 +29,26 @@
 
 #include <string>
 
-enum VersionID {
-    INVALID = -1,
-    VERSION_113c = 0,
-    VERSION_113d
-};
-
 namespace D2Version {
-    extern VersionID versionID;
-    VersionID GetGameVersionID();
+    enum class GameVersionID {
+        INVALID = -1,
+        VERSION_113c = 0,
+        VERSION_113d
+    };
+
+    enum class Glide3xVersionID {
+        INVALID,
+        VERSION_14e,
+        RESURGENCE
+    };
+
+    extern GameVersionID gameVersionID;
+    extern Glide3xVersionID glide3xVersionID;
+    GameVersionID GetGameVersionID();
+    Glide3xVersionID GetGlide3xVersionID();
     void Init();
     std::string GetGameVersionString();
+    std::string GetGlide3xVersionString();
 };
 
 #endif

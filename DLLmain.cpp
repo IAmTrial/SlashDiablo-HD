@@ -38,8 +38,13 @@ void __fastcall D2TEMPLATE_FatalError(char* szMessage)
 
 BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
 {
-    if (D2Version::versionID == INVALID) {
+    if (D2Version::GetGameVersionID() == D2Version::GameVersionID::INVALID) {
         int response = MessageBoxA(nullptr, "D2HD currently does not support this version of Diablo II.", "Unsupported Game Version", MB_OK | MB_ICONSTOP);
+        exit(1);
+    }
+
+    if (D2Version::GetGlide3xVersionID() == D2Version::Glide3xVersionID::INVALID) {
+        int response = MessageBoxA(nullptr, "Glide3x.dll version not supported. Make sure to use the latest supported version.", "Unsupported Glide3x.dll Version", MB_OK | MB_ICONSTOP);
         exit(1);
     }
 
@@ -49,7 +54,7 @@ BOOL __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch)
         int nDLL = hPatch->nDLL;
         if (nDLL < 0 || nDLL >= D2DLL_INVALID) return FALSE;
 
-        int offset = *(&hPatch->stAddresses.Pointer_113c + D2Version::versionID);
+        int offset = *(&hPatch->stAddresses.Pointer_113c + ((int)D2Version::gameVersionID));
         if (!offset) return FALSE;
 
         DWORD dwBaseAddress = gptDllFiles[nDLL].dwAddress;
@@ -173,7 +178,9 @@ int __stdcall DllAttach()
     }
 #endif
 
-    D2TEMPLATE_ApplyPatch(hGame, glide3xPatches);
+    if (D2Version::GetGlide3xVersionID() == D2Version::Glide3xVersionID::VERSION_14e) {
+        D2TEMPLATE_ApplyPatch(hGame, glide3xPatches);
+    }
     D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
     D2TEMPLATE_ApplyPatch(hGame, borderPanelClickDetectionPatches);
     D2TEMPLATE_ApplyPatch(hGame, drawPatches);

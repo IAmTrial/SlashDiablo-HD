@@ -295,6 +295,11 @@ int __stdcall SetupGlideRenderResolution() {
         break;
     }
 
+    // Apply special case for /r/Diablo2Resurgence
+    if (D2Version::GetGlide3xVersionID() == D2Version::Glide3xVersionID::RESURGENCE && *D2GLIDE_ScreenSizeX == 1068 && *D2GLIDE_ScreenSizeY == 600) {
+        glideVideoMode = 0xFF;
+    }
+
     return glideVideoMode;
 }
 
