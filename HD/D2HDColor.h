@@ -1,6 +1,6 @@
 /****************************************************************************
 *                                                                           *
-*   D2HDConfig.h                                                            *
+*   D2HDColor.h                                                             *
 *   Copyright (C) 2017 Mir Drualga                                          *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,53 +17,36 @@
 *                                                                           *
 *---------------------------------------------------------------------------*
 *                                                                           *
-*   Declares functions that read and write to a configuration file.         *
-*   By default, this file is D2HD.ini.                                      *
-*                                                                           *
-*   It is here that mod-makers can modify macros to apply acceptable        *
-*   settings for their users. One such important setting specifies the      *
-*   number of custom resolutions available, including the first two         *
-*   standard resolutions.                                                   *
+*   Declares a custom class that performs conversions of Diablo II color    *
+*   representations of BGR to RGB, and vice versa.                          *
 *                                                                           *
 *****************************************************************************/
 
 #pragma once
 
-#ifndef D2HDCONFIG_H
-#define D2HDCONFIG_H
+#ifndef D2HDCOLOR_H
+#define D2HDCOLOR_H
 
 #include <Windows.h>
 #include <string>
-#include <sstream>
-#include "D2HDStructs.h"
-#include "../D2Vars.h"
 
-/*
-    Determines whether you want a separate MPQ file to be used to
-    load the HD assets. Keep it to 0 if you are having the HD
-    assets included in the Patch_D2.mpq file.
-*/
-#define USE_CUSTOM_MPQ_FILE 1
+namespace HD {
+    class D2HDColor {
+    private:
+        unsigned char red;
+        unsigned char green;
+        unsigned char blue;
+        unsigned char tint;
 
-namespace Config {
-    const DWORD MAXIMUM_WIDTH = 1344;
-    const DWORD MAXIMUM_HEIGHT = 700;
-
-    /*
-    *     Determines the number of custom resolutions available. This
-    *     includes the first two standard resolutions.
-    */
-    const DWORD NUMBER_OF_CUSTOM_RESOLUTIONS = 4;
-
-    extern std::string configPath;
-    extern std::string archiveName;
-
-    void ReadConfig();
-    void ReadMainSettings();
-    void ReadExperimentalSettings();
-
-    void __stdcall WriteRegistryResolution(int mode);
-    void __stdcall ReadRegistryResolution(int* mode);
+    public:
+        D2HDColor();
+        D2HDColor(std::string color);
+        D2HDColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char tint);
+        DWORD getBGRFormat();
+        DWORD getRGBFormat();
+        static D2HDColor createFromRGBFormat(DWORD color);
+        static D2HDColor createFromBGRFormat(DWORD color);
+    };
 }
 
 #endif

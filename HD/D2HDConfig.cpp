@@ -25,6 +25,7 @@
 *****************************************************************************/
 
 #include "D2HDConfig.h"
+#include "D2HDColor.h"
 
 std::string Config::archiveName;
 std::string Config::configPath = "./D2HD.ini";
@@ -52,17 +53,17 @@ void Config::ReadMainSettings() {
 
     const DWORD defaultColor = 0xFFFFFFFF;
 
-    DWORD tempColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
-    LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    DWORD rgbColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
+    LeftPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
-    LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
+    LeftPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
-    RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
+    RightPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
-    RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
+    RightPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
     EnableD2MRPanelBorderStyle = GetPrivateProfileIntA(sectionName.c_str(), "Enable D2MR Border Panel Style", true, configPath.c_str());
     if (EnableD2MRPanelBorderStyle == true) {
@@ -89,18 +90,24 @@ void Config::ReadMainSettings() {
         WritePrivateProfileStringA(sectionName.c_str(), "Resolution", "0", configPath.c_str());
     }
 
-    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", 1068, configPath.c_str());
-    if (CustomWidth == 1068) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", "1068", configPath.c_str());
-    } else if (CustomWidth >= 1344 || CustomWidth < 320) {
-        CustomWidth = 1344;
+    std::ostringstream customWidthText;
+    customWidthText << "Custom Width (can't be larger than " << MAXIMUM_WIDTH << ")";
+
+    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), customWidthText.str().c_str(), 0, configPath.c_str());
+    if (CustomWidth == 0) {
+        WritePrivateProfileStringA(sectionName.c_str(), customWidthText.str().c_str(), "1068", configPath.c_str());
+    } else if (CustomWidth >= MAXIMUM_WIDTH || CustomWidth < 320) {
+        CustomWidth = MAXIMUM_WIDTH;
     }
 
-    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), "Custom Height (can't be larger than 700)", 600, configPath.c_str());
+    std::ostringstream customHeightText;
+    customHeightText << "Custom Height (can't be larger than " << MAXIMUM_HEIGHT << ")";
+
+    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), customHeightText.str().c_str(), 600, configPath.c_str());
     if (CustomHeight == 600) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Height (can't be larger than 700)", "600", configPath.c_str());
-    } else if (CustomHeight >= 700 || CustomHeight < 240) {
-        CustomHeight = 700;
+        WritePrivateProfileStringA(sectionName.c_str(), customHeightText.str().c_str(), "600", configPath.c_str());
+    } else if (CustomHeight >= MAXIMUM_HEIGHT || CustomHeight < 240) {
+        CustomHeight = MAXIMUM_HEIGHT;
     }
 }
 
