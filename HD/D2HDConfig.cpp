@@ -90,18 +90,24 @@ void Config::ReadMainSettings() {
         WritePrivateProfileStringA(sectionName.c_str(), "Resolution", "0", configPath.c_str());
     }
 
-    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", 1068, configPath.c_str());
-    if (CustomWidth == 1068) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", "1068", configPath.c_str());
-    } else if (CustomWidth >= 1344 || CustomWidth < 320) {
-        CustomWidth = 1344;
+    std::ostringstream customWidthText;
+    customWidthText << "Custom Width (can't be larger than " << MAXIMUM_WIDTH << ")";
+
+    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), customWidthText.str().c_str(), 0, configPath.c_str());
+    if (CustomWidth == 0) {
+        WritePrivateProfileStringA(sectionName.c_str(), customWidthText.str().c_str(), "1068", configPath.c_str());
+    } else if (CustomWidth >= MAXIMUM_WIDTH || CustomWidth < 320) {
+        CustomWidth = MAXIMUM_WIDTH;
     }
 
-    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), "Custom Height (can't be larger than 700)", 600, configPath.c_str());
+    std::ostringstream customHeightText;
+    customHeightText << "Custom Height (can't be larger than " << MAXIMUM_HEIGHT << ")";
+
+    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), customHeightText.str().c_str(), 600, configPath.c_str());
     if (CustomHeight == 600) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Height (can't be larger than 700)", "600", configPath.c_str());
-    } else if (CustomHeight >= 700 || CustomHeight < 240) {
-        CustomHeight = 700;
+        WritePrivateProfileStringA(sectionName.c_str(), customHeightText.str().c_str(), "600", configPath.c_str());
+    } else if (CustomHeight >= MAXIMUM_HEIGHT || CustomHeight < 240) {
+        CustomHeight = MAXIMUM_HEIGHT;
     }
 }
 

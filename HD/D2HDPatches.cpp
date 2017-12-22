@@ -63,8 +63,8 @@ void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
         break;
 
     case 3:
-        *width = 1344;
-        *height = 700;
+        *width = Config::MAXIMUM_WIDTH;
+        *height = Config::MAXIMUM_HEIGHT;
         break;
 
     case 4:
@@ -165,7 +165,7 @@ void __declspec(naked) HD::SetResolutionModeOnGameStart002_Interception() {
 int __stdcall GetNewResolutionId() {
     int mode = D2GFX_GetResolutionMode();
 
-    if (mode >= NUMBER_OF_CUSTOM_RESOLUTIONS) {
+    if (mode >= Config::NUMBER_OF_CUSTOM_RESOLUTIONS) {
         mode = 0;
     } else if (mode == 0) {
         mode = 2;

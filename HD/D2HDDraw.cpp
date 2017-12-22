@@ -516,6 +516,8 @@ void UnloadCellFiles() {
     UnloadCellFile(&D2MRFancyPanelRight);
     UnloadCellFile(&D2MRFancyVerticalBar);
     UnloadCellFile(&Blank);
+    UnloadCellFile(&Resolution1068x600Text);
+    UnloadCellFile(&Resolution1344x700Text);
 }
 
 void __declspec(naked) HD::STUB_UnloadCellFiles() {

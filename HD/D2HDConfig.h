@@ -45,13 +45,16 @@
 */
 #define USE_CUSTOM_MPQ_FILE 1
 
-/*
-    Determines the number of custom resolutions available. This
-    includes the first two standard resolutions.
-*/
-#define NUMBER_OF_CUSTOM_RESOLUTIONS 4
-
 namespace Config {
+    const DWORD MAXIMUM_WIDTH = 1344;
+    const DWORD MAXIMUM_HEIGHT = 700;
+
+    /*
+    *     Determines the number of custom resolutions available. This
+    *     includes the first two standard resolutions.
+    */
+    const DWORD NUMBER_OF_CUSTOM_RESOLUTIONS = 4;
+
     extern std::string configPath;
     extern std::string archiveName;
 
