@@ -562,8 +562,24 @@ void* HD::DetermineText() {
         Blank = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\Blank", 0);
     }
 
-    if (*D2CLIENT_CurrentRegistryResolutionMode >= 3 && assetValueA == D2CLIENT_VideoOptionCellFileStart && assetValueB == 0x154) {
-        returnValue = Blank;
+    if (Resolution1068x600Text == nullptr) {
+        Resolution1068x600Text = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\1068x600", 0);
+    }
+
+    if (Resolution1344x700Text == nullptr) {
+        Resolution1344x700Text = D2WIN_LoadCellFile("data\\local\\UI\\ENG\\1344x700", 0);
+    }
+
+    if (assetValueA == D2CLIENT_VideoOptionCellFileStart && assetValueB == 0x154) {
+        if ((*D2CLIENT_ScreenSizeX == 640 && *D2CLIENT_ScreenSizeY == 480) || (*D2CLIENT_ScreenSizeX == 800 && *D2CLIENT_ScreenSizeY == 600)) {
+            returnValue = assetValueC;
+        } else if (*D2CLIENT_ScreenSizeX == 1068 && *D2CLIENT_ScreenSizeY == 600) {
+            returnValue = Resolution1068x600Text;
+        } else if (*D2CLIENT_ScreenSizeX == 1344 && *D2CLIENT_ScreenSizeY == 700) {
+            returnValue = Resolution1344x700Text;
+        } else {
+            returnValue = Blank;
+        }
     } else {
         returnValue = assetValueC;
     }
