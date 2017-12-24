@@ -46,8 +46,8 @@
 #define USE_CUSTOM_MPQ_FILE 1
 
 namespace Config {
-    const DWORD MAXIMUM_WIDTH = 1344;
-    const DWORD MAXIMUM_HEIGHT = 700;
+    const DWORD MAXIMUM_WIDTH = 1068;
+    const DWORD MAXIMUM_HEIGHT = 600;
 
     /*
     *     Determines the number of custom resolutions available. This
