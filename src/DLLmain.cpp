@@ -27,74 +27,12 @@
 #define _D2VARS_H
 
 #include "DLLmain.h"
+#include "D2Patch.h"
 #include "D2Patches.h"
 
 void __fastcall D2TEMPLATE_FatalError(const wchar_t* szMessage) {
     MessageBoxW(NULL, szMessage, L"D2Template", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
-}
-
-bool __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch) {
-    while (hPatch->nDLL != D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
-        int nReturn = 0;
-        int nDLL = (int) hPatch->nDLL;
-        if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
-            return false;
-        }
-
-        HMODULE dwBaseAddress = gptDllFiles[nDLL].dwAddress;
-        if (!dwBaseAddress) {
-            return false;
-        }
-
-        D2Offset pointers = hPatch->d2Pointer;
-        int offset = pointers.getCurrentPointer();
-
-        DWORD dwAddress;
-        if (offset < 0) {
-            dwAddress = (DWORD) GetProcAddress((HINSTANCE) dwBaseAddress,
-                    (LPSTR) -offset);
-        } else if (offset > 0) {
-            dwAddress = (DWORD) dwBaseAddress + offset;
-        } else {
-            return false;
-        }
-
-        DWORD dwData = hPatch->dwData;
-        if (hPatch->bRelative) {
-            dwData = dwData - (dwAddress + sizeof(dwData));
-        }
-
-        LPVOID hAddress = (LPVOID) dwAddress;
-        DWORD dwOldPage;
-
-        if (hPatch->nPatchSize > 0) {
-            BYTE Buffer[1024];
-
-            for (size_t i = 0; i < hPatch->nPatchSize; i++)
-                Buffer[i] = (BYTE) dwData;
-
-            VirtualProtect(hAddress, hPatch->nPatchSize, PAGE_EXECUTE_READWRITE,
-                    &dwOldPage);
-            nReturn = WriteProcessMemory(hGame, hAddress, &Buffer,
-                    hPatch->nPatchSize, 0);
-            VirtualProtect(hAddress, hPatch->nPatchSize, dwOldPage, 0);
-        } else {
-            VirtualProtect(hAddress, sizeof(dwData), PAGE_EXECUTE_READWRITE,
-                    &dwOldPage);
-            nReturn = WriteProcessMemory(hGame, hAddress, &dwData,
-                    sizeof(dwData), 0);
-            VirtualProtect(hAddress, sizeof(dwData), dwOldPage, 0);
-        }
-
-        if (nReturn == 0) {
-            return false;
-        }
-
-        hPatch++;
-    }
-
-    return true;
 }
 
 bool __fastcall D2TEMPLATE_LoadModules() {
@@ -156,7 +94,7 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    D2TEMPLATE_ApplyPatch(hGame, gptTemplatePatches);
+    D2Patch::applyPatches(gptTemplatePatches);
 
     return true;
 }

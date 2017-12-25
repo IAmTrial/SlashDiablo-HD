@@ -23,6 +23,10 @@
  *   D2Template core file, do not modify unless you know what you're doing   *
  *                                                                           *
  *****************************************************************************/
+#pragma once
+
+#ifndef _DLLMAIN_H
+#define _DLLMAIN_H
 
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_DEPRECATE
@@ -97,14 +101,6 @@ struct DLLBaseStrc {
     HMODULE dwAddress;
 };
 
-struct DLLPatchStrc {
-    D2TEMPLATE_DLL_FILES nDLL;
-    D2Pointer d2Pointer;
-    DWORD dwData;
-    BOOL bRelative;
-    size_t nPatchSize;
-};
-
 static DLLBaseStrc gptDllFiles[] = {
         { L"Binkw32.dll", nullptr },
         { L"BnClient.dll", nullptr },
@@ -130,3 +126,5 @@ static DLLBaseStrc gptDllFiles[] = {
         { L"Storm.dll", nullptr } };
 
 void __fastcall D2TEMPLATE_FatalError(const wchar_t* szMessage);
+
+#endif

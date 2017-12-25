@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patches.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2Patch.h                                                               *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,24 +17,32 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you declare all your patches, in order to inject     *
- *   your own code into the game. Each patch should be declared in the       *
- *   array, in order to be handled by D2Template's patcher                   *
+ *   This file declares the D2Patch class, which is used to for applying     *
+ *   patches for Diablo II.                                                  *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2PATCHES_H
-#define _D2PATCHES_H
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
 
 #include <vector>
-#include "D2PatchConst.h"
+#include "DLLmain.h"
 
-static const std::vector<D2Patch> gptTemplatePatches = {
+class D2Patch {
+public:
+    D2Patch();
+    D2Patch(D2TEMPLATE_DLL_FILES dllFile, D2Offset d2Offset, DWORD data, bool relative, size_t patchSize);
+    bool applyPatch();
+    static bool applyPatches(std::vector<D2Patch> patches);
+
+private:
+        D2TEMPLATE_DLL_FILES dllFile;
+        D2Offset d2Offset;
+        DWORD data;
+        bool relative;
+        size_t patchSize;
 };
 
-// end of file --------------------------------------------------------------
 #endif
