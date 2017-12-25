@@ -39,6 +39,7 @@ struct Pointers {
 
 class D2Pointer {
 public:
+    D2Pointer();
     D2Pointer(Pointers pointers);
     int getCurrentPointer();
 

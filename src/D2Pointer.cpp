@@ -26,6 +26,10 @@
 #include "D2Pointer.h"
 #include "DLLmain.h"
 
+D2Pointer::D2Pointer() {
+    // Intended to be empty.
+}
+
 D2Pointer::D2Pointer(Pointers pointers) {
     D2Pointer::pointers = pointers;
 }

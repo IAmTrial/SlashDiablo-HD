@@ -38,11 +38,7 @@ bool __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch) {
     while (hPatch->nDLL != D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
         int nReturn = 0;
         int nDLL = (int) hPatch->nDLL;
-        if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID)
-            return false;
-
-        DWORD dwAddress = hPatch->dwAddress;
-        if (!dwAddress) {
+        if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
             return false;
         }
 
@@ -51,14 +47,25 @@ bool __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch) {
             return false;
         }
 
-        dwAddress += (DWORD) dwBaseAddress;
+        D2Pointer pointers = hPatch->d2Pointer;
+        int offset = pointers.getCurrentPointer();
+
+        DWORD dwAddress;
+        if (offset < 0) {
+            dwAddress = (DWORD) GetProcAddress((HINSTANCE) dwBaseAddress,
+                    (LPSTR) -offset);
+        } else if (offset > 0) {
+            dwAddress = (DWORD) dwBaseAddress + offset;
+        } else {
+            return false;
+        }
 
         DWORD dwData = hPatch->dwData;
         if (hPatch->bRelative) {
             dwData = dwData - (dwAddress + sizeof(dwData));
         }
 
-        void* hAddress = (void*) dwAddress;
+        LPVOID hAddress = (LPVOID) dwAddress;
         DWORD dwOldPage;
 
         if (hPatch->nPatchSize > 0) {
