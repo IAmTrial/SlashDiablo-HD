@@ -27,7 +27,7 @@
 #define _D2VARS_H
 
 #include "DLLmain.h"
-#include "D2Patch.h"
+#include "D2Patches.h"
 
 void __fastcall D2TEMPLATE_FatalError(const wchar_t* szMessage) {
     MessageBoxW(NULL, szMessage, L"D2Template", MB_OK | MB_ICONERROR);

@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patch.h                                                               *
+ *   D2Patches.h                                                             *
  *   Copyright (C) Olivier Verville                                          *
  *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
  *                                                                           *
@@ -28,8 +28,8 @@
 
 #pragma once
 
-#ifndef _D2PATCH_H
-#define _D2PATCH_H
+#ifndef _D2PATCHES_H
+#define _D2PATCHES_H
 
 #include "D2PatchConst.h"
 
