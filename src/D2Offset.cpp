@@ -30,6 +30,10 @@ D2Offset::D2Offset() :
         D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, { }) {
 }
 
+D2Offset::D2Offset(Offsets offsets) :
+        D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, offsets) {
+}
+
 D2Offset::D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets) {
     D2Offset::dllFile = dllFile;
     D2Offset::offsets = offsets;

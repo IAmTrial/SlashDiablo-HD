@@ -68,33 +68,6 @@ static const DWORD DLLBASE_SMACKW32 = (DWORD) LoadLibraryW(L"SmackW32.dll");
 
 #include "TemplateIncludes.h"
 
-enum class D2TEMPLATE_DLL_FILES
-    : int {
-        D2DLL_BINKW32,
-    D2DLL_BNCLIENT,
-    D2DLL_D2CLIENT,
-    D2DLL_D2CMP,
-    D2DLL_D2COMMON,
-    D2DLL_D2DDRAW,
-    D2DLL_D2DIRECT3D,
-    D2DLL_D2GAME,
-    D2DLL_D2GDI,
-    D2DLL_D2GFX,
-    D2DLL_D2GLIDE,
-    D2DLL_D2LANG,
-    D2DLL_D2LAUNCH,
-    D2DLL_D2MCPCLIENT,
-    D2DLL_D2MULTI,
-    D2DLL_D2NET,
-    D2DLL_D2SOUND,
-    D2DLL_D2WIN,
-    D2DLL_FOG,
-    D2DLL_IJL11,
-    D2DLL_SMACKW32,
-    D2DLL_STORM,
-    D2DLL_INVALID
-};
-
 struct DLLBaseStrc {
     const wchar_t* szName;
     HMODULE dwAddress;
