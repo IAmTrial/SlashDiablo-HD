@@ -27,6 +27,8 @@
 #ifndef _D2OFFSET_H
 #define _D2OFFSET_H
 
+#include "DLLmain.h"
+
 struct Offsets {
     int _107, _108;
     int _109, _109b, _109c, _109d;
@@ -40,10 +42,12 @@ struct Offsets {
 class D2Offset {
 public:
     D2Offset();
-    D2Offset(Offsets offsets);
+    D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets);
     int getCurrentOffset();
+    DWORD getCurrentAddress();
 
 private:
+    D2TEMPLATE_DLL_FILES dllFile;
     Offsets offsets;
 };
 

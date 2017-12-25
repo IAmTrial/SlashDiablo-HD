@@ -29,16 +29,16 @@
 
 #include <vector>
 #include "DLLmain.h"
+#include "D2Offset.h"
 
 class D2Patch {
 public:
     D2Patch();
-    D2Patch(D2TEMPLATE_DLL_FILES dllFile, D2Offset d2Offset, DWORD data, bool relative, size_t patchSize);
+    D2Patch(D2Offset d2Offset, DWORD data, bool relative, size_t patchSize);
     bool applyPatch();
     static bool applyPatches(std::vector<D2Patch> patches);
 
 private:
-        D2TEMPLATE_DLL_FILES dllFile;
         D2Offset d2Offset;
         DWORD data;
         bool relative;

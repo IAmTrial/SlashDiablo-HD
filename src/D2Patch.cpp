@@ -24,13 +24,12 @@
 
 #include "D2Patch.h"
 
-D2Patch::D2Patch() : D2Patch(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, D2Offset(), 0, false, 0) {
+D2Patch::D2Patch() : D2Patch(D2Offset(), 0, false, 0) {
 }
 
-D2Patch::D2Patch(D2TEMPLATE_DLL_FILES dllFile, D2Offset d2Offset, DWORD data,
+D2Patch::D2Patch(D2Offset d2Offset, DWORD data,
         bool relative, size_t patchSize)
         {
-    D2Patch::dllFile = dllFile;
     D2Patch::d2Offset = d2Offset;
     D2Patch::data = data;
     D2Patch::relative = relative;
@@ -40,25 +39,9 @@ D2Patch::D2Patch(D2TEMPLATE_DLL_FILES dllFile, D2Offset d2Offset, DWORD data,
 bool D2Patch::applyPatch() {
     HANDLE gameHandle = GetCurrentProcess();
     int nReturn = 0;
-    int nDLL = (int) dllFile;
-    if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
-        return false;
-    }
 
-    HMODULE dwBaseAddress = gptDllFiles[nDLL].dwAddress;
-    if (!dwBaseAddress) {
-        return false;
-    }
-
-    int offset = d2Offset.getCurrentOffset();
-
-    DWORD dwAddress;
-    if (offset < 0) {
-        dwAddress = (DWORD) GetProcAddress((HINSTANCE) dwBaseAddress,
-                (LPSTR) -offset);
-    } else if (offset > 0) {
-        dwAddress = (DWORD) dwBaseAddress + offset;
-    } else {
+    DWORD dwAddress = d2Offset.getCurrentAddress();
+    if (dwAddress == 0) {
         return false;
     }
 

@@ -26,14 +26,41 @@
 #include "D2Offset.h"
 #include "DLLmain.h"
 
-D2Offset::D2Offset() {
-    // Intended to be empty.
+D2Offset::D2Offset() :
+        D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, { }) {
 }
 
-D2Offset::D2Offset(Offsets offsets) {
+D2Offset::D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets) {
+    D2Offset::dllFile = dllFile;
     D2Offset::offsets = offsets;
 }
 
 int D2Offset::getCurrentOffset() {
     return *(&offsets._107 + (int) D2Version::getGameVersionID());
+}
+
+DWORD D2Offset::getCurrentAddress() {
+    int nDLL = (int) dllFile;
+    if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
+        return 0;
+    }
+
+    HMODULE baseAddress = gptDllFiles[nDLL].dwAddress;
+    if (!baseAddress) {
+        return 0;
+    }
+
+    int offset = getCurrentOffset();
+
+    DWORD address;
+    if (offset < 0) {
+        address = (DWORD) GetProcAddress((HINSTANCE) baseAddress,
+                (LPSTR) -offset);
+    } else if (offset > 0) {
+        address = (DWORD) baseAddress + offset;
+    } else {
+        return 0;
+    }
+
+    return address;
 }
