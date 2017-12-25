@@ -59,7 +59,7 @@ static const DWORD DLLBASE_SMACKW32 = (DWORD) LoadLibraryA("SmackW32.dll");
 #include "D2Version.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
-#include "D2Pointer.h"
+#include "D2Offset.h"
 #include "D2Ptrs.h"
 #include "D2Vars.h"
 

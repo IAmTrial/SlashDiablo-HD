@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Pointer.h                                                             *
+ *   D2Offset.h                                                              *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,17 +17,17 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used when defining pointer information for Diablo II while *
+ *   This file is used when defining offset information for Diablo II while  *
  *   allowing flexible ports to multiple versions.                           *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2POINTER_H
-#define _D2POINTER_H
+#ifndef _D2OFFSET_H
+#define _D2OFFSET_H
 
-struct Pointers {
+struct Offsets {
     int _107, _108;
     int _109, _109b, _109c, _109d;
     int _110;
@@ -37,14 +37,14 @@ struct Pointers {
     int _114a, _114b, _114c, _114d;
 };
 
-class D2Pointer {
+class D2Offset {
 public:
-    D2Pointer();
-    D2Pointer(Pointers pointers);
-    int getCurrentPointer();
+    D2Offset();
+    D2Offset(Offsets offsets);
+    int getCurrentOffset();
 
 private:
-    Pointers pointers;
+    Offsets offsets;
 };
 
 #endif

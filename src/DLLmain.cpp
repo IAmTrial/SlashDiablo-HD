@@ -47,7 +47,7 @@ bool __fastcall D2TEMPLATE_ApplyPatch(void* hGame, const DLLPatchStrc* hPatch) {
             return false;
         }
 
-        D2Pointer pointers = hPatch->d2Pointer;
+        D2Offset pointers = hPatch->d2Pointer;
         int offset = pointers.getCurrentPointer();
 
         DWORD dwAddress;

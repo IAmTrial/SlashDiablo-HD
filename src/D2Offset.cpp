@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Pointer.cpp                                                           *
+ *   D2Offset.cpp                                                            *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -18,22 +18,22 @@
  *---------------------------------------------------------------------------*
  *                                                                           *
  *   This file defines the functions that correctly manages returning the    *
- *   correct pointer for the requested Diablo II variable, function, or      *
+ *   correct offset for the requested Diablo II variable, function, or       *
  *   pointer.                                                                *
  *                                                                           *
  *****************************************************************************/
 
-#include "D2Pointer.h"
+#include "D2Offset.h"
 #include "DLLmain.h"
 
-D2Pointer::D2Pointer() {
+D2Offset::D2Offset() {
     // Intended to be empty.
 }
 
-D2Pointer::D2Pointer(Pointers pointers) {
-    D2Pointer::pointers = pointers;
+D2Offset::D2Offset(Offsets offsets) {
+    D2Offset::offsets = offsets;
 }
 
-int D2Pointer::getCurrentPointer() {
-    return *(&pointers._107 + (int) D2Version::getGameVersionID());
+int D2Offset::getCurrentOffset() {
+    return *(&offsets._107 + (int) D2Version::getGameVersionID());
 }
