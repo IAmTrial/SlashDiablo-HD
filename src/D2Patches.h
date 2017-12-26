@@ -33,6 +33,7 @@
 
 #include <vector>
 #include "D2PatchConst.h"
+#include "DLLmain.h"
 
 static const std::vector<D2Patch> gptTemplatePatches = {
 };

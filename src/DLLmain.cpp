@@ -30,7 +30,7 @@
 #include "D2Patch.h"
 #include "D2Patches.h"
 
- DLLBaseStrc gptDllFiles[] = {
+DLLBaseStrc gptDllFiles[] = {
         { L"Binkw32.dll", nullptr },
         { L"BnClient.dll", nullptr },
         { L"D2Client.dll", nullptr },

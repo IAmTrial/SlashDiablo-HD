@@ -28,7 +28,6 @@
 #define _D2PATCH_H
 
 #include <vector>
-#include "DLLmain.h"
 #include "D2Offset.h"
 
 class D2Patch {
@@ -39,10 +38,10 @@ public:
     static bool applyPatches(std::vector<D2Patch> patches);
 
 private:
-        D2Offset d2Offset;
-        DWORD data;
-        bool relative;
-        size_t patchSize;
+    D2Offset d2Offset;
+    DWORD data;
+    bool relative;
+    size_t patchSize;
 };
 
 #endif

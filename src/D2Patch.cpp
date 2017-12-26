@@ -24,12 +24,12 @@
 
 #include "D2Patch.h"
 
-D2Patch::D2Patch() : D2Patch(D2Offset(), 0, false, 0) {
+D2Patch::D2Patch() :
+        D2Patch(D2Offset(), 0, false, 0) {
 }
 
-D2Patch::D2Patch(D2Offset d2Offset, DWORD data,
-        bool relative, size_t patchSize)
-        {
+D2Patch::D2Patch(D2Offset d2Offset, DWORD data, bool relative,
+        size_t patchSize) {
     D2Patch::d2Offset = d2Offset;
     D2Patch::data = data;
     D2Patch::relative = relative;
