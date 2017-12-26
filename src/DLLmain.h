@@ -69,7 +69,7 @@ static const DWORD DLLBASE_SMACKW32 = (DWORD) LoadLibraryW(L"SmackW32.dll");
 #include "TemplateIncludes.h"
 
 struct DLLBaseStrc {
-    const wchar_t* szName;
+    LPCWSTR wszName;
     HMODULE dwAddress;
 };
 
@@ -97,6 +97,6 @@ static DLLBaseStrc gptDllFiles[] = {
         { L"SmackW32.dll", nullptr },
         { L"Storm.dll", nullptr } };
 
-void __fastcall D2TEMPLATE_FatalError(const wchar_t* szMessage);
+void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
 
 #endif

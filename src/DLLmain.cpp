@@ -30,8 +30,8 @@
 #include "D2Patch.h"
 #include "D2Patches.h"
 
-void __fastcall D2TEMPLATE_FatalError(const wchar_t* szMessage) {
-    MessageBoxW(NULL, szMessage, L"D2Template", MB_OK | MB_ICONERROR);
+void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
+    MessageBoxW(NULL, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
 }
 
@@ -39,9 +39,9 @@ bool __fastcall D2TEMPLATE_LoadModules() {
     for (int i = 0; i < (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID; i++) {
         DLLBaseStrc* hDllFile = &gptDllFiles[i];
 
-        HMODULE hModule = GetModuleHandleW(hDllFile->szName);
+        HMODULE hModule = GetModuleHandleW(hDllFile->wszName);
         if (!hModule) {
-            hModule = LoadLibraryW(hDllFile->szName);
+            hModule = LoadLibraryW(hDllFile->wszName);
         }
 
         hDllFile->dwAddress = hModule;
@@ -51,7 +51,7 @@ bool __fastcall D2TEMPLATE_LoadModules() {
 }
 
 bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
-    void* hToken;
+    HANDLE hToken;
     LUID luid;
     TOKEN_PRIVILEGES tokenPrivileges;
 
@@ -83,7 +83,7 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
 bool __stdcall DllAttach() {
     D2TEMPLATE_GetDebugPrivilege();
 
-    void* hGame = GetCurrentProcess();
+   HANDLE hGame = GetCurrentProcess();
     if (!hGame) {
         D2TEMPLATE_FatalError(L"Failed to retrieve process");
         return false;
@@ -99,7 +99,7 @@ bool __stdcall DllAttach() {
     return true;
 }
 
-BOOL __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, void* lpReserved) {
+BOOL __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved) {
     switch (dwReason) {
     case DLL_PROCESS_ATTACH: {
         if (!DllAttach())
