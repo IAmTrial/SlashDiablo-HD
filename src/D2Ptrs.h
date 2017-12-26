@@ -52,7 +52,6 @@
     static D2Offset DLL##_##NAME##_PTR_OFFSET OFFSETS; \
     static DWORD NAME = (DLLBASE_##DLL + DLL##_##NAME##_PTR_OFFSET.getCurrentOffset());
 
-
 /********************************************************************************
  *                                                                               *
  *   D2GAME.DLL POINTERS                                                         *
@@ -64,6 +63,14 @@
  *   D2CLIENT.DLL POINTERS                                                       *
  *                                                                               *
  *********************************************************************************/
+D2VAR(D2CLIENT, ScreenSizeX, int, ( { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48,
+        0xF7034, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, ScreenSizeY, int, ( { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C,
+        0xF7038, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOffsetX, int, ( { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0,
+        0x11D354, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOffsetY, int, ( { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4,
+        0x11D358, 0, 0, 0, 0 }));
 
 /********************************************************************************
  *                                                                               *

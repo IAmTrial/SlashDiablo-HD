@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patches.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2HDPatchesInterception.S                                               *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,32 +17,18 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
+ *   Defines interception functions with low-level x86 code to safely allow  *
+ *   modifying Diablo II's internal code.                                    *
  *                                                                           *
- *   This file is where you declare all your patches, in order to inject     *
- *   your own code into the game. Each patch should be declared in the       *
- *   array, in order to be handled by D2Template's patcher                   *
+ *   Used by GCC as a replacement for __declaspec(naked).                    *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
+.intel_syntax
+.global _repositionPanelsInterception
 
-#ifndef _D2PATCHES_H
-#define _D2PATCHES_H
-
-#include <vector>
-#include "D2PatchConst.h"
-#include "DLLmain.h"
-
-static const std::vector<D2Patch> gptTemplatePatches = {
-        // Panel Positioning Fix
-        D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6 }), PATCH_NOPBLOCK, false, 39),
-        D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6 }), PATCH_CALL, false, 0),
-        D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0xC39F6 + 1, 0x1D3F6 + 1 }),
-                (DWORD) D2HD::repositionPanelsInterception, true, 0) };
-
-// end of file --------------------------------------------------------------
-#endif
+_repositionPanelsInterception:
+    pushad
+    call _repositionPanels
+    popad
+    ret

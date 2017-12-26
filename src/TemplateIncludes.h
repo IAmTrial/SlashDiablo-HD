@@ -27,9 +27,7 @@
 #ifndef _TEMPLATEINCLUDES_H
 #define _TEMPLATEINCLUDES_H
 
-//#include "MyOwnSourceHeader1.h"
-//#include "MyOwnSourceHeader2.h"
-//#include "MyOwnSourceHeader3.h"
+#include "D2HD/D2HDPatches.h"
 
 // end of file --------------------------------------------------------------
 #endif
