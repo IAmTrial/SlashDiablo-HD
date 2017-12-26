@@ -23,10 +23,10 @@
  *****************************************************************************/
 
 #include "D2Version.h"
-#include <Windows.h>
+#include <windows.h>
 #include <sstream>
 
-// #pragma comment(lib,"Version.lib")
+#pragma comment(lib,"Version.lib")
 
 D2Version::GameVersionID D2Version::gameVersionID =
         D2Version::GameVersionID::INVALID;

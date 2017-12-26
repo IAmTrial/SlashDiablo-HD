@@ -28,7 +28,7 @@
 #define _D2VERSION_H
 
 #include <string>
-#include <Windows.h>
+#include <windows.h>
 
 namespace D2Version {
 enum class GameVersionID

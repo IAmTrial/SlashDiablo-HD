@@ -73,29 +73,7 @@ struct DLLBaseStrc {
     HMODULE dwAddress;
 };
 
-static DLLBaseStrc gptDllFiles[] = {
-        { L"Binkw32.dll", nullptr },
-        { L"BnClient.dll", nullptr },
-        { L"D2Client.dll", nullptr },
-        { L"D2CMP.dll", nullptr },
-        { L"D2Common.dll", nullptr },
-        { L"D2DDraw.dll", nullptr },
-        { L"D2Direct3D.dll", nullptr },
-        { L"D2Game.dll", nullptr },
-        { L"D2Gdi.dll", nullptr },
-        { L"D2Gfx.dll", nullptr },
-        { L"D2Glide.dll", nullptr },
-        { L"D2Lang.dll", nullptr },
-        { L"D2Launch.dll", nullptr },
-        { L"D2MCPClient.dll", nullptr },
-        { L"D2Multi.dll", nullptr },
-        { L"D2Net.dll", nullptr },
-        { L"D2Sound.dll", nullptr },
-        { L"D2Win.dll", nullptr },
-        { L"Fog.dll", nullptr },
-        { L"Ijl11.dll", nullptr },
-        { L"SmackW32.dll", nullptr },
-        { L"Storm.dll", nullptr } };
+extern DLLBaseStrc gptDllFiles[];
 
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
 
