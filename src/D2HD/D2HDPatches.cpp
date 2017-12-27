@@ -1,31 +1,31 @@
-/****************************************************************************
-*                                                                           *
-*   D2HDPatches.cpp                                                         *
-*   Copyright (C) 2017 Mir Drualga                                          *
-*                                                                           *
-*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
-*                                                                           *
-*   Licensed under the Apache License, Version 2.0 (the "License");         *
-*   you may not use this file except in compliance with the License.        *
-*   You may obtain a copy of the License at                                 *
-*                                                                           *
-*   http://www.apache.org/licenses/LICENSE-2.0                              *
-*                                                                           *
-*   Unless required by applicable law or agreed to in writing, software     *
-*   distributed under the License is distributed on an "AS IS" BASIS,       *
-*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
-*   See the License for the specific language governing permissions and     *
-*   limitations under the License.                                          *
-*                                                                           *
-*---------------------------------------------------------------------------*
-*                                                                           *
-*   Defines functions that are intended to replace instruction code in the  *
-*   Diablo II game process.                                                 *
-*                                                                           *
-*   These functions cannot be called without a proper corresponding         *
-*   interception function.                                                  *
-*                                                                           *
-*****************************************************************************/
+/*****************************************************************************
+ *                                                                           *
+ *   D2HDPatches.cpp                                                         *
+ *   Copyright (C) 2017 Mir Drualga                                          *
+ *                                                                           *
+ *   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+ *                                                                           *
+ *   Licensed under the Apache License, Version 2.0 (the "License");         *
+ *   you may not use this file except in compliance with the License.        *
+ *   You may obtain a copy of the License at                                 *
+ *                                                                           *
+ *   http://www.apache.org/licenses/LICENSE-2.0                              *
+ *                                                                           *
+ *   Unless required by applicable law or agreed to in writing, software     *
+ *   distributed under the License is distributed on an "AS IS" BASIS,       *
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
+ *   See the License for the specific language governing permissions and     *
+ *   limitations under the License.                                          *
+ *                                                                           *
+ *---------------------------------------------------------------------------*
+ *                                                                           *
+ *   Defines functions that are intended to replace instruction code in the  *
+ *   Diablo II game process.                                                 *
+ *                                                                           *
+ *   These functions cannot be called without a proper corresponding         *
+ *   interception function.                                                  *
+ *                                                                           *
+ *****************************************************************************/
 
 #include "D2HDPatches.h"
 #include "../DLLmain.h"
@@ -33,4 +33,8 @@
 void D2HD::repositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
     *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
+}
+
+void __stdcall D2HD::getPatchedResolutionMode(int* resolutionMode) {
+    *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }

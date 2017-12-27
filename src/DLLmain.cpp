@@ -118,7 +118,7 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    D2Patch::applyPatches(gptTemplatePatches);
+    D2Patch::applyPatches(generalHDPatches);
 
     return true;
 }

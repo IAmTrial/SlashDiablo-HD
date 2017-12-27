@@ -35,7 +35,7 @@
 #include "D2PatchConst.h"
 #include "DLLmain.h"
 
-static const std::vector<D2Patch> gptTemplatePatches = {
+static const std::vector<D2Patch> generalHDPatches = {
         // Panel Positioning Fix
         D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6 }), PATCH_NOPBLOCK, false, 39),
@@ -43,7 +43,18 @@ static const std::vector<D2Patch> gptTemplatePatches = {
                 0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6 }), PATCH_CALL, false, 0),
         D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0xC39F6 + 1, 0x1D3F6 + 1 }),
-                (DWORD) D2HD::repositionPanelsInterception, true, 0) };
+                (DWORD) D2HD::repositionPanelsInterception, true, 0),
+
+        // Fix border panel click detection issue for HD mode.
+        // Left panel click block
+        D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0xBCB30 + 1, 0xBF2D0 + 1 }),
+                (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+        // Right panel click block
+        D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0x8F880 + 1, 0x94820 + 1 }),
+                (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0) };
 
 // end of file --------------------------------------------------------------
 #endif

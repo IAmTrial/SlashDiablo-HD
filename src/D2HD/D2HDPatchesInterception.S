@@ -20,15 +20,27 @@
  *   Defines interception functions with low-level x86 code to safely allow  *
  *   modifying Diablo II's internal code.                                    *
  *                                                                           *
- *   Used by GCC as a replacement for __declaspec(naked).                    *
+ *   Used by GCC as a replacement for __declspec(naked).                    *
  *                                                                           *
  *****************************************************************************/
 
 .intel_syntax
 .global _repositionPanelsInterception
+.global _getPatchedResolutionModeInterception
 
 _repositionPanelsInterception:
     pushad
     call _repositionPanels
     popad
+    ret
+
+_getPatchedResolutionModeInterception:
+    sub esp, 4
+    lea eax, [esp]
+    pushad
+    push eax
+    call _getPatchedResolutionMode@4
+    popad
+    mov eax, [eax]
+    add esp, 4
     ret
