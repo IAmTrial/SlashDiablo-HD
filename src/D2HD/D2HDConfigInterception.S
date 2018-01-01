@@ -35,7 +35,7 @@ _getConfigResolutionInterception@4:
     call _getConfigResolution@4
     popad
     pop eax
-    ret
+    ret 4
 
 _setConfigResolutionInterception@4:
     push eax
@@ -45,4 +45,4 @@ _setConfigResolutionInterception@4:
     call _setConfigResolution@4
     popad
     pop eax
-    ret
+    ret 4
