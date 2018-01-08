@@ -28,7 +28,52 @@
  *****************************************************************************/
 
 #include "D2HDPatches.h"
+
 #include "../DLLmain.h"
+
+void D2HD::getModeParams(int mode, int* width, int* height) {
+    switch (mode) {
+    case 0: {
+        *width = 640;
+        *height = 480;
+        break;
+    }
+
+    case 1:
+    case 2: {
+        *width = 800;
+        *height = 600;
+        break;
+    }
+
+    case 3: {
+        *width = 856;
+        *height = 480;
+        break;
+    }
+
+    case 4: {
+        *width = D2HD::Config::MAXIMUM_WIDTH;
+        *height = D2HD::Config::MAXIMUM_HEIGHT;
+        break;
+    }
+
+    case 5: {
+        *width = D2HD::Config::customWidth;
+        *height = D2HD::Config::customHeight;
+        break;
+    }
+
+    default: {
+        *width = 640;
+        *height = 480;
+        MessageBoxW(nullptr,
+                    L"It appears that you have specified a custom resolution, but you haven't defined its width and height.",
+                    L"Missing Definition Case", MB_OK | MB_ICONSTOP);
+        std::exit(0);
+    }
+    }
+}
 
 void D2HD::repositionPanels() {
     *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
@@ -36,5 +81,37 @@ void D2HD::repositionPanels() {
 }
 
 void __stdcall D2HD::getPatchedResolutionMode(int* resolutionMode) {
-    *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
+    *resolutionMode = 2;
+    // Old code. Not sure if always setting to 2 has side effects for 640x480.
+    // *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
+}
+
+void __stdcall D2HD::resizeGameLogicResolution(int mode) {
+    D2HD::getModeParams(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
+    *D2CLIENT_InventoryArrangeMode = mode;
+}
+
+void __stdcall D2HD::setResolutionMode(int* gameResolution, int configResolution) {
+    if (configResolution == 1) {
+        *gameResolution = 2;
+    } else {
+        *gameResolution = configResolution;
+    }
+}
+
+void __stdcall D2HD::setResolutionModeFromMenu(int* mode) {
+    int currentMode = D2GFX_GetResolutionMode();
+
+    if (currentMode == 0) {
+        *mode = 2;
+    } else if (currentMode > 4) { /*TODO TEMPORARY VALUE PLEASE REMOVE */
+        *mode = 0;
+    } else {
+        *mode = currentMode + 1;
+    }
+}
+
+void __stdcall D2HD::setGDIForegroundRenderWidth(int mode) {
+    int discarded = 0;
+    D2HD::getModeParams(mode, D2GDI_ForegroundRenderWidth, &discarded);
 }

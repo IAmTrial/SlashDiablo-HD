@@ -33,11 +33,28 @@
 
 namespace D2HD {
 extern "C" {
-void repositionPanels();
-void repositionPanelsInterception();
+    void __stdcall getModeParams(int mode, int* width, int* height);
 
-void __stdcall getPatchedResolutionMode(int* resolutionMode);
-void getPatchedResolutionModeInterception();
+    void repositionPanels();
+    void repositionPanelsInterception();
+
+    void __stdcall getPatchedResolutionMode(int* resolutionMode);
+    void getPatchedResolutionModeInterception();
+
+    void __stdcall resizeGameLogicResolution(int mode);
+    void resizeGameLogicResolutionInterception();
+
+    void __stdcall setResolutionMode(int* gameResolution, int configResolution);
+    void setResolutionModeEAXInterception();
+    void setResolutionModeEDIInterception();
+
+    void __stdcall setResolutionModeFromMenu(int* mode);
+    void setResolutionModeFromMenuInterception();
+
+    void setGDIRenderResolutionInterception();
+
+    void __stdcall setGDIForegroundRenderWidth(int mode);
+    void setGDIForegroundRenderWidthInterception();
 }
 }
 

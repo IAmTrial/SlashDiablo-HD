@@ -20,13 +20,19 @@
  *   Defines interception functions with low-level x86 code to safely allow  *
  *   modifying Diablo II's internal code.                                    *
  *                                                                           *
- *   Used by GCC as a replacement for __declspec(naked).                    *
+ *   Used by GCC as a replacement for __declspec(naked).                     *
  *                                                                           *
  *****************************************************************************/
 
 .intel_syntax
 .global _repositionPanelsInterception
 .global _getPatchedResolutionModeInterception
+.global _resizeGameLogicResolutionInterception
+.global _setResolutionModeEAXInterception
+.global _setResolutionModeEDIInterception
+.global _setResolutionModeFromMenuInterception
+.global _setGDIRenderResolutionInterception
+.global _setGDIForegroundRenderWidthInterception
 
 _repositionPanelsInterception:
     pushad
@@ -36,11 +42,72 @@ _repositionPanelsInterception:
 
 _getPatchedResolutionModeInterception:
     sub esp, 4
-    lea eax, [esp]
+    lea eax, dword ptr [esp]
     pushad
     push eax
     call _getPatchedResolutionMode@4
     popad
-    mov eax, [eax]
+    mov eax, dword ptr [eax]
     add esp, 4
+    ret
+
+_resizeGameLogicResolutionInterception:
+    pushad
+    push esi
+    call _resizeGameLogicResolution@4
+    popad
+    ret
+
+_setResolutionModeEAXInterception:
+    sub esp, 4
+    lea esi, dword ptr [esp]
+    pushad
+    push eax
+    push esi
+    call _setResolutionMode@8
+    popad
+    mov esi, dword ptr [esi]
+    add esp, 4
+    ret
+
+_setResolutionModeEDIInterception:
+    sub esp, 4
+    lea esi, dword ptr [esp]
+    pushad
+    push edi
+    push esi
+    call _setResolutionMode@8
+    popad
+    mov esi, dword ptr [esi]
+    add esp, 4
+    ret
+
+_setResolutionModeFromMenuInterception:
+    pushad
+    lea ecx, dword ptr [ecx + 0x124]
+    push ecx
+    call _setResolutionModeFromMenu@4
+    popad
+    ret
+
+_setGDIRenderResolutionInterception:
+    sub esp, 8
+    lea esi, dword ptr [esp]
+    lea edx, dword ptr [esp + 4]
+    pushad
+    push edx
+    push esi
+    push eax
+    call _getModeParams@12
+    popad
+    mov esi, dword ptr [esi]
+    mov edx, dword ptr [edx]
+    add esp, 8
+    ret
+
+_setGDIForegroundRenderWidthInterception:
+    pushad
+    push esi
+    call _setGDIForegroundRenderWidth@4
+    popad
     ret

@@ -118,7 +118,8 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    D2Patch::applyPatches(generalHDPatches);
+    D2HD::Config::readConfig();
+    D2Patch::applyPatches(requiredHDPatches);
 
     return true;
 }
