@@ -83,7 +83,7 @@ void readMainSettings() {
     D2HD::Config::leftPanelBorderColor = readColor(
             D2HD::Config::MAIN_SETTING_SECTION_NAME, L"Left Panel Border Color");
     D2HD::Config::rightPanelBorderColor = readColor(
-            D2HD::Config::MAIN_SETTING_SECTION_NAME, L"Left Panel Border Color");
+            D2HD::Config::MAIN_SETTING_SECTION_NAME, L"Right Panel Border Color");
     D2HD::Config::rightPanelBackgroundColor = readColor(
                 D2HD::Config::MAIN_SETTING_SECTION_NAME, L"Right Panel Background Color");
 
@@ -141,7 +141,7 @@ bool readBool(std::wstring sectionName, std::wstring keyName,
                                        std::regex_constants::ECMAScript | std::regex_constants::icase);
 
     GetPrivateProfileStringW(sectionName.c_str(), keyName.c_str(),
-                             defaultString.c_str(), privateProfileStringBuffer,
+                             nullptr, privateProfileStringBuffer,
                              MAX_PATH, D2HD::Config::CONFIG_PATH.c_str());
     std::wstring privateProfileString(privateProfileStringBuffer);
 
@@ -162,7 +162,7 @@ unsigned int readUnsignedInt(std::wstring sectionName, std::wstring keyName,
     std::wregex VALID_UNSIGNED_INT_REGEX(L"[0-9]+");
 
     GetPrivateProfileStringW(sectionName.c_str(), keyName.c_str(),
-                             std::to_wstring(defaultValue).c_str(), privateProfileStringBuffer,
+                             nullptr, privateProfileStringBuffer,
                              MAX_PATH, D2HD::Config::CONFIG_PATH.c_str());
 
     std::wstring privateProfileString(privateProfileStringBuffer);
@@ -181,7 +181,7 @@ int readInt(std::wstring sectionName, std::wstring keyName, int defaultValue) {
     std::wregex VALID_INT_REGEX(L"-?[0-9]+");
 
     GetPrivateProfileStringW(sectionName.c_str(), keyName.c_str(),
-                             std::to_wstring(defaultValue).c_str(), privateProfileStringBuffer,
+                             nullptr, privateProfileStringBuffer,
                              MAX_PATH, D2HD::Config::CONFIG_PATH.c_str());
 
     std::wstring privateProfileString(privateProfileStringBuffer);

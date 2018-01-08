@@ -29,7 +29,7 @@
 
 _getConfigResolutionInterception@4:
     push eax
-    lea eax, dword ptr [esp + 8]
+    mov eax, dword ptr [esp + 8]
     pushad
     push eax
     call _getConfigResolution@4
@@ -39,7 +39,7 @@ _getConfigResolutionInterception@4:
 
 _setConfigResolutionInterception@4:
     push eax
-    lea eax, dword ptr [esp + 8]
+    mov eax, dword ptr [esp + 8]
     pushad
     push eax
     call _setConfigResolution@4
