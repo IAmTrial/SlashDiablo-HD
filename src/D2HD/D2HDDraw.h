@@ -9,7 +9,6 @@ namespace D2HD {
 namespace Draw {
     extern HANDLE d2mrArchive;
     extern CellFile* blankCellFile;
-    extern CellFile* d2mrStoneBack;
     extern CellFile* d2mrFancyBorderBottom;
     extern CellFile* d2mrFancyBorderCorner;
     extern CellFile* d2mrFancyBorderInterfaceLeft;
@@ -22,11 +21,12 @@ namespace Draw {
     extern CellFile* d2mrFancyPanelLeft;
     extern CellFile* d2mrFancyPanelRight;
     extern CellFile* d2mrFancyVerticalBar;
+    extern CellFile* d2mrStoneBack;
     extern CellFile* resolution1068x600Text;
     extern CellFile* resolution1344x700Text;
 
 extern "C" {
-    void __stdcall determineVideoOptionText(struct CellFile** outCellFile, unsigned int baseAddress, unsigned int offset, struct CellFile* defaultCellFile);
+    void __stdcall determineVideoOptionText(struct CellFile** outCellFile, void* baseAddress, unsigned int offset, struct CellFile* defaultCellFile);
     void determineVideoOptionTextInterception();
 }
 }

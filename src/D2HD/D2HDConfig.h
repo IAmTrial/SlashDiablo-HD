@@ -42,6 +42,7 @@ namespace D2HD {
 namespace Config {
 const std::wstring CONFIG_PATH = L"./SlashDiablo-HD.ini";
 const std::wstring MAIN_SETTING_SECTION_NAME = L"Settings";
+const std::string DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
 
 const unsigned int DEFAULT_RESOLUTION_MODE = 3;
 
