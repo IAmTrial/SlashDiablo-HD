@@ -30,6 +30,7 @@
 #include "D2HD/D2HDConfig.h"
 #include "D2HD/D2HDPatches.h"
 #include "D2HD/D2HDDraw.h"
+#include "D2HD/D2HDInventory.h"
 
 // end of file --------------------------------------------------------------
 #endif

@@ -57,6 +57,28 @@ struct CellContext      //sizeof 0x48
     int dw4;    // 0x44
 };
 
+struct InventorySize // sizeof 0x10
+{
+    DWORD dwLeft;		//0x00
+    DWORD dwRight;		//0x04
+    DWORD dwTop;		//0x08
+    DWORD dwBottom;		//0x0C
+};
+
+struct InventoryGrid // sizeof 0x18
+{
+    BYTE nGridX;		//0x00
+    BYTE nGridY;		//0x01
+    WORD _align;		//0x02
+    DWORD dwLeft;		//0x04
+    DWORD dwRight;		//0x08
+    DWORD dwTop;		//0x0C
+    DWORD dwBottom;		//0x10
+    BYTE nGridWidth;	//0x14
+    BYTE nGridHeight;	//0x15
+    WORD _align2;		//0x16
+};
+
 // end of file --------------------------------------------------------------
 #pragma pack()
 #endif

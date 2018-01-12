@@ -284,5 +284,63 @@ static const std::vector<D2Patch> requiredDrawPatches = {
     }), (DWORD) D2HD::Draw::unloadCellFilesInterception, true, 0),
 };
 
+// Patches inventory positions to be in the correct location. Credits to D2Ex.
+static const std::vector<D2Patch> inventoryPatches = {
+    // D2Common.Ordinal10333
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x13340, 0x70780
+    }), PATCH_NOPBLOCK, false, 7),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x13340, 0x70780
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x13340 + 1, 0x70780 + 1
+    }), (DWORD) D2HD::Inventory::getBeltPos, true, 0),
+
+    // D2Common.Ordinal10991
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x132A0, 0x706A0
+    }), PATCH_NOPBLOCK, false, 10),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x132A0, 0x706A0
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x132A0 + 1, 0x706A0 + 1
+    }), (DWORD) D2HD::Inventory::getBeltsTxtRecord, true, 0),
+
+    // D2Common.Ordinal11012
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x82030, 0x6BFB0
+    }), PATCH_NOPBLOCK, false, 8),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x82030, 0x6BFB0
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x82030 + 1, 0x6BFB0 + 1
+    }), (DWORD) D2HD::Inventory::getInventorySize, true, 0),
+
+    // D2Common.Ordinal10760
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81FB0, 0x6BF30
+    }), PATCH_NOPBLOCK, false, 8),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81FB0, 0x6BF30
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81FB0 + 1, 0x6BF30 + 1
+    }), (DWORD) D2HD::Inventory::getInventoryGrid, true, 0),
+
+    // D2Common.Ordinal10701
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81F20, 0x6BEA0
+    }), PATCH_NOPBLOCK, false, 8),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81F20, 0x6BEA0
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81F20 + 1, 0x6BEA0 + 1
+    }), (DWORD) D2HD::Inventory::getInventoryField, true, 0)
+};
+
 // end of file --------------------------------------------------------------
 #endif

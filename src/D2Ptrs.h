@@ -85,6 +85,7 @@ D2FUNC(D2CMP, FreeCellFile, bool, __stdcall, (CellFile* pCellFile), (D2TEMPLATE_
  *   D2COMMON.DLL POINTERS                                                       *
  *                                                                               *
  *********************************************************************************/
+D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, (D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x9FA5C, 0xA4CAC, 0, 0, 0, 0 }));
 
 /********************************************************************************
  *                                                                               *
