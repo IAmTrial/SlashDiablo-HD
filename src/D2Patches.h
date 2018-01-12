@@ -281,7 +281,92 @@ static const std::vector<D2Patch> requiredDrawPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x26E1C + 1, 0x6CF0C + 1
-    }), (DWORD) D2HD::Draw::unloadCellFilesInterception, true, 0),
+    }), (DWORD) D2HD::Draw::unloadCellFilesInterception, true, 0)
+};
+
+static const std::vector<D2Patch> controlPanel800Patches = {
+    // Unknown
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x506AF + 1, 0x211DF + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill button animation click detection
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x506C9 + 1, 0x211F9 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Unknown
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x5075F + 1, 0x2128F + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Stat button animation click detection
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x5077D + 1, 0x212AD + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Unknown
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50810 + 1, 0x21340 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill button click detection
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x5082E + 1, 0x2135E + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Unknown
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50B70 + 1, 0x216A0 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Stat button click detection
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50B8E + 1, 0x216BE + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Control panel to 800 control panel.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x272A2 + 1, 0x6D392 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Stats button fix (greyed out)
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50103 + 1, 0x21093 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Stats level up button fix
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50447 + 1, 0x20E67 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x504EC + 1, 0x20F0C + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50563 + 1, 0x20F83 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x505C8 + 1, 0x20FE8 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill button fix (greyed out)
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50023 + 1, 0x20DA3 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill level up button fix
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50207 + 1, 0x20B77 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x502A5 + 1, 0x20C15 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x5031C + 1, 0x20C8C + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x50380 + 1, 0x20CF0 + 1
+    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0)
 };
 
 // Patches inventory positions to be in the correct location. Credits to D2Ex.

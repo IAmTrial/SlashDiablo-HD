@@ -95,6 +95,10 @@ bool __stdcall DllAttach() {
     D2Patch::applyPatches(requiredDrawPatches);
     D2Patch::applyPatches(inventoryPatches);
 
+    if (D2HD::Config::enable800ControlPanel) {
+        D2Patch::applyPatches(controlPanel800Patches);
+    }
+
     return true;
 }
 
