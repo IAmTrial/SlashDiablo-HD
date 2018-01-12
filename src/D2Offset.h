@@ -56,6 +56,13 @@ enum class D2TEMPLATE_DLL_FILES
     D2DLL_INVALID
 };
 
+struct DLLBaseStrc {
+    LPCWSTR wszName;
+    HMODULE dwAddress;
+};
+
+extern DLLBaseStrc gptDllFiles[];
+
 struct Offsets {
     int _107, _108;
     int _109, _109b, _109c, _109d;
@@ -69,10 +76,11 @@ struct Offsets {
 class D2Offset {
 public:
     D2Offset();
-    D2Offset(Offsets offsets);
     D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets);
     int getCurrentOffset();
     DWORD getCurrentAddress();
+
+    static bool loadModules();
 
 private:
     D2TEMPLATE_DLL_FILES dllFile;

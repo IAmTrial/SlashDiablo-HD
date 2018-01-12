@@ -15,7 +15,7 @@ _determineVideoOptionTextInterception:
     push edx
     call _determineVideoOptionText@16
     popad
-    mov ecx, [edx]
+    mov ecx, dword ptr [edx]
     add esp, 4
     pop edx
     ret

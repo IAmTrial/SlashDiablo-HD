@@ -35,7 +35,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+/*
 static const DWORD DLLBASE_BNCLIENT = (DWORD) LoadLibraryW(L"Bnclient.dll");
 static const DWORD DLLBASE_D2CLIENT = (DWORD) LoadLibraryW(L"D2Client.dll");
 static const DWORD DLLBASE_D2CMP = (DWORD) LoadLibraryW(L"D2CMP.dll");
@@ -58,22 +58,16 @@ static const DWORD DLLBASE_FOG = (DWORD) LoadLibraryW(L"Fog.dll");
 static const DWORD DLLBASE_STORM = (DWORD) LoadLibraryW(L"Storm.dll");
 static const DWORD DLLBASE_IJL11 = (DWORD) LoadLibraryW(L"ijl11.dll");
 static const DWORD DLLBASE_BINKW32 = (DWORD) LoadLibraryW(L"binkw32.dll");
-static const DWORD DLLBASE_SMACKW32 = (DWORD) LoadLibraryW(L"SmackW32.dll");
+static const DWORD DLLBASE_SMACKW32 = (DWORD) LoadLibraryW(L"SmackW32.dll");*/
 
 #include "D2Version.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Stubs.h"
 #include "D2Ptrs.h"
 #include "D2Vars.h"
 
 #include "TemplateIncludes.h"
-
-struct DLLBaseStrc {
-    LPCWSTR wszName;
-    HMODULE dwAddress;
-};
-
-extern DLLBaseStrc gptDllFiles[];
 
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
 

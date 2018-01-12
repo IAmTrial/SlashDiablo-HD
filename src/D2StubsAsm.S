@@ -1,6 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   TemplateIncludes.h                                                      *
+ *   D2StubsAsm.S                                                            *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -16,20 +17,21 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you include new headers in your codebase             *
+ *   Defines the x86 functions that are used to help call functions in       *
+ *   Diablo II that do not conform to standard calling conventions.          *
  *                                                                           *
  *****************************************************************************/
+.intel_syntax
 
-#pragma once
+.global _loadMPQStub@28
 
-#ifndef _TEMPLATEINCLUDES_H
-#define _TEMPLATEINCLUDES_H
+_loadMPQStub@28:
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    mov eax, dword ptr [esp + 0x18]
+    call dword ptr [esp + 0x30]
+    ret 0x1C
 
-#include "D2HD/D2HDConfig.h"
-#include "D2HD/D2HDPatches.h"
-#include "D2HD/D2HDDraw.h"
-
-// end of file --------------------------------------------------------------
-#endif

@@ -1,6 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   TemplateIncludes.h                                                      *
+ *   D2Stubs.cpp                                                             *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -16,20 +17,17 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you include new headers in your codebase             *
+ *    Defines the functions that are used to help call functions in          *
+ *    Diablo II that do not conform to standard calling conventions.         *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
+#include "D2Stubs.h"
 
-#ifndef _TEMPLATEINCLUDES_H
-#define _TEMPLATEINCLUDES_H
+extern "C" {
+HANDLE __stdcall loadMPQStub(DWORD OrderFlag, const char* szDllFile, const char* szMpqFile, const char* szName, DWORD _1, BOOL(__stdcall *fnMPQMissing)(), DWORD func);
+}
 
-#include "D2HD/D2HDConfig.h"
-#include "D2HD/D2HDPatches.h"
-#include "D2HD/D2HDDraw.h"
-
-// end of file --------------------------------------------------------------
-#endif
+HANDLE loadMPQ(DWORD OrderFlag, const char* szDllFile, const char* szMpqFile, const char* szName, DWORD _1, BOOL(__stdcall *fnMPQMissing)()) {
+    return loadMPQStub(OrderFlag, szDllFile, szMpqFile, szName, _1, fnMPQMissing, D2WIN_LoadMpq_I);
+}

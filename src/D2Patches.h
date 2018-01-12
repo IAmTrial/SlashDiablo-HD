@@ -168,7 +168,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     // Increase Number of Resolutions in Video Options
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x662C4, 0xC4564
-    }), PATCH_NOPBLOCK, false, 0x662BC - 0x662AA),
+    }), PATCH_NOPBLOCK, false, 0x662CC - 0x662C4),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x662C4, 0xC4564
     }), PATCH_CALL, false, 0),
@@ -185,7 +185,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x653FF + 1, 0xC369F + 1
-    }), (DWORD) /*D2HD::STUB_DetermineText*/0, true, 0),
+    }), (DWORD) D2HD::Draw::determineVideoOptionTextInterception, true, 0),
 
     // Modify the value of the registry resolution ID
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
