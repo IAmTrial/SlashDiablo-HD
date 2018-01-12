@@ -92,6 +92,7 @@ bool __stdcall DllAttach() {
 
     D2HD::Config::readConfig();
     D2Patch::applyPatches(requiredHDPatches);
+    D2Patch::applyPatches(requiredDrawPatches);
 
     return true;
 }

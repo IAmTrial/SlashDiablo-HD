@@ -28,6 +28,22 @@ namespace Draw {
 extern "C" {
     void __stdcall determineVideoOptionText(struct CellFile** outCellFile, void* baseAddress, unsigned int offset, struct CellFile* defaultCellFile);
     void determineVideoOptionTextInterception();
+
+    void drawPanelBackground();
+    void drawPanelBackgroundInterception();
+    void drawLeftPanelBackground();
+    void drawLeftPanelBorders();
+    void drawRightPanelBackground();
+    void drawRightPanelBorders();
+    void drawLeftPanelBorders();
+    void drawRightPanelBorders();
+
+    void drawControlPanel();
+    void drawControlPanelInterception();
+
+    void unloadCellFile(CellFile** cellFile);
+    void __stdcall unloadCellFiles(CellFile** orignal);
+    void unloadCellFilesInterception();
 }
 }
 }

@@ -244,5 +244,45 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), std::numeric_limits<int>::max(), false, 0),
 };
 
+static const std::vector<D2Patch> requiredDrawPatches = {
+    // Disable Blizzard's UI Panel Borders
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x271C0, 0x6D2B0
+    }), PATCH_NOPBLOCK, false, 0x271C6 - 0x271C0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x271CB, 0x6D2BB
+    }), PATCH_NOPBLOCK, false, 0x2728A - 0x271CA),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x270D0, 0x6D1C0
+    }), PATCH_NOPBLOCK, false, 0x271B1 - 0x270D0),
+
+    // Draw background and Redraw UI Panel Border Fix
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xBF361, 0x190B1
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xBF361 + 1, 0x190B1 + 1
+    }), (DWORD) D2HD::Draw::drawPanelBackgroundInterception, true, 0),
+
+    // Draw bottom control panel
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x272A7, 0x6D397
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x272A7 + 1, 0x6D397 + 1
+    }), (DWORD) D2HD::Draw::drawControlPanelInterception, true, 0),
+
+    // Unload additional resources when game exits
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x26E1C, 0x6CF0C
+    }), PATCH_NOPBLOCK, false, 6),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x26E1C, 0x6CF0C
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x26E1C + 1, 0x6CF0C + 1
+    }), (DWORD) D2HD::Draw::unloadCellFilesInterception, true, 0),
+};
+
 // end of file --------------------------------------------------------------
 #endif

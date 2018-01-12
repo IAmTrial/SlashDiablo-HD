@@ -65,11 +65,20 @@
  *********************************************************************************/
 D2VAR(D2CLIENT, ScreenSizeX, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0 }));
 D2VAR(D2CLIENT, ScreenSizeY, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11A77C, 0x103B14, 0, 0, 0, 0 }));
 D2VAR(D2CLIENT, PanelOffsetX, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0, 0x11D354, 0, 0, 0, 0 }));
 D2VAR(D2CLIENT, PanelOffsetY, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4, 0x11D358, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOpenMode, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11C414, 0x11D070, 0, 0, 0, 0 }));
 D2VAR(D2CLIENT, InventoryArrangeMode, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B99C, 0x11D2B4, 0, 0, 0, 0 }));
 
 D2VAR(D2CLIENT, VideoOptionCellFileStart, void*, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xEA568, 0xE48D0, 0, 0, 0, 0 }));
+
+/********************************************************************************
+*                                                                               *
+*   D2CMP.DLL POINTERS                                                          *
+*                                                                               *
+*********************************************************************************/
+D2FUNC(D2CMP, FreeCellFile, bool, __stdcall, (CellFile* pCellFile), (D2TEMPLATE_DLL_FILES::D2DLL_D2CMP, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10065, -10020, 0, 0, 0, 0 })); // Called at D2Client.dll+26E1C,8022E
 
 /********************************************************************************
  *                                                                               *
@@ -90,6 +99,7 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2GDI, { 0
 *                                                                               *
 *********************************************************************************/
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10031, -10012, 0, 0, 0, 0 }));
+D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, unsigned int color, int nTransTbl, unsigned char* pPalette), (D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10041, -10042, 0, 0, 0, 0 }));
 
 /********************************************************************************
 *                                                                               *
@@ -98,6 +108,13 @@ D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (D2TEMPLATE_DLL_FILES::D2DL
 *********************************************************************************/
 D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), (D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10111, -10023, 0, 0, 0, 0 }));
 D2PTR(D2WIN, LoadMpq_I, (D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7E60, 0x7E50, 0, 0, 0, 0 }));
+
+/********************************************************************************
+*                                                                               *
+*   FOG.DLL POINTERS                                                            *
+*                                                                               *
+*********************************************************************************/
+D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), (D2TEMPLATE_DLL_FILES::D2DLL_FOG, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10043, -10043, 0, 0, 0, 0 }));
 
 // end of file -----------------------------------------------------------------
 #endif
