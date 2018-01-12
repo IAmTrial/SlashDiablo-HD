@@ -3,7 +3,7 @@
 * https://github.com/lolet/D2Ex2
 * ==========================================================
 * Copyright (c) 2011-2014 Bartosz Jankowski
-* /r/SlashDiablo HD Modifications: Copyright (c) 2017 Mir Drualga
+* SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
