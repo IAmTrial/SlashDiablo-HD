@@ -26,17 +26,33 @@
 #include "D2Offset.h"
 #include "DLLmain.h"
 
-D2Offset::D2Offset() :
-        D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, { }) {
-}
+std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles = {
+    { D2TEMPLATE_DLL_FILES::D2DLL_BINKW32, { L"Binkw32.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_BNCLIENT, { L"BnClient.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { L"D2Client.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2CMP, { L"D2CMP.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, { L"D2Common.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, { L"D2DDraw.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2DIRECT3D, { L"D2Direct3D.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2GAME, { L"D2Game.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2GDI, { L"D2Gdi.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, { L"D2Gfx.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE, { L"D2Glide.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2LANG, { L"D2Lang.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2LAUNCH, { L"D2Launch.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2MCPCLIENT, { L"D2MCPClient.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2MULTI, { L"D2Multi.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2NET, { L"D2Net.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2SOUND, { L"D2Sound.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, { L"D2Win.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_FOG, { L"Fog.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_IJL11, { L"Ijl11.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_SMACKW32, { L"SmackW32.dll", nullptr }},
+    { D2TEMPLATE_DLL_FILES::D2DLL_STORM, { L"Storm.dll", nullptr }}
+};
 
-D2Offset::D2Offset(Offsets offsets) :
-        D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_INVALID, offsets) {
-}
-
-D2Offset::D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets) {
-    D2Offset::dllFile = dllFile;
-    D2Offset::offsets = offsets;
+D2Offset::D2Offset(D2TEMPLATE_DLL_FILES dllFile,
+                   Offsets offsets) : dllFile(dllFile), offsets(offsets) {
 }
 
 int D2Offset::getCurrentOffset() {
@@ -44,22 +60,28 @@ int D2Offset::getCurrentOffset() {
 }
 
 DWORD D2Offset::getCurrentAddress() {
-    int nDLL = (int) dllFile;
-    if (nDLL < 0 || nDLL >= (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID) {
-        return 0;
-    }
+    HMODULE baseAddress = dllFiles.at(dllFile).dwAddress;
 
-    HMODULE baseAddress = gptDllFiles[nDLL].dwAddress;
-    if (!baseAddress) {
-        return 0;
+    if (baseAddress == nullptr) {
+        if (!D2Offset::loadModules()) {
+            D2TEMPLATE_FatalError(L"Failed to load modules");
+            return 0;
+        }
+
+        baseAddress = dllFiles.at(dllFile).dwAddress;
+
+        if (baseAddress == nullptr) {
+            return 0;
+        }
     }
 
     int offset = getCurrentOffset();
 
     DWORD address;
+
     if (offset < 0) {
         address = (DWORD) GetProcAddress((HINSTANCE) baseAddress,
-                (LPSTR) -offset);
+                                         (LPSTR) - offset);
     } else if (offset > 0) {
         address = (DWORD) baseAddress + offset;
     } else {
@@ -67,4 +89,18 @@ DWORD D2Offset::getCurrentAddress() {
     }
 
     return address;
+}
+
+bool D2Offset::loadModules() {
+    for (auto& dllFile : dllFiles) {
+        HMODULE hModule = GetModuleHandleW(dllFile.second.wszName);
+
+        if (!hModule) {
+            hModule = LoadLibraryW(dllFile.second.wszName);
+        }
+
+        dllFile.second.dwAddress = hModule;
+    }
+
+    return true;
 }

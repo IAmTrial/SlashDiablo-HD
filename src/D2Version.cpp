@@ -28,12 +28,9 @@
 
 #pragma comment(lib,"Version.lib")
 
-D2Version::GameVersionID D2Version::gameVersionID =
-        D2Version::GameVersionID::INVALID;
-D2Version::Glide3xVersionID D2Version::glide3xVersionID =
-        D2Version::Glide3xVersionID::INVALID;
-
 D2Version::GameVersionID D2Version::getGameVersionID() {
+    static GameVersionID gameVersionID = GameVersionID::INVALID;
+
     if (gameVersionID == GameVersionID::INVALID) {
         std::string gameVersion = determineVersionString(L"Game.exe");
 
@@ -77,6 +74,8 @@ D2Version::GameVersionID D2Version::getGameVersionID() {
 }
 
 D2Version::Glide3xVersionID D2Version::getGlide3xVersionID() {
+    static Glide3xVersionID glide3xVersionID = Glide3xVersionID::INVALID;
+
     if (glide3xVersionID == Glide3xVersionID::INVALID) {
         std::string glide3xVersion = determineVersionString(L"glide3x.dll");
 

@@ -50,13 +50,10 @@ enum class Glide3xVersionID {
     RESURGENCE
 };
 
-extern GameVersionID gameVersionID;
-extern Glide3xVersionID glide3xVersionID;
 GameVersionID getGameVersionID();
 Glide3xVersionID getGlide3xVersionID();
 void Init();
 std::string determineVersionString(LPCWSTR szVersionFile);
 }
-;
 
 #endif

@@ -30,48 +30,9 @@
 #include "D2Patch.h"
 #include "D2Patches.h"
 
-DLLBaseStrc gptDllFiles[] = {
-        { L"Binkw32.dll", nullptr },
-        { L"BnClient.dll", nullptr },
-        { L"D2Client.dll", nullptr },
-        { L"D2CMP.dll", nullptr },
-        { L"D2Common.dll", nullptr },
-        { L"D2DDraw.dll", nullptr },
-        { L"D2Direct3D.dll", nullptr },
-        { L"D2Game.dll", nullptr },
-        { L"D2Gdi.dll", nullptr },
-        { L"D2Gfx.dll", nullptr },
-        { L"D2Glide.dll", nullptr },
-        { L"D2Lang.dll", nullptr },
-        { L"D2Launch.dll", nullptr },
-        { L"D2MCPClient.dll", nullptr },
-        { L"D2Multi.dll", nullptr },
-        { L"D2Net.dll", nullptr },
-        { L"D2Sound.dll", nullptr },
-        { L"D2Win.dll", nullptr },
-        { L"Fog.dll", nullptr },
-        { L"Ijl11.dll", nullptr },
-        { L"SmackW32.dll", nullptr },
-        { L"Storm.dll", nullptr } };
-
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
-    MessageBoxW(NULL, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
+    MessageBoxW(nullptr, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
-}
-
-bool __fastcall D2TEMPLATE_LoadModules() {
-    for (int i = 0; i < (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID; i++) {
-        DLLBaseStrc* hDllFile = &gptDllFiles[i];
-
-        HMODULE hModule = GetModuleHandleW(hDllFile->wszName);
-        if (!hModule) {
-            hModule = LoadLibraryW(hDllFile->wszName);
-        }
-
-        hDllFile->dwAddress = hModule;
-    }
-
-    return true;
 }
 
 bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
@@ -93,8 +54,9 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
     tokenPrivileges.PrivilegeCount = 1;
     tokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     tokenPrivileges.Privileges[0].Luid = luid;
+
     if (AdjustTokenPrivileges(hToken, 0, &tokenPrivileges,
-            sizeof(tokenPrivileges), 0, 0) == 0) {
+                              sizeof(tokenPrivileges), 0, 0) == 0) {
         D2TEMPLATE_FatalError(L"AdjustTokenPrivileges Failed");
         CloseHandle(hToken);
         return false;
@@ -107,14 +69,10 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
 bool __stdcall DllAttach() {
     D2TEMPLATE_GetDebugPrivilege();
 
-   HANDLE hGame = GetCurrentProcess();
+    HANDLE hGame = GetCurrentProcess();
+
     if (!hGame) {
         D2TEMPLATE_FatalError(L"Failed to retrieve process");
-        return false;
-    }
-
-    if (!D2TEMPLATE_LoadModules()) {
-        D2TEMPLATE_FatalError(L"Failed to load modules");
         return false;
     }
 
@@ -128,6 +86,7 @@ BOOL __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved) {
     case DLL_PROCESS_ATTACH: {
         if (!DllAttach())
             D2TEMPLATE_FatalError(L"Couldn't attach to Diablo II");
+
         break;
     }
     }
