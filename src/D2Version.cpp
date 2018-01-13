@@ -70,7 +70,15 @@ D2Version::GameVersionID D2Version::getGameVersionID() {
             gameVersionID = GameVersionID::INVALID;
         }
     }
+
     return gameVersionID;
+}
+
+bool D2Version::isGameVersion114Plus() {
+    return getGameVersionID() == GameVersionID::VERSION_114a
+           || getGameVersionID() == GameVersionID::VERSION_114b
+           || getGameVersionID() == GameVersionID::VERSION_114c
+           || getGameVersionID() == GameVersionID::VERSION_114d;
 }
 
 D2Version::Glide3xVersionID D2Version::getGlide3xVersionID() {
@@ -87,6 +95,7 @@ D2Version::Glide3xVersionID D2Version::getGlide3xVersionID() {
             glide3xVersionID = Glide3xVersionID::INVALID;
         }
     }
+
     return glide3xVersionID;
 }
 
@@ -103,9 +112,10 @@ std::string D2Version::determineVersionString(LPCWSTR szVersionFile) {
         WCHAR verData[verSize];
 
         if (GetFileVersionInfoW(szVersionFile, verHandle, verSize, verData)) {
-            if (VerQueryValueW(verData, L"\\", (VOID FAR* FAR*)&lpBuffer, &size)) {
+            if (VerQueryValueW(verData, L"\\", (VOID FAR * FAR*)&lpBuffer, &size)) {
                 if (size) {
-                    VS_FIXEDFILEINFO *verInfo = (VS_FIXEDFILEINFO *)lpBuffer;
+                    VS_FIXEDFILEINFO* verInfo = (VS_FIXEDFILEINFO*)lpBuffer;
+
                     if (verInfo->dwSignature == 0xfeef04bd) {
                         // Doesn't matter if you are on 32 bit or 64 bit,
                         // DWORD is always 32 bits, so first two revision numbers
@@ -123,5 +133,6 @@ std::string D2Version::determineVersionString(LPCWSTR szVersionFile) {
             }
         }
     }
+
     return returnValue;
 }

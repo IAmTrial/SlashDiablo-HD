@@ -71,8 +71,6 @@ struct DLLBaseStrc {
     HMODULE dwAddress;
 };
 
-extern std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
-
 class D2Offset {
 public:
     D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets);
@@ -83,6 +81,7 @@ private:
     D2TEMPLATE_DLL_FILES dllFile;
     Offsets offsets;
 
+    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
     static bool loadModules();
 };
 

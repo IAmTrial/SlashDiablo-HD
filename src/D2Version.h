@@ -51,8 +51,8 @@ enum class Glide3xVersionID {
 };
 
 GameVersionID getGameVersionID();
+bool isGameVersion114Plus();
 Glide3xVersionID getGlide3xVersionID();
-void Init();
 std::string determineVersionString(LPCWSTR szVersionFile);
 }
 
