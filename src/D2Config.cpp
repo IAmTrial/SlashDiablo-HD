@@ -26,7 +26,6 @@
 #include "D2Config.h"
 
 #include <regex>
-
 #include <windows.h>
 
 const std::wstring D2Config::CONFIG_PATH  = L"./SlashDiablo-Tools.ini";

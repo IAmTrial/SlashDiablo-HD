@@ -33,7 +33,7 @@
 namespace D2Version {
 enum class GameVersionID
     : int {
-        INVALID = -1,
+    INVALID = -1,
     VERSION_107 = 0,
     VERSION_108,
     VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
@@ -45,7 +45,7 @@ enum class GameVersionID
 };
 
 enum class Glide3xVersionID {
-    INVALID,
+    INVALID = -1,
     VERSION_14e,
     RESURGENCE
 };

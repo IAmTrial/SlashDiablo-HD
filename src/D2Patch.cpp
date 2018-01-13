@@ -24,12 +24,12 @@
 
 #include "D2Patch.h"
 
-D2Patch::D2Patch(const D2Offset d2Offset, const DWORD data, const bool relative,
+D2Patch::D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative,
                  size_t patchSize) : d2Offset(d2Offset), data(data), relative(relative),
     patchSize(patchSize) {
 }
 
-bool D2Patch::applyPatch() {
+bool D2Patch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
     int nReturn = 0;
 
@@ -73,10 +73,10 @@ bool D2Patch::applyPatch() {
     return true;
 }
 
-bool D2Patch::applyPatches(std::vector<D2Patch> patches) {
+bool D2Patch::applyPatches(const std::vector<D2Patch>& patches) {
     bool returnValue = true;
 
-    for (auto& patch : patches) {
+    for (const auto& patch : patches) {
         returnValue = returnValue && patch.applyPatch();
     }
 
