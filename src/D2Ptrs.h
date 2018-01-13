@@ -1,6 +1,8 @@
 /*****************************************************************************
  *                                                                           *
  *   D2Ptrs.h                                                                *
+ *   Copyright (C) Olivier Verville                                          *
+ *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -38,84 +40,86 @@
 //  These are the macros used by the template core to declare                                                                                                                                   ///
 //  pointers. Do not touch unless you know what you're doing                                                                                                                                    ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define ESCAPE_PARENTHESES(...) __VA_ARGS__
+
 #define D2FUNC(DLL, NAME, RETURN, CONV, ARGS, OFFSETS) \
     typedef RETURN (CONV * DLL##_##NAME##_t) ARGS; \
-    static D2Offset DLL##_##NAME##_FUNC_OFFSET OFFSETS; \
+    static D2Offset DLL##_##NAME##_FUNC_OFFSET (D2TEMPLATE_DLL_FILES::D2DLL_##DLL, ESCAPE_PARENTHESES OFFSETS); \
     static DLL##_##NAME##_t DLL##_##NAME = (DLL##_##NAME##_t)(DLL##_##NAME##_FUNC_OFFSET.getCurrentAddress());
 
 #define D2VAR(DLL, NAME, TYPE, OFFSETS) \
     typedef TYPE DLL##_##NAME##_vt; \
-    static D2Offset DLL##_##NAME##_VAR_OFFSET OFFSETS; \
+    static D2Offset DLL##_##NAME##_VAR_OFFSET (D2TEMPLATE_DLL_FILES::D2DLL_##DLL, ESCAPE_PARENTHESES OFFSETS); \
     static DLL##_##NAME##_vt * DLL##_##NAME = (DLL##_##NAME##_vt *)(DLL##_##NAME##_VAR_OFFSET.getCurrentAddress());
 
 #define D2PTR(DLL, NAME, OFFSETS) \
-    static D2Offset DLL##_##NAME##_PTR_OFFSET OFFSETS; \
+    static D2Offset DLL##_##NAME##_PTR_OFFSET (D2TEMPLATE_DLL_FILES::D2DLL_##DLL, ESCAPE_PARENTHESES OFFSETS); \
     static DWORD DLL##_##NAME = (DLL##_##NAME##_PTR_OFFSET.getCurrentAddress());
 
-/********************************************************************************
+/*********************************************************************************
  *                                                                               *
  *   D2GAME.DLL POINTERS                                                         *
  *                                                                               *
  *********************************************************************************/
 
-/********************************************************************************
+/*********************************************************************************
  *                                                                               *
  *   D2CLIENT.DLL POINTERS                                                       *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2CLIENT, ScreenSizeX, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, ScreenSizeY, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11A77C, 0x103B14, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, PanelOffsetX, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0, 0x11D354, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, PanelOffsetY, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4, 0x11D358, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, PanelOpenMode, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11C414, 0x11D070, 0, 0, 0, 0 }));
-D2VAR(D2CLIENT, InventoryArrangeMode, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B99C, 0x11D2B4, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, ScreenSizeX, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, ScreenSizeY, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelBorderImage, CellFile*, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11A77C, 0x103B14, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOffsetX, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0, 0x11D354, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOffsetY, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4, 0x11D358, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, PanelOpenMode, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11C414, 0x11D070, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, InventoryArrangeMode, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B99C, 0x11D2B4, 0, 0, 0, 0 }));
 
-D2VAR(D2CLIENT, VideoOptionCellFileStart, void*, (D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xEA568, 0xE48D0, 0, 0, 0, 0 }));
+D2VAR(D2CLIENT, VideoOptionCellFileStart, void*, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xEA568, 0xE48D0, 0, 0, 0, 0 }));
 
-/********************************************************************************
-*                                                                               *
-*   D2CMP.DLL POINTERS                                                          *
-*                                                                               *
-*********************************************************************************/
-D2FUNC(D2CMP, FreeCellFile, bool, __stdcall, (CellFile* pCellFile), (D2TEMPLATE_DLL_FILES::D2DLL_D2CMP, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10065, -10020, 0, 0, 0, 0 })); // Called at D2Client.dll+26E1C,8022E
+/*********************************************************************************
+ *                                                                               *
+ *   D2CMP.DLL POINTERS                                                          *
+ *                                                                               *
+ *********************************************************************************/
+D2FUNC(D2CMP, FreeCellFile, bool, __stdcall, (CellFile* pCellFile), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10065, -10020, 0, 0, 0, 0 })); // Called at D2Client.dll+26E1C,8022E
 
-/********************************************************************************
+/*********************************************************************************
  *                                                                               *
  *   D2COMMON.DLL POINTERS                                                       *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, (D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x9FA5C, 0xA4CAC, 0, 0, 0, 0 }));
+D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x9FA5C, 0xA4CAC, 0, 0, 0, 0 }));
 
-/********************************************************************************
+/*********************************************************************************
  *                                                                               *
  *   D2GDI.DLL POINTERS                                                          *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2GDI, ForegroundRenderWidth, int, (D2TEMPLATE_DLL_FILES::D2DLL_D2GDI, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA9C, 0xCA98, 0, 0, 0, 0 }));
+D2VAR(D2GDI, ForegroundRenderWidth, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA9C, 0xCA98, 0, 0, 0, 0 }));
 
-/********************************************************************************
-*                                                                               *
-*   D2GFX.DLL POINTERS                                                          *
-*                                                                               *
-*********************************************************************************/
-D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10031, -10012, 0, 0, 0, 0 }));
-D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, unsigned int color, int nTransTbl, unsigned char* pPalette), (D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10041, -10042, 0, 0, 0, 0 }));
+/*********************************************************************************
+ *                                                                               *
+ *   D2GFX.DLL POINTERS                                                          *
+ *                                                                               *
+ *********************************************************************************/
+D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10031, -10012, 0, 0, 0, 0 }));
+D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, unsigned int color, int nTransTbl, unsigned char* pPalette), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10041, -10042, 0, 0, 0, 0 }));
 
-/********************************************************************************
-*                                                                               *
-*   D2WIN.DLL POINTERS                                                          *
-*                                                                               *
-*********************************************************************************/
-D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), (D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10111, -10023, 0, 0, 0, 0 }));
-D2PTR(D2WIN, LoadMpq_I, (D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7E60, 0x7E50, 0, 0, 0, 0 }));
+/*********************************************************************************
+ *                                                                               *
+ *   D2WIN.DLL POINTERS                                                          *
+ *                                                                               *
+ *********************************************************************************/
+D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10111, -10023, 0, 0, 0, 0 }));
+D2PTR(D2WIN, LoadMpq_I, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7E60, 0x7E50, 0, 0, 0, 0 }));
 
-/********************************************************************************
-*                                                                               *
-*   FOG.DLL POINTERS                                                            *
-*                                                                               *
-*********************************************************************************/
-D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), (D2TEMPLATE_DLL_FILES::D2DLL_FOG, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10043, -10043, 0, 0, 0, 0 }));
+/*********************************************************************************
+ *                                                                               *
+ *   FOG.DLL POINTERS                                                            *
+ *                                                                               *
+ *********************************************************************************/
+D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10043, -10043, 0, 0, 0, 0 }));
 
 // end of file -----------------------------------------------------------------
 #endif

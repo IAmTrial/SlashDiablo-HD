@@ -32,7 +32,6 @@
 
 class D2Patch {
 public:
-    D2Patch();
     D2Patch(D2Offset d2Offset, DWORD data, bool relative, size_t patchSize);
     bool applyPatch();
     static bool applyPatches(std::vector<D2Patch> patches);

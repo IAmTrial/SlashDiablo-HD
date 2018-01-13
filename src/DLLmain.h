@@ -30,7 +30,10 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_DEPRECATE
+
+#ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x600
+#endif
 
 #include <windows.h>
 

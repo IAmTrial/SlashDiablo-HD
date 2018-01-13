@@ -33,10 +33,8 @@
 #include "D2Patch.h"
 #include "D2Patches.h"
 
-
-
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
-    MessageBoxW(NULL, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
+    MessageBoxW(nullptr, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
 }
 
@@ -59,8 +57,9 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
     tokenPrivileges.PrivilegeCount = 1;
     tokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     tokenPrivileges.Privileges[0].Luid = luid;
+
     if (AdjustTokenPrivileges(hToken, 0, &tokenPrivileges,
-            sizeof(tokenPrivileges), 0, 0) == 0) {
+                              sizeof(tokenPrivileges), 0, 0) == 0) {
         D2TEMPLATE_FatalError(L"AdjustTokenPrivileges Failed");
         CloseHandle(hToken);
         return false;
@@ -73,21 +72,17 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
 bool __stdcall DllAttach() {
     D2TEMPLATE_GetDebugPrivilege();
 
-   HANDLE hGame = GetCurrentProcess();
+    HANDLE hGame = GetCurrentProcess();
+
     if (!hGame) {
         D2TEMPLATE_FatalError(L"Failed to retrieve process");
-        return false;
-    }
-
-    if (!D2Offset::loadModules()) {
-        D2TEMPLATE_FatalError(L"Failed to load modules");
         return false;
     }
 
     std::ifstream in(D2HD::Config::DEFAULT_ARCHIVE_NAME);
     if (in.good()) {
         in.close();
-        D2HD::Draw::d2mrArchive = loadMPQ(5000, "D2HD.dll", D2HD::Config::DEFAULT_ARCHIVE_NAME.c_str(), "SlashDiabloHD", 0, nullptr);
+        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::Config::DEFAULT_ARCHIVE_NAME.c_str(), "SlashDiabloHD", 0, nullptr);
     }
 
     D2HD::Config::readConfig();
@@ -107,6 +102,7 @@ BOOL __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved) {
     case DLL_PROCESS_ATTACH: {
         if (!DllAttach())
             D2TEMPLATE_FatalError(L"Couldn't attach to Diablo II");
+
         break;
     }
     }
