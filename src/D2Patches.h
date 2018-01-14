@@ -81,7 +81,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x44454 + 1, 0x454A4 + 1
-    }), (DWORD) D2HD::Config::getConfigResolutionInterception, true, 0),
+    }), (DWORD) D2HD::getConfigResolutionInterception, true, 0),
 
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x65E47, 0xC40E7
@@ -91,7 +91,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x65E47 + 1, 0xC40E7 + 1
-    }), (DWORD) D2HD::Config::getConfigResolutionInterception, true, 0),
+    }), (DWORD) D2HD::getConfigResolutionInterception, true, 0),
 
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x66279, 0xC4519
@@ -101,7 +101,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x66279 + 1, 0xC4519 + 1
-    }), (DWORD) D2HD::Config::getConfigResolutionInterception, true, 0),
+    }), (DWORD) D2HD::getConfigResolutionInterception, true, 0),
 
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAF951, 0x85F61
@@ -111,7 +111,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xAF951 + 1, 0x85F61 + 1
-    }), (DWORD) D2HD::Config::getConfigResolutionInterception, true, 0),
+    }), (DWORD) D2HD::getConfigResolutionInterception, true, 0),
 
     // Interpret Config Resolution Mode and Remove Limit on Config Resolution Mode
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
@@ -163,7 +163,7 @@ static const std::vector<D2Patch> requiredHDPatches = {
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x662AB + 1, 0xC454B + 1
-    }), (DWORD) D2HD::Config::setConfigResolutionInterception, true, 0),
+    }), (DWORD) D2HD::setConfigResolutionInterception, true, 0),
 
     // Increase Number of Resolutions in Video Options
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {

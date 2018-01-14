@@ -32,6 +32,8 @@
 #ifndef D2HDCONFIG_H
 #define D2HDCONFIG_H
 
+#include "../D2Config.h"
+
 #include <windows.h>
 
 #include <string>
@@ -39,46 +41,65 @@
 #include "D2HDColor.h"
 
 namespace D2HD {
-namespace Config {
-const std::wstring CONFIG_PATH = L"./SlashDiablo-HD.ini";
-const std::wstring MAIN_SETTING_SECTION_NAME = L"Settings";
-const std::string DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
+class D2HDConfig : public D2Config {
+public:
+    static const std::wstring MAIN_SETTING_SECTION_NAME;
+    static const std::string DEFAULT_ARCHIVE_NAME;
 
-const unsigned int DEFAULT_RESOLUTION_MODE = 3;
+    static constexpr unsigned int DEFAULT_RESOLUTION_MODE = 3;
+    static constexpr bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = true;
+    static constexpr int DEFAULT_CUSTOM_WIDTH = 856;
+    static constexpr int DEFAULT_CUSTOM_HEIGHT = 480;
+    static constexpr int MAXIMUM_WIDTH = 1068;
+    static constexpr int MAXIMUM_HEIGHT = 600;
+    static constexpr unsigned int DEFAULT_COLOR_HEX = 0xFFFFFFFF;
+    static const D2HD::D2HDColor DEFAULT_COLOR;
 
-const bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = true;
-const int DEFAULT_CUSTOM_WIDTH = 856;
-const int DEFAULT_CUSTOM_HEIGHT = 480;
-const int MAXIMUM_WIDTH = 1068;
-const int MAXIMUM_HEIGHT = 600;
-const unsigned int DEFAULT_COLOR = 0xFFFFFFFF;
+    static constexpr bool DEFAULT_ENABLE_800_CONTROL_PANEL = true;
+    static constexpr bool DEFAULT_ENABLE_D2MR_BACKGROUND_RIBBON = true;
+    static constexpr bool DEFAULT_ENABLE_D2MR_PANEL_BORDER_STYLE = true;
+    static constexpr bool DEFAULT_FLIP_D2MR_CONTROL_PANEL = true;
 
-const bool DEFAULT_ENABLE_800_CONTROL_PANEL = true;
-const bool DEFAULT_ENABLE_D2MR_BACKGROUND_RIBBON = true;
-const bool DEFAULT_ENABLE_D2MR_PANEL_BORDER_STYLE = true;
-const bool DEFAULT_FLIP_D2MR_CONTROL_PANEL = true;
+    D2HDConfig();
+    D2HDConfig(const std::wstring& configPath);
 
-extern bool enableCustomResolution;
-extern int customWidth;
-extern int customHeight;
+    D2HD::D2HDColor readColor(const std::wstring& sectionName, const std::wstring& keyName, const D2HD::D2HDColor& defaultValue) const;
+    virtual void readSettings();
 
-extern bool enable800ControlPanel;
-extern bool enableD2MRBackgroundRibbon;
-extern bool enableD2MRPanelBorderStyle;
-extern bool flipD2MRControlPanel;
+    bool isEnableCustomResolution() const;
+    int getCustomWidth() const;
+    int getCustomHeight() const;
 
-extern D2HD::D2HDColor leftPanelBackgroundColor;
-extern D2HD::D2HDColor leftPanelBorderColor;
-extern D2HD::D2HDColor rightPanelBackgroundColor;
-extern D2HD::D2HDColor rightPanelBorderColor;
+    bool isEnable800ControlPanel() const;
+    bool isEnableD2MRBackgroundRibbon() const;
+    bool isEnableD2MRPanelBorderStyle() const;
+    bool isFlipD2MRControlPanel() const;
 
-void readConfig();
+    D2HD::D2HDColor getLeftPanelBackgroundColor() const;
+    D2HD::D2HDColor getLeftPanelBorderColor() const;
+    D2HD::D2HDColor getRightPanelBackgroundColor() const;
+    D2HD::D2HDColor getRightPanelBorderColor() const;
 
-extern "C" void __stdcall getConfigResolution(int* mode);
-extern "C" void __stdcall getConfigResolutionInterception(int* mode);
-extern "C" void __stdcall setConfigResolution(int mode);
-extern "C" void __stdcall setConfigResolutionInterception(int mode);
-}
+private:
+    bool enableCustomResolution;
+    int customWidth;
+    int customHeight;
+
+    bool enable800ControlPanel;
+    bool enableD2MRBackgroundRibbon;
+    bool enableD2MRPanelBorderStyle;
+    bool flipD2MRControlPanel;
+
+    D2HD::D2HDColor leftPanelBackgroundColor;
+    D2HD::D2HDColor leftPanelBorderColor;
+    D2HD::D2HDColor rightPanelBackgroundColor;
+    D2HD::D2HDColor rightPanelBorderColor;
+};
+
+extern "C"  void __stdcall getConfigResolution(int* mode);
+extern "C"  void __stdcall getConfigResolutionInterception(int* mode);
+extern "C"  void __stdcall setConfigResolution(int mode);
+extern "C"  void __stdcall setConfigResolutionInterception(int mode);
 }
 
 #endif

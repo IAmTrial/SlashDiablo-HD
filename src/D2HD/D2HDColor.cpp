@@ -26,35 +26,12 @@
 
 #include <string>
 
-D2HD::D2HDColor::D2HDColor() : D2HD::D2HDColor::D2HDColor(255, 255, 255, 255) {
+D2HD::D2HDColor::D2HDColor(const unsigned char red, const unsigned char green,
+                           const unsigned char blue, const unsigned char tint) : red(red), green(green),
+    blue(blue), tint(tint) {
 }
 
-D2HD::D2HDColor::D2HDColor(std::string colorHex) {
-    unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
-
-    D2HDColor::red = (colorValue >> (8 * 3)) & 0xFF;
-    D2HDColor::green = (colorValue >> (8 * 2)) & 0xFF;
-    D2HDColor::blue = (colorValue >> (8 * 1)) & 0xFF;
-    D2HDColor::tint = colorValue & 0xFF;
-}
-
-D2HD::D2HDColor::D2HDColor(std::wstring colorHex) {
-    unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
-
-    D2HDColor::red = (colorValue >> (8 * 3)) & 0xFF;
-    D2HDColor::green = (colorValue >> (8 * 2)) & 0xFF;
-    D2HDColor::blue = (colorValue >> (8 * 1)) & 0xFF;
-    D2HDColor::tint = colorValue & 0xFF;
-}
-
-D2HD::D2HDColor::D2HDColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char tint) {
-    D2HDColor::red = red;
-    D2HDColor::green = green;
-    D2HDColor::blue = blue;
-    D2HDColor::tint = tint;
-}
-
-unsigned int D2HD::D2HDColor::getRGBFormat() {
+unsigned int D2HD::D2HDColor::getRGBFormat() const {
     unsigned int redRGB = (((unsigned int)red) << (8 * 3)) & 0xFF000000;
     unsigned int greenRGB = ((unsigned int)green << (8 * 2)) & 0x00FF0000;
     unsigned int blueRGB = ((unsigned int)blue << (8 * 1)) & 0x0000FF00;
@@ -63,7 +40,7 @@ unsigned int D2HD::D2HDColor::getRGBFormat() {
     return redRGB | greenRGB | blueRGB | tintRGB;
 }
 
-unsigned int D2HD::D2HDColor::getBGRFormat() {
+unsigned int D2HD::D2HDColor::getBGRFormat() const {
     unsigned int redBGR = (((unsigned int)red) << (8 * 1)) & 0x0000FF00;
     unsigned int greenBGR = (((unsigned int)green) << (8 * 2)) & 0x00FF0000;
     unsigned int blueBGR = ((unsigned int)blue << (8 * 3)) & 0xFF000000;
@@ -72,7 +49,7 @@ unsigned int D2HD::D2HDColor::getBGRFormat() {
     return redBGR | greenBGR | blueBGR | tintBGR;
 }
 
-D2HD::D2HDColor D2HD::D2HDColor::createFromRGBFormat(unsigned int color) {
+D2HD::D2HDColor D2HD::D2HDColor::createFromRGBFormat(const unsigned int color) {
     unsigned char red = (((unsigned int)color) >> (8 * 3)) & 0xFF;
     unsigned char green = (((unsigned int)color) >> (8 * 2)) & 0xFF;
     unsigned char blue = (((unsigned int)color) >> (8 * 1)) & 0xFF;
@@ -81,11 +58,35 @@ D2HD::D2HDColor D2HD::D2HDColor::createFromRGBFormat(unsigned int color) {
     return D2HD::D2HDColor(red, green, blue, tint);
 }
 
-D2HD::D2HDColor D2HD::D2HDColor::createFromBGRFormat(unsigned int color) {
+D2HD::D2HDColor D2HD::D2HDColor::createFromRGBFormat(const std::string&
+        colorHex) {
+    const unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
+    return createFromRGBFormat(colorValue);
+}
+
+D2HD::D2HDColor D2HD::D2HDColor::createFromRGBFormat(const std::wstring&
+        colorHex) {
+    const unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
+    return createFromRGBFormat(colorValue);
+}
+
+D2HD::D2HDColor D2HD::D2HDColor::createFromBGRFormat(const unsigned int color) {
     unsigned char red = (((unsigned int)color) >> (8 * 1)) & 0xFF;
     unsigned char green = (((unsigned int)color) >> (8 * 2)) & 0xFF;
     unsigned char blue = (((unsigned int)color) >> (8 * 3)) & 0xFF;
     unsigned char tint = ((unsigned int)color) & 0xFF;
 
     return D2HD::D2HDColor(red, green, blue, tint);
+}
+
+D2HD::D2HDColor D2HD::D2HDColor::createFromBGRFormat(const std::string&
+        colorHex) {
+    const unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
+    return createFromBGRFormat(colorValue);
+}
+
+D2HD::D2HDColor D2HD::D2HDColor::createFromBGRFormat(const std::wstring&
+        colorHex) {
+    const unsigned int colorValue = std::stoul(colorHex, nullptr, 16);
+    return createFromBGRFormat(colorValue);
 }

@@ -79,18 +79,18 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    std::ifstream in(D2HD::Config::DEFAULT_ARCHIVE_NAME);
+    std::ifstream in(D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME);
     if (in.good()) {
         in.close();
-        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::Config::DEFAULT_ARCHIVE_NAME.c_str(), "SlashDiabloHD", 0, nullptr);
+        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME.c_str(), "SlashDiabloHD", 0, nullptr);
     }
 
-    D2HD::Config::readConfig();
+    config.readSettings();
     D2Patch::applyPatches(requiredHDPatches);
     D2Patch::applyPatches(requiredDrawPatches);
     D2Patch::applyPatches(inventoryPatches);
 
-    if (D2HD::Config::enable800ControlPanel) {
+    if (config.isEnable800ControlPanel()) {
         D2Patch::applyPatches(controlPanel800Patches);
     }
 

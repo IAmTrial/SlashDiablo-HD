@@ -53,14 +53,14 @@ void D2HD::getModeParams(int mode, int* width, int* height) {
     }
 
     case 4: {
-        *width = D2HD::Config::MAXIMUM_WIDTH;
-        *height = D2HD::Config::MAXIMUM_HEIGHT;
+        *width = D2HD::D2HDConfig::MAXIMUM_WIDTH;
+        *height = D2HD::D2HDConfig::MAXIMUM_HEIGHT;
         break;
     }
 
     case 5: {
-        *width = D2HD::Config::customWidth;
-        *height = D2HD::Config::customHeight;
+        *width = config.getCustomWidth();
+        *height = config.getCustomHeight();
         break;
     }
 
