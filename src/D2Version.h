@@ -46,7 +46,7 @@ enum class GameVersionID
 
 enum class Glide3xVersionID {
     INVALID = -1,
-    VERSION_14e,
+    VERSION_14e = 0,
     RESURGENCE
 };
 

@@ -32,22 +32,27 @@
 
 class D2Config {
 public:
-    static const std::wstring CONFIG_PATH;
-    virtual void readSettings() = 0;
+    static const std::wstring DEFAULT_CONFIG_PATH;
 
-protected:
-    static bool readBool(const std::wstring& sectionName,
-                         const std::wstring& keyName, const bool defaultValue);
-    static unsigned int readHex(const std::wstring& sectionName,
-                                const std::wstring& keyName, const unsigned int defaultValue);
-    static int readInt(const std::wstring& sectionName, const std::wstring& keyName,
-                       const int defaultValue);
-    static unsigned int readUnsignedInt(const std::wstring& sectionName,
-                                        const std::wstring& keyName, const unsigned int defaultValue);
-    static std::wstring readWideString(const std::wstring& sectionName,
-                                       const std::wstring& keyName, const std::wstring& defaultValue);
+    D2Config();
+    D2Config(std::wstring configPath);
+
+    bool readBool(const std::wstring& sectionName, const std::wstring& keyName,
+                  const bool defaultValue) const;
+    unsigned int readHex(const std::wstring& sectionName,
+                         const std::wstring& keyName, const unsigned int defaultValue) const;
+    int readInt(const std::wstring& sectionName, const std::wstring& keyName,
+                const int defaultValue) const;
+    unsigned int readUnsignedInt(const std::wstring& sectionName,
+                                 const std::wstring& keyName, const unsigned int defaultValue) const;
+    std::wstring readWideString(const std::wstring& sectionName,
+                                const std::wstring& keyName, const std::wstring& defaultValue) const;
+
+    virtual void readSettings() = 0;
+    std::wstring getConfigPath() const;
 
 private:
+    std::wstring configPath;
 };
 
 #endif // D2CONFIG_H
