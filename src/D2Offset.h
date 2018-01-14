@@ -73,15 +73,15 @@ struct Offsets {
 
 class D2Offset {
 public:
-    D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets);
-    int getCurrentOffset();
-    DWORD getCurrentAddress();
+    D2Offset(const D2TEMPLATE_DLL_FILES dllFile, const Offsets& offsets);
+    int getCurrentOffset() const;
+    DWORD getCurrentAddress() const;
 
 private:
+    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
     D2TEMPLATE_DLL_FILES dllFile;
     Offsets offsets;
 
-    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
     static bool loadModules();
 };
 

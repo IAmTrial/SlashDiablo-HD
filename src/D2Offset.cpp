@@ -28,15 +28,15 @@
 
 std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> D2Offset::dllFiles;
 
-D2Offset::D2Offset(D2TEMPLATE_DLL_FILES dllFile,
-                   Offsets offsets) : dllFile(dllFile), offsets(offsets) {
+D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
+                   const Offsets& offsets) : dllFile(dllFile), offsets(offsets) {
 }
 
-int D2Offset::getCurrentOffset() {
+int D2Offset::getCurrentOffset() const {
     return *(&offsets._107 + (int) D2Version::getGameVersionID());
 }
 
-DWORD D2Offset::getCurrentAddress() {
+DWORD D2Offset::getCurrentAddress() const {
     if (dllFiles.count(dllFile) == 0) {
         if (!D2Offset::loadModules()) {
             D2TEMPLATE_FatalError(L"Failed to load modules");

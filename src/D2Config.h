@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Version.h                                                             *
+ *   D2Config.h                                                              *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,43 +17,42 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   Declares the configuration functions that stores settings and acts as   *
+ *   the parent class for derivative mods that also need to have a settings  *
+ *   file.                                                                   *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef D2CONFIG_H
+#define D2CONFIG_H
 
 #include <string>
-#include <windows.h>
 
-namespace D2Version {
-enum class GameVersionID
-    : int {
-    INVALID = -1,
-    VERSION_107 = 0,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
+class D2Config {
+public:
+    static const std::wstring DEFAULT_CONFIG_PATH;
+
+    D2Config();
+    D2Config(const std::wstring& configPath);
+
+    bool readBool(const std::wstring& sectionName, const std::wstring& keyName,
+                  const bool defaultValue) const;
+    unsigned int readHex(const std::wstring& sectionName,
+                         const std::wstring& keyName, const unsigned int defaultValue) const;
+    int readInt(const std::wstring& sectionName, const std::wstring& keyName,
+                const int defaultValue) const;
+    unsigned int readUnsignedInt(const std::wstring& sectionName,
+                                 const std::wstring& keyName, const unsigned int defaultValue) const;
+    std::wstring readWideString(const std::wstring& sectionName,
+                                const std::wstring& keyName, const std::wstring& defaultValue) const;
+
+    virtual void readSettings() = 0;
+    std::wstring getConfigPath() const;
+
+private:
+    std::wstring configPath;
 };
 
-enum class Glide3xVersionID {
-    INVALID = -1,
-    VERSION_14e = 0,
-    RESURGENCE
-};
-
-GameVersionID getGameVersionID();
-bool isGameVersion114Plus();
-Glide3xVersionID getGlide3xVersionID();
-std::string determineVersionString(LPCWSTR szVersionFile);
-}
-
-#endif
+#endif // D2CONFIG_H
