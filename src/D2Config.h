@@ -35,7 +35,7 @@ public:
     static const std::wstring DEFAULT_CONFIG_PATH;
 
     D2Config();
-    D2Config(std::wstring configPath);
+    D2Config(const std::wstring& configPath);
 
     bool readBool(const std::wstring& sectionName, const std::wstring& keyName,
                   const bool defaultValue) const;

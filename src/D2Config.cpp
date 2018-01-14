@@ -33,7 +33,7 @@ const std::wstring D2Config::DEFAULT_CONFIG_PATH  = L"./SlashDiablo-Tools.ini";
 D2Config::D2Config() : D2Config(DEFAULT_CONFIG_PATH) {
 }
 
-D2Config::D2Config(std::wstring configPath) : configPath(configPath) {
+D2Config::D2Config(const std::wstring& configPath) : configPath(configPath) {
 }
 
 bool D2Config::readBool(const std::wstring& sectionName,
