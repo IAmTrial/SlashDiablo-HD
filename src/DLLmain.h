@@ -37,6 +37,7 @@
 
 #include <windows.h>
 
+#include "D2HD/D2HDResolution.h"
 #include "D2HD/D2HDConfig.h"
 #include "D2Version.h"
 #include "D2Constants.h"

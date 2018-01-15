@@ -67,6 +67,12 @@ void D2HD::D2HDConfig::readSettings() {
     customHeight = readInt(MAIN_SETTING_SECTION_NAME,
                            heightTextStream.str().c_str(), DEFAULT_CUSTOM_HEIGHT);
 
+    if (isEnableCustomResolution()) {
+        D2HD::D2HDResolution::getResolutions().push_back(D2HD::D2HDResolution(
+                    customWidth, customHeight));
+    }
+
+
     leftPanelBackgroundColor = readColor(MAIN_SETTING_SECTION_NAME,
                                          L"Left Panel Background Color", DEFAULT_COLOR);
     leftPanelBorderColor = readColor(MAIN_SETTING_SECTION_NAME,

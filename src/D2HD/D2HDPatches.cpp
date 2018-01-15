@@ -32,46 +32,16 @@
 #include "../DLLmain.h"
 
 void D2HD::getModeParams(int mode, int* width, int* height) {
-    switch (mode) {
-    case 0: {
-        *width = 640;
-        *height = 480;
-        break;
-    }
-
-    case 1:
-    case 2: {
-        *width = 800;
-        *height = 600;
-        break;
-    }
-
-    case 3: {
-        *width = 856;
-        *height = 480;
-        break;
-    }
-
-    case 4: {
-        *width = D2HD::D2HDConfig::MAXIMUM_WIDTH;
-        *height = D2HD::D2HDConfig::MAXIMUM_HEIGHT;
-        break;
-    }
-
-    case 5: {
-        *width = config.getCustomWidth();
-        *height = config.getCustomHeight();
-        break;
-    }
-
-    default: {
+    if (mode < D2HD::D2HDResolution::getResolutions().size()) {
+        *width = D2HD::D2HDResolution::getResolutions().at(mode).getWidth();
+        *height = D2HD::D2HDResolution::getResolutions().at(mode).getHeight();
+    } else {
         *width = 640;
         *height = 480;
         MessageBoxW(nullptr,
                     L"It appears that you have specified a custom resolution, but you haven't defined its width and height.",
                     L"Missing Definition Case", MB_OK | MB_ICONSTOP);
         std::exit(0);
-    }
     }
 }
 
@@ -103,7 +73,7 @@ void __stdcall D2HD::setResolutionModeFromMenu(int* mode) {
 
     if (currentMode == 0) {
         *mode = 2;
-    } else if (currentMode > 4) { /*TODO TEMPORARY VALUE PLEASE REMOVE */
+    } else if (currentMode >= D2HDResolution::getResolutions().size() - 1) {
         *mode = 0;
     } else {
         *mode = currentMode + 1;
