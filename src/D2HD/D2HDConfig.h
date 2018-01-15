@@ -46,8 +46,9 @@ public:
     static const std::wstring MAIN_SETTING_SECTION_NAME;
     static const std::string DEFAULT_ARCHIVE_NAME;
 
+    static constexpr bool DEFAULT_ENABLE_MOD = true;
     static constexpr unsigned int DEFAULT_RESOLUTION_MODE = 3;
-    static constexpr bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = true;
+    static constexpr bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = false;
     static constexpr int DEFAULT_CUSTOM_WIDTH = 856;
     static constexpr int DEFAULT_CUSTOM_HEIGHT = 480;
     static constexpr int MAXIMUM_WIDTH = 1068;
@@ -66,6 +67,8 @@ public:
     D2HD::D2HDColor readColor(const std::wstring& sectionName, const std::wstring& keyName, const D2HD::D2HDColor& defaultValue) const;
     virtual void readSettings();
 
+    bool isEnableMod() const;
+
     bool isEnableCustomResolution() const;
     int getCustomWidth() const;
     int getCustomHeight() const;
@@ -81,6 +84,7 @@ public:
     D2HD::D2HDColor getRightPanelBorderColor() const;
 
 private:
+    bool enableMod;
     bool enableCustomResolution;
     int customWidth;
     int customHeight;

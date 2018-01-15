@@ -91,7 +91,8 @@ void __stdcall D2HD::resizeGameLogicResolution(int mode) {
     *D2CLIENT_InventoryArrangeMode = mode;
 }
 
-void __stdcall D2HD::setResolutionMode(int* gameResolution, int configResolution) {
+void __stdcall D2HD::setResolutionMode(int* gameResolution,
+                                       int configResolution) {
     if (configResolution == 1) {
         *gameResolution = 2;
     } else {
@@ -114,4 +115,37 @@ void __stdcall D2HD::setResolutionModeFromMenu(int* mode) {
 void __stdcall D2HD::setGDIForegroundRenderWidth(int mode) {
     int discarded = 0;
     D2HD::getModeParams(mode, D2GDI_ForegroundRenderWidth, &discarded);
+}
+
+void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
+        int* glideResolutionMode) {
+    D2HD::getModeParams(newGameResolutionMode, D2GLIDE_ScreenSizeX,
+                        D2GLIDE_ScreenSizeY);
+
+    switch (newGameResolutionMode) {
+    case 0:
+        *glideResolutionMode = 7;
+        break;
+
+    case 1:
+        *glideResolutionMode = 8;
+        break;
+
+    default:
+        *glideResolutionMode = (newGameResolutionMode - 2) + 8;
+        break;
+    }
+
+    // Apply special case for /r/Diablo2Resurgence
+    if (D2Version::getGlide3xVersionID() == D2Version::Glide3xVersionID::RESURGENCE
+            && *D2GLIDE_ScreenSizeX == 1068 && *D2GLIDE_ScreenSizeY == 600) {
+        *glideResolutionMode = 0xFF;
+    }
+
+    *D2GLIDE_SpritesInited = (newGameResolutionMode != 1);
+}
+
+void __stdcall D2HD::setupGlideWindowSize(int newGlideResolutionMode) {
+    const int resolutionMode = (newGlideResolutionMode == 7) ? 0 : ((newGlideResolutionMode - 8) + 2);
+    D2HD::getModeParams(resolutionMode, *GLIDE3X_WindowSizeX, *GLIDE3X_WindowSizeY);
 }

@@ -29,6 +29,26 @@
  *                                                                           *
  *****************************************************************************/
 
+/*==========================================================
+* D2Ex2
+* https://github.com/lolet/D2Ex2
+* ==========================================================
+* Copyright (c) 2011-2014 Bartosz Jankowski
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+* ==========================================================
+*/
+
 #pragma once
 
 #ifndef _D2PTRS_H
@@ -108,6 +128,16 @@ D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int 
 
 /*********************************************************************************
  *                                                                               *
+ *   D2GLIDE.DLL POINTERS                                                        *
+ *                                                                               *
+ *********************************************************************************/
+D2VAR(D2GLIDE, ScreenSizeX, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15A68, 0x15A78, 0, 0, 0, 0 }));
+D2VAR(D2GLIDE, ScreenSizeY, int, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15B04, 0x15B14, 0, 0, 0, 0 }));
+
+D2VAR(D2GLIDE, SpritesInited, bool, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x17B44, 0x17B54, 0, 0, 0, 0 }));
+
+/*********************************************************************************
+ *                                                                               *
  *   D2WIN.DLL POINTERS                                                          *
  *                                                                               *
  *********************************************************************************/
@@ -120,6 +150,14 @@ D2PTR(D2WIN, LoadMpq_I, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7E60, 0x7E50, 0, 0, 0
  *                                                                               *
  *********************************************************************************/
 D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char* szFile, int nLine, void* pNull), ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10043, -10043, 0, 0, 0, 0 }));
+
+/*********************************************************************************
+ *                                                                               *
+ *   GLIDE3X.DLL POINTERS                                                        *
+ *                                                                               *
+ *********************************************************************************/
+D2VAR(GLIDE3X, WindowSizeX, int*, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C9A0, 0x1C9A0, 0, 0, 0, 0 }));
+D2VAR(GLIDE3X, WindowSizeY, int*, ({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C82C, 0x1C82C, 0, 0, 0, 0 }));
 
 // end of file -----------------------------------------------------------------
 #endif

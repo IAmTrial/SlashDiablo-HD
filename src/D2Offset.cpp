@@ -89,7 +89,8 @@ bool D2Offset::loadModules() {
         { D2TEMPLATE_DLL_FILES::D2DLL_FOG, { L"Fog.dll", nullptr }},
         { D2TEMPLATE_DLL_FILES::D2DLL_IJL11, { L"Ijl11.dll", nullptr }},
         { D2TEMPLATE_DLL_FILES::D2DLL_SMACKW32, { L"SmackW32.dll", nullptr }},
-        { D2TEMPLATE_DLL_FILES::D2DLL_STORM, { L"Storm.dll", nullptr }}
+        { D2TEMPLATE_DLL_FILES::D2DLL_STORM, { L"Storm.dll", nullptr }},
+        { D2TEMPLATE_DLL_FILES::D2DLL_GLIDE3X, { L"glide3x.dll", nullptr }}
     };
 
     for (auto& dllFile : dllFiles) {

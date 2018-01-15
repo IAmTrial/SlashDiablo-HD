@@ -33,6 +33,8 @@
 .global _setResolutionModeFromMenuInterception
 .global _setGDIRenderResolutionInterception
 .global _setGDIForegroundRenderWidthInterception
+.global _setGlideRenderResolutionInterception
+.global _setupGlideWindowSizeInterception
 
 _repositionPanelsInterception:
     pushad
@@ -109,5 +111,28 @@ _setGDIForegroundRenderWidthInterception:
     pushad
     push esi
     call _setGDIForegroundRenderWidth@4
+    popad
+    ret
+
+_setGlideRenderResolutionInterception:
+    sub esp, 4
+    lea ecx, dword ptr [esp]
+    pushad
+    push ecx
+    push esi
+    call _setGlideRenderResolution@8
+    popad
+    mov ecx, dword ptr [ecx]
+    add esp, 4
+
+    // Original code
+    xor edx, edx
+    mov esi, 1
+    ret
+
+_setupGlideWindowSizeInterception:
+    pushad
+    push eax
+    call _setupGlideWindowSize@4
     popad
     ret

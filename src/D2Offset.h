@@ -54,6 +54,7 @@ enum class D2TEMPLATE_DLL_FILES
     D2DLL_IJL11,
     D2DLL_SMACKW32,
     D2DLL_STORM,
+    D2DLL_GLIDE3X
 };
 
 struct DLLBaseStrc {

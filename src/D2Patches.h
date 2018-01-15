@@ -198,6 +198,25 @@ static const std::vector<D2Patch> requiredHDPatches = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x651E0 + 1, 0xC33A0 + 1
     }), (DWORD) D2HD::setResolutionModeFromMenuInterception, true, 0),
 
+    // Resize Game Window; D2GFX.Ordinal10025, D2GFX.Ordinal10064
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0, 0xB0E0
+    }), PATCH_NOPBLOCK, false, 0x8022 - 0x7FD0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0, 0xB0E0
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0 + 1, 0xB0E0 + 1
+    }), (DWORD) D2HD::getModeParams, true, 0),
+
+    // Correct Resizing of Window from any resolution to a smaller one.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0 + 1, 0xB42F + 1
+    }), std::numeric_limits<int>::max(), false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403 + 2, 0xB43E + 2
+    }), std::numeric_limits<int>::max(), false, 0),
+
     // Resize GDI Rendering Resolution
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GDI, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x6D34, 0x7B84
@@ -224,24 +243,16 @@ static const std::vector<D2Patch> requiredHDPatches = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7049 + 1, 0x7E99 + 1
     }), (DWORD) D2HD::setGDIForegroundRenderWidthInterception, true, 0),
 
-    // Resize Game Window; D2GFX.Ordinal10025, D2GFX.Ordinal10064
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0, 0xB0E0
-    }), PATCH_NOPBLOCK, false, 0x8022 - 0x7FD0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0, 0xB0E0
-    }), PATCH_JMP, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7FD0 + 1, 0xB0E0 + 1
-    }), (DWORD) D2HD::getModeParams, true, 0),
-
-    // Correct Resizing of Window from any resolution to a smaller one.
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0 + 1, 0xB42F + 1
-    }), std::numeric_limits<int>::max(), false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403 + 2, 0xB43E + 2
-    }), std::numeric_limits<int>::max(), false, 0),
+    // Resize Glide Rendering Resolution
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDCC6, 0xD5D6
+    }), PATCH_NOPBLOCK, false, 0xDD26 - 0xDCC6),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDCC6, 0xD5D6
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDCC6 + 1, 0xD5D6 + 1
+    }), (DWORD) D2HD::setGlideRenderResolutionInterception, true, 0),
 };
 
 static const std::vector<D2Patch> requiredDrawPatches = {
@@ -425,6 +436,19 @@ static const std::vector<D2Patch> inventoryPatches = {
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x81F20 + 1, 0x6BEA0 + 1
     }), (DWORD) D2HD::Inventory::getInventoryField, true, 0)
+};
+
+// Replace for HD, Resize Glide Game Window, but not used if using custom glide3x.dll
+static const std::vector<D2Patch> glide3xPatches = {
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_GLIDE3X, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA97, 0xCA97
+    }), PATCH_NOPBLOCK, false, 0xCBA7 - 0xCA97),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_GLIDE3X, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA97, 0xCA97
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_GLIDE3X, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA97 + 1, 0xCA97 + 1
+    }), (DWORD) D2HD::setupGlideWindowSizeInterception, true, 0)
 };
 
 // end of file --------------------------------------------------------------

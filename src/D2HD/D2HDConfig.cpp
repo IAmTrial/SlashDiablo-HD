@@ -51,9 +51,10 @@ D2HD::D2HDConfig::D2HDConfig(const std::wstring& configPath) : D2Config(
             255, 255), rightPanelBorderColor(255, 255, 255, 255) {
 }
 
-void readMainSettings();
-
 void D2HD::D2HDConfig::readSettings() {
+    enableMod = readBool(MAIN_SETTING_SECTION_NAME, L"Enable Mod",
+                         DEFAULT_ENABLE_MOD);
+
     enableCustomResolution = readBool(MAIN_SETTING_SECTION_NAME,
                                       L"Enable Custom Resolution", DEFAULT_ENABLE_CUSTOM_RESOLUTION);
 
@@ -92,6 +93,10 @@ D2HD::D2HDColor D2HD::D2HDConfig::readColor(const std::wstring& sectionName,
         const std::wstring& keyName, const D2HD::D2HDColor& defaultValue) const {
     return D2HD::D2HDColor::createFromRGBFormat(readHex(sectionName, keyName,
             defaultValue.getRGBFormat()));
+}
+
+bool D2HD::D2HDConfig::isEnableMod() const {
+    return enableMod;
 }
 
 bool D2HD::D2HDConfig::isEnableCustomResolution() const {

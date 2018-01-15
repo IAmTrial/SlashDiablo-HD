@@ -86,12 +86,21 @@ bool __stdcall DllAttach() {
     }
 
     config.readSettings();
+
+    if (config.isEnableMod()) {
+        return true;
+    }
+
     D2Patch::applyPatches(requiredHDPatches);
     D2Patch::applyPatches(requiredDrawPatches);
     D2Patch::applyPatches(inventoryPatches);
 
     if (config.isEnable800ControlPanel()) {
         D2Patch::applyPatches(controlPanel800Patches);
+    }
+
+    if (D2Version::getGlide3xVersionID() == D2Version::Glide3xVersionID::VERSION_14e) {
+        D2Patch::applyPatches(glide3xPatches);
     }
 
     return true;

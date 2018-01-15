@@ -55,6 +55,12 @@ extern "C" {
 
     void __stdcall setGDIForegroundRenderWidth(int mode);
     void setGDIForegroundRenderWidthInterception();
+
+    void __stdcall setGlideRenderResolution(int newGameResolutionMode, int* glideResolutionMode);
+    void setGlideRenderResolutionInterception();
+
+    void __stdcall setupGlideWindowSize(int newGlideResolutionMode);
+    void setupGlideWindowSizeInterception();
 }
 }
 
