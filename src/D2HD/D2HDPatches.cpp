@@ -81,9 +81,7 @@ void D2HD::repositionPanels() {
 }
 
 void __stdcall D2HD::getPatchedResolutionMode(int* resolutionMode) {
-    *resolutionMode = 2;
-    // Old code. Not sure if always setting to 2 has side effects for 640x480.
-    // *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
+    *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
 }
 
 void __stdcall D2HD::resizeGameLogicResolution(int mode) {

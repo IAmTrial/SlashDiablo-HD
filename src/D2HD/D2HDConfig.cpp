@@ -34,9 +34,6 @@
 #include "../DLLmain.h"
 #include "D2HDColor.h"
 
-const std::wstring D2HD::D2HDConfig::MAIN_SETTING_SECTION_NAME =
-    L"SlashDiablo-HD";
-const std::string D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
 const D2HD::D2HDColor D2HD::D2HDConfig::DEFAULT_COLOR(255, 255, 255, 255);
 
 D2HD::D2HDConfig::D2HDConfig() : D2Config(), leftPanelBackgroundColor(255, 255,
@@ -150,7 +147,7 @@ void __stdcall D2HD::getConfigResolution(int* mode) {
 }
 
 void __stdcall D2HD::setConfigResolution(int mode) {
-    WritePrivateProfileStringW(D2HD::D2HDConfig::MAIN_SETTING_SECTION_NAME.c_str(),
+    WritePrivateProfileStringW(D2HD::D2HDConfig::MAIN_SETTING_SECTION_NAME,
                                L"Resolution Mode", std::to_wstring(mode).c_str(),
                                config.getConfigPath().c_str());
 }

@@ -82,12 +82,12 @@ bool __stdcall DllAttach() {
     std::ifstream in(D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME);
     if (in.good()) {
         in.close();
-        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME.c_str(), "SlashDiabloHD", 0, nullptr);
+        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME, "SlashDiabloHD", 0, nullptr);
     }
 
     config.readSettings();
 
-    if (config.isEnableMod()) {
+    if (!config.isEnableMod()) {
         return true;
     }
 

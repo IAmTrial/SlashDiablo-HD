@@ -43,9 +43,8 @@
 namespace D2HD {
 class D2HDConfig : public D2Config {
 public:
-    static const std::wstring MAIN_SETTING_SECTION_NAME;
-    static const std::string DEFAULT_ARCHIVE_NAME;
-
+    static constexpr const wchar_t* MAIN_SETTING_SECTION_NAME = L"SlashDiablo-HD";
+    static constexpr const char* DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
     static constexpr bool DEFAULT_ENABLE_MOD = true;
     static constexpr unsigned int DEFAULT_RESOLUTION_MODE = 3;
     static constexpr bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = false;
@@ -64,7 +63,8 @@ public:
     D2HDConfig();
     D2HDConfig(const std::wstring& configPath);
 
-    D2HD::D2HDColor readColor(const std::wstring& sectionName, const std::wstring& keyName, const D2HD::D2HDColor& defaultValue) const;
+    D2HD::D2HDColor readColor(const std::wstring& sectionName,
+                              const std::wstring& keyName, const D2HD::D2HDColor& defaultValue) const;
     virtual void readSettings();
 
     bool isEnableMod() const;
