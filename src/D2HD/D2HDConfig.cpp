@@ -56,6 +56,9 @@ void D2HD::D2HDConfig::readSettings() {
     int discarded = 0;
     D2HD::getConfigResolution(&discarded);
 
+    enableArchive = readBool(MAIN_SETTING_SECTION_NAME, L"Enable Archive", DEFAULT_ENABLE_ARCHIVE);
+    archiveName = readString(MAIN_SETTING_SECTION_NAME, L"Archive Name", DEFAULT_ARCHIVE_NAME);
+
     enableCustomResolution = readBool(MAIN_SETTING_SECTION_NAME,
                                       L"Enable Custom Resolution", DEFAULT_ENABLE_CUSTOM_RESOLUTION);
 
@@ -147,6 +150,14 @@ D2HD::D2HDColor D2HD::D2HDConfig::getRightPanelBackgroundColor() const {
 
 D2HD::D2HDColor D2HD::D2HDConfig::getRightPanelBorderColor() const {
     return rightPanelBorderColor;
+}
+
+bool D2HD::D2HDConfig::isEnableArchive() const {
+    return enableArchive;
+}
+
+std::string D2HD::D2HDConfig::getArchiveName() const {
+    return archiveName;
 }
 
 void __stdcall D2HD::getConfigResolution(int* mode) {

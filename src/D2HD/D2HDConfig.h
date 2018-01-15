@@ -34,9 +34,8 @@
 
 #include "../D2Config.h"
 
-#include <windows.h>
-
 #include <string>
+#include <windows.h>
 
 #include "D2HDColor.h"
 
@@ -44,6 +43,7 @@ namespace D2HD {
 class D2HDConfig : public D2Config {
 public:
     static constexpr const wchar_t* MAIN_SETTING_SECTION_NAME = L"SlashDiablo-HD";
+    static constexpr const bool DEFAULT_ENABLE_ARCHIVE = true;
     static constexpr const char* DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
     static constexpr bool DEFAULT_ENABLE_MOD = true;
     static constexpr unsigned int DEFAULT_RESOLUTION_MODE = 3;
@@ -83,6 +83,9 @@ public:
     D2HD::D2HDColor getRightPanelBackgroundColor() const;
     D2HD::D2HDColor getRightPanelBorderColor() const;
 
+    bool isEnableArchive() const;
+    std::string getArchiveName() const;
+
 private:
     bool enableMod;
     bool enableCustomResolution;
@@ -98,6 +101,9 @@ private:
     D2HD::D2HDColor leftPanelBorderColor;
     D2HD::D2HDColor rightPanelBackgroundColor;
     D2HD::D2HDColor rightPanelBorderColor;
+
+    bool enableArchive;
+    std::string archiveName;
 };
 
 extern "C"  void __stdcall getConfigResolution(int* mode);

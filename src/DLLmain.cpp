@@ -79,13 +79,17 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    std::ifstream in(D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME);
-    if (in.good()) {
-        in.close();
-        D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll", D2HD::D2HDConfig::DEFAULT_ARCHIVE_NAME, "SlashDiabloHD", 0, nullptr);
-    }
-
     config.readSettings();
+
+    if (config.isEnableArchive()) {
+        std::ifstream in(config.getArchiveName());
+
+        if (in.good()) {
+            in.close();
+            D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll",
+                                              config.getArchiveName().c_str(), "SlashDiabloHD", 0, nullptr);
+        }
+    }
 
     if (!config.isEnableMod()) {
         return true;
@@ -99,7 +103,8 @@ bool __stdcall DllAttach() {
         D2Patch::applyPatches(controlPanel800Patches);
     }
 
-    if (D2Version::getGlide3xVersionID() == D2Version::Glide3xVersionID::VERSION_14e) {
+    if (D2Version::getGlide3xVersionID() ==
+            D2Version::Glide3xVersionID::VERSION_14e) {
         D2Patch::applyPatches(glide3xPatches);
     }
 
