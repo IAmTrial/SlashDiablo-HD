@@ -43,6 +43,14 @@ void D2HD::getModeParams(int mode, int* width, int* height) {
                     L"Missing Definition Case", MB_OK | MB_ICONSTOP);
         std::exit(0);
     }
+
+    if (*width > D2HD::D2HDConfig::MAXIMUM_WIDTH
+            || *height > D2HD::D2HDConfig::MAXIMUM_HEIGHT) {
+        MessageBoxW(nullptr,
+                    L"You defined a new resolution that exceeds expected limits. Change those limits in D2HD/D2HDConfig.h.",
+                    L"Defined Resolution Exceeds Limit", MB_OK | MB_ICONSTOP);
+        std::exit(0);
+    }
 }
 
 void D2HD::repositionPanels() {
@@ -114,6 +122,7 @@ void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
 }
 
 void __stdcall D2HD::setupGlideWindowSize(int newGlideResolutionMode) {
-    const int resolutionMode = (newGlideResolutionMode == 7) ? 0 : ((newGlideResolutionMode - 8) + 2);
+    const int resolutionMode = (newGlideResolutionMode == 7) ? 0 : ((
+                                   newGlideResolutionMode - 8) + 2);
     D2HD::getModeParams(resolutionMode, *GLIDE3X_WindowSizeX, *GLIDE3X_WindowSizeY);
 }
