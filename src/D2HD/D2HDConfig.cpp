@@ -56,23 +56,34 @@ void D2HD::D2HDConfig::readSettings() {
     int discarded = 0;
     D2HD::getConfigResolution(&discarded);
 
-    enableArchive = readBool(MAIN_SETTING_SECTION_NAME, L"Enable Archive", DEFAULT_ENABLE_ARCHIVE);
-    archiveName = readString(MAIN_SETTING_SECTION_NAME, L"Archive Name", DEFAULT_ARCHIVE_NAME);
+    enableArchive = readBool(MAIN_SETTING_SECTION_NAME, L"Enable Archive",
+                             DEFAULT_ENABLE_ARCHIVE);
+    archiveName = readString(MAIN_SETTING_SECTION_NAME, L"Archive Name",
+                             DEFAULT_ARCHIVE_NAME);
 
     enableCustomResolution = readBool(MAIN_SETTING_SECTION_NAME,
                                       L"Enable Custom Resolution", DEFAULT_ENABLE_CUSTOM_RESOLUTION);
 
+    // Enforce resolution limits on the custom resolution.
     std::wostringstream widthTextStream;
     widthTextStream << L"Custom Width (Can't be larger than " << MAXIMUM_WIDTH <<
                     ')';
     customWidth = readInt(MAIN_SETTING_SECTION_NAME, widthTextStream.str().c_str(),
                           DEFAULT_CUSTOM_WIDTH);
 
+    if (customWidth < MINIMUM_WIDTH || customWidth > MAXIMUM_WIDTH) {
+        customWidth = DEFAULT_CUSTOM_WIDTH;
+    }
+
     std::wostringstream heightTextStream;
     heightTextStream << L"Custom Height (Can't be larger than " << MAXIMUM_HEIGHT <<
                      ')';
     customHeight = readInt(MAIN_SETTING_SECTION_NAME,
                            heightTextStream.str().c_str(), DEFAULT_CUSTOM_HEIGHT);
+
+    if (customHeight < MINIMUM_HEIGHT || customWidth > MAXIMUM_HEIGHT) {
+        customHeight = DEFAULT_CUSTOM_HEIGHT;
+    }
 
     if (isEnableCustomResolution()) {
         D2HD::D2HDResolution::getResolutions().push_back(D2HD::D2HDResolution(

@@ -50,6 +50,8 @@ public:
     static constexpr bool DEFAULT_ENABLE_CUSTOM_RESOLUTION = false;
     static constexpr int DEFAULT_CUSTOM_WIDTH = 856;
     static constexpr int DEFAULT_CUSTOM_HEIGHT = 480;
+    static constexpr int MINIMUM_WIDTH = 640;
+    static constexpr int MINIMUM_HEIGHT = 480;
     static constexpr int MAXIMUM_WIDTH = 1068;
     static constexpr int MAXIMUM_HEIGHT = 600;
     static constexpr unsigned int DEFAULT_COLOR_HEX = 0xFFFFFFFF;
