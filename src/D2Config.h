@@ -32,7 +32,8 @@
 
 class D2Config {
 public:
-    static constexpr const wchar_t* DEFAULT_CONFIG_PATH = L"./SlashDiablo-Tools.ini";
+    static constexpr const wchar_t* DEFAULT_CONFIG_PATH =
+        L"./SlashDiablo-Tools.ini";
 
     D2Config();
     D2Config(const std::wstring& configPath);
@@ -43,6 +44,8 @@ public:
                          const std::wstring& keyName, const unsigned int defaultValue) const;
     int readInt(const std::wstring& sectionName, const std::wstring& keyName,
                 const int defaultValue) const;
+    std::string readString(const std::wstring& sectionName,
+                           const std::wstring& keyName, const std::string& defaultValue) const;
     unsigned int readUnsignedInt(const std::wstring& sectionName,
                                  const std::wstring& keyName, const unsigned int defaultValue) const;
     std::wstring readWideString(const std::wstring& sectionName,

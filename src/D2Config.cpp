@@ -25,6 +25,7 @@
 
 #include "D2Config.h"
 
+#include <cstdlib>
 #include <regex>
 #include <windows.h>
 
@@ -95,6 +96,16 @@ int D2Config::readInt(const std::wstring& sectionName,
     }
 
     return std::stol(privateProfileString);
+}
+
+std::string D2Config::readString(const std::wstring& sectionName, const std::wstring& keyName, const std::string& defaultValue) const {
+    wchar_t defaultValueWideStringBuffer[MAX_PATH];
+    std::mbstowcs(defaultValueWideStringBuffer, defaultValue.c_str(), MAX_PATH);
+    std::wstring returnValueWideString = readWideString(sectionName, keyName, defaultValueWideStringBuffer);
+
+    char returnValueCharStringBuffer[MAX_PATH];
+    std::wcstombs(returnValueCharStringBuffer, returnValueWideString.c_str(), MAX_PATH);
+    return returnValueCharStringBuffer;
 }
 
 unsigned int D2Config::readUnsignedInt(const std::wstring& sectionName,
