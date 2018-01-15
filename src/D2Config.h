@@ -32,7 +32,7 @@
 
 class D2Config {
 public:
-    static const std::wstring DEFAULT_CONFIG_PATH;
+    static constexpr const wchar_t* DEFAULT_CONFIG_PATH = L"./SlashDiablo-Tools.ini";
 
     D2Config();
     D2Config(const std::wstring& configPath);
