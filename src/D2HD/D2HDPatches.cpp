@@ -44,10 +44,12 @@ void D2HD::getModeParams(int mode, int* width, int* height) {
         std::exit(0);
     }
 
-    if (*width > D2HD::D2HDConfig::MAXIMUM_WIDTH
-            || *height > D2HD::D2HDConfig::MAXIMUM_HEIGHT) {
+    if ((*width > D2HD::D2HDConfig::MAXIMUM_WIDTH
+            || *height > D2HD::D2HDConfig::MAXIMUM_HEIGHT)
+            || (*width < D2HD::D2HDConfig::MINIMUM_WIDTH
+                || *height < D2HD::D2HDConfig::MINIMUM_HEIGHT)) {
         MessageBoxW(nullptr,
-                    L"You defined a new resolution that exceeds expected limits. Change those limits in D2HD/D2HDConfig.h.",
+                    L"You defined a new resolution that breaks expected limits. Change those limits in D2HD/D2HDConfig.h.",
                     L"Defined Resolution Exceeds Limit", MB_OK | MB_ICONSTOP);
         std::exit(0);
     }
