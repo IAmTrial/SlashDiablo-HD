@@ -32,7 +32,7 @@
 #include "../DLLmain.h"
 
 void D2HD::getModeParams(int mode, int* width, int* height) {
-    if (mode < D2HD::D2HDResolution::getResolutions().size()) {
+    if ((size_t) mode < D2HD::D2HDResolution::getResolutions().size()) {
         *width = D2HD::D2HDResolution::getResolutions().at(mode).getWidth();
         *height = D2HD::D2HDResolution::getResolutions().at(mode).getHeight();
     } else {
@@ -81,7 +81,8 @@ void __stdcall D2HD::setResolutionModeFromMenu(int* mode) {
 
     if (currentMode == 0) {
         *mode = 2;
-    } else if (currentMode >= D2HDResolution::getResolutions().size() - 1) {
+    } else if ((size_t) currentMode >= D2HDResolution::getResolutions().size() -
+               1) {
         *mode = 0;
     } else {
         *mode = currentMode + 1;

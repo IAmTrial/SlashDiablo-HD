@@ -52,6 +52,10 @@ void D2HD::D2HDConfig::readSettings() {
     enableMod = readBool(MAIN_SETTING_SECTION_NAME, L"Enable Mod",
                          DEFAULT_ENABLE_MOD);
 
+    // Add "Resolution Mode" entry after "Enable Mod"
+    int discarded = 0;
+    D2HD::getConfigResolution(&discarded);
+
     enableCustomResolution = readBool(MAIN_SETTING_SECTION_NAME,
                                       L"Enable Custom Resolution", DEFAULT_ENABLE_CUSTOM_RESOLUTION);
 
@@ -71,7 +75,6 @@ void D2HD::D2HDConfig::readSettings() {
         D2HD::D2HDResolution::getResolutions().push_back(D2HD::D2HDResolution(
                     customWidth, customHeight));
     }
-
 
     leftPanelBackgroundColor = readColor(MAIN_SETTING_SECTION_NAME,
                                          L"Left Panel Background Color", DEFAULT_COLOR);
