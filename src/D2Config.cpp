@@ -28,8 +28,6 @@
 #include <regex>
 #include <windows.h>
 
-const std::wstring D2Config::DEFAULT_CONFIG_PATH  = L"./SlashDiablo-Tools.ini";
-
 D2Config::D2Config() : D2Config(DEFAULT_CONFIG_PATH) {
 }
 
