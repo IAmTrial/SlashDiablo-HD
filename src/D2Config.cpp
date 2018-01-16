@@ -76,7 +76,7 @@ unsigned int D2Config::readHex(const std::wstring& sectionName,
         return defaultValue;
     }
 
-    return std::stoul(privateProfileString);
+    return std::stoul(privateProfileString, nullptr, 16);
 }
 
 int D2Config::readInt(const std::wstring& sectionName,
