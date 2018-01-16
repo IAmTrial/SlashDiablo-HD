@@ -96,6 +96,15 @@ void __stdcall D2HD::setGDIForegroundRenderWidth(int mode) {
     D2HD::getModeParams(mode, D2GDI_ForegroundRenderWidth, &discarded);
 }
 
+void __stdcall D2HD::setDirectDrawRenderResolution(int mode, int* width, int* height) {
+    D2HD::getModeParams(mode, width, D2DDRAW_WindowSizeY);
+    *height = *D2DDRAW_WindowSizeY;
+}
+
+void __stdcall D2HD::setDirect3DRenderResolution(int mode) {
+    D2HD::getModeParams(mode, D2DIRECT3D_WindowSizeX, D2DIRECT3D_WindowSizeY);
+}
+
 void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
         int* glideResolutionMode) {
     D2HD::getModeParams(newGameResolutionMode, D2GLIDE_ScreenSizeX,

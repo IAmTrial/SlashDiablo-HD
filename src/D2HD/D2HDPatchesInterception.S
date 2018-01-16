@@ -33,6 +33,8 @@
 .global _setResolutionModeFromMenuInterception
 .global _setGDIRenderResolutionInterception
 .global _setGDIForegroundRenderWidthInterception
+.global _setDirectDrawRenderResolutionInterception
+.global _setDirect3DRenderResolutionInterception
 .global _setGlideRenderResolutionInterception
 .global _setupGlideWindowSizeInterception
 
@@ -111,6 +113,28 @@ _setGDIForegroundRenderWidthInterception:
     pushad
     push esi
     call _setGDIForegroundRenderWidth@4
+    popad
+    ret
+
+_setDirectDrawRenderResolutionInterception:
+    sub esp, 8
+    lea ecx, dword ptr [esp]
+    lea edx, dword ptr [esp + 4]
+    pushad
+    push edx
+    push ecx
+    push eax
+    call _setDirectDrawRenderResolution@12
+    popad
+    mov ecx, dword ptr [ecx]
+    mov edx, dword ptr [edx]
+    add esp, 8
+    ret
+
+_setDirect3DRenderResolutionInterception:
+    pushad
+    push eax
+    call _setDirect3DRenderResolution@4
     popad
     ret
 

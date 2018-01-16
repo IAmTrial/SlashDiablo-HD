@@ -56,6 +56,12 @@ extern "C" {
     void __stdcall setGDIForegroundRenderWidth(int mode);
     void setGDIForegroundRenderWidthInterception();
 
+    void __stdcall setDirectDrawRenderResolution(int mode, int* width, int* height);
+    void setDirectDrawRenderResolutionInterception();
+
+    void __stdcall setDirect3DRenderResolution(int mode);
+    void setDirect3DRenderResolutionInterception();
+
     void __stdcall setGlideRenderResolution(int newGameResolutionMode, int* glideResolutionMode);
     void setGlideRenderResolutionInterception();
 

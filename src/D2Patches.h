@@ -243,6 +243,32 @@ static const std::vector<D2Patch> requiredHDPatches = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x7049 + 1, 0x7E99 + 1
     }), (DWORD) D2HD::setGDIForegroundRenderWidthInterception, true, 0),
 
+    // Fix D2DDraw Fullscreen
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x85C2, 0x8202
+    }), PATCH_NOPBLOCK, false, 0x85ED - 0x85C2),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x85C2, 0x8202
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x85C2 + 1, 0x8202 + 1
+    }), (DWORD) D2HD::setDirectDrawRenderResolutionInterception, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x85F9, 0x8239
+    }), PATCH_NOPBLOCK, false, 0x8600 - 0x85F9),
+
+    // Fix Direct3D Fullscreen
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DIRECT3D, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xB9A4, 0xBE64
+    }), PATCH_NOPBLOCK, false, /*0xB9D0*/ 0xB9DF - 0xB9A4),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DIRECT3D, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xB9A4, 0xBE64
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2DIRECT3D, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xB9A4 + 1, 0xBE64 + 1
+    }), (DWORD) D2HD::setDirect3DRenderResolutionInterception, true, 0),
+
     // Resize Glide Rendering Resolution
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE, {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDCC6, 0xD5D6
