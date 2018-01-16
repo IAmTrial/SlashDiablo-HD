@@ -106,5 +106,15 @@ enum InventoryTxtRows
     INV_REC_EXP_ASSASSIN
 };
 
+enum class D2RenderModes {
+	VIDEO_MODE_GDI = 1,
+	VIDEO_MODE_SOFTWARE = 2,
+	VIDEO_MODE_DDRAW = 3,
+	VIDEO_MODE_GLIDE = 4,
+	VIDEO_MODE_OPENGL = 5, // UNUSED
+	VIDEO_MODE_D3D = 6,
+	VIDEO_MODE_RAVE = 7, // UNUSED
+};
+
 // end of file ---------------------------------------------------------------
 #endif

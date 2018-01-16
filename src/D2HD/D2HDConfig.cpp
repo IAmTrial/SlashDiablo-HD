@@ -175,6 +175,10 @@ void __stdcall D2HD::getConfigResolution(int* mode) {
     *mode = config.readInt(D2HD::D2HDConfig::MAIN_SETTING_SECTION_NAME,
                            L"Resolution Mode",
                            D2HD::D2HDConfig::DEFAULT_RESOLUTION_MODE);
+
+    if (*mode < 0 || (unsigned int)*mode >= D2HD::D2HDResolution::getResolutions().size()) {
+        *mode = 0;
+    }
 }
 
 void __stdcall D2HD::setConfigResolution(int mode) {
