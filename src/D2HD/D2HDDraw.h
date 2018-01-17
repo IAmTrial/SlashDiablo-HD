@@ -36,18 +36,34 @@ namespace D2HD {
 namespace Draw {
     extern HANDLE d2mrArchive;
     extern CellFile* blankCellFile;
-    extern CellFile* d2mrFancyBorderBottom;
-    extern CellFile* d2mrFancyBorderCorner;
+
+    extern CellFile* d2mrFancyBorderCornerBottomLeft;
+    extern CellFile* d2mrFancyBorderCornerBottomRight;
+    extern CellFile* d2mrFancyBorderCornerTopLeft;
+    extern CellFile* d2mrFancyBorderCornerTopRight;
+
     extern CellFile* d2mrFancyBorderInterfaceLeft;
     extern CellFile* d2mrFancyBorderInterfaceRight;
+
+    extern CellFile* d2mrFancyBorderBottomLeft;
+    extern CellFile* d2mrFancyBorderBottomRight;
     extern CellFile* d2mrFancyBorderLeft;
     extern CellFile* d2mrFancyBorderRight;
-    extern CellFile* d2mrFancyBorderTop;
+
+    extern CellFile* d2mrFancyBorderBottomLeft;
+    extern CellFile* d2mrFancyBorderBottomRight;
+    extern CellFile* d2mrFancyBorderTopLeft;
+    extern CellFile* d2mrFancyBorderTopRight;
+
     extern CellFile* d2mrFancyHorizontalBar;
-    extern CellFile* d2mrFancyPanelBar;
+    extern CellFile* d2mrFancyVerticalBar;
+
+    extern CellFile* d2mrFancyPanelHorizontalBar;
+    extern CellFile* d2mrFancyPanelVerticalBar;
+
     extern CellFile* d2mrFancyPanelLeft;
     extern CellFile* d2mrFancyPanelRight;
-    extern CellFile* d2mrFancyVerticalBar;
+
     extern CellFile* d2mrStoneBack;
     extern CellFile* resolution1068x600Text;
     extern CellFile* resolution1344x700Text;

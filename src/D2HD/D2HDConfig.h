@@ -59,7 +59,7 @@ public:
 
     static constexpr bool DEFAULT_ENABLE_800_CONTROL_PANEL = true;
     static constexpr bool DEFAULT_ENABLE_D2MR_BACKGROUND_RIBBON = true;
-    static constexpr bool DEFAULT_ENABLE_D2MR_PANEL_BORDER_STYLE = true;
+    static constexpr bool DEFAULT_ENABLE_D2MR_PANEL_BORDER_STYLE = false;
     static constexpr bool DEFAULT_FLIP_D2MR_CONTROL_PANEL = true;
 
     D2HDConfig();
