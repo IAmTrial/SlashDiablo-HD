@@ -239,10 +239,6 @@ void D2HD::Draw::drawLeftPanelBackground() {
             D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyVerticalBar", 0);
     }
 
-    if (!config.isEnableD2MRPanelBorderStyle()) {
-        basePositionY += 2;
-    }
-
     CellContext borderLeft = { 0 };
     borderLeft.pCellFile = D2HD::Draw::d2mrFancyBorderLeft;
     borderLeft.nFrame = 0;
@@ -354,7 +350,6 @@ void D2HD::Draw::drawLeftPanelBorders() {
 
     if (!config.isEnableD2MRPanelBorderStyle()) {
         basePositionX += 2;
-        basePositionY += 2;
     }
 
     // Draw top border pieces
@@ -470,10 +465,6 @@ void D2HD::Draw::drawRightPanelBackground() {
             D2WIN_LoadCellFile("data\\global\\ui\\Panel\\D2MRFancyVerticalBar", 0);
     }
 
-    if (!config.isEnableD2MRPanelBorderStyle()) {
-        basePositionY += 2;
-    }
-
     CellContext borderRight = { 0 };
     borderRight.pCellFile = D2HD::Draw::d2mrFancyBorderRight;
     borderRight.nFrame = 0;
@@ -571,10 +562,6 @@ void D2HD::Draw::drawRightPanelBorders() {
 
     int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
     int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
-
-    if (!config.isEnableD2MRPanelBorderStyle()) {
-        basePositionY += 2;
-    }
 
     // Draw top border pieces
     CellContext borderTopRight = { 0 };
