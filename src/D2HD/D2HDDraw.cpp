@@ -96,12 +96,12 @@ void __stdcall D2HD::Draw::determineVideoOptionText(struct CellFile**
     }
 
     if (baseAddress == D2CLIENT_VideoOptionCellFileStart && offset == 0x154) {
-        if ((*D2CLIENT_ScreenSizeX == 640 && *D2CLIENT_ScreenSizeY == 480)
-                || (*D2CLIENT_ScreenSizeX == 800 && *D2CLIENT_ScreenSizeY == 600)) {
+        if ((*D2CLIENT_WindowWidth == 640 && *D2CLIENT_WindowHeight == 480)
+                || (*D2CLIENT_WindowWidth == 800 && *D2CLIENT_WindowHeight == 600)) {
             *outCellFile = defaultCellFile;
-        } else if (*D2CLIENT_ScreenSizeX == 1068 && *D2CLIENT_ScreenSizeY == 600) {
+        } else if (*D2CLIENT_WindowWidth == 1068 && *D2CLIENT_WindowHeight == 600) {
             *outCellFile = D2HD::Draw::resolution1068x600Text;
-        } else if (*D2CLIENT_ScreenSizeX == 1344 && *D2CLIENT_ScreenSizeY == 700) {
+        } else if (*D2CLIENT_WindowWidth == 1344 && *D2CLIENT_WindowHeight == 700) {
             *outCellFile = D2HD::Draw::resolution1344x700Text;
         } else {
             *outCellFile = D2HD::Draw::blankCellFile;
@@ -133,31 +133,31 @@ void D2HD::Draw::drawControlPanel() {
     CellContext panelLeft = { 0 };
     panelLeft.pCellFile = D2HD::Draw::d2mrFancyPanelLeft;
     panelLeft.nFrame = 0;
-    D2GFX_DrawCellContext(&panelLeft, (117 + 48), *D2CLIENT_ScreenSizeY - 1,
+    D2GFX_DrawCellContext(&panelLeft, (117 + 48), *D2CLIENT_WindowHeight - 1,
                           0xFFFFFFFF, 5, 0);
 
     CellContext panelRight = { 0 };
     panelRight.pCellFile = D2HD::Draw::d2mrFancyPanelRight;
     panelRight.nFrame = 0;
-    D2GFX_DrawCellContext(&panelRight, (*D2CLIENT_ScreenSizeX - 117 - 48 - 238),
-                          *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+    D2GFX_DrawCellContext(&panelRight, (*D2CLIENT_WindowWidth - 117 - 48 - 238),
+                          *D2CLIENT_WindowHeight - 1, 0xFFFFFFFF, 5, 0);
 
     CellContext panelHorizontalBar = { 0 };
     panelHorizontalBar.pCellFile = D2HD::Draw::d2mrFancyPanelHorizontalBar;
     panelHorizontalBar.nFrame = 0;
 
     for (int i = 0;
-            ((i * 254) + (117 + 48 + 238)) < ((*D2CLIENT_ScreenSizeX / 2) - 128); i++) {
+            ((i * 254) + (117 + 48 + 238)) < ((*D2CLIENT_WindowWidth / 2) - 128); i++) {
         D2GFX_DrawCellContext(&panelHorizontalBar, ((i * 254) + (117 + 48 + 238)),
-                              *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+                              *D2CLIENT_WindowHeight - 1, 0xFFFFFFFF, 5, 0);
     }
 
     for (int i = 0;
-            ((*D2CLIENT_ScreenSizeX - 117 - 48 - 238) - (i * 254)) > ((
-                        *D2CLIENT_ScreenSizeX / 2) + 128); i++) {
+            ((*D2CLIENT_WindowWidth - 117 - 48 - 238) - (i * 254)) > ((
+                        *D2CLIENT_WindowWidth / 2) + 128); i++) {
         D2GFX_DrawCellContext(&panelHorizontalBar,
-                              ((*D2CLIENT_ScreenSizeX - 117 - 48 - 238) - ((i + 1) * 254)),
-                              *D2CLIENT_ScreenSizeY - 1, 0xFFFFFFFF, 5, 0);
+                              ((*D2CLIENT_WindowWidth - 117 - 48 - 238) - ((i + 1) * 254)),
+                              *D2CLIENT_WindowHeight - 1, 0xFFFFFFFF, 5, 0);
     }
 }
 
@@ -197,13 +197,13 @@ void D2HD::Draw::drawLeftPanelBackground() {
     image.pCellFile = D2HD::Draw::d2mrStoneBack;
     image.nFrame = 0;
 
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
+    int basePositionX = (*D2CLIENT_WindowWidth / 2);
 
     // Draw background pieces
     const int backWidth = 256;
     const int backHeight = 256;
 
-    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
+    for (int row = 0; (row * backHeight) < *D2CLIENT_WindowHeight; row++) {
         int backBasePositionY = ((row + 1) * backHeight);
 
         for (int col = 0; (int)(basePositionX - (col * backWidth)) >= 0; col++) {
@@ -218,11 +218,11 @@ void D2HD::Draw::drawLeftPanelBackground() {
     // Draw the ribbons only if the user has it enabled AND the game resolution allows the ribbons to be drawn without
     // problems.
     if (!config.isEnableD2MRBackgroundRibbon()
-            && ((*D2CLIENT_ScreenSizeY - ((256 + 256 + 40) + 48)) <= (2 * (256 + 28)))) {
+            && ((*D2CLIENT_WindowHeight - ((256 + 256 + 40) + 48)) <= (2 * (256 + 28)))) {
         return;
     }
 
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
+    int basePositionY = (*D2CLIENT_WindowHeight / 2) - 300;
 
     if (D2HD::Draw::d2mrFancyBorderLeft == nullptr) {
         D2HD::Draw::d2mrFancyBorderLeft =
@@ -298,7 +298,7 @@ void D2HD::Draw::drawLeftPanelBackground() {
     }
 
     for (int i = 0;
-            ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY);
+            ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_WindowHeight);
             i++) {
         verticalBar.nFrame = i % 2;
         D2GFX_DrawCellContext(&verticalBar, (basePositionX - 400),
@@ -345,8 +345,8 @@ void D2HD::Draw::drawLeftPanelBorders() {
                                            0);
     }
 
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2) - 400;
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
+    int basePositionX = (*D2CLIENT_WindowWidth / 2) - 400;
+    int basePositionY = (*D2CLIENT_WindowHeight / 2) - 300;
 
     if (!config.isEnableD2MRPanelBorderStyle()) {
         basePositionX += 2;
@@ -422,16 +422,16 @@ void D2HD::Draw::drawRightPanelBackground() {
     image.pCellFile = D2HD::Draw::d2mrStoneBack;
     image.nFrame = 0;
 
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
+    int basePositionX = (*D2CLIENT_WindowWidth / 2);
 
     // Draw background pieces
     const int backWidth = 256;
     const int backHeight = 256;
 
-    for (int row = 0; (row * backHeight) < *D2CLIENT_ScreenSizeY; row++) {
+    for (int row = 0; (row * backHeight) < *D2CLIENT_WindowHeight; row++) {
         int backBasePositionY = ((row + 1) * backHeight);
 
-        for (int col = 0; basePositionX + (col * backWidth) < *D2CLIENT_ScreenSizeX;
+        for (int col = 0; basePositionX + (col * backWidth) < *D2CLIENT_WindowWidth;
                 col++) {
             image.nFrame = ((row % 2) * 2) + ((col + 1) % 2);
             int backBasePositionX = basePositionX + (col * backWidth);
@@ -444,11 +444,11 @@ void D2HD::Draw::drawRightPanelBackground() {
     // Draw the ribbons only if the user has it enabled AND the game resolution allows the ribbons to be drawn without
     // problems.
     if (!config.isEnableD2MRBackgroundRibbon()
-            && ((*D2CLIENT_ScreenSizeY - ((256 + 256 + 40) + 48)) <= (2 * (256 + 28)))) {
+            && ((*D2CLIENT_WindowHeight - ((256 + 256 + 40) + 48)) <= (2 * (256 + 28)))) {
         return;
     }
 
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
+    int basePositionY = (*D2CLIENT_WindowHeight / 2) - 300;
 
     if (D2HD::Draw::d2mrFancyBorderRight == nullptr) {
         D2HD::Draw::d2mrFancyBorderRight =
@@ -486,7 +486,7 @@ void D2HD::Draw::drawRightPanelBackground() {
     CellContext horizontalBar = { 0 };
     horizontalBar.pCellFile = D2HD::Draw::d2mrFancyHorizontalBar;
 
-    for (int i = 0; (basePositionX + 400) + (i * 256) < (*D2CLIENT_ScreenSizeX);
+    for (int i = 0; (basePositionX + 400) + (i * 256) < (*D2CLIENT_WindowWidth);
             i++) {
         horizontalBar.nFrame = i % 2;
         D2GFX_DrawCellContext(&horizontalBar, (basePositionX + 400) + (i * 256),
@@ -512,7 +512,7 @@ void D2HD::Draw::drawRightPanelBackground() {
     }
 
     for (int i = 0;
-            ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_ScreenSizeY);
+            ((basePositionY + (256 + 256 + 40)) + (i * 256)) < (*D2CLIENT_WindowHeight);
             i++) {
         verticalBar.nFrame = i % 2;
         D2GFX_DrawCellContext(&verticalBar, (basePositionX + 400 - 60),
@@ -560,8 +560,8 @@ void D2HD::Draw::drawRightPanelBorders() {
                                        0);
     }
 
-    int basePositionX = (*D2CLIENT_ScreenSizeX / 2);
-    int basePositionY = (*D2CLIENT_ScreenSizeY / 2) - 300;
+    int basePositionX = (*D2CLIENT_WindowWidth / 2);
+    int basePositionY = (*D2CLIENT_WindowHeight / 2) - 300;
 
     // Draw top border pieces
     CellContext borderTopRight = { 0 };

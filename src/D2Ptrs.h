@@ -87,8 +87,8 @@
  *   D2CLIENT.DLL POINTERS                                                       *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2CLIENT, ScreenSizeX, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0));
-D2VAR(D2CLIENT, ScreenSizeY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0));
+D2VAR(D2CLIENT, WindowWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0));
+D2VAR(D2CLIENT, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0));
 D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11A77C, 0x103B14, 0, 0, 0, 0));
 D2VAR(D2CLIENT, PanelOffsetX, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0, 0x11D354, 0, 0, 0, 0));
 D2VAR(D2CLIENT, PanelOffsetY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4, 0x11D358, 0, 0, 0, 0));
@@ -116,15 +116,15 @@ D2VAR(D2COMMON, InventoryTxt, InventoryTxt*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x9F
  *   D2DDRAW.DLL POINTERS                                                        *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2DDRAW, WindowSizeY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x101D8, 0x100E8, 0, 0, 0, 0));
+D2VAR(D2DDRAW, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x101D8, 0x100E8, 0, 0, 0, 0));
 
 /*********************************************************************************
  *                                                                               *
  *   D2DIRECT3D.DLL POINTERS                                                     *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2DIRECT3D, WindowSizeX, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1AB44, 0x3296C, 0, 0, 0, 0));
-D2VAR(D2DIRECT3D, WindowSizeY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1AFD4, 0X32DFC, 0, 0, 0, 0));
+D2VAR(D2DIRECT3D, WindowWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1AB44, 0x3296C, 0, 0, 0, 0));
+D2VAR(D2DIRECT3D, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1AFD4, 0X32DFC, 0, 0, 0, 0));
 
 /*********************************************************************************
  *                                                                               *
@@ -138,8 +138,8 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA9C, 
  *   D2GFX.DLL POINTERS                                                          *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2GFX, Width, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1477C, 0x14324, 0, 0, 0, 0));
-D2VAR(D2GFX, Height, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x14780, 0x14328, 0, 0, 0, 0));
+D2VAR(D2GFX, WindowWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1477C, 0x14324, 0, 0, 0, 0));
+D2VAR(D2GFX, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x14780, 0x14328, 0, 0, 0, 0));
 
 D2FUNC(D2GFX, GetRenderMode, D2RenderModes, __stdcall, (), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10078, -10022, 0, 0, 0, 0));
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10031, -10012, 0, 0, 0, 0));
@@ -150,8 +150,8 @@ D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int 
  *   D2GLIDE.DLL POINTERS                                                        *
  *                                                                               *
  *********************************************************************************/
-D2VAR(D2GLIDE, ScreenSizeX, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15A68, 0x15A78, 0, 0, 0, 0));
-D2VAR(D2GLIDE, ScreenSizeY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15B04, 0x15B14, 0, 0, 0, 0));
+D2VAR(D2GLIDE, WindowWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15A68, 0x15A78, 0, 0, 0, 0));
+D2VAR(D2GLIDE, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x15B04, 0x15B14, 0, 0, 0, 0));
 
 D2VAR(D2GLIDE, SpritesInited, bool, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x17B44, 0x17B54, 0, 0, 0, 0));
 
@@ -175,8 +175,8 @@ D2FUNC(FOG, FreeClientMemory, void, __fastcall, (void* pMemoryToFree, const char
  *   GLIDE3X.DLL POINTERS                                                        *
  *                                                                               *
  *********************************************************************************/
-D2VAR(GLIDE3X, WindowSizeX, int*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C9A0, 0x1C9A0, 0, 0, 0, 0));
-D2VAR(GLIDE3X, WindowSizeY, int*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C82C, 0x1C82C, 0, 0, 0, 0));
+D2VAR(GLIDE3X, WindowWidth, int*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C9A0, 0x1C9A0, 0, 0, 0, 0));
+D2VAR(GLIDE3X, WindowHeight, int*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1C82C, 0x1C82C, 0, 0, 0, 0));
 
 // end of file -----------------------------------------------------------------
 #endif

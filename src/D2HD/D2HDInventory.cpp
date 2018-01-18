@@ -91,13 +91,13 @@ void __stdcall D2HD::Inventory::getInventorySize(int nRecord, int nScreenMode, I
         }
 
         if (pTxt->Grid.left > 300) {
-            xLeft = ((pTxt->Inventory.left - 320) + (*D2CLIENT_ScreenSizeX / 2));
-            xRight = ((pTxt->Inventory.right - 320) + (*D2CLIENT_ScreenSizeX / 2));
+            xLeft = ((pTxt->Inventory.left - 320) + (*D2CLIENT_WindowWidth / 2));
+            xRight = ((pTxt->Inventory.right - 320) + (*D2CLIENT_WindowWidth / 2));
         } else {
-            xLeft = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Inventory.left;
-            xRight = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Inventory.right;
+            xLeft = ((*D2CLIENT_WindowWidth / 2) - 320) + pTxt->Inventory.left;
+            xRight = ((*D2CLIENT_WindowWidth / 2) - 320) + pTxt->Inventory.right;
         }
-        xTop = ((*D2CLIENT_ScreenSizeY / 2) - 240) + pTxt->Inventory.top;
+        xTop = ((*D2CLIENT_WindowHeight / 2) - 240) + pTxt->Inventory.top;
         xBottom = xTop + pTxt->Inventory.bottom - pTxt->Inventory.top; //  (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Inventory.dwBottom));
 
         pOut->left = xLeft;
@@ -129,14 +129,14 @@ void __stdcall D2HD::Inventory::getInventoryGrid(int nRecord, int nScreenMode, I
         int xLeft = -1;
         int xRight = -1;
         if (pTxt->Grid.left > 300) {
-            xLeft = pTxt->Grid.left == -1 ? -1 : ((pTxt->Grid.left - 320) + (*D2CLIENT_ScreenSizeX / 2));
-            xRight = pTxt->Grid.right == -1 ? -1 : ((pTxt->Grid.right - 320) + (*D2CLIENT_ScreenSizeX / 2));
+            xLeft = pTxt->Grid.left == -1 ? -1 : ((pTxt->Grid.left - 320) + (*D2CLIENT_WindowWidth / 2));
+            xRight = pTxt->Grid.right == -1 ? -1 : ((pTxt->Grid.right - 320) + (*D2CLIENT_WindowWidth / 2));
         } else {
-            xLeft = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Grid.left;
-            xRight = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pTxt->Grid.right;
+            xLeft = ((*D2CLIENT_WindowWidth / 2) - 320) + pTxt->Grid.left;
+            xRight = ((*D2CLIENT_WindowWidth / 2) - 320) + pTxt->Grid.right;
         }
 
-        int xTop = pTxt->Grid.top == -1 ? -1 : ((*D2CLIENT_ScreenSizeY / 2) - 240) + pTxt->Grid.top;
+        int xTop = pTxt->Grid.top == -1 ? -1 : ((*D2CLIENT_WindowHeight / 2) - 240) + pTxt->Grid.top;
         int xBottom = pTxt->Grid.bottom == -1 ? -1 : xTop + (pTxt->Grid.bottom - pTxt->Grid.top);  // (*D2Vars.D2CLIENT_ScreenHeight - (480 - pTxt->Grid.dwBottom));
 
         pOut->nGridX = pTxt->Inventory.nGridX;
@@ -174,14 +174,14 @@ void __stdcall D2HD::Inventory::getInventoryField(int nRecord, int nScreenMode, 
         int xRight = -1;
 
         if (pTxt->Grid.left > 300) {
-            xLeft = pLayout->left == -1 ? -1 : ((pLayout->left - 320) + (*D2CLIENT_ScreenSizeX / 2));
-            xRight = pLayout->right == -1 ? -1 : ((pLayout->right - 320) + (*D2CLIENT_ScreenSizeX / 2));
+            xLeft = pLayout->left == -1 ? -1 : ((pLayout->left - 320) + (*D2CLIENT_WindowWidth / 2));
+            xRight = pLayout->right == -1 ? -1 : ((pLayout->right - 320) + (*D2CLIENT_WindowWidth / 2));
         } else {
-            xLeft = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pLayout->left;
-            xRight = ((*D2CLIENT_ScreenSizeX / 2) - 320) + pLayout->right;
+            xLeft = ((*D2CLIENT_WindowWidth / 2) - 320) + pLayout->left;
+            xRight = ((*D2CLIENT_WindowWidth / 2) - 320) + pLayout->right;
         }
 
-        int xTop = pLayout->top == -1 ? -1 : ((*D2CLIENT_ScreenSizeY / 2) - 240) + pLayout->top;
+        int xTop = pLayout->top == -1 ? -1 : ((*D2CLIENT_WindowHeight / 2) - 240) + pLayout->top;
         int xBottom = pLayout->bottom == -1 ? -1 : xTop + (pLayout->bottom - pLayout->top);    //(*D2Vars.D2CLIENT_ScreenHeight - (480 - pLayout->dwBottom));
 
         pOut->left = xLeft;

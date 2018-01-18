@@ -74,25 +74,25 @@ void D2HD::getModeParams(int mode, int* width, int* height) {
 }
 
 void D2HD::repositionPanels() {
-    *D2CLIENT_PanelOffsetX = (*D2CLIENT_ScreenSizeX / 2) - 320;
-    *D2CLIENT_PanelOffsetY = (*D2CLIENT_ScreenSizeY - 480) / -2;
+    *D2CLIENT_PanelOffsetX = (*D2CLIENT_WindowWidth / 2) - 320;
+    *D2CLIENT_PanelOffsetY = (*D2CLIENT_WindowHeight - 480) / -2;
 }
 
 void __stdcall D2HD::getPatchedResolutionMode(int* resolutionMode) {
-    *resolutionMode = (*D2CLIENT_ScreenSizeX >= 800) ? 2 : 0;
+    *resolutionMode = (*D2CLIENT_WindowWidth >= 800) ? 2 : 0;
 }
 
 void __stdcall D2HD::resizeGameLogicResolution(int mode) {
-    D2HD::getModeParams(mode, D2CLIENT_ScreenSizeX, D2CLIENT_ScreenSizeY);
+    D2HD::getModeParams(mode, D2CLIENT_WindowWidth, D2CLIENT_WindowHeight);
     *D2CLIENT_InventoryArrangeMode = mode;
 }
 
 void __stdcall D2HD::getGameWindowWidth(int* width) {
-    *width = *D2GFX_Width;
+    *width = *D2GFX_WindowWidth;
 }
 
 void __stdcall D2HD::getGameWindowHeight(int* height) {
-    *height = *D2GFX_Height;
+    *height = *D2GFX_WindowHeight;
 }
 
 void __stdcall D2HD::setResolutionMode(int* gameResolution,
@@ -123,18 +123,18 @@ void __stdcall D2HD::setGDIForegroundRenderWidth(int mode) {
 }
 
 void __stdcall D2HD::setDirectDrawRenderResolution(int mode, int* width, int* height) {
-    D2HD::getModeParams(mode, width, D2DDRAW_WindowSizeY);
-    *height = *D2DDRAW_WindowSizeY;
+    D2HD::getModeParams(mode, width, D2DDRAW_WindowHeight);
+    *height = *D2DDRAW_WindowHeight;
 }
 
 void __stdcall D2HD::setDirect3DRenderResolution(int mode) {
-    D2HD::getModeParams(mode, D2DIRECT3D_WindowSizeX, D2DIRECT3D_WindowSizeY);
+    D2HD::getModeParams(mode, D2DIRECT3D_WindowWidth, D2DIRECT3D_WindowHeight);
 }
 
 void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
         int* glideResolutionMode) {
-    D2HD::getModeParams(newGameResolutionMode, D2GLIDE_ScreenSizeX,
-                        D2GLIDE_ScreenSizeY);
+    D2HD::getModeParams(newGameResolutionMode, D2GLIDE_WindowWidth,
+                        D2GLIDE_WindowHeight);
 
     switch (newGameResolutionMode) {
     case 0:
@@ -152,7 +152,7 @@ void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
 
     // Apply special case for /r/Diablo2Resurgence
     if (D2Version::getGlide3xVersionID() == D2Version::Glide3xVersionID::RESURGENCE
-            && *D2GLIDE_ScreenSizeX == 1068 && *D2GLIDE_ScreenSizeY == 600) {
+            && *D2GLIDE_WindowWidth == 1068 && *D2GLIDE_WindowHeight == 600) {
         *glideResolutionMode = 0xFF;
     }
 
@@ -162,5 +162,5 @@ void __stdcall D2HD::setGlideRenderResolution(int newGameResolutionMode,
 void __stdcall D2HD::setupGlideWindowSize(int newGlideResolutionMode) {
     const int resolutionMode = (newGlideResolutionMode == 7) ? 0 : ((
                                    newGlideResolutionMode - 8) + 2);
-    D2HD::getModeParams(resolutionMode, *GLIDE3X_WindowSizeX, *GLIDE3X_WindowSizeY);
+    D2HD::getModeParams(resolutionMode, *GLIDE3X_WindowWidth, *GLIDE3X_WindowHeight);
 }
