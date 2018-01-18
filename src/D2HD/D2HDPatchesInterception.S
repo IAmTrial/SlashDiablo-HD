@@ -28,6 +28,8 @@
 .global _repositionPanelsInterception
 .global _getPatchedResolutionModeInterception
 .global _resizeGameLogicResolutionInterception
+.global _resizeGameWindowResizeWidthInterception
+.global _resizeGameWindowResizeHeightInterception
 .global _setResolutionModeEAXInterception
 .global _setResolutionModeEDIInterception
 .global _setResolutionModeFromMenuInterception
@@ -60,6 +62,30 @@ _resizeGameLogicResolutionInterception:
     push esi
     call _resizeGameLogicResolution@4
     popad
+    ret
+
+_resizeGameWindowResizeWidthInterception:
+    sub esp, 4
+    lea edx, [esp]
+    pushad
+    push edx
+    call _getGameWindowWidth@4
+    popad
+    add esp, 4
+
+    cmp eax, [edx]
+    ret
+
+_resizeGameWindowResizeHeightInterception:
+    sub esp, 4
+    lea edx, [esp]
+    pushad
+    push edx
+    call _getGameWindowHeight@4
+    popad
+    add esp, 4
+
+    cmp ecx, [edx]
     ret
 
 _setResolutionModeEAXInterception:

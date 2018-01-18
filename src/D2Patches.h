@@ -211,11 +211,24 @@ static const std::vector<D2Patch> requiredHDPatches = {
 
     // Correct Resizing of Window from any resolution to a smaller one.
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0 + 1, 0xB42F + 1
-    }), std::numeric_limits<int>::max(), false, 0),
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0, 0xB42F
+    }), PATCH_NOPBLOCK, false, 0x83F5 - 0x83F0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403 + 2, 0xB43E + 2
-    }), std::numeric_limits<int>::max(), false, 0),
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0, 0xB42F
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x83F0 + 1, 0xB42F + 1
+    }), (DWORD) D2HD::resizeGameWindowResizeWidthInterception, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403, 0xB43E
+    }), PATCH_NOPBLOCK, false, 0x8409 - 0x8403),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403, 0xB43E
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x8403 + 1, 0xB43E + 1
+    }), (DWORD) D2HD::resizeGameWindowResizeHeightInterception, true, 0),
 
     // Resize GDI Rendering Resolution
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GDI, {

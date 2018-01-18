@@ -87,6 +87,14 @@ void __stdcall D2HD::resizeGameLogicResolution(int mode) {
     *D2CLIENT_InventoryArrangeMode = mode;
 }
 
+void __stdcall D2HD::getGameWindowWidth(int* width) {
+    *width = *D2GFX_Width;
+}
+
+void __stdcall D2HD::getGameWindowHeight(int* height) {
+    *height = *D2GFX_Height;
+}
+
 void __stdcall D2HD::setResolutionMode(int* gameResolution,
                                        int configResolution) {
     if (configResolution == 1) {

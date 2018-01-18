@@ -62,6 +62,12 @@ extern "C" {
     void __stdcall resizeGameLogicResolution(int mode);
     void resizeGameLogicResolutionInterception();
 
+    void __stdcall getGameWindowWidth(int* width);
+    void resizeGameWindowResizeWidthInterception();
+
+    void __stdcall getGameWindowHeight(int* height);
+    void resizeGameWindowResizeHeightInterception();
+
     void __stdcall setResolutionMode(int* gameResolution, int configResolution);
     void setResolutionModeEAXInterception();
     void setResolutionModeEDIInterception();

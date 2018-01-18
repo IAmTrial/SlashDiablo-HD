@@ -138,6 +138,9 @@ D2VAR(D2GDI, ForegroundRenderWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCA9C, 
  *   D2GFX.DLL POINTERS                                                          *
  *                                                                               *
  *********************************************************************************/
+D2VAR(D2GFX, Width, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x1477C, 0x14324, 0, 0, 0, 0));
+D2VAR(D2GFX, Height, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x14780, 0x14328, 0, 0, 0, 0));
+
 D2FUNC(D2GFX, GetRenderMode, D2RenderModes, __stdcall, (), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10078, -10022, 0, 0, 0, 0));
 D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10031, -10012, 0, 0, 0, 0));
 D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, unsigned int color, int nTransTbl, unsigned char* pPalette), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10041, -10042, 0, 0, 0, 0));
