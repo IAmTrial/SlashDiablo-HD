@@ -41,13 +41,19 @@
 static const std::vector<D2Patch> requiredHDPatches = {
     // Panel Positioning Fix
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6
-    }), PATCH_NOPBLOCK, false, 39),
+        0x8BA5F, 0x86BCF, 0, 0, 0, 0x865C4,
+        0x81B8F, 0xA3606, 0x66A06, 0x90166, 0xC39F6, 0x1D3F6,
+        0x65DDB, 0x5259B, 0x5259B, 0x56EFD
+    }), PATCH_NOPBLOCK, false, 0xC3A1D - 0xC39F6),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xC39F6, 0x1D3F6
+        0x8BA5F, 0x86BCF, 0, 0, 0, 0x865C4,
+        0x81B8F, 0xA3606, 0x66A06, 0x90166, 0xC39F6, 0x1D3F6,
+        0x65DDB, 0x5259B, 0x5259B, 0x56EFD
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xC39F6 + 1, 0x1D3F6 + 1
+        0x8BA5F + 1, 0x86BCF + 1, 0, 0, 0, 0x865C4 + 1,
+        0x81B8F + 1, 0xA3606 + 1, 0x66A06 + 1, 0x90166 + 1, 0xC39F6 + 1, 0x1D3F6 + 1,
+        0x65DDB + 1, 0x5259B + 1, 0x5259B + 1, 0x56EFD + 1
     }), (DWORD) D2HD::repositionPanelsInterception, true, 0),
 
     // Fix border panel click detection issue for HD mode.

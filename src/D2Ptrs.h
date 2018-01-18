@@ -90,8 +90,8 @@
 D2VAR(D2CLIENT, WindowWidth, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC48, 0xF7034, 0, 0, 0, 0));
 D2VAR(D2CLIENT, WindowHeight, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xDBC4C, 0xF7038, 0, 0, 0, 0));
 D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11A77C, 0x103B14, 0, 0, 0, 0));
-D2VAR(D2CLIENT, PanelOffsetX, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A0, 0x11D354, 0, 0, 0, 0));
-D2VAR(D2CLIENT, PanelOffsetY, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B9A4, 0x11D358, 0, 0, 0, 0));
+D2VAR(D2CLIENT, PanelOffsetX, int, (0x12D7FC, 0x122B3C, 0, 0, 0, 0x124954, 0x11A748, 0x11BD24, 0x11BEF8, 0x11BD28, 0x11B9A0, 0x11D354, 0x442F58, 0x39A8E0, 0x3998E0, 0x3A2858));
+D2VAR(D2CLIENT, PanelOffsetY, int, (0x12D800, 0x122B40, 0, 0, 0, 0x124958, 0x11A74C, 0x11BD28, 0x11BEFC, 0x11BD2C, 0x11B9A4, 0x11D358, 0x442F5C, 0x39A8E4, 0x3998E4, 0x3A285C));
 D2VAR(D2CLIENT, PanelOpenMode, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11C414, 0x11D070, 0, 0, 0, 0));
 D2VAR(D2CLIENT, InventoryArrangeMode, int, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x11B99C, 0x11D2B4, 0, 0, 0, 0));
 
