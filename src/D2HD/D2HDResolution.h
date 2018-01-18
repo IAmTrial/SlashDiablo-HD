@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2HDResolution.h                                                        *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,36 +17,36 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Declares a class that stores resolutions and the list of resolutions    *
+ *   intended for the game.                                                  *
  *                                                                           *
  *****************************************************************************/
+
 #pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+#ifndef D2HDRESOLUTION_H
+#define D2HDRESOLUTION_H
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+#include <vector>
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
+namespace D2HD {
+class D2HDResolution {
+public:
+    D2HDResolution(const int width, const int height);
+    int getWidth() const;
+    int getHeight() const;
 
-#include <windows.h>
+    bool operator==(const D2HD::D2HDResolution& other) const;
 
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
+    static std::vector<D2HDResolution>& getResolutions();
 
-#include "TemplateIncludes.h"
+private:
+    static std::vector<D2HDResolution> resolutions;
+    static void removeNonStandardResolutions();
 
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
+    int width;
+    int height;
+};
+}
 
-#endif
+#endif // D2HDRESOLUTION_H

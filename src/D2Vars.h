@@ -1,6 +1,7 @@
 /*****************************************************************************
  *                                                                           *
  *   D2Vars.h                                                                *
+ *   Copyright (C) Olivier Verville                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -29,11 +30,7 @@
 #define VAR(Type, Name)         extern Type Name;
 #endif
 
-VAR(DWORD, SampleVariable1)
-
-VAR(void*, SampleVariable2)
-
-VAR(char, SampleVariable3[256])
+VAR(D2HD::D2HDConfig, config)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

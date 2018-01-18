@@ -1,6 +1,7 @@
 /*****************************************************************************
  *                                                                           *
  *   TemplateIncludes.h                                                      *
+ *   Copyright (C) Olivier Verville                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -27,9 +28,10 @@
 #ifndef _TEMPLATEINCLUDES_H
 #define _TEMPLATEINCLUDES_H
 
-//#include "MyOwnSourceHeader1.h"
-//#include "MyOwnSourceHeader2.h"
-//#include "MyOwnSourceHeader3.h"
+#include "D2HD/D2HDConfig.h"
+#include "D2HD/D2HDPatches.h"
+#include "D2HD/D2HDDraw.h"
+#include "D2HD/D2HDInventory.h"
 
 // end of file --------------------------------------------------------------
 #endif

@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2StubsAsm.S                                                            *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,36 +17,21 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Defines the x86 functions that are used to help call functions in       *
+ *   Diablo II that do not conform to standard calling conventions.          *
  *                                                                           *
  *****************************************************************************/
-#pragma once
+.intel_syntax
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+.global _loadMPQStub@28
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+_loadMPQStub@28:
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    push dword ptr [esp + 0x18]
+    mov eax, dword ptr [esp + 0x18]
+    call dword ptr [esp + 0x30]
+    ret 0x1C
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
-
-#include <windows.h>
-
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
-
-#include "TemplateIncludes.h"
-
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
-
-#endif

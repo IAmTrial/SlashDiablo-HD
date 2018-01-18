@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2HDColor.h                                                             *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,36 +17,40 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Declares a custom class that performs conversions of Diablo II color    *
+ *   representations of BGR to RGB, and vice versa.                          *
  *                                                                           *
  *****************************************************************************/
+
 #pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+#ifndef D2HDCOLOR_H
+#define D2HDCOLOR_H
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+#include <string>
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
+namespace D2HD {
+class D2HDColor {
+public:
+    D2HDColor(const unsigned char red, const unsigned char green,
+              const unsigned char blue, const unsigned char tint);
+    unsigned int getBGRFormat() const;
+    unsigned int getRGBFormat() const;
 
-#include <windows.h>
+    static D2HDColor createFromRGBFormat(const unsigned int color);
+    static D2HDColor createFromRGBFormat(const std::string& color);
+    static D2HDColor createFromRGBFormat(const std::wstring& color);
 
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
+    static D2HDColor createFromBGRFormat(const unsigned int color);
+    static D2HDColor createFromBGRFormat(const std::string& color);
+    static D2HDColor createFromBGRFormat(const std::wstring& color);
 
-#include "TemplateIncludes.h"
-
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
+private:
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+    unsigned char tint;
+};
+}
 
 #endif

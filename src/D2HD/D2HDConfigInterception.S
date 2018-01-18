@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2HDConfigInterception.S                                                *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,36 +17,32 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Defines the interception functions that are to be used when there is a  *
+ *   need to replace Diablo II code with code that is declared under the     *
+ *   configurations scope.                                                   *
  *                                                                           *
  *****************************************************************************/
-#pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+.intel_syntax
+.global _getConfigResolutionInterception@4
+.global _setConfigResolutionInterception@4
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+_getConfigResolutionInterception@4:
+    push eax
+    mov eax, dword ptr [esp + 8]
+    pushad
+    push eax
+    call _getConfigResolution@4
+    popad
+    pop eax
+    ret 4
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
-
-#include <windows.h>
-
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
-
-#include "TemplateIncludes.h"
-
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
-
-#endif
+_setConfigResolutionInterception@4:
+    push eax
+    mov eax, dword ptr [esp + 8]
+    pushad
+    push eax
+    call _setConfigResolution@4
+    popad
+    pop eax
+    ret 4

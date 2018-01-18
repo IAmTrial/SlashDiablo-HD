@@ -27,11 +27,12 @@
 #ifndef _D2OFFSET_H
 #define _D2OFFSET_H
 
+#include <map>
 #include <windows.h>
 
 enum class D2TEMPLATE_DLL_FILES
     : int {
-        D2DLL_BINKW32,
+    D2DLL_BINKW32,
     D2DLL_BNCLIENT,
     D2DLL_D2CLIENT,
     D2DLL_D2CMP,
@@ -53,7 +54,12 @@ enum class D2TEMPLATE_DLL_FILES
     D2DLL_IJL11,
     D2DLL_SMACKW32,
     D2DLL_STORM,
-    D2DLL_INVALID
+    D2DLL_GLIDE3X
+};
+
+struct DLLBaseStrc {
+    LPCWSTR wszName;
+    HMODULE dwAddress;
 };
 
 struct Offsets {
@@ -68,15 +74,16 @@ struct Offsets {
 
 class D2Offset {
 public:
-    D2Offset();
-    D2Offset(Offsets offsets);
-    D2Offset(D2TEMPLATE_DLL_FILES dllFile, Offsets offsets);
-    int getCurrentOffset();
-    DWORD getCurrentAddress();
+    D2Offset(const D2TEMPLATE_DLL_FILES dllFile, const Offsets& offsets);
+    int getCurrentOffset() const;
+    DWORD getCurrentAddress() const;
 
 private:
+    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
     D2TEMPLATE_DLL_FILES dllFile;
     Offsets offsets;
+
+    static bool loadModules();
 };
 
 #endif

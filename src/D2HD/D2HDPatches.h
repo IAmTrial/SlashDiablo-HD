@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Structs.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2HDPatches.h                                                           *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,11 +17,8 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is used to declare data structures used by the game to        *
- *   represent various entities, such as the data structure representing     *
- *   a unit entity, or a game entity                                         *
+ *   Declares the functions that expands Diablo II's standard functions to   *
+ *   allow changing to and using custom resolutions.                         *
  *                                                                           *
  *****************************************************************************/
 
@@ -46,61 +42,56 @@
 * ==========================================================
 */
 
+#include "../DLLmain.h"
+
 #pragma once
 
-#ifndef _D2STRUCTS_H
-#define _D2STRUCTS_H
+#ifndef D2HDPATCHES_H
+#define D2HDPATCHES_H
 
-#include "D2DataTables.h"
-#include "D2PacketDef.h"
-#pragma pack(1)
+namespace D2HD {
+extern "C" {
+    void __stdcall getModeParams(int mode, int* width, int* height);
 
-/****************************************************************************
- *                                                                           *
- * DECLARATIONS                                                              *
- *                                                                           *
- *****************************************************************************/
+    void repositionPanels();
+    void repositionPanelsInterception();
 
-struct CellFile;
+    void __stdcall getPatchedResolutionMode(int* resolutionMode);
+    void getPatchedResolutionModeInterception();
 
-/****************************************************************************
- *                                                                           *
- * DEFINITIONS                                                               *
- *                                                                           *
- *****************************************************************************/
+    void __stdcall resizeGameLogicResolution(int mode);
+    void resizeGameLogicResolutionInterception();
 
-struct CellContext      //sizeof 0x48
-{
-    int nFrame; // 0x00
-    int dw1[12];    // 0x04
-    const CellFile* pCellFile;  // 0x34
-    int dw2[2]; // 0x38
-    int dw3;    // 0x40
-    int dw4;    // 0x44
-};
+    void __stdcall getGameWindowWidth(int* width);
+    void resizeGameWindowResizeWidthInterception();
 
-struct InventorySize // sizeof 0x10
-{
-    long int left;		//0x00
-    long int right;		//0x04
-    long int top;		//0x08
-    long int bottom;		//0x0C
-};
+    void __stdcall getGameWindowHeight(int* height);
+    void resizeGameWindowResizeHeightInterception();
 
-struct InventoryGrid // sizeof 0x18
-{
-    BYTE nGridX;		//0x00
-    BYTE nGridY;		//0x01
-    WORD _align;		//0x02
-    long int left;		//0x04
-    long int right;		//0x08
-    long int top;		//0x0C
-    long int bottom;		//0x10
-    BYTE nGridWidth;	//0x14
-    BYTE nGridHeight;	//0x15
-    WORD _align2;		//0x16
-};
+    void __stdcall setResolutionMode(int* gameResolution, int configResolution);
+    void setResolutionModeEAXInterception();
+    void setResolutionModeEDIInterception();
 
-// end of file --------------------------------------------------------------
-#pragma pack()
+    void __stdcall setResolutionModeFromMenu(int* mode);
+    void setResolutionModeFromMenuInterception();
+
+    void setGDIRenderResolutionInterception();
+
+    void __stdcall setGDIForegroundRenderWidth(int mode);
+    void setGDIForegroundRenderWidthInterception();
+
+    void __stdcall setDirectDrawRenderResolution(int mode, int* width, int* height);
+    void setDirectDrawRenderResolutionInterception();
+
+    void __stdcall setDirect3DRenderResolution(int mode);
+    void setDirect3DRenderResolutionInterception();
+
+    void __stdcall setGlideRenderResolution(int newGameResolutionMode, int* glideResolutionMode);
+    void setGlideRenderResolutionInterception();
+
+    void __stdcall setupGlideWindowSize(int newGlideResolutionMode);
+    void setupGlideWindowSizeInterception();
+}
+}
+
 #endif
