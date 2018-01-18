@@ -81,10 +81,10 @@ struct CellContext      //sizeof 0x48
 
 struct InventorySize // sizeof 0x10
 {
-    DWORD dwLeft;		//0x00
-    DWORD dwRight;		//0x04
-    DWORD dwTop;		//0x08
-    DWORD dwBottom;		//0x0C
+    long int left;		//0x00
+    long int right;		//0x04
+    long int top;		//0x08
+    long int bottom;		//0x0C
 };
 
 struct InventoryGrid // sizeof 0x18
@@ -92,10 +92,10 @@ struct InventoryGrid // sizeof 0x18
     BYTE nGridX;		//0x00
     BYTE nGridY;		//0x01
     WORD _align;		//0x02
-    DWORD dwLeft;		//0x04
-    DWORD dwRight;		//0x08
-    DWORD dwTop;		//0x0C
-    DWORD dwBottom;		//0x10
+    long int left;		//0x04
+    long int right;		//0x08
+    long int top;		//0x0C
+    long int bottom;		//0x10
     BYTE nGridWidth;	//0x14
     BYTE nGridHeight;	//0x15
     WORD _align2;		//0x16

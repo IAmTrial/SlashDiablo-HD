@@ -78,10 +78,10 @@ Isn't simpler now?
 
 struct InventoryLayout //sizeof 0x14
 {
-    DWORD dwLeft;		//0x00
-    DWORD dwRight;		//0x04
-    DWORD dwTop;		//0x08
-    DWORD dwBottom;		//0x0C
+    long int left;		//0x00
+    long int right;		//0x04
+    long int top;		//0x08
+    long int bottom;		//0x0C
     union
     {
         struct
@@ -123,16 +123,17 @@ struct InventoryTxt //sizeof 0xF0
 
 struct BeltBox
 {
-    DWORD dwBoxLeft;			//0x00
-    DWORD dwBoxRight;			//0x04
-    DWORD dwBoxTop;				//0x08
-    DWORD dwBoxBottom;			//0x0C
+    long int boxLeft;			//0x00
+    long int boxRight;			//0x04
+    long int boxTop;				//0x08
+    long int boxBottom;			//0x0C
 };
 
 struct BeltsTxt //sizeof 0x108
 {
     DWORD _unusedName;			    //0x00 placeholder for name field
-    DWORD dwNumBoxes;               //0x04
+    BYTE dwNumBoxes;               //0x04 uses DWORD space, but interpreted as unsigned byte
+    BYTE unknown[3];
     BeltBox hBox[16];				//0x08
 };
 
