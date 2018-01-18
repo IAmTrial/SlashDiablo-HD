@@ -34,7 +34,7 @@
 #include "D2Patches.h"
 
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
-    MessageBoxW(nullptr, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
+    MessageBoxW(nullptr, wszMessage, L"SlashDiablo HD", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
 }
 
@@ -76,6 +76,12 @@ bool __stdcall DllAttach() {
 
     if (!hGame) {
         D2TEMPLATE_FatalError(L"Failed to retrieve process");
+        return false;
+    }
+
+    if (D2Version::getGameVersionID() == D2Version::GameVersionID::INVALID) {
+        D2TEMPLATE_FatalError(
+            L"SlashDiablo HD currently does not support this version of Diablo II.");
         return false;
     }
 
