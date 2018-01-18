@@ -46,7 +46,7 @@ void D2Version::Init() {
 
     if (glide3xVersion == "1.4.4.21") {
         glide3xVersionID = Glide3xVersionID::VERSION_14e;
-    } else if (glide3xVersion == "1.4.8.2") {
+    } else if (glide3xVersion == "1.4.8.3") {
         glide3xVersionID = Glide3xVersionID::RESURGENCE;
     } else {
         glide3xVersionID = Glide3xVersionID::INVALID;
