@@ -1,12 +1,10 @@
-#pragma once
-
-#ifndef _D2CONSTANTS_H
-#define _D2CONSTANTS_H
-
 /****************************************************************************
 *                                                                           *
 *   D2Constants.h                                                           *
 *   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -35,6 +33,11 @@
 *   this value, you only need to change your constant's value               *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2CONSTANTS_H
+#define _D2CONSTANTS_H
 
 enum D2C_UnitTypes
 {

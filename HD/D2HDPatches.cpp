@@ -1,8 +1,34 @@
+/****************************************************************************
+*                                                                           *
+*   D2HDPatches.cpp                                                         *
+*   Copyright (C) 2017 Mir Drualga                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*                                                                           *
+*   Licensed under the Apache License, Version 2.0 (the "License");         *
+*   you may not use this file except in compliance with the License.        *
+*   You may obtain a copy of the License at                                 *
+*                                                                           *
+*   http://www.apache.org/licenses/LICENSE-2.0                              *
+*                                                                           *
+*   Unless required by applicable law or agreed to in writing, software     *
+*   distributed under the License is distributed on an "AS IS" BASIS,       *
+*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
+*   See the License for the specific language governing permissions and     *
+*   limitations under the License.                                          *
+*                                                                           *
+*---------------------------------------------------------------------------*
+*                                                                           *
+*   Defines the functions that expands Diablo II's standard functions to    *
+*   allow changing to and using custom resolutions.                         *
+*                                                                           *
+*****************************************************************************/
+
 #include "D2HDPatches.h"
 #include "../D2Ptrs.h"
 
 int __stdcall GetNewResolutionId();
-int __stdcall GetNewResolutionOnGameStart();
+int __stdcall GetNewResolutionOnGameStart(int resolutionMode);
 int __stdcall SetupGlideRenderResolution();
 
 void __declspec(naked) HD::ResizeWindow_Interception() {
@@ -37,8 +63,8 @@ void __stdcall HD::D2GFX_GetModeParams(int mode, DWORD* width, DWORD* height) {
         break;
 
     case 3:
-        *width = 1344;
-        *height = 700;
+        *width = Config::MAXIMUM_WIDTH;
+        *height = Config::MAXIMUM_HEIGHT;
         break;
 
     case 4:
@@ -106,11 +132,29 @@ void __declspec(naked) HD::SetResolutionModeId_Interception() {
     }
 }
 
-void __declspec(naked) HD::SetResolutionModeOnGameStart_Interception() {
+void __declspec(naked) HD::SetResolutionModeOnGameStart001_Interception() {
     __asm {
         PUSH EAX
         PUSH ECX
+        ADD EAX, 01
+        PUSH EAX
         CALL[GetNewResolutionOnGameStart]
+        MOV ESI, EAX
+        POP ECX
+        POP EAX
+        RET
+    }
+}
+
+void __declspec(naked) HD::SetResolutionModeOnGameStart002_Interception() {
+    __asm {
+        PUSH EAX
+        PUSH ECX
+        PUSH EDI
+        ADD EDI, 01
+        PUSH EDI
+        CALL[GetNewResolutionOnGameStart]
+        POP EDI
         MOV ESI, EAX
         POP ECX
         POP EAX
@@ -121,7 +165,7 @@ void __declspec(naked) HD::SetResolutionModeOnGameStart_Interception() {
 int __stdcall GetNewResolutionId() {
     int mode = D2GFX_GetResolutionMode();
 
-    if (mode >= NUMBER_OF_CUSTOM_RESOLUTIONS) {
+    if (mode >= Config::NUMBER_OF_CUSTOM_RESOLUTIONS) {
         mode = 0;
     } else if (mode == 0) {
         mode = 2;
@@ -132,8 +176,8 @@ int __stdcall GetNewResolutionId() {
     return mode;
 }
 
-int __stdcall GetNewResolutionOnGameStart() {
-    int mode = *D2CLIENT_CurrentRegistryResolutionMode;
+int __stdcall GetNewResolutionOnGameStart(int resolutionMode) {
+    int mode = resolutionMode;
 
     if (mode == 1) {
         return 2;
@@ -182,23 +226,6 @@ void __declspec(naked) HD::LoadRegistryResolution_Interception(int* mode) {
     }
 }
 
-void __declspec(naked) HD::Replace640_ResizeD2DWindow_Interception() {
-    __asm {
-        mov ecx, D2DDRAW_GameWindowSizeY
-            mov dword ptr ds : [ecx], RESOLUTION_640_TO_HD_HEIGHT;
-        mov ecx, RESOLUTION_640_TO_HD_WIDTH;
-        ret
-    }
-}
-
-void __declspec(naked) HD::Replace640_ResizeD2D_Interception1() {
-    __asm {
-        mov edi, RESOLUTION_640_TO_HD_WIDTH
-            mov esi, RESOLUTION_640_TO_HD_HEIGHT
-            ret
-    }
-}
-
 void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
     __asm {
         PUSH EBX
@@ -209,6 +236,41 @@ void __declspec(naked) HD::SetupGlideRenderResolution_Interception() {
         POP EBX
         MOV ESI, 0
         MOV EDX, 0; Set EDX to 0
+        RET
+    }
+}
+
+void __declspec(naked) HD::ResizeDDrawWindow_Interception() {
+    __asm {
+        SUB ESP, 0x8
+        LEA ECX, DWORD PTR DS:[ESP]
+        LEA EDX, DWORD PTR DS:[ESP + 0x4]
+
+        PUSHAD
+        PUSH EDX
+        PUSH ECX
+        PUSH EAX
+        CALL D2GFX_GetModeParams
+        POPAD
+
+        MOV EDX, DWORD PTR DS:[EDX]
+        MOV EAX, DWORD PTR DS : [D2DDRAW_GameWindowSizeY]
+        MOV DWORD PTR DS : [EAX], EDX
+        MOV ECX, DWORD PTR DS:[ECX]
+
+        ADD ESP, 0x8
+        RET
+    }
+}
+
+void __declspec(naked) HD::ResizeD3DWindow_Interception() {
+    __asm {
+        PUSHAD
+        PUSH D2DIRECT3D_GameWindowSizeY
+        PUSH D2DIRECT3D_GameWindowSizeX
+        PUSH EAX
+        CALL D2GFX_GetModeParams
+        POPAD
         RET
     }
 }
@@ -231,6 +293,11 @@ int __stdcall SetupGlideRenderResolution() {
     default:
         glideVideoMode = (glideVideoMode - 2) + 8;
         break;
+    }
+
+    // Apply special case for /r/Diablo2Resurgence
+    if (D2Version::GetGlide3xVersionID() == D2Version::Glide3xVersionID::RESURGENCE && *D2GLIDE_ScreenSizeX == 1068 && *D2GLIDE_ScreenSizeY == 600) {
+        glideVideoMode = 0xFF;
     }
 
     return glideVideoMode;

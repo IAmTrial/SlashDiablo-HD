@@ -1,4 +1,31 @@
+/****************************************************************************
+*                                                                           *
+*   D2HDConfig.cpp                                                          *
+*   Copyright (C) 2017 Mir Drualga                                          *
+*                                                                           *
+*   Licensed under the Apache License, Version 2.0 (the "License");         *
+*   you may not use this file except in compliance with the License.        *
+*   You may obtain a copy of the License at                                 *
+*                                                                           *
+*   http://www.apache.org/licenses/LICENSE-2.0                              *
+*                                                                           *
+*   Unless required by applicable law or agreed to in writing, software     *
+*   distributed under the License is distributed on an "AS IS" BASIS,       *
+*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
+*   See the License for the specific language governing permissions and     *
+*   limitations under the License.                                          *
+*                                                                           *
+*---------------------------------------------------------------------------*
+*                                                                           *
+*   Defines the functions that read and write to a configuration file.      *
+*   By default, this file is D2HD.ini.                                      *
+*                                                                           *
+*   This file can be modified to add more configuration options.            *
+*                                                                           *
+*****************************************************************************/
+
 #include "D2HDConfig.h"
+#include "D2HDColor.h"
 
 std::string Config::archiveName;
 std::string Config::configPath = "./D2HD.ini";
@@ -16,28 +43,27 @@ void Config::ReadMainSettings() {
 #if USE_CUSTOM_MPQ_FILE
     char tempArchiveName[MAX_PATH] = { '\0' };
     GetPrivateProfileStringA(sectionName.c_str(), "MPQ Name", nullptr, tempArchiveName, MAX_PATH, configPath.c_str());
-
-    if (std::strcmp(tempArchiveName, "") == 0) {
-        std::strcpy(tempArchiveName, "D2MultiRes.mpq");
-        WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", tempArchiveName, configPath.c_str());
-    }
-
     archiveName = std::string(tempArchiveName);
+
+    if (archiveName == "") {
+        archiveName = "D2MultiRes.mpq";
+        WritePrivateProfileStringA(sectionName.c_str(), "MPQ Name", archiveName.c_str(), configPath.c_str());
+    }
 #endif
 
     const DWORD defaultColor = 0xFFFFFFFF;
 
-    DWORD tempColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
-    LeftPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    DWORD rgbColor = ReadColor(sectionName, "Left Panel Background Color", defaultColor);
+    LeftPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
-    LeftPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Left Panel Border Color", defaultColor);
+    LeftPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
-    RightPanelBorderColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Border Color", defaultColor);
+    RightPanelBorderColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
-    tempColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
-    RightPanelBackgroundColor = Color::FormatRGBtoBGR(tempColor);
+    rgbColor = ReadColor(sectionName, "Right Panel Background Color", defaultColor);
+    RightPanelBackgroundColor = HD::D2HDColor::createFromRGBFormat(rgbColor);
 
     EnableD2MRPanelBorderStyle = GetPrivateProfileIntA(sectionName.c_str(), "Enable D2MR Border Panel Style", true, configPath.c_str());
     if (EnableD2MRPanelBorderStyle == true) {
@@ -64,18 +90,24 @@ void Config::ReadMainSettings() {
         WritePrivateProfileStringA(sectionName.c_str(), "Resolution", "0", configPath.c_str());
     }
 
-    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", 1068, configPath.c_str());
-    if (CustomWidth == 1068) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Width (can't be larger than 1344)", "1068", configPath.c_str());
-    } else if (CustomWidth >= 1344 || CustomWidth < 320) {
-        CustomWidth = 1344;
+    std::ostringstream customWidthText;
+    customWidthText << "Custom Width (can't be larger than " << MAXIMUM_WIDTH << ")";
+
+    CustomWidth = GetPrivateProfileIntA(sectionName.c_str(), customWidthText.str().c_str(), 0, configPath.c_str());
+    if (CustomWidth == 0) {
+        WritePrivateProfileStringA(sectionName.c_str(), customWidthText.str().c_str(), "1068", configPath.c_str());
+    } else if (CustomWidth >= MAXIMUM_WIDTH || CustomWidth < 320) {
+        CustomWidth = MAXIMUM_WIDTH;
     }
 
-    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), "Custom Height (can't be larger than 700)", 600, configPath.c_str());
+    std::ostringstream customHeightText;
+    customHeightText << "Custom Height (can't be larger than " << MAXIMUM_HEIGHT << ")";
+
+    CustomHeight = GetPrivateProfileIntA(sectionName.c_str(), customHeightText.str().c_str(), 600, configPath.c_str());
     if (CustomHeight == 600) {
-        WritePrivateProfileStringA(sectionName.c_str(), "Custom Height (can't be larger than 700)", "600", configPath.c_str());
-    } else if (CustomHeight >= 700 || CustomHeight < 240) {
-        CustomHeight = 700;
+        WritePrivateProfileStringA(sectionName.c_str(), customHeightText.str().c_str(), "600", configPath.c_str());
+    } else if (CustomHeight >= MAXIMUM_HEIGHT || CustomHeight < 240) {
+        CustomHeight = MAXIMUM_HEIGHT;
     }
 }
 

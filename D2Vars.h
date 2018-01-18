@@ -1,16 +1,9 @@
-#pragma once
-
-#include "D2Structs.h"
-
-#ifdef _D2VARS_H
-#define VAR(Type, Name)         Type Name;
-#else
-#define VAR(Type, Name)         extern Type Name;
-#endif
-
 /****************************************************************************
 *                                                                           *
 *   D2Vars.h                                                                *
+*   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -33,10 +26,21 @@
 *                                                                           *
 *****************************************************************************/
 
-VAR(DWORD, LeftPanelBackgroundColor)
-VAR(DWORD, LeftPanelBorderColor)
-VAR(DWORD, RightPanelBorderColor)
-VAR(DWORD, RightPanelBackgroundColor)
+#pragma once
+
+#include "D2Structs.h"
+#include "HD/D2HDColor.h"
+
+#ifdef _D2VARS_H
+#define VAR(Type, Name)         Type Name;
+#else
+#define VAR(Type, Name)         extern Type Name;
+#endif
+
+VAR(HD::D2HDColor, LeftPanelBackgroundColor)
+VAR(HD::D2HDColor, LeftPanelBorderColor)
+VAR(HD::D2HDColor, RightPanelBorderColor)
+VAR(HD::D2HDColor, RightPanelBackgroundColor)
 
 VAR(BOOL, EnableD2MRPanelBorderStyle)
 VAR(BOOL, InvertD2MRControlPanel)
@@ -61,6 +65,8 @@ VAR(CellFile*, D2MRFancyPanelLeft)
 VAR(CellFile*, D2MRFancyPanelRight)
 VAR(CellFile*, D2MRFancyVerticalBar)
 VAR(CellFile*, Blank)
+VAR(CellFile*, Resolution1068x600Text)
+VAR(CellFile*, Resolution1344x700Text)
 
 // end of file ---------------------------------------------------------------
 #undef _D2VARS_H

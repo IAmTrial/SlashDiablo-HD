@@ -24,6 +24,7 @@
     <ClInclude Include="..\DLLmain.h" />
     <ClInclude Include="..\Resource.h" />
     <ClInclude Include="..\TemplateIncludes.h" />
+    <ClInclude Include="D2HDColor.h" />
     <ClInclude Include="D2HDConfig.h" />
     <ClInclude Include="D2HDInventory.h" />
     <ClInclude Include="D2HDPatches.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="..\D2Stubs.cpp" />
     <ClCompile Include="..\D2Version.cpp" />
     <ClCompile Include="..\DLLmain.cpp" />
+    <ClCompile Include="D2HDColor.cpp" />
     <ClCompile Include="D2HDConfig.cpp" />
     <ClCompile Include="D2HDInventory.cpp" />
     <ClCompile Include="D2HDPatches.cpp" />

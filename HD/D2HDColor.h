@@ -1,7 +1,7 @@
 /****************************************************************************
 *                                                                           *
-*   D2PatchConst.h                                                          *
-*   Copyright (C) Olivier Verville                                          *
+*   D2HDColor.h                                                             *
+*   Copyright (C) 2017 Mir Drualga                                          *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -17,29 +17,36 @@
 *                                                                           *
 *---------------------------------------------------------------------------*
 *                                                                           *
-*   https://github.com/olivier-verville/D2Template                          *
-*                                                                           *
-*   This file defines various expressions to simplify the declaration of    *
-*   patches in D2Patch.h, and you shouldn't modify this file unless you     *
-*   know what you're doing.                                                 *
+*   Declares a custom class that performs conversions of Diablo II color    *
+*   representations of BGR to RGB, and vice versa.                          *
 *                                                                           *
 *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2PATCHCONST_H
-#define _D2PATCHCONST_H
+#ifndef D2HDCOLOR_H
+#define D2HDCOLOR_H
 
-#define PATCH_JMP               0x000000E9
-#define PATCH_CALL              0x000000E8
-#define PATCH_RETN              0x000000C3
-#define PATCH_RETN4             0x000004C2
-#define PATCH_RETN8             0x000008C2
-#define PATCH_RETN0C            0x00000CC2
-#define PATCH_RETN10            0x000010C2
-#define PATCH_RETN14            0x000014C2
-#define PATCH_RETN18            0x000018C2
-#define PATCH_RETN1C            0x00001CC2
-#define PATCH_NOPBLOCK          0x90909090
+#include <Windows.h>
+#include <string>
+
+namespace HD {
+    class D2HDColor {
+    private:
+        unsigned char red;
+        unsigned char green;
+        unsigned char blue;
+        unsigned char tint;
+
+    public:
+        D2HDColor();
+        D2HDColor(std::string color);
+        D2HDColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char tint);
+        DWORD getBGRFormat();
+        DWORD getRGBFormat();
+        static D2HDColor createFromRGBFormat(DWORD color);
+        static D2HDColor createFromBGRFormat(DWORD color);
+    };
+}
 
 #endif

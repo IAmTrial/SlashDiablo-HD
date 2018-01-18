@@ -1,14 +1,10 @@
-#pragma once
-
-#ifndef _D2PACKETDEF_H
-#define _D2PACKETDEF_H
-
-#pragma pack(1)
-
 /****************************************************************************
 *                                                                           *
 *   D2PacketDef.h                                                           *
 *   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -31,6 +27,13 @@
 *   handle communications between the server and the client                 *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2PACKETDEF_H
+#define _D2PACKETDEF_H
+
+#pragma pack(1)
 
 /****************************************************************************
 *                                                                           *

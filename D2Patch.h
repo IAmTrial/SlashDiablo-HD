@@ -1,14 +1,10 @@
-#pragma once
-
-#ifndef _D2PATCH_H
-#define _D2PATCH_H
-
-#include "D2PatchConst.h"
-
 /****************************************************************************
 *                                                                           *
 *   D2Patch.h                                                               *
 *   Copyright (C) Olivier Verville                                          *
+*                                                                           *
+*   D2Ex: Copyright (c) 2011-2014 Bartosz Jankowski                         *
+*   /r/SlashDiablo HD Modifications: Copyright (C) 2017 Mir Drualga         *
 *                                                                           *
 *   Licensed under the Apache License, Version 2.0 (the "License");         *
 *   you may not use this file except in compliance with the License.        *
@@ -31,6 +27,14 @@
 *   array, in order to be handled by D2Template's patcher                   *
 *                                                                           *
 *****************************************************************************/
+
+#pragma once
+
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
+
+#include "D2PatchConst.h"
+#include "DLLmain.h"
 
 static const DLLPatchStrc gptTemplatePatches[] =
 {
@@ -80,22 +84,38 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x10DFD + 1, 0x2C22D + 1 }, (int)HD::ResizeGameLogicResolution_Interception, TRUE, 0 },
 
     // Read From D2HD.ini Instead of Registry
-    { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
-    { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x66279 + 1, 0xC4519 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
-
     { D2DLL_D2CLIENT, { 0x44454, 0x454A4 }, PATCH_NOPBLOCK, FALSE, 0x44464 - 0x44454 },
     { D2DLL_D2CLIENT, { 0x44454, 0x454A4 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x44454 + 1, 0x454A4 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
-    // Properly transfer back to a valid resolution
-    { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
-    { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x6628F + 1, 0xC452F + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E47, 0xC40E7 }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
+    { D2DLL_D2CLIENT, { 0x65E47, 0xC40E7 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E47 + 1, 0xC40E7 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
 
+    { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
+    { D2DLL_D2CLIENT, { 0x66279, 0xC4519 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x66279 + 1, 0xC4519 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, { 0xAF951, 0x85F61 }, PATCH_NOPBLOCK, FALSE, 0x6628A - 0x66279 },
+    { D2DLL_D2CLIENT, { 0xAF951, 0x85F61 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF951 + 1, 0x85F61 + 1 }, (int)HD::LoadRegistryResolution_Interception, TRUE, 0 },
+
+    // Properly transfer back to a valid resolution
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_NOPBLOCK, FALSE, 7 },
     { D2DLL_D2CLIENT, { 0x4446B, 0x454BB }, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart_Interception, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x4446B + 1, 0x454BB + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, { 0x65E5F, 0xC40FF }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0x65E5F, 0xC40FF }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x65E5F + 1, 0xC40FF + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0x6628F, 0xC452F }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0x6628F + 1, 0xC452F + 1 }, (int)HD::SetResolutionModeOnGameStart002_Interception, TRUE, 0 },
+
+    { D2DLL_D2CLIENT, { 0xAF969, 0x85F79 }, PATCH_NOPBLOCK, FALSE, 7 },
+    { D2DLL_D2CLIENT, { 0xAF969, 0x85F79 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2CLIENT, { 0xAF969 + 1, 0x85F79 + 1 }, (int)HD::SetResolutionModeOnGameStart001_Interception, TRUE, 0 },
 
     // Write to D2HD.ini Instead of Registry
     { D2DLL_D2CLIENT, { 0x662AB, 0xC454B }, PATCH_NOPBLOCK, FALSE, 0x662BC - 0x662AB },
@@ -117,17 +137,17 @@ static const DLLPatchStrc gptTemplatePatches[] =
     { D2DLL_D2CLIENT, { 0x651E0, 0xC33A0 }, PATCH_CALL, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0x651E0 + 1, 0xC33A0 + 1 }, (int)HD::SetRegistryResolutionModeId_Interception, TRUE, 0 },
 
-    // Replace 640 with HD, Fix D2DDraw Fullscreen
-    /* Highly unstable! Currently not functional!
-    { D2DLL_D2DDRAW, 0x84CB + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x84D0 + 1, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x9343 + 2, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6 + 1, RESOLUTION_640_TO_HD_WIDTH, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85CB + 2 + 4, RESOLUTION_640_TO_HD_HEIGHT, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6, PATCH_NOPBLOCK, FALSE, 15 },
-    { D2DLL_D2DDRAW, 0x85C6, PATCH_CALL, FALSE, 0 },
-    { D2DLL_D2DDRAW, 0x85C6 + 1, (int)HD::Replace640_ResizeD2DWindow_Interception, TRUE, 0 },
-    */
+    // Fix D2DDraw Fullscreen
+    { D2DLL_D2DDRAW, { 0x85C2, 0x8202 }, PATCH_NOPBLOCK, FALSE, 0x85ED - 0x85C2 },
+    { D2DLL_D2DDRAW, { 0x85C2, 0x8202 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DDRAW, { 0x85C2 + 1, 0x8202 + 1 }, (DWORD)HD::ResizeDDrawWindow_Interception, TRUE, 0 },
+
+    { D2DLL_D2DDRAW, { 0x85F9, 0x8239 }, PATCH_NOPBLOCK, FALSE, 0x8600 - 0x85F9 },
+
+    // Fix Direct3D Fullscreen
+    { D2DLL_D2DIRECT3D, { 0xB9A4, 0xBE64 }, PATCH_NOPBLOCK, FALSE, /*0xB9D0*/ 0xB9DF - 0xB9A4 },
+    { D2DLL_D2DIRECT3D, { 0xB9A4, 0xBE64 }, PATCH_CALL, FALSE, 0 },
+    { D2DLL_D2DIRECT3D, { 0xB9A4 + 1, 0xBE64 + 1 }, (DWORD)HD::ResizeD3DWindow_Interception, TRUE, 0 },
 
     // Replace for HD, Resize Glide Render Logic Resolution
     { D2DLL_D2GLIDE, { 0xDCC6, 0xD5D6 }, PATCH_NOPBLOCK, FALSE, 0xDD0A - 0xDCC6 },
@@ -139,17 +159,13 @@ static const DLLPatchStrc gptTemplatePatches[] =
 
 // Enables border backgrounds for opened panels.
 static const DLLPatchStrc drawPatches[] = {
-    // Redraw UI Panel Border Fix
+    // Disable Blizzard's UI Panel Borders
     { D2DLL_D2CLIENT, { 0x271C0, 0x6D2B0 }, PATCH_NOPBLOCK, FALSE, 6 },
-    { D2DLL_D2CLIENT, { 0x271CB, 0x6D2BB }, PATCH_NOPBLOCK, FALSE, 0x27287 - 0x271CB },
-    { D2DLL_D2CLIENT, { 0x271D1, 0x6D2C1 }, PATCH_JMP, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x271D1 + 1, 0x6D2C1 + 1 }, (int)HD::RedrawUILeftPanelBorders, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x271CB, 0x6D2BB }, PATCH_NOPBLOCK, FALSE, 0x2728A - 0x271CA },
 
-    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_NOPBLOCK, FALSE, 226 },
-    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_JMP, FALSE, 0 },
-    { D2DLL_D2CLIENT, { 0x270D0 + 1, 0x6D1C0 + 1 }, (int)HD::RedrawUIRightPanelBorders, TRUE, 0 },
+    { D2DLL_D2CLIENT, { 0x270D0, 0x6D1C0 }, PATCH_NOPBLOCK, FALSE, 225 },
 
-    // Draw background
+    // Draw background and Redraw UI Panel Border Fix
     { D2DLL_D2CLIENT, { 0xBF361, 0x190B1 }, PATCH_JMP, FALSE, 0 },
     { D2DLL_D2CLIENT, { 0xBF361 + 1, 0x190B1 + 1 }, (int)HD::STUB_DrawUIPanelBackground, TRUE, 0 },
 
