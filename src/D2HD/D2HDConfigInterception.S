@@ -28,21 +28,21 @@
 .global _setConfigResolutionInterception@4
 
 _getConfigResolutionInterception@4:
-    push eax
-    mov eax, dword ptr [esp + 8]
+    mov eax, dword ptr [esp + 4]
     pushad
     push eax
     call _getConfigResolution@4
     popad
-    pop eax
+
+    mov eax, 1
     ret 4
 
 _setConfigResolutionInterception@4:
-    push eax
-    mov eax, dword ptr [esp + 8]
+    mov eax, dword ptr [esp + 4]
     pushad
     push eax
     call _setConfigResolution@4
     popad
-    pop eax
+
+    mov eax, 1
     ret 4

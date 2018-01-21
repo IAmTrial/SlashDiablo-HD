@@ -87,6 +87,10 @@ bool __stdcall DllAttach() {
 
     config.readSettings();
 
+    if (!config.isEnableMod()) {
+        return true;
+    }
+
     if (config.isEnableArchive()) {
         std::ifstream in(config.getArchiveName());
 
@@ -95,10 +99,6 @@ bool __stdcall DllAttach() {
             D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll",
                                               config.getArchiveName().c_str(), "SlashDiabloHD", 0, nullptr);
         }
-    }
-
-    if (!config.isEnableMod()) {
-        return true;
     }
 
     D2Patch::applyPatches(requiredHDPatches);
