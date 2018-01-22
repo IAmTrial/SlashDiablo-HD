@@ -31,7 +31,10 @@ D2Patch::D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative
 
 bool D2Patch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
-    int nReturn = 0;
+
+    if ((d2Offset.getCurrentOffset() & (long long int) D2Patch::PatchAction::NO_PATCH) == (long long int)D2Patch::PatchAction::NO_PATCH) {
+        return true;
+    }
 
     DWORD dwAddress = d2Offset.getCurrentAddress();
 
@@ -48,6 +51,7 @@ bool D2Patch::applyPatch() const {
     LPVOID hAddress = (LPVOID) dwAddress;
     DWORD dwOldPage;
 
+    int nReturn = 0;
     if (patchSize > 0) {
         BYTE Buffer[1024];
 
