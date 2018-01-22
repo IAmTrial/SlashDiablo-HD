@@ -27,8 +27,9 @@
 #ifndef _D2OFFSET_H
 #define _D2OFFSET_H
 
-#include <map>
 #include <windows.h>
+
+#include <map>
 
 enum class D2TEMPLATE_DLL_FILES
     : int {
@@ -63,19 +64,19 @@ struct DLLBaseStrc {
 };
 
 struct Offsets {
-    int _107, _108;
-    int _109, _109b, _109c, _109d;
-    int _110;
-    int _111, _111b;
-    int _112;
-    int _113c, _113d;
-    int _114a, _114b, _114c, _114d;
+    long long int _107, _108;
+    long long int _109, _109b, _109c, _109d;
+    long long int _110;
+    long long int _111, _111b;
+    long long int _112;
+    long long int _113c, _113d;
+    long long int _114a, _114b, _114c, _114d;
 };
 
 class D2Offset {
 public:
     D2Offset(const D2TEMPLATE_DLL_FILES dllFile, const Offsets& offsets);
-    int getCurrentOffset() const;
+    long long int getCurrentOffset() const;
     DWORD getCurrentAddress() const;
 
 private:

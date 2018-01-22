@@ -24,6 +24,13 @@
  *****************************************************************************/
 
 #include "D2Offset.h"
+
+#include <windows.h>
+
+#include <map>
+#include <string>
+
+#include "D2Version.h"
 #include "DLLmain.h"
 
 std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> D2Offset::dllFiles;
@@ -32,7 +39,7 @@ D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
                    const Offsets& offsets) : dllFile(dllFile), offsets(offsets) {
 }
 
-int D2Offset::getCurrentOffset() const {
+long long int D2Offset::getCurrentOffset() const {
     return *(&offsets._107 + (int) D2Version::getGameVersionID());
 }
 
@@ -50,17 +57,15 @@ DWORD D2Offset::getCurrentAddress() const {
         return 0;
     }
 
-    int offset = getCurrentOffset();
+    long long int offset = getCurrentOffset();
 
     DWORD address;
 
     if (offset < 0) {
         address = (DWORD) GetProcAddress((HINSTANCE) baseAddress,
                                          (LPSTR) - offset);
-    } else if (offset > 0) {
-        address = (DWORD) baseAddress + offset;
     } else {
-        return 0;
+        address = (DWORD) baseAddress + (DWORD)offset;
     }
 
     return address;

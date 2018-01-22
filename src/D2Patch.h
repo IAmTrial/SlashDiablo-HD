@@ -32,9 +32,12 @@
 
 class D2Patch {
 public:
-    D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative, const size_t patchSize);
+    D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative,
+            const size_t patchSize);
     bool applyPatch() const;
     static bool applyPatches(const std::vector<D2Patch>& patches);
+
+    static constexpr long long int NO_PATCH = 0x4000000000000000;
 
 private:
     D2Offset d2Offset;
