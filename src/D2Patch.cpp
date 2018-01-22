@@ -32,7 +32,7 @@ D2Patch::D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative
 bool D2Patch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
-    if ((d2Offset.getCurrentOffset() & (long long int) D2Patch::PatchAction::NO_PATCH) == (long long int)D2Patch::PatchAction::NO_PATCH) {
+    if ((d2Offset.getCurrentOffset() & D2Patch::NO_PATCH) == D2Patch::NO_PATCH) {
         return true;
     }
 

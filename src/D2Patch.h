@@ -37,10 +37,7 @@ public:
     bool applyPatch() const;
     static bool applyPatches(const std::vector<D2Patch>& patches);
 
-    enum class PatchAction : long long int {
-        CRASH = 0x0,
-        NO_PATCH = 0x4000000000000000
-    };
+    static constexpr long long int NO_PATCH = 0x4000000000000000;
 
 private:
     D2Offset d2Offset;
