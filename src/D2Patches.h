@@ -498,12 +498,12 @@ static const std::vector<D2Patch> requiredDrawPatches = {
     // Draw bottom control panel
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x27297, 0x6D387,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x82237, 0x27297, 0x6D387,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x27297 + 1, 0x6D387 + 1,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x82237 + 1, 0x27297 + 1, 0x6D387 + 1,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), (DWORD) D2HD::Draw::drawControlPanelInterception, true, 0),
 

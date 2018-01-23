@@ -180,7 +180,7 @@ D2FUNC(D2GFX, GetResolutionMode, int, __stdcall, (), (0, 0, 0, 0, 0, 0,
                                                       0, 0, 0, -10043, -10031, -10012,
                                                       0, 0, 0, 0xF5160));
 D2FUNC(D2GFX, DrawCellContext, void, __stdcall, (CellContext* pCellContext, int nXpos, int nYpos, unsigned int color, int nTransTbl, unsigned char* pPalette), (0, 0, 0, 0, 0, 0,
-                                                                                                                                                                0, 0, 0, -10083, -10041, -10042,
+                                                                                                                                                                0, 0, 0, -10024, -10041, -10042,
                                                                                                                                                                 0, 0, 0, 0));
 
 /*********************************************************************************
