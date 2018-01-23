@@ -288,51 +288,83 @@ static const std::vector<D2Patch> requiredHDPatches = {
 
     // Resize Game Window; D2GFX.Ordinal10025, D2GFX.Ordinal10064
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x7FD0, 0xB0E0,
-        0, 0, 0, 0
-    }), PATCH_NOPBLOCK, false, 0x8022 - 0x7FD0),
+        0x4B60, 0, 0, 0, 0, 0,
+        0, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), PATCH_NOPBLOCK, false, 0x4B98 - 0x4B60),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x7FD0, 0xB0E0,
-        0, 0, 0, 0
+        0x4B60, 0, 0, 0, 0, 0,
+        0, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        0x4B60 + 1, 0, 0, 0, 0, 0,
+        0, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), (DWORD) D2HD::getModeParamsInterception107, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, 0x8110, 0x80F0, 0x8590, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), PATCH_NOPBLOCK, false, 0x8143 - 0x8110),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, 0x8110, 0x80F0, 0x8590, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), PATCH_JMP, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x7FD0 + 1, 0xB0E0 + 1,
-        0, 0, 0, 0
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, 0x8110 + 1, 0x80F0 + 1, 0x8590 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), (DWORD) D2HD::getModeParamsInterception111, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x7FD0, 0xB0E0,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), PATCH_NOPBLOCK, false, 0x8022 - 0x7FD0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x7FD0, 0xB0E0,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
+    }), PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x7FD0 + 1, 0xB0E0 + 1,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), (DWORD) D2HD::getModeParams, true, 0),
 
     // Correct Resizing of Window from any resolution to a smaller one.
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x83F0, 0xB42F,
+        0, 0, 0, D2Patch::NO_PATCH, 0x83F0, 0xB42F,
         0, 0, 0, 0
     }), PATCH_NOPBLOCK, false, 0x83F5 - 0x83F0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x83F0, 0xB42F,
+        0, 0, 0, D2Patch::NO_PATCH, 0x83F0, 0xB42F,
         0, 0, 0, 0
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x83F0 + 1, 0xB42F + 1,
+        0, 0, 0, D2Patch::NO_PATCH, 0x83F0 + 1, 0xB42F + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::resizeGameWindowResizeWidthInterception, true, 0),
 
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x8403, 0xB43E,
+        0, 0, 0, D2Patch::NO_PATCH, 0x8403, 0xB43E,
         0, 0, 0, 0
     }), PATCH_NOPBLOCK, false, 0x8409 - 0x8403),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x8403, 0xB43E,
+        0, 0, 0, D2Patch::NO_PATCH, 0x8403, 0xB43E,
         0, 0, 0, 0
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x8403 + 1, 0xB43E + 1,
+        0, 0, 0, D2Patch::NO_PATCH, 0x8403 + 1, 0xB43E + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::resizeGameWindowResizeHeightInterception, true, 0),
 
@@ -465,14 +497,14 @@ static const std::vector<D2Patch> requiredDrawPatches = {
 
     // Draw bottom control panel
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x272A7, 0x6D397,
-        0, 0, 0, 0
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x27297, 0x6D387,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0x272A7 + 1, 0x6D397 + 1,
-        0, 0, 0, 0
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x27297 + 1, 0x6D387 + 1,
+        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), (DWORD) D2HD::Draw::drawControlPanelInterception, true, 0),
 
     // Unload additional resources when game exits

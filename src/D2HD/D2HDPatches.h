@@ -52,6 +52,8 @@
 namespace D2HD {
 extern "C" {
     void __stdcall getModeParams(int mode, int* width, int* height);
+    void getModeParamsInterception107();
+    void getModeParamsInterception111();
 
     void repositionPanels();
     void repositionPanelsInterception();

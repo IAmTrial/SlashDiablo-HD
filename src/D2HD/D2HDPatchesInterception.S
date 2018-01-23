@@ -27,6 +27,8 @@
 .intel_syntax
 .global _repositionPanelsInterception
 .global _getPatchedResolutionModeInterception
+.global _getModeParamsInterception107
+.global _getModeParamsInterception111
 .global _resizeGameLogicResolutionInterception
 .global _resizeGameWindowResizeWidthInterception
 .global _resizeGameWindowResizeHeightInterception
@@ -55,6 +57,31 @@ _getPatchedResolutionModeInterception:
     popad
     mov eax, dword ptr [eax]
     add esp, 4
+    ret
+
+_getModeParamsInterception107:
+    push ecx
+    lea ecx, dword ptr [esp + 18]
+    sub esp, 4
+    lea eax, dword ptr [esp]
+    pushad
+    push eax
+    push ecx
+    push ebx
+    call _getModeParams@12
+    popad
+    mov eax, dword ptr [esp]
+    add esp, 4
+    pop ecx
+    ret
+
+_getModeParamsInterception111:
+    pushad
+    push eax
+    push ecx
+    push edx
+    call _getModeParams@12
+    popad
     ret
 
 _resizeGameLogicResolutionInterception:

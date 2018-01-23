@@ -29,8 +29,7 @@ _drawControlPanelInterception:
     popad
 
     //Original code
-    xor edi, edi
-    sub eax, 2
+    mov ecx, 18
     ret
 
 _drawPanelBackgroundInterception:
