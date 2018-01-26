@@ -28,6 +28,7 @@
 #ifndef _TEMPLATEINCLUDES_H
 #define _TEMPLATEINCLUDES_H
 
+#include "D2HD/D2HDCellContext.h"
 #include "D2HD/D2HDConfig.h"
 #include "D2HD/D2HDPatches.h"
 #include "D2HD/D2HDDraw.h"

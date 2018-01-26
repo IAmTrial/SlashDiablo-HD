@@ -69,20 +69,23 @@ struct CellFile;
  *                                                                           *
  *****************************************************************************/
 
-struct CellContext {      //sizeof 0x48;
+struct CellContext {
+};
+
+struct CellContext_112 : CellContext { //sizeof 0x48
+    int dw1[15];
+    CellFile* pCellFile;
+    int nFrame;
+    int dw2[2];
+};
+
+struct CellContext_113 : CellContext {      //sizeof 0x48;
     int nFrame; // 0x00
     int dw1[12];    // 0x04
-    const CellFile* pCellFile;  // 0x34
+    CellFile* pCellFile;  // 0x34
     int dw2[2]; // 0x38
     int dw3;    // 0x40
     int dw4;    // 0x44
-};
-
-struct CellContext_112 { //sizeof 0x48
-    int dw1[15];
-    const CellFile* pCellFile;
-    int nFrame;
-    int dw2[2];
 };
 
 struct InventorySize { // sizeof 0x10

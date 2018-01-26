@@ -35,38 +35,45 @@
 namespace D2HD {
 namespace Draw {
     extern HANDLE d2mrArchive;
-    extern CellFile* blankCellFile;
+    extern D2HD::D2HDCellContext blankCellFile;
 
-    extern CellFile* d2mrFancyBorderCornerBottomLeft;
-    extern CellFile* d2mrFancyBorderCornerBottomRight;
-    extern CellFile* d2mrFancyBorderCornerTopLeft;
-    extern CellFile* d2mrFancyBorderCornerTopRight;
+    extern D2HD::D2HDCellContext d2mrFancyBorderCorner;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerBottomLeft;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerBottomRight;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerTopLeft;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerTopRight;
 
-    extern CellFile* d2mrFancyBorderInterfaceLeft;
-    extern CellFile* d2mrFancyBorderInterfaceRight;
+    extern D2HD::D2HDCellContext d2mrFancyBorderInterfaceLeft;
+    extern D2HD::D2HDCellContext d2mrFancyBorderInterfaceRight;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderInterfaceLeft;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderInterfaceRight;
 
-    extern CellFile* d2mrFancyBorderBottomLeft;
-    extern CellFile* d2mrFancyBorderBottomRight;
-    extern CellFile* d2mrFancyBorderLeft;
-    extern CellFile* d2mrFancyBorderRight;
+    extern D2HD::D2HDCellContext d2mrFancyBorderLeft;
+    extern D2HD::D2HDCellContext d2mrFancyBorderRight;
 
-    extern CellFile* d2mrFancyBorderBottomLeft;
-    extern CellFile* d2mrFancyBorderBottomRight;
-    extern CellFile* d2mrFancyBorderTopLeft;
-    extern CellFile* d2mrFancyBorderTopRight;
+    extern D2HD::D2HDCellContext d2mrFancyBorderBottom;
+    extern D2HD::D2HDCellContext d2mrFancyBorderTop;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderBottomLeft;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderBottomRight;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderTopLeft;
+    extern D2HD::D2HDCellContext neoD2MRFancyBorderTopRight;
 
-    extern CellFile* d2mrFancyHorizontalBar;
-    extern CellFile* d2mrFancyVerticalBar;
+    extern D2HD::D2HDCellContext d2mrFancyHorizontalBar;
+    extern D2HD::D2HDCellContext d2mrFancyVerticalBar;
+    extern D2HD::D2HDCellContext d2mrFancyPanelFlipHorizontalBar;
+    extern D2HD::D2HDCellContext d2mrFancyPanelFlipVerticalBar;
 
-    extern CellFile* d2mrFancyPanelHorizontalBar;
-    extern CellFile* d2mrFancyPanelVerticalBar;
+    extern D2HD::D2HDCellContext d2mrFancyPanelHorizontalBar;
+    extern D2HD::D2HDCellContext d2mrFancyPanelVerticalBar;
 
-    extern CellFile* d2mrFancyPanelLeft;
-    extern CellFile* d2mrFancyPanelRight;
+    extern D2HD::D2HDCellContext d2mrFancyPanelLeft;
+    extern D2HD::D2HDCellContext d2mrFancyPanelRight;
+    extern D2HD::D2HDCellContext d2mrFancyPanelFlipLeft;
+    extern D2HD::D2HDCellContext d2mrFancyPanelFlipRight;
 
-    extern CellFile* d2mrStoneBack;
-    extern CellFile* resolution1068x600Text;
-    extern CellFile* resolution1344x700Text;
+    extern D2HD::D2HDCellContext d2mrStoneBack;
+    extern D2HD::D2HDCellContext resolution1068x600Text;
+    extern D2HD::D2HDCellContext resolution1344x700Text;
 
 extern "C" {
     void __stdcall determineVideoOptionText(struct CellFile** outCellFile, void* baseAddress, unsigned int offset, struct CellFile* defaultCellFile);
