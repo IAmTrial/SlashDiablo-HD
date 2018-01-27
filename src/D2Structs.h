@@ -73,10 +73,10 @@ struct CellContext {
 };
 
 struct CellContext_112 : CellContext { //sizeof 0x48
-    int dw1[15];
-    CellFile* pCellFile;
-    int nFrame;
-    int dw2[2];
+    int dw1[15];                        // 0x00
+    CellFile* pCellFile;                // 0x3C
+    int nFrame;                         // 0x40
+    int dw2;                            // 0x44
 };
 
 struct CellContext_113 : CellContext {      //sizeof 0x48;
