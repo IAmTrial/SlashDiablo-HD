@@ -43,7 +43,12 @@ namespace D2HD {
 class D2HDConfig : public D2Config {
 public:
     static constexpr const wchar_t* MAIN_SETTING_SECTION_NAME = L"SlashDiablo-HD";
-    static constexpr const bool DEFAULT_ENABLE_ARCHIVE = true;
+
+    // Set to false if assets are in Patch_D2.mpq, true if using external MPQ.
+    static constexpr bool ALLOW_LOAD_MPQ_ARCHIVE = true;
+    static constexpr bool ALLOW_CUSTOM_RESOLUTION = true;
+
+    static constexpr bool DEFAULT_ENABLE_ARCHIVE = true;
     static constexpr const char* DEFAULT_ARCHIVE_NAME = "SlashDiabloHD.mpq";
     static constexpr bool DEFAULT_ENABLE_MOD = true;
     static constexpr unsigned int DEFAULT_RESOLUTION_MODE = 3;
