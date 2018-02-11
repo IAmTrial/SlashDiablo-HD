@@ -49,6 +49,8 @@ HANDLE D2HD::Draw::d2mrArchive = nullptr;
 D2HD::D2HDCellContext D2HD::Draw::blankCellFile("data\\local\\UI\\ENG\\Blank");
 
 D2HD::D2HDCellContext D2HD::Draw::controlPanel800("data\\global\\ui\\Panel\\800CtrlPnl7");
+D2HD::D2HDCellContext D2HD::Draw::statsButton("data\\global\\ui\\PANEL\\level");
+D2HD::D2HDCellContext D2HD::Draw::skillButton("data\\global\\ui\\PANEL\\level");
 
 D2HD::D2HDCellContext D2HD::Draw::d2mrFancyBorderCorner("data\\global\\ui\\Panel\\D2MRFancyBorderCorner");
 D2HD::D2HDCellContext D2HD::Draw::neoD2MRFancyBorderCornerBottomLeft("data\\global\\ui\\Panel\\NeoD2MRFancyBorderCornerBottomLeft");
@@ -416,9 +418,23 @@ void D2HD::Draw::drawRightPanelBorders() {
     borderRight.draw((basePositionX + 320), (basePositionY + 256) + (256 + 40), config.getRightPanelBackgroundColor().getBGRFormat(), 5, nullptr);
 }
 
+void D2HD::Draw::drawStatsButton() {
+    statsButton.loadFileSafely();
+    statsButton.setFrame(0);
+    statsButton.draw((*D2CLIENT_WindowWidth / 2) - 194, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+}
+
+void D2HD::Draw::drawSkillButton() {
+    skillButton.loadFileSafely();
+    skillButton.setFrame(0);
+    statsButton.draw((*D2CLIENT_WindowWidth / 2) + 163, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+}
+
 void __stdcall D2HD::Draw::unloadCellFiles(CellFile** original) {
     blankCellFile.unloadFileSafely();
     controlPanel800.unloadFileSafely();
+    statsButton.unloadFileSafely();
+    skillButton.unloadFileSafely();
 
     d2mrFancyBorderCorner.unloadFileSafely();
     neoD2MRFancyBorderCornerBottomLeft.unloadFileSafely();

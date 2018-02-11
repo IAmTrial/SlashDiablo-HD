@@ -25,6 +25,8 @@
  *****************************************************************************/
 
 .intel_syntax
+
+.text
 .global _repositionPanelsInterception
 .global _getPatchedResolutionModeInterception
 .global _getModeParamsInterception107
@@ -35,6 +37,8 @@
 .global _setResolutionModeEAXInterception
 .global _setResolutionModeEDIInterception
 .global _setResolutionModeFromMenuInterception
+.global _isMouseOverStatsButtonInterception
+.global _isMouseOverSkillButtonInterception
 .global _setGDIRenderResolutionInterception
 .global _setGDIForegroundRenderWidthInterception
 .global _setDirectDrawRenderResolutionInterception
@@ -145,6 +149,28 @@ _setResolutionModeFromMenuInterception:
     push ecx
     call _setResolutionModeFromMenu@4
     popad
+    ret
+
+_isMouseOverStatsButtonInterception:
+    sub esp, 4
+    lea eax, dword ptr [esp]
+    pushad
+    push eax
+    call _isMouseOverStatsButton@4
+    popad
+    mov eax, dword ptr [esp]
+    add esp, 4
+    ret
+
+_isMouseOverSkillButtonInterception:
+    sub esp, 4
+    lea eax, dword ptr [esp]
+    pushad
+    push eax
+    call _isMouseOverSkillButton@4
+    popad
+    mov eax, dword ptr [esp]
+    add esp, 4
     ret
 
 _setGDIRenderResolutionInterception:

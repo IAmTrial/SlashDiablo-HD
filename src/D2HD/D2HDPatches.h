@@ -77,6 +77,12 @@ extern "C" {
     void __stdcall setResolutionModeFromMenu(int* mode);
     void setResolutionModeFromMenuInterception();
 
+    void __stdcall isMouseOverStatsButton(bool *isMouseOver);
+    void isMouseOverStatsButtonInterception();
+
+    void __stdcall isMouseOverSkillButton(bool *isMouseOver);
+    void isMouseOverSkillButtonInterception();
+
     void setGDIRenderResolutionInterception();
 
     void __stdcall setGDIForegroundRenderWidth(int mode);

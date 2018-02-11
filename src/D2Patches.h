@@ -543,12 +543,65 @@ static const std::vector<D2Patch> requiredDrawPatches = {
 };
 
 static const std::vector<D2Patch> controlPanel800Patches = {
+    // Mouse over skill button detection patch ; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3BED0, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3BED0 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::isMouseOverSkillButtonInterception, true, 0),
+
+    // Mouse over stats button detection patch; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3BF10, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3BF10 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::isMouseOverStatsButtonInterception, true, 0),
+
     // Unknown
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C59F + 1, 0x506AF + 1, 0x211DF + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill button animation click detection; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C622, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C64E - 0x3C622),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C622, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C622 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::isMouseOverSkillButtonInterception, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C627, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C627 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2CLIENT_ClickSkillButton, true, 0),
 
     // Skill button animation click detection
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
@@ -563,6 +616,35 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0x3C66F + 1, 0x5075F + 1, 0x2128F + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Stats button animation click detection; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C6FD, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C72D - 0x3C6FD),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C6FD, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C6FD + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::isMouseOverStatsButtonInterception, true, 0),
+
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C702, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_JMP, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C702 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2CLIENT_ClickStatsButton, true, 0),
 
     // Stat button animation click detection
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
@@ -606,6 +688,23 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
 
+    // Stats button position fix; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4BC, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C4D4 - 0x3C4BC),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4BC, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4BC + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawStatsButtonInterception, true, 0),
+
     // Stats button fix (greyed out)
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
@@ -634,6 +733,23 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0x3C438 + 1, 0x505C8 + 1, 0x20FE8 + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+
+    // Skill button position fix; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C279, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C297 - 0x3C279),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C279, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C279 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawSkillButtonInterception, true, 0),
 
     // Skill button fix (greyed out)
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {

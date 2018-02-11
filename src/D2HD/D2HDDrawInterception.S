@@ -1,8 +1,12 @@
 .intel_syntax
+
+.text
 .global _determineVideoOptionTextInterception
 .global _drawControlPanel800ForegroundInterception
 .global _drawControlPanelBackgroundInterception
 .global _drawPanelBackgroundInterception
+.global _drawStatsButtonInterception
+.global _drawSkillButtonInterception
 .global _unloadCellFilesInterception
 
 _determineVideoOptionTextInterception:
@@ -46,6 +50,18 @@ _drawPanelBackgroundInterception:
 
     //Original code
     add esp, 0x128
+    ret
+
+_drawStatsButtonInterception:
+    pushad
+    call _drawStatsButton
+    popad
+    ret
+
+_drawSkillButtonInterception:
+    pushad
+    call _drawSkillButton
+    popad
     ret
 
 _unloadCellFilesInterception:

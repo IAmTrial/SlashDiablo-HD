@@ -93,6 +93,12 @@ D2VAR(D2CLIENT, WindowWidth, int, (0, 0, 0, 0, 0, 0,
 D2VAR(D2CLIENT, WindowHeight, int, (0, 0, 0, 0, 0, 0,
                                     0, 0, 0, 0xDC6E4, 0xDBC4C, 0xF7038,
                                     0, 0, 0, 0x311470));
+D2VAR(D2CLIENT, MousePositionX, int, (0, 0, 0, 0, 0, 0,
+                                    0, 0, 0, 0x101638, 0x11B828, 0,
+                                    0, 0, 0, 0));
+D2VAR(D2CLIENT, MousePositionY, int, (0, 0, 0, 0, 0, 0,
+                                    0, 0, 0, 0x101634, 0x11B824, 0,
+                                    0, 0, 0, 0));
 D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (0, 0, 0, 0, 0, 0,
                                               0, 0, 0, 0x102C08, 0x11A77C, 0x103B14,
                                               0, 0, 0, 0));
@@ -112,6 +118,13 @@ D2VAR(D2CLIENT, InventoryArrangeMode, int, (0, 0, 0, 0, 0, 0,
 D2VAR(D2CLIENT, VideoOptionCellFileStart, void*, (0, 0, 0, 0, 0, 0,
                                                   0, 0, 0, 0xEC550, 0xEA568, 0xE48D0,
                                                   0, 0, 0, 0));
+
+D2FUNC(D2CLIENT, ClickStatsButton, void, __stdcall, (), (0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0x3C6A0, 0, 0,
+                                                         0, 0, 0, 0));
+D2FUNC(D2CLIENT, ClickSkillButton, void, __stdcall, (), (0, 0, 0, 0, 0, 0,
+                                                         0, 0, 0, 0x3C5D0, 0, 0,
+                                                         0, 0, 0, 0));
 
 /*********************************************************************************
  *                                                                               *

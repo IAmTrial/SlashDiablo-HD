@@ -38,6 +38,8 @@ namespace Draw {
     extern D2HD::D2HDCellContext blankCellFile;
 
     extern D2HD::D2HDCellContext controlPanel800;
+    extern D2HD::D2HDCellContext statsButton;
+    extern D2HD::D2HDCellContext skillButton;
 
     extern D2HD::D2HDCellContext d2mrFancyBorderCorner;
     extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerBottomLeft;
@@ -95,6 +97,12 @@ extern "C" {
 
     void drawControlPanelBackground();
     void drawControlPanelBackgroundInterception();
+
+    void drawStatsButton();
+    void drawStatsButtonInterception();
+
+    void drawSkillButton();
+    void drawSkillButtonInterception();
 
     void unloadCellFile(CellFile** cellFile);
     void __stdcall unloadCellFiles(CellFile** orignal);
