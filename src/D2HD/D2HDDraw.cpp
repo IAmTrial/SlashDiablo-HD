@@ -125,13 +125,13 @@ void D2HD::Draw::drawControlPanel800Foreground() {
     controlPanel800.draw((*D2CLIENT_WindowWidth / 2) - 107, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
 
     controlPanel800.setFrame(3);
-    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) + 15, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) + 21, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
 
     controlPanel800.setFrame(4);
     controlPanel800.draw((*D2CLIENT_WindowWidth / 2) + 149, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
 
     controlPanel800.setFrame(5);
-    controlPanel800.draw(*D2CLIENT_WindowWidth - 75, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+    controlPanel800.draw(*D2CLIENT_WindowWidth - 117, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
 }
 
 void D2HD::Draw::drawControlPanelBackground() {
