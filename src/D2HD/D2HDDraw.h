@@ -37,6 +37,8 @@ namespace Draw {
     extern HANDLE d2mrArchive;
     extern D2HD::D2HDCellContext blankCellFile;
 
+    extern D2HD::D2HDCellContext controlPanel800;
+
     extern D2HD::D2HDCellContext d2mrFancyBorderCorner;
     extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerBottomLeft;
     extern D2HD::D2HDCellContext neoD2MRFancyBorderCornerBottomRight;
@@ -87,6 +89,9 @@ extern "C" {
     void drawRightPanelBorders();
     void drawLeftPanelBorders();
     void drawRightPanelBorders();
+
+    void drawControlPanel800Foreground();
+    void drawControlPanel800ForegroundInterception();
 
     void drawControlPanelBackground();
     void drawControlPanelBackgroundInterception();

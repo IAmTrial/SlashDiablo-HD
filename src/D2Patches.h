@@ -495,17 +495,34 @@ static const std::vector<D2Patch> requiredDrawPatches = {
         0, 0, 0, 0
     }), (DWORD) D2HD::Draw::drawPanelBackgroundInterception, true, 0),
 
-    // Draw bottom control panel
+    // Draw bottom control panel background
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x82237, 0x27297, 0x6D387,
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x82237, 0x27297, 0x6D387,
+        0, 0, 0, 0
+    }), PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x82237 + 1, 0x27297 + 1, 0x6D387 + 1,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawControlPanelBackgroundInterception, true, 0),
+
+    // Draw bottom control panel foreground
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x823C2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), PATCH_NOPBLOCK, false, 0x824B3 - 0x823C2),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x823C2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
     }), PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x82237 + 1, 0x27297 + 1, 0x6D387 + 1,
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x823C2 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
-    }), (DWORD) D2HD::Draw::drawControlPanelBackgroundInterception, true, 0),
+    }), (DWORD) D2HD::Draw::drawControlPanel800ForegroundInterception, true, 0),
 
     // Unload additional resources when game exits
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {

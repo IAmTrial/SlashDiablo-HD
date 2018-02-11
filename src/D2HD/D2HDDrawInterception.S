@@ -1,5 +1,6 @@
 .intel_syntax
 .global _determineVideoOptionTextInterception
+.global _drawControlPanel800ForegroundInterception
 .global _drawControlPanelBackgroundInterception
 .global _drawPanelBackgroundInterception
 .global _unloadCellFilesInterception
@@ -21,6 +22,12 @@ _determineVideoOptionTextInterception:
     mov ecx, dword ptr [edx]
     add esp, 4
     pop edx
+    ret
+
+_drawControlPanel800ForegroundInterception:
+    pushad
+    call _drawControlPanel800Foreground
+    popad
     ret
 
 _drawControlPanelBackgroundInterception:

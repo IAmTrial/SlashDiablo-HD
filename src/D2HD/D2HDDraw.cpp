@@ -48,6 +48,8 @@
 HANDLE D2HD::Draw::d2mrArchive = nullptr;
 D2HD::D2HDCellContext D2HD::Draw::blankCellFile("data\\local\\UI\\ENG\\Blank");
 
+D2HD::D2HDCellContext D2HD::Draw::controlPanel800("data\\global\\ui\\Panel\\800CtrlPnl7");
+
 D2HD::D2HDCellContext D2HD::Draw::d2mrFancyBorderCorner("data\\global\\ui\\Panel\\D2MRFancyBorderCorner");
 D2HD::D2HDCellContext D2HD::Draw::neoD2MRFancyBorderCornerBottomLeft("data\\global\\ui\\Panel\\NeoD2MRFancyBorderCornerBottomLeft");
 D2HD::D2HDCellContext D2HD::Draw::neoD2MRFancyBorderCornerBottomRight("data\\global\\ui\\Panel\\NeoD2MRFancyBorderCornerBottomRight");
@@ -110,6 +112,28 @@ void __stdcall D2HD::Draw::determineVideoOptionText(struct CellFile**
     }
 }
 
+void D2HD::Draw::drawControlPanel800Foreground() {
+    controlPanel800.loadFileSafely();
+
+    controlPanel800.setFrame(0);
+    controlPanel800.draw(0, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+
+    controlPanel800.setFrame(1);
+    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) - 235, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+
+    controlPanel800.setFrame(2);
+    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) - 107, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+
+    controlPanel800.setFrame(3);
+    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) + 15, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+
+    controlPanel800.setFrame(4);
+    controlPanel800.draw((*D2CLIENT_WindowWidth / 2) + 149, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+
+    controlPanel800.setFrame(5);
+    controlPanel800.draw(*D2CLIENT_WindowWidth - 75, *D2CLIENT_WindowHeight, 0xFFFFFFFF, 5, nullptr);
+}
+
 void D2HD::Draw::drawControlPanelBackground() {
     D2HD::D2HDCellContext& panelLeft = config.isFlipD2MRControlPanel() ? d2mrFancyPanelFlipLeft : d2mrFancyPanelLeft;
     D2HD::D2HDCellContext& panelRight = config.isFlipD2MRControlPanel() ? d2mrFancyPanelFlipRight : d2mrFancyPanelRight;
@@ -118,6 +142,10 @@ void D2HD::Draw::drawControlPanelBackground() {
     panelLeft.loadFileSafely();
     panelRight.loadFileSafely();
     panelHorizontalBar.loadFileSafely();
+
+    panelLeft.setFrame(0);
+    panelRight.setFrame(0);
+    panelHorizontalBar.setFrame(0);
 
     panelLeft.draw((117 + 48), *D2CLIENT_WindowHeight - 1, 0xFFFFFFFF, 5, 0);
     panelRight.draw((*D2CLIENT_WindowWidth - 117 - 48 - 238), *D2CLIENT_WindowHeight - 1, 0xFFFFFFFF, 5, nullptr);
@@ -390,6 +418,7 @@ void D2HD::Draw::drawRightPanelBorders() {
 
 void __stdcall D2HD::Draw::unloadCellFiles(CellFile** original) {
     blankCellFile.unloadFileSafely();
+    controlPanel800.unloadFileSafely();
 
     d2mrFancyBorderCorner.unloadFileSafely();
     neoD2MRFancyBorderCornerBottomLeft.unloadFileSafely();

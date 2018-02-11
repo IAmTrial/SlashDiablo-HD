@@ -52,11 +52,13 @@ D2HD::D2HDCellContext::D2HDCellContext(const std::string& fileName) : fileName(f
     switch (D2Version::getGameVersionID()) {
     case D2Version::GameVersionID::VERSION_112:
         pCellContext = std::unique_ptr<struct CellContext>(new CellContext_112);
+        memset(pCellContext.get(), 0, sizeof(CellContext_112));
         break;
 
     case D2Version::GameVersionID::VERSION_113c:
     case D2Version::GameVersionID::VERSION_113d:
         pCellContext = std::unique_ptr<struct CellContext>(new CellContext_113);
+        memset(pCellContext.get(), 0, sizeof(CellContext_113));
         break;
 
     default:
@@ -74,8 +76,14 @@ void D2HD::D2HDCellContext::draw(int x, int y, unsigned int color, int transTabl
 }
 
 void D2HD::D2HDCellContext::loadFileSafely() {
-    if (!isFileLoaded()) {
-        setCellFilePtr(D2WIN_LoadCellFile(fileName.c_str(), 0));
+    if (isFileLoaded()) {
+        return;
+    }
+
+    setCellFilePtr(D2WIN_LoadCellFile(fileName.c_str(), 0));
+    if (getCellFilePtr() == nullptr || (unsigned int)getCellFilePtr() == 1) {
+        MessageBoxW(nullptr, L"CellFile asset failed to load.", L"Diablo II Error", MB_OK | MB_ICONERROR);
+        std::exit(0);
     }
 }
 
