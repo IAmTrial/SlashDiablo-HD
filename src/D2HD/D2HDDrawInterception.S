@@ -1,6 +1,6 @@
 .intel_syntax
 .global _determineVideoOptionTextInterception
-.global _drawControlPanelInterception
+.global _drawControlPanelBackgroundInterception
 .global _drawPanelBackgroundInterception
 .global _unloadCellFilesInterception
 
@@ -23,9 +23,9 @@ _determineVideoOptionTextInterception:
     pop edx
     ret
 
-_drawControlPanelInterception:
+_drawControlPanelBackgroundInterception:
     pushad
-    call _drawControlPanel
+    call _drawControlPanelBackground
     popad
 
     //Original code

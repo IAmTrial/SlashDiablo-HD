@@ -88,8 +88,8 @@ extern "C" {
     void drawLeftPanelBorders();
     void drawRightPanelBorders();
 
-    void drawControlPanel();
-    void drawControlPanelInterception();
+    void drawControlPanelBackground();
+    void drawControlPanelBackgroundInterception();
 
     void unloadCellFile(CellFile** cellFile);
     void __stdcall unloadCellFiles(CellFile** orignal);

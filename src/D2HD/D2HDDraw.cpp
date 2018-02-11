@@ -110,7 +110,7 @@ void __stdcall D2HD::Draw::determineVideoOptionText(struct CellFile**
     }
 }
 
-void D2HD::Draw::drawControlPanel() {
+void D2HD::Draw::drawControlPanelBackground() {
     D2HD::D2HDCellContext& panelLeft = config.isFlipD2MRControlPanel() ? d2mrFancyPanelFlipLeft : d2mrFancyPanelLeft;
     D2HD::D2HDCellContext& panelRight = config.isFlipD2MRControlPanel() ? d2mrFancyPanelFlipRight : d2mrFancyPanelRight;
     D2HD::D2HDCellContext& panelHorizontalBar = config.isFlipD2MRControlPanel() ? d2mrFancyPanelFlipHorizontalBar : d2mrFancyPanelHorizontalBar;

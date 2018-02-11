@@ -505,7 +505,7 @@ static const std::vector<D2Patch> requiredDrawPatches = {
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, 0x82237 + 1, 0x27297 + 1, 0x6D387 + 1,
         D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH, D2Patch::NO_PATCH
-    }), (DWORD) D2HD::Draw::drawControlPanelInterception, true, 0),
+    }), (DWORD) D2HD::Draw::drawControlPanelBackgroundInterception, true, 0),
 
     // Unload additional resources when game exits
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
