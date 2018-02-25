@@ -1,7 +1,19 @@
 .intel_syntax
+
+.text
 .global _determineVideoOptionTextInterception
-.global _drawControlPanelInterception
+.global _drawControlPanel800ForegroundInterception
+.global _drawControlPanelBackgroundInterception
 .global _drawPanelBackgroundInterception
+
+.global _drawActiveStatsButtonInterception
+.global _drawInactiveStatsButtonInterception
+.global _drawStatsButtonTextInterception
+
+.global _drawActiveSkillButtonInterception
+.global _drawInactiveSkillButtonInterception
+.global _drawSkillButtonTextInterception
+
 .global _unloadCellFilesInterception
 
 _determineVideoOptionTextInterception:
@@ -23,14 +35,19 @@ _determineVideoOptionTextInterception:
     pop edx
     ret
 
-_drawControlPanelInterception:
+_drawControlPanel800ForegroundInterception:
     pushad
-    call _drawControlPanel
+    call _drawControlPanel800Foreground
+    popad
+    ret
+
+_drawControlPanelBackgroundInterception:
+    pushad
+    call _drawControlPanelBackground
     popad
 
     //Original code
-    xor edi, edi
-    sub eax, 2
+    mov ecx, 18
     ret
 
 _drawPanelBackgroundInterception:
@@ -40,6 +57,42 @@ _drawPanelBackgroundInterception:
 
     //Original code
     add esp, 0x128
+    ret
+
+_drawActiveStatsButtonInterception:
+    pushad
+    call _drawActiveStatsButton@0
+    popad
+    ret
+
+_drawInactiveStatsButtonInterception:
+    pushad
+    call _drawInactiveStatsButton@0
+    popad
+    ret
+
+_drawStatsButtonTextInterception:
+    pushad
+    call _drawStatsButtonText@0
+    popad
+    ret
+
+_drawActiveSkillButtonInterception:
+    pushad
+    call _drawActiveSkillButton@0
+    popad
+    ret
+
+_drawInactiveSkillButtonInterception:
+    pushad
+    call _drawInactiveSkillButton@0
+    popad
+    ret
+
+_drawSkillButtonTextInterception:
+    pushad
+    call _drawSkillButtonText@0
+    popad
     ret
 
 _unloadCellFilesInterception:

@@ -1,7 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2HDPatches.h                                                           *
- *   Copyright (C) 2017 Mir Drualga                                          *
+ *   D2HDCellContext.h                                                       *
+ *   Copyright (C) 2018 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -17,8 +17,9 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   Declares the functions that expands Diablo II's standard functions to   *
- *   allow changing to and using custom resolutions.                         *
+ *   Declares a class that provides higher level abstraction for CellContext,*
+ *   for the purpose of allowing it to work on different versions of the     *
+ *   game.                                                                   *
  *                                                                           *
  *****************************************************************************/
 
@@ -42,64 +43,40 @@
 * ==========================================================
 */
 
+#include <memory>
+#include <string>
+
 #include "../DLLmain.h"
 
 #pragma once
 
-#ifndef D2HDPATCHES_H
-#define D2HDPATCHES_H
+#ifndef D2HDCELLCONTEXT_H
+#define D2HDCELLCONTEXT_H
 
 namespace D2HD {
-extern "C" {
-    void __stdcall getModeParams(int mode, int* width, int* height);
-    void getModeParamsInterception107();
-    void getModeParamsInterception111();
+class D2HDCellContext {
+public:
+    D2HDCellContext(const std::string& fileName);
+    ~D2HDCellContext();
 
-    void repositionPanels();
-    void repositionPanelsInterception();
+    void draw(int x, int y, unsigned int color, int transTable, unsigned char* pPalette) const;
+    void loadFileSafely();
+    void unloadFileSafely();
+    bool isFileLoaded() const;
 
-    void __stdcall getPatchedResolutionMode(int* resolutionMode);
-    void getPatchedResolutionModeInterception();
+    int getFrame() const;
+    void setFrame(int frame);
+    CellFile* getCellFilePtr() const;
 
-    void __stdcall resizeGameLogicResolution(int mode);
-    void resizeGameLogicResolutionInterception();
 
-    void __stdcall getGameWindowWidth(int* width);
-    void resizeGameWindowResizeWidthInterception();
+private:
+    std::unique_ptr<struct CellContext> pCellContext;
+    std::string fileName;
 
-    void __stdcall getGameWindowHeight(int* height);
-    void resizeGameWindowResizeHeightInterception();
+    void setCellFilePtr(CellFile* pCellFile);
 
-    void __stdcall setResolutionMode(int* gameResolution, int configResolution);
-    void setResolutionModeEAXInterception();
-    void setResolutionModeEDIInterception();
-
-    void __stdcall setResolutionModeFromMenu(int* mode);
-    void setResolutionModeFromMenuInterception();
-
-    void __stdcall isMouseOverStatsButton(bool *isMouseOver);
-    void isMouseOverStatsButtonInterception();
-
-    void __stdcall isMouseOverSkillButton(bool *isMouseOver);
-    void isMouseOverSkillButtonInterception();
-
-    void setGDIRenderResolutionInterception();
-
-    void __stdcall setGDIForegroundRenderWidth(int mode);
-    void setGDIForegroundRenderWidthInterception();
-
-    void __stdcall setDirectDrawRenderResolution(int mode, int* width, int* height);
-    void setDirectDrawRenderResolutionInterception();
-
-    void __stdcall setDirect3DRenderResolution(int mode);
-    void setDirect3DRenderResolutionInterception();
-
-    void __stdcall setGlideRenderResolution(int newGameResolutionMode, int* glideResolutionMode);
-    void setGlideRenderResolutionInterception();
-
-    void __stdcall setupGlideWindowSize(int newGlideResolutionMode);
-    void setupGlideWindowSizeInterception();
-}
+    D2HDCellContext() = delete;
+};
 }
 
-#endif
+#endif // D2HDCELLCONTEXT_H

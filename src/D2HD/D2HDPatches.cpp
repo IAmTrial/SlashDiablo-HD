@@ -117,6 +117,32 @@ void __stdcall D2HD::setResolutionModeFromMenu(int* mode) {
     }
 }
 
+void __stdcall D2HD::isMouseOverStatsButton(bool *isMouseOver) {
+    const int leftSide = (*D2CLIENT_WindowWidth / 2) - 193;
+    const int rightSide = leftSide + 32;
+    const int topSide = *D2CLIENT_WindowHeight - 41;
+    const int bottomSide = topSide + 32;
+
+    const int mousePositionX = *D2CLIENT_MousePositionX;
+    const int mousePositionY = *D2CLIENT_MousePositionY;
+
+    *isMouseOver = ((mousePositionX >= leftSide && mousePositionX <= rightSide)
+                    && (mousePositionY >= topSide && mousePositionY <= bottomSide));
+}
+
+void __stdcall D2HD::isMouseOverSkillButton(bool *isMouseOver) {
+    const int leftSide = (*D2CLIENT_WindowWidth / 2) + 164;
+    const int rightSide = leftSide + 32;
+    const int topSide = *D2CLIENT_WindowHeight - 41;
+    const int bottomSide = topSide + 32;
+
+    const int mousePositionX = *D2CLIENT_MousePositionX;
+    const int mousePositionY = *D2CLIENT_MousePositionY;
+
+    *isMouseOver = ((mousePositionX >= leftSide && mousePositionX <= rightSide)
+                    && (mousePositionY >= topSide && mousePositionY <= bottomSide));
+}
+
 void __stdcall D2HD::setGDIForegroundRenderWidth(int mode) {
     int discarded = 0;
     D2HD::getModeParams(mode, D2GDI_ForegroundRenderWidth, &discarded);

@@ -87,18 +87,20 @@ bool __stdcall DllAttach() {
 
     config.readSettings();
 
-    if (config.isEnableArchive()) {
-        std::ifstream in(config.getArchiveName());
-
-        if (in.good()) {
-            in.close();
-            D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll",
-                                              config.getArchiveName().c_str(), "SlashDiabloHD", 0, nullptr);
-        }
-    }
-
     if (!config.isEnableMod()) {
         return true;
+    }
+
+    if constexpr (D2HD::D2HDConfig::ALLOW_LOAD_MPQ_ARCHIVE) {
+        if (config.isEnableArchive()) {
+            std::ifstream in(config.getArchiveName());
+
+            if (in.good()) {
+                in.close();
+                D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll",
+                                                  config.getArchiveName().c_str(), "SlashDiabloHD", 0, nullptr);
+            }
+        }
     }
 
     D2Patch::applyPatches(requiredHDPatches);
