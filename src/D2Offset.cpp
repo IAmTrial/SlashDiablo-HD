@@ -27,20 +27,21 @@
 
 #include <windows.h>
 
-#include <map>
+#include <unordered_map>
 #include <string>
 
 #include "D2Version.h"
 #include "DLLmain.h"
 
-std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> D2Offset::dllFiles;
+std::unordered_map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> D2Offset::dllFiles;
 
 D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
-                   const Offsets& offsets) : dllFile(dllFile), offsets(offsets) {
+                   const std::unordered_map<D2Version::GameVersion, long long int>& offsetData) :
+    dllFile(dllFile), offsetData(offsetData) {
 }
 
 long long int D2Offset::getCurrentOffset() const {
-    return *(&offsets._107 + (int) D2Version::getGameVersion());
+    return offsetData.at(D2Version::getGameVersion());
 }
 
 DWORD D2Offset::getCurrentAddress() const {
