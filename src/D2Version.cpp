@@ -32,13 +32,8 @@
 #include <unordered_set>
 
 D2Version::GameVersion D2Version::getGameVersion() {
-    static GameVersion gameVersion = GameVersion::INVALID;
-
-    if (gameVersion == GameVersion::INVALID) {
-        std::string versionString = determineVersionString(L"Game.exe");
-        gameVersion = getGameVersion(versionString);
-    }
-
+    static std::string versionString = determineVersionString(L"Game.exe");
+    static GameVersion gameVersion = getGameVersion(versionString);
     return gameVersion;
 }
 
@@ -68,17 +63,8 @@ bool D2Version::isGameVersion114Plus() {
 }
 
 D2Version::Glide3xVersion D2Version::getGlide3xVersion() {
-    static std::unordered_map<std::string, D2Version::Glide3xVersion> stringToGlide3xVersion = {
-        { "1.4.4.21", Glide3xVersion::VERSION_14e }, { "1.4.8.2", Glide3xVersion::RESURGENCE }
-    };
-
-    static Glide3xVersion glide3xVersion = Glide3xVersion::INVALID;
-
-    if (glide3xVersion == Glide3xVersion::INVALID) {
-        std::string versionString = determineVersionString(L"glide3x.dll");
-        glide3xVersion = getGlide3xVersion(versionString);
-    }
-
+    static std::string versionString = determineVersionString(L"glide3x.dll");
+    static Glide3xVersion glide3xVersion = getGlide3xVersion(versionString);
     return glide3xVersion;
 }
 
