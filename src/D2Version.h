@@ -27,11 +27,11 @@
 #ifndef _D2VERSION_H
 #define _D2VERSION_H
 
-#include <string>
 #include <windows.h>
+#include <string>
 
 namespace D2Version {
-enum class GameVersionID
+enum class GameVersion
     : int {
     INVALID = -1,
     VERSION_107 = 0,
@@ -44,16 +44,18 @@ enum class GameVersionID
     VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
 };
 
-enum class Glide3xVersionID {
+enum class Glide3xVersion {
     INVALID = -1,
     VERSION_14e = 0,
     RESURGENCE
 };
 
-GameVersionID getGameVersionID();
+GameVersion getGameVersion();
+GameVersion getGameVersion(std::string&);
 bool isGameVersion114Plus();
-Glide3xVersionID getGlide3xVersionID();
-std::string determineVersionString(LPCWSTR szVersionFile);
+Glide3xVersion getGlide3xVersion();
+Glide3xVersion getGlide3xVersion(std::string&);
+std::string determineVersionString(LPCWSTR);
 }
 
 #endif
