@@ -70,7 +70,7 @@ D2Version::Glide3xVersion D2Version::getGlide3xVersion() {
 
 D2Version::Glide3xVersion D2Version::getGlide3xVersion(std::string& versionString) {
     static std::unordered_map<std::string, D2Version::Glide3xVersion> stringToGlide3xVersion = {
-        { "1.4.4.21", Glide3xVersion::VERSION_14e }, { "1.4.8.2", Glide3xVersion::RESURGENCE }
+        { "1.4.4.21", Glide3xVersion::VERSION_14e }, { "1.4.8.3", Glide3xVersion::RESURGENCE }
     };
 
     return (stringToGlide3xVersion.count(versionString) == 1) ?
