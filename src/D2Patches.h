@@ -688,31 +688,97 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
 
-    // Stats button position fix; Additional Pre-1.13c Patch
+    // Mouse over stats text position fix; Additional Pre-1.13c Patch
+    // NOP mouse active (level up) text draw comparison code.
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4BC, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0x3C466, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C4D4 - 0x3C4BC),
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C492 - 0x3C466),
+
+    // NOP and replace active (level up) text draw code. Restore mouse comparison.
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4BC, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0x3C49A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C4B7 - 0x3C49A),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C49A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         0, 0, 0, 0
     }), (DWORD) PATCH_CALL, false, 0),
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4BC + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0x3C49A + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawStatsButtonInterception, true, 0),
+    }), (DWORD) D2HD::Draw::drawStatsButtonTextInterception, true, 0),
 
-    // Stats button fix (greyed out)
+    // NOP mouse inactive (greyed out) text draw comparison code.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C51F, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C541 - 0x3C51F),
+
+    // NOP and replace inactive (greyed out) text draw code. Restore mouse comparison.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C54A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C569 - 0x3C54A),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C54A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C54A + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawStatsButtonTextInterception, true, 0),
+
+    // Inactive stats (greyed out) button position fix; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C569, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C587 - 0x3C569),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C569, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C569 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawInactiveStatsButtonInterception, true, 0),
+
+    // Inactive stats (greyed out) button fix
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C4E3 + 1, 0x50103 + 1, 0x21093 + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
 
-    // Stats level up button fix
+    // Active stats (level up) button position fix; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4B7, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C4D4 - 0x3C4B7),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4B7, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C4B7 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawActiveStatsButtonInterception, true, 0),
+
+    // Active stats (level up) button fix
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C2B7 + 1, 0x50447 + 1, 0x20E67 + 1,
@@ -734,7 +800,56 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
 
-    // Skill button position fix; Additional Pre-1.13c Patch
+    // Mouse over skill text position fix; Additional Pre-1.13c Patch
+    // NOP mouse active (level up) text draw comparison code.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C16E, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C19A - 0x3C16E),
+
+    // NOP and replace active (level up) text draw code. Restore mouse comparison.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1A2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C1C0 - 0x3C1A2),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1A2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1A2 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawSkillButtonTextInterception, true, 0),
+
+    // NOP mouse inactive (greyed out) text draw comparison code.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C22F, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C251 - 0x3C22F),
+
+    // NOP and replace inactive (greyed out) text draw code. Restore mouse comparison.
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C25A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C279 - 0x3C25A),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C25A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C25A + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawSkillButtonTextInterception, true, 0),
+
+    // Inactive skill (greyed out) button position fix; Additional Pre-1.13c Patch
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C279, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
@@ -749,16 +864,33 @@ static const std::vector<D2Patch> controlPanel800Patches = {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C279 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
         0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawSkillButtonInterception, true, 0),
+    }), (DWORD) D2HD::Draw::drawInactiveSkillButtonInterception, true, 0),
 
-    // Skill button fix (greyed out)
+    // Inactive skill (greyed out) button fix
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3C1F3 + 1, 0x50023 + 1, 0x20DA3 + 1,
         0, 0, 0, 0
     }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
 
-    // Skill level up button fix
+    // Active skill (level up) button position fix; Additional Pre-1.13c Patch
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1C0, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C1DD - 0x3C1C0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1C0, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) PATCH_CALL, false, 0),
+    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0x3C1C0 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
+        0, 0, 0, 0
+    }), (DWORD) D2HD::Draw::drawActiveSkillButtonInterception, true, 0),
+
+    // Active skill (level up) button fix
     D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
         0, 0, 0, 0, 0, 0,
         0, 0, 0, 0x3BFC7 + 1, 0x50207 + 1, 0x20B77 + 1,

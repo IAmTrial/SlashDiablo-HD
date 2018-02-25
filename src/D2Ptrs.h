@@ -99,6 +99,14 @@ D2VAR(D2CLIENT, MousePositionX, int, (0, 0, 0, 0, 0, 0,
 D2VAR(D2CLIENT, MousePositionY, int, (0, 0, 0, 0, 0, 0,
                                     0, 0, 0, 0x101634, 0x11B824, 0,
                                     0, 0, 0, 0));
+
+D2VAR(D2CLIENT, StatsButtonClicked, bool, (0, 0, 0, 0, 0, 0,
+                                           0, 0, 0, 0x11C344, 0, 0,
+                                           0, 0, 0, 0));
+D2VAR(D2CLIENT, SkillButtonClicked, bool, (0, 0, 0, 0, 0, 0,
+                                           0, 0, 0, 0x11C348, 0, 0,
+                                           0, 0, 0, 0));
+
 D2VAR(D2CLIENT, PanelBorderImage, CellFile*, (0, 0, 0, 0, 0, 0,
                                               0, 0, 0, 0x102C08, 0x11A77C, 0x103B14,
                                               0, 0, 0, 0));
@@ -214,9 +222,21 @@ D2VAR(D2GLIDE, SpritesInited, bool, (0, 0, 0, 0, 0, 0,
 
 /*********************************************************************************
  *                                                                               *
+ *   D2LANG.DLL POINTERS                                                         *
+ *                                                                               *
+ *********************************************************************************/
+D2FUNC(D2LANG, GetLocaleText, wchar_t*, __fastcall, (short nLocaleTxtNo), (0, 0, 0, 0, 0, 0,
+                                                                           0, 0, 0, -10005, 0, -10000,
+                                                                           0, 0, 0, 0));
+
+/*********************************************************************************
+ *                                                                               *
  *   D2WIN.DLL POINTERS                                                          *
  *                                                                               *
  *********************************************************************************/
+D2FUNC(D2WIN, DrawFramedText, void, __fastcall, (const wchar_t * wStr, int X, int Y, int nColor, int Centered), (0, 0, 0, 0, 0, 0,
+                                                                                                                 0, 0, 0, -10031, 0, -10137,
+                                                                                                                 0, 0, 0, 0));
 D2FUNC(D2WIN, LoadCellFile, CellFile*, __fastcall, (const char* szFile, int Type), (0, 0, 0, 0, 0, 0,
                                                                                     0, 0, 0, -10186, -10111, -10023,
                                                                                     0, 0, 0, 0));

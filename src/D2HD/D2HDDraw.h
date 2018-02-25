@@ -98,11 +98,19 @@ extern "C" {
     void drawControlPanelBackground();
     void drawControlPanelBackgroundInterception();
 
-    void drawStatsButton();
-    void drawStatsButtonInterception();
+    void __stdcall drawActiveStatsButton();
+    void drawActiveStatsButtonInterception();
+    void __stdcall drawInactiveStatsButton();
+    void drawInactiveStatsButtonInterception();
+    void __stdcall drawStatsButtonText();
+    void drawStatsButtonTextInterception();
 
-    void drawSkillButton();
-    void drawSkillButtonInterception();
+    void __stdcall drawActiveSkillButton();
+    void drawActiveSkillButtonInterception();
+    void __stdcall drawInactiveSkillButton();
+    void drawInactiveSkillButtonInterception();
+    void __stdcall drawSkillButtonText();
+    void drawSkillButtonTextInterception();
 
     void unloadCellFile(CellFile** cellFile);
     void __stdcall unloadCellFiles(CellFile** orignal);

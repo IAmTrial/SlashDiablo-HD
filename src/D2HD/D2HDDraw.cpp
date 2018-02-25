@@ -418,16 +418,48 @@ void D2HD::Draw::drawRightPanelBorders() {
     borderRight.draw((basePositionX + 320), (basePositionY + 256) + (256 + 40), config.getRightPanelBackgroundColor().getBGRFormat(), 5, nullptr);
 }
 
-void D2HD::Draw::drawStatsButton() {
+void __stdcall D2HD::Draw::drawActiveStatsButton() {
     statsButton.loadFileSafely();
-    statsButton.setFrame(0);
+    statsButton.setFrame(*D2CLIENT_StatsButtonClicked);
     statsButton.draw((*D2CLIENT_WindowWidth / 2) - 194, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
 }
 
-void D2HD::Draw::drawSkillButton() {
+void __stdcall D2HD::Draw::drawInactiveStatsButton() {
+    statsButton.loadFileSafely();
+    statsButton.setFrame(2);
+    statsButton.draw((*D2CLIENT_WindowWidth / 2) - 194, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+}
+
+void __stdcall D2HD::Draw::drawStatsButtonText() {
+    bool isMouseOverStatsButton = false;
+    D2HD::isMouseOverStatsButton(&isMouseOverStatsButton);
+
+    if (isMouseOverStatsButton) {
+        wchar_t* statsButtonText = D2LANG_GetLocaleText(3986);
+        D2WIN_DrawFramedText(statsButtonText, (*D2CLIENT_WindowWidth / 2) - 179, *D2CLIENT_WindowHeight - 50, 0, 1);
+    }
+}
+
+void __stdcall D2HD::Draw::drawActiveSkillButton() {
     skillButton.loadFileSafely();
-    skillButton.setFrame(0);
-    statsButton.draw((*D2CLIENT_WindowWidth / 2) + 163, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+    skillButton.setFrame(*D2CLIENT_SkillButtonClicked);
+    skillButton.draw((*D2CLIENT_WindowWidth / 2) + 163, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+}
+
+void __stdcall D2HD::Draw::drawInactiveSkillButton() {
+    skillButton.loadFileSafely();
+    skillButton.setFrame(2);
+    skillButton.draw((*D2CLIENT_WindowWidth / 2) + 163, *D2CLIENT_WindowHeight - 8, 0xFFFFFFFF, 5, nullptr);
+}
+
+void __stdcall D2HD::Draw::drawSkillButtonText() {
+    bool isMouseOverSkillButton = false;
+    D2HD::isMouseOverSkillButton(&isMouseOverSkillButton);
+
+    if (isMouseOverSkillButton) {
+        wchar_t* skillButtonText = D2LANG_GetLocaleText(3987);
+        D2WIN_DrawFramedText(skillButtonText, (*D2CLIENT_WindowWidth / 2) + 178, *D2CLIENT_WindowHeight - 50, 0, 1);
+    }
 }
 
 void __stdcall D2HD::Draw::unloadCellFiles(CellFile** original) {
