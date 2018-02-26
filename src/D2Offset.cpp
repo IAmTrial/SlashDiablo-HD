@@ -27,8 +27,9 @@
 
 #include <windows.h>
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "D2Version.h"
 #include "DLLmain.h"
@@ -65,7 +66,8 @@ DWORD D2Offset::getCurrentAddress() const {
 
 HMODULE D2Offset::getDllAddress(D2TEMPLATE_DLL_FILES dllFile) {
     static std::unordered_map<D2TEMPLATE_DLL_FILES, HMODULE> dllHandles;
-    static const std::unordered_map<D2TEMPLATE_DLL_FILES, std::wstring_view> dllFilePaths = {
+    static const std::unordered_map<D2TEMPLATE_DLL_FILES, std::wstring_view>
+    dllFilePaths = {
         { D2TEMPLATE_DLL_FILES::D2DLL_BINKW32, L"Binkw32.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_BNCLIENT, L"BnClient.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, L"D2Client.dll" },
@@ -90,23 +92,26 @@ HMODULE D2Offset::getDllAddress(D2TEMPLATE_DLL_FILES dllFile) {
         { D2TEMPLATE_DLL_FILES::D2DLL_STORM, L"Storm.dll" }
     };
 
-
+    static const std::unordered_set<D2TEMPLATE_DLL_FILES> redirectedDlls = {
+        D2TEMPLATE_DLL_FILES::D2DLL_BNCLIENT, D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2CMP, D2TEMPLATE_DLL_FILES::D2DLL_D2COMMON,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2DDRAW, D2TEMPLATE_DLL_FILES::D2DLL_D2DIRECT3D,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2GAME, D2TEMPLATE_DLL_FILES::D2DLL_D2GDI,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2GFX, D2TEMPLATE_DLL_FILES::D2DLL_D2GLIDE,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2LANG, D2TEMPLATE_DLL_FILES::D2DLL_D2LAUNCH,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2MCPCLIENT, D2TEMPLATE_DLL_FILES::D2DLL_D2MULTI,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2NET, D2TEMPLATE_DLL_FILES::D2DLL_D2SOUND,
+        D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, D2TEMPLATE_DLL_FILES::D2DLL_FOG,
+        D2TEMPLATE_DLL_FILES::D2DLL_STORM
+    };
 
     HMODULE dllAddress = dllHandles[dllFile];
+
     if (dllAddress == nullptr) {
         std::wstring_view moduleName = dllFilePaths.at(dllFile);
 
         if (D2Version::isGameVersion114Plus()) {
-            if (moduleName == L"BnClient.dll" || moduleName == L"D2Client.dll"
-                    || moduleName == L"D2CMP.dll" || moduleName == L"D2Common.dll"
-                    || moduleName == L"D2DDraw.dll" || moduleName == L"D2Direct3D.dll"
-                    || moduleName == L"D2Game.dll" || moduleName == L"D2Gdi.dll"
-                    || moduleName == L"D2Gfx.dll" || moduleName == L"D2Glide.dll"
-                    || moduleName == L"D2Lang.dll" || moduleName == L"D2Launch.dll"
-                    || moduleName == L"D2MCPClient.dll" || moduleName == L"D2Multi.dll"
-                    || moduleName == L"D2Net.dll" || moduleName == L"D2Sound.dll"
-                    || moduleName == L"D2Win.dll" || moduleName == L"Fog.dll"
-                    || moduleName == L"Storm.dll") {
+            if (redirectedDlls.count(dllFile) == 1) {
                 moduleName = L"Game.exe";
             }
         }
