@@ -51,11 +51,11 @@ enum class Glide3xVersion {
 };
 
 GameVersion getGameVersion();
-GameVersion getGameVersion(std::string&);
+GameVersion getGameVersion(std::string_view versionString);
 bool isGameVersion114Plus();
 Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string&);
-std::string determineVersionString(LPCWSTR);
+Glide3xVersion getGlide3xVersion(std::string_view versionString);
+std::string determineVersionString(std::wstring_view filePath);
 }
 
 #endif

@@ -32,13 +32,12 @@
 #include <unordered_set>
 
 D2Version::GameVersion D2Version::getGameVersion() {
-    static std::string versionString = determineVersionString(L"Game.exe");
-    static GameVersion gameVersion = getGameVersion(versionString);
+    static GameVersion gameVersion = getGameVersion(determineVersionString(L"Game.exe"));
     return gameVersion;
 }
 
-D2Version::GameVersion D2Version::getGameVersion(std::string& versionString) {
-    static std::unordered_map<std::string, D2Version::GameVersion> stringToGameVersion = {
+D2Version::GameVersion D2Version::getGameVersion(std::string_view versionString) {
+    static std::unordered_map<std::string_view, D2Version::GameVersion> stringToGameVersion = {
         { "1.0.7.0", GameVersion::VERSION_107 }, { "1.0.8.28", GameVersion::VERSION_108 },
         { "1.0.9.19", GameVersion::VERSION_109 }, { "1.0.9.20", GameVersion::VERSION_109b },
         { "1.0.9.21", GameVersion::VERSION_109c }, { "1.0.9.22", GameVersion::VERSION_109d },
@@ -63,13 +62,12 @@ bool D2Version::isGameVersion114Plus() {
 }
 
 D2Version::Glide3xVersion D2Version::getGlide3xVersion() {
-    static std::string versionString = determineVersionString(L"glide3x.dll");
-    static Glide3xVersion glide3xVersion = getGlide3xVersion(versionString);
+    static Glide3xVersion glide3xVersion = getGlide3xVersion(determineVersionString(L"glide3x.dll"));
     return glide3xVersion;
 }
 
-D2Version::Glide3xVersion D2Version::getGlide3xVersion(std::string& versionString) {
-    static std::unordered_map<std::string, D2Version::Glide3xVersion> stringToGlide3xVersion = {
+D2Version::Glide3xVersion D2Version::getGlide3xVersion(std::string_view versionString) {
+    static std::unordered_map<std::string_view, D2Version::Glide3xVersion> stringToGlide3xVersion = {
         { "1.4.4.21", Glide3xVersion::VERSION_14e }, { "1.4.8.3", Glide3xVersion::RESURGENCE }
     };
 
@@ -78,18 +76,18 @@ D2Version::Glide3xVersion D2Version::getGlide3xVersion(std::string& versionStrin
 }
 
 // Taken from StackOverflow user crashmstr
-std::string D2Version::determineVersionString(LPCWSTR szVersionFile) {
+std::string D2Version::determineVersionString(std::wstring_view filePath) {
     DWORD verHandle = 0;
     UINT size = 0;
     LPBYTE lpBuffer = nullptr;
-    DWORD verSize = GetFileVersionInfoSizeW(szVersionFile, &verHandle);
+    DWORD verSize = GetFileVersionInfoSizeW(filePath.data(), &verHandle);
 
     std::string returnValue;
 
     if (verSize != 0) {
         std::unique_ptr<WCHAR[]> verData(new WCHAR[verSize]);
 
-        if (GetFileVersionInfoW(szVersionFile, verHandle, verSize, verData.get())) {
+        if (GetFileVersionInfoW(filePath.data(), verHandle, verSize, verData.get())) {
             if (VerQueryValueW(verData.get(), L"\\", (VOID FAR * FAR*)&lpBuffer, &size)) {
                 if (size > 0) {
                     VS_FIXEDFILEINFO* verInfo = (VS_FIXEDFILEINFO*)lpBuffer;
