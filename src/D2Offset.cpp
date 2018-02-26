@@ -33,31 +33,23 @@
 #include "D2Version.h"
 #include "DLLmain.h"
 
-std::unordered_map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> D2Offset::dllFiles;
-
 D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
-                   const std::unordered_map<D2Version::GameVersion, long long int>& offsetData) :
-    dllFile(dllFile), offsetData(offsetData) {
+                   const std::unordered_map<D2Version::GameVersion, long long int>& offsets) :
+    dllFile(dllFile), offsets(offsets) {
 }
 
 long long int D2Offset::getCurrentOffset() const {
-    return offsetData.at(D2Version::getGameVersion());
+    return offsets.at(D2Version::getGameVersion());
 }
 
 DWORD D2Offset::getCurrentAddress() const {
-    if (dllFiles.count(dllFile) == 0) {
-        if (!D2Offset::loadModules()) {
-            D2TEMPLATE_FatalError(L"Failed to load modules");
-            return 0;
-        }
-    }
-
-    HMODULE baseAddress = dllFiles.at(dllFile).dwAddress;
+    HMODULE baseAddress = getDllAddress(dllFile);
 
     if (baseAddress == nullptr) {
         return 0;
     }
 
+    // MessageBoxA(nullptr, std::to_string((int)dllFile).c_str(), "", MB_OK);
     long long int offset = getCurrentOffset();
 
     DWORD address;
@@ -72,8 +64,8 @@ DWORD D2Offset::getCurrentAddress() const {
     return address;
 }
 
-bool D2Offset::loadModules() {
-    dllFiles = {
+HMODULE D2Offset::getDllAddress(D2TEMPLATE_DLL_FILES dllFile) {
+    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles = {
         { D2TEMPLATE_DLL_FILES::D2DLL_BINKW32, { L"Binkw32.dll", nullptr }},
         { D2TEMPLATE_DLL_FILES::D2DLL_BNCLIENT, { L"BnClient.dll", nullptr }},
         { D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, { L"D2Client.dll", nullptr }},
@@ -98,8 +90,9 @@ bool D2Offset::loadModules() {
         { D2TEMPLATE_DLL_FILES::D2DLL_STORM, { L"Storm.dll", nullptr }}
     };
 
-    for (auto& dllFile : dllFiles) {
-        std::wstring moduleName = std::wstring(dllFile.second.wszName);
+    HMODULE dllAddress = dllFiles.at(dllFile).dwAddress;
+    if (dllAddress == nullptr) {
+        std::wstring moduleName = std::wstring(dllFiles.at(dllFile).wszName);
 
         if (D2Version::isGameVersion114Plus()) {
             if (moduleName == L"BnClient.dll" || moduleName == L"D2Client.dll"
@@ -116,14 +109,14 @@ bool D2Offset::loadModules() {
             }
         }
 
-        HMODULE hModule = GetModuleHandleW(moduleName.c_str());
+        dllAddress = GetModuleHandleW(moduleName.c_str());
 
-        if (!hModule) {
-            hModule = LoadLibraryW(moduleName.c_str());
+        if (dllAddress == nullptr) {
+            dllAddress = LoadLibraryW(moduleName.c_str());
         }
 
-        dllFile.second.dwAddress = hModule;
+        dllFiles.at(dllFile).dwAddress = dllAddress;
     }
 
-    return true;
+    return dllAddress;
 }

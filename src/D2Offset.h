@@ -67,18 +67,17 @@ struct DLLBaseStrc {
 
 class D2Offset {
 public:
-    D2Offset(const D2TEMPLATE_DLL_FILES dllFile, const std::unordered_map<D2Version::GameVersion, long long int>& offsetData);
+    D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
+             const std::unordered_map<D2Version::GameVersion, long long int>& offsets);
 
     long long int getCurrentOffset() const;
     DWORD getCurrentAddress() const;
 
 private:
-    static std::unordered_map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
-
     D2TEMPLATE_DLL_FILES dllFile;
-    std::unordered_map<D2Version::GameVersion, long long int> offsetData;
+    std::unordered_map<D2Version::GameVersion, long long int> offsets;
 
-    static bool loadModules();
+    static HMODULE getDllAddress(D2TEMPLATE_DLL_FILES dllFile);
 };
 
 #endif
