@@ -60,11 +60,6 @@ enum class D2TEMPLATE_DLL_FILES
     D2DLL_STORM,
 };
 
-struct DLLBaseStrc {
-    LPCWSTR wszName;
-    HMODULE dwAddress;
-};
-
 class D2Offset {
 public:
     D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
