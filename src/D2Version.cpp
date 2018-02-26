@@ -31,16 +31,14 @@
 #include <unordered_map>
 #include <unordered_set>
 
-D2Version::GameVersion D2Version::getGameVersion() {
+GameVersion D2Version::getGameVersion() {
     static GameVersion gameVersion = getGameVersion(determineVersionString(
                                          L"Game.exe"));
     return gameVersion;
 }
 
-D2Version::GameVersion D2Version::getGameVersion(std::string_view
-        versionString) {
-    static std::unordered_map<std::string_view, D2Version::GameVersion>
-    stringToGameVersion = {
+GameVersion D2Version::getGameVersion(std::string_view versionString) {
+    static std::unordered_map<std::string_view, GameVersion> stringToGameVersion = {
         { "1.0.7.0", GameVersion::VERSION_107 }, { "1.0.8.28", GameVersion::VERSION_108 },
         { "1.0.9.19", GameVersion::VERSION_109 }, { "1.0.9.20", GameVersion::VERSION_109b },
         { "1.0.9.21", GameVersion::VERSION_109c }, { "1.0.9.22", GameVersion::VERSION_109d },
@@ -65,15 +63,14 @@ bool D2Version::isGameVersion114Plus() {
     return versions114Plus.count(getGameVersion()) == 1;
 }
 
-D2Version::Glide3xVersion D2Version::getGlide3xVersion() {
+Glide3xVersion D2Version::getGlide3xVersion() {
     static Glide3xVersion glide3xVersion = getGlide3xVersion(determineVersionString(
             L"glide3x.dll"));
     return glide3xVersion;
 }
 
-D2Version::Glide3xVersion D2Version::getGlide3xVersion(std::string_view
-        versionString) {
-    static std::unordered_map<std::string_view, D2Version::Glide3xVersion>
+Glide3xVersion D2Version::getGlide3xVersion(std::string_view versionString) {
+    static std::unordered_map<std::string_view, Glide3xVersion>
     stringToGlide3xVersion = {
         { "1.4.4.21", Glide3xVersion::VERSION_14e }, { "1.4.8.3", Glide3xVersion::RESURGENCE }
     };

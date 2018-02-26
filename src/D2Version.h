@@ -30,11 +30,9 @@
 #include <windows.h>
 #include <string>
 
-namespace D2Version {
-enum class GameVersion
-    : int {
-    INVALID = -1,
-    VERSION_107 = 0,
+enum class GameVersion : int {
+    INVALID,
+    VERSION_107,
     VERSION_108,
     VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
     VERSION_110,
@@ -44,12 +42,13 @@ enum class GameVersion
     VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
 };
 
-enum class Glide3xVersion {
-    INVALID = -1,
-    VERSION_14e = 0,
+enum class Glide3xVersion : int {
+    INVALID,
+    VERSION_14e,
     RESURGENCE
 };
 
+namespace D2Version {
 GameVersion getGameVersion();
 GameVersion getGameVersion(std::string_view versionString);
 bool isGameVersion114Plus();

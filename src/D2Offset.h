@@ -63,14 +63,14 @@ enum class D2TEMPLATE_DLL_FILES
 class D2Offset {
 public:
     D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
-             const std::unordered_map<D2Version::GameVersion, long long int>& offsets);
+             const std::unordered_map<GameVersion, long long int>& offsets);
 
     long long int getCurrentOffset() const;
     DWORD getCurrentAddress() const;
 
 private:
     D2TEMPLATE_DLL_FILES dllFile;
-    std::unordered_map<D2Version::GameVersion, long long int> offsets;
+    std::unordered_map<GameVersion, long long int> offsets;
 
     static HMODULE getDllAddress(D2TEMPLATE_DLL_FILES dllFile);
 };

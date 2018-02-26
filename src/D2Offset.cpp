@@ -35,7 +35,7 @@
 #include "DLLmain.h"
 
 D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
-                   const std::unordered_map<D2Version::GameVersion, long long int>& offsets) :
+                   const std::unordered_map<GameVersion, long long int>& offsets) :
     dllFile(dllFile), offsets(offsets) {
 }
 
