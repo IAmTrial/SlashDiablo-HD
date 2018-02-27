@@ -24,20 +24,20 @@
 
 #pragma once
 
-#ifndef _D2PATCH_H
-#define _D2PATCH_H
+#ifndef _D2ANYPATCH_H
+#define _D2ANYPATCH_H
 
 #include <vector>
 #include "D2Offset.h"
 
-class D2Patch {
+class D2AnyPatch {
 public:
-    D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative,
+    static constexpr long long int NO_PATCH = 0x4000000000000000;
+
+    D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
             const size_t patchSize);
     bool applyPatch() const;
-    static bool applyPatches(const std::vector<D2Patch>& patches);
-
-    static constexpr long long int NO_PATCH = 0x4000000000000000;
+    static bool applyPatches(const std::vector<D2AnyPatch>& patches);
 
 private:
     D2Offset d2Offset;

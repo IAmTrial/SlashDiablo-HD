@@ -35,7 +35,7 @@
 #include "D2PatchConst.h"
 #include "DLLmain.h"
 
-static const std::vector<D2Patch> gptTemplatePatches = {
+static const std::vector<D2AnyPatch> gptTemplatePatches = {
 };
 
 // end of file --------------------------------------------------------------

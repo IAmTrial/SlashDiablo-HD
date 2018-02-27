@@ -27,7 +27,7 @@
 #define _D2VARS_H
 
 #include "DLLmain.h"
-#include "D2Patch.h"
+#include "D2AnyPatch.h"
 #include "D2Patches.h"
 
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
@@ -76,7 +76,7 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    D2Patch::applyPatches(gptTemplatePatches);
+    D2AnyPatch::applyPatches(gptTemplatePatches);
 
     return true;
 }

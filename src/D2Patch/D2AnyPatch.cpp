@@ -22,17 +22,17 @@
  *                                                                           *
  *****************************************************************************/
 
-#include "D2Patch.h"
+#include "D2AnyPatch.h"
 
-D2Patch::D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative,
+D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
                  size_t patchSize) : d2Offset(d2Offset), data(data), relative(relative),
     patchSize(patchSize) {
 }
 
-bool D2Patch::applyPatch() const {
+bool D2AnyPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
-    if ((d2Offset.getCurrentOffset() & D2Patch::NO_PATCH) == D2Patch::NO_PATCH) {
+    if ((d2Offset.getCurrentOffset() & D2AnyPatch::NO_PATCH) == D2AnyPatch::NO_PATCH) {
         return true;
     }
 
@@ -77,7 +77,7 @@ bool D2Patch::applyPatch() const {
     return true;
 }
 
-bool D2Patch::applyPatches(const std::vector<D2Patch>& patches) {
+bool D2AnyPatch::applyPatches(const std::vector<D2AnyPatch>& patches) {
     bool returnValue = true;
 
     for (const auto& patch : patches) {
