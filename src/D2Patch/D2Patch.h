@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patches.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2Patch.h                                                               *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,32 +17,42 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you declare all your patches, in order to inject     *
- *   your own code into the game. Each patch should be declared in the       *
- *   array, in order to be handled by D2Template's patcher                   *
+ *   This file declares the D2Patch base class, which provides an interface  *
+ *   for more specific patches that are used for applying patches for        *
+ *   Diablo II.                                                              *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2PATCHES_H
-#define _D2PATCHES_H
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
 
 #include <memory>
 #include <vector>
 
-#include "D2Patch/D2AnyPatch.h"
-#include "D2Patch/D2Patch.h"
-#include "D2PatchConst.h"
-#include "DLLmain.h"
+#include "../D2Offset.h"
 
-static const std::vector<std::shared_ptr<D2Patch>> gptTemplatePatches = {
-    std::make_shared<D2AnyPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        {GameVersion::VERSION_113c, 0},
-    }), PATCH_NOPBLOCK, false, 0),
+class D2Patch {
+public:
+    static constexpr long long int NO_PATCH = 0x4000000000000000;
+
+    D2Patch(const D2Offset& d2Offset, const bool relative, const size_t patchSize);
+
+    static bool applyPatches(const std::vector<std::shared_ptr<D2Patch>>& patches);
+    virtual bool applyPatch() const = 0;
+
+    D2Offset getD2Offset() const;
+    bool isRelative() const;
+    size_t getPatchSize() const;
+
+
+private:
+    D2Offset d2Offset;
+    bool relative;
+    size_t patchSize;
+
+    D2Patch() = delete;
 };
 
-// end of file --------------------------------------------------------------
 #endif

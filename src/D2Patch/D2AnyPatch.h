@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patch.h                                                               *
+ *   D2AnyPatch.h                                                            *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,8 +17,8 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file declares the D2Patch class, which is used to for applying     *
- *   patches for Diablo II.                                                  *
+ *   This file declares the D2AnyPatch class, which can be used to create    *
+ *   any patch for Diablo II.                                                *
  *                                                                           *
  *****************************************************************************/
 
@@ -27,23 +27,19 @@
 #ifndef _D2ANYPATCH_H
 #define _D2ANYPATCH_H
 
-#include <vector>
-#include "D2Offset.h"
+#include <windows.h>
 
-class D2AnyPatch {
+#include "D2Patch.h"
+#include "../D2Offset.h"
+
+class D2AnyPatch : public D2Patch {
 public:
-    static constexpr long long int NO_PATCH = 0x4000000000000000;
-
     D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
             const size_t patchSize);
-    bool applyPatch() const;
-    static bool applyPatches(const std::vector<D2AnyPatch>& patches);
+    bool applyPatch() const override;
 
 private:
-    D2Offset d2Offset;
     DWORD data;
-    bool relative;
-    size_t patchSize;
 };
 
 #endif

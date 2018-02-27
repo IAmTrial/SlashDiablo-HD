@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patch.cpp                                                             *
+ *   D2AnyPatch.cpp                                                          *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,26 +17,27 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file defines functions used by the D2Patch class, to help apply    *
- *   patches for Diablo II.                                                  *
+ *   This file defines functions used by the D2AnyPatch class, which can     *
+ *   create any type of patch to Diablo II.                                  *
  *                                                                           *
  *****************************************************************************/
 
 #include "D2AnyPatch.h"
 
-D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
-                 size_t patchSize) : d2Offset(d2Offset), data(data), relative(relative),
-    patchSize(patchSize) {
+D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data,
+                       const bool relative, size_t patchSize) : D2Patch(d2Offset, relative, patchSize),
+    data(data) {
 }
 
 bool D2AnyPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
-    if ((d2Offset.getCurrentOffset() & D2AnyPatch::NO_PATCH) == D2AnyPatch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2AnyPatch::NO_PATCH) ==
+            D2AnyPatch::NO_PATCH) {
         return true;
     }
 
-    DWORD dwAddress = d2Offset.getCurrentAddress();
+    DWORD dwAddress = getD2Offset().getCurrentAddress();
 
     if (dwAddress == 0) {
         return false;
@@ -44,7 +45,7 @@ bool D2AnyPatch::applyPatch() const {
 
     DWORD dwData = data;
 
-    if (relative) {
+    if (isRelative()) {
         dwData = dwData - (dwAddress + sizeof(dwData));
     }
 
@@ -52,16 +53,17 @@ bool D2AnyPatch::applyPatch() const {
     DWORD dwOldPage;
 
     int nReturn = 0;
-    if (patchSize > 0) {
+
+    if (getPatchSize() > 0) {
         BYTE Buffer[1024];
 
-        for (size_t i = 0; i < patchSize; i++)
+        for (size_t i = 0; i < getPatchSize(); i++)
             Buffer[i] = (BYTE) dwData;
 
-        VirtualProtect(hAddress, patchSize, PAGE_EXECUTE_READWRITE, &dwOldPage);
-        nReturn = WriteProcessMemory(gameHandle, hAddress, &Buffer, patchSize,
+        VirtualProtect(hAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &dwOldPage);
+        nReturn = WriteProcessMemory(gameHandle, hAddress, &Buffer, getPatchSize(),
                                      0);
-        VirtualProtect(hAddress, patchSize, dwOldPage, 0);
+        VirtualProtect(hAddress, getPatchSize(), dwOldPage, 0);
     } else {
         VirtualProtect(hAddress, sizeof(dwData), PAGE_EXECUTE_READWRITE,
                        &dwOldPage);
@@ -75,14 +77,4 @@ bool D2AnyPatch::applyPatch() const {
     }
 
     return true;
-}
-
-bool D2AnyPatch::applyPatches(const std::vector<D2AnyPatch>& patches) {
-    bool returnValue = true;
-
-    for (const auto& patch : patches) {
-        returnValue = returnValue && patch.applyPatch();
-    }
-
-    return returnValue;
 }
