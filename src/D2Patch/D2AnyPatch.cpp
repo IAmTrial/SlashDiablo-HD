@@ -33,6 +33,11 @@ D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data,
     data(data), relative(relative) {
 }
 
+D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const OpCode opCode,
+                       const bool relative, size_t patchSize) : D2AnyPatch(d2Offset, patchSize,
+                                   (int)opCode, relative) {
+}
+
 bool D2AnyPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
@@ -56,16 +61,17 @@ bool D2AnyPatch::applyPatch() const {
     LPVOID hAddress = (LPVOID) dwAddress;
     DWORD dwOldPage;
 
-    int nReturn = 0;
+    bool nReturn;
 
     if (getPatchSize() > 0) {
-        BYTE Buffer[1024];
+        std::unique_ptr<BYTE[]> buffer(new BYTE[getPatchSize()]);
 
-        for (size_t i = 0; i < getPatchSize(); i++)
-            Buffer[i] = (BYTE) dwData;
+        for (size_t i = 0; i < getPatchSize(); i++) {
+            buffer[i] = (BYTE) dwData;
+        }
 
         VirtualProtect(hAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &dwOldPage);
-        nReturn = WriteProcessMemory(gameHandle, hAddress, &Buffer, getPatchSize(),
+        nReturn = WriteProcessMemory(gameHandle, hAddress, buffer.get(), getPatchSize(),
                                      0);
         VirtualProtect(hAddress, getPatchSize(), dwOldPage, 0);
     } else {

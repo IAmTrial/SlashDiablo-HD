@@ -36,6 +36,9 @@ class D2AnyPatch : public D2Patch {
 public:
     D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
             const size_t patchSize);
+    D2AnyPatch(const D2Offset& d2Offset, const OpCode opCode, const bool relative,
+            const size_t patchSize);
+
     virtual bool applyPatch() const override;
     bool isRelative() const;
 
