@@ -87,6 +87,7 @@ HMODULE D2Offset::getDllAddress(D2TEMPLATE_DLL_FILES dllFile) {
         { D2TEMPLATE_DLL_FILES::D2DLL_D2SOUND, L"D2Sound.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_D2WIN, L"D2Win.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_FOG, L"Fog.dll" },
+        { D2TEMPLATE_DLL_FILES::D2DLL_GLIDE3X, L"glide3x.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_IJL11, L"Ijl11.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_SMACKW32, L"SmackW32.dll" },
         { D2TEMPLATE_DLL_FILES::D2DLL_STORM, L"Storm.dll" }
