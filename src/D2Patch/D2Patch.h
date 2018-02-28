@@ -33,23 +33,29 @@
 
 #include "../D2Offset.h"
 
+enum class OpCode : BYTE {
+    CALL = 0xE8,
+    JMP = 0xE9,
+    NOP = 0x90
+};
+
 class D2Patch {
 public:
     static constexpr long long int NO_PATCH = 0x4000000000000000;
 
-    D2Patch(const D2Offset& d2Offset, const bool relative, const size_t patchSize);
-
     static bool applyPatches(const std::vector<std::shared_ptr<D2Patch>>& patches);
     virtual bool applyPatch() const = 0;
 
-    D2Offset getD2Offset() const;
+    const D2Offset& getD2Offset() const;
     bool isRelative() const;
     size_t getPatchSize() const;
 
+protected:
+    D2Patch(const D2Offset& d2Offset, const size_t patchSize);
+    D2Patch(D2Patch&& d2Patch) = default;
 
 private:
     D2Offset d2Offset;
-    bool relative;
     size_t patchSize;
 
     D2Patch() = delete;

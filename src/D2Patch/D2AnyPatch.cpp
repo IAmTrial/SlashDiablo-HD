@@ -24,9 +24,13 @@
 
 #include "D2AnyPatch.h"
 
+#include <windows.h>
+
+#include "../D2Offset.h"
+
 D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data,
-                       const bool relative, size_t patchSize) : D2Patch(d2Offset, relative, patchSize),
-    data(data) {
+                       const bool relative, size_t patchSize) : D2Patch(d2Offset, patchSize),
+    data(data), relative(relative) {
 }
 
 bool D2AnyPatch::applyPatch() const {
@@ -77,4 +81,8 @@ bool D2AnyPatch::applyPatch() const {
     }
 
     return true;
+}
+
+bool D2AnyPatch::isRelative() const {
+    return relative;
 }

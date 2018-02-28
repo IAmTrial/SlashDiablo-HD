@@ -24,9 +24,12 @@
 
 #include "D2Patch.h"
 
-D2Patch::D2Patch(const D2Offset& d2Offset, const bool relative,
-        const size_t patchSize) : d2Offset(d2Offset), relative(relative),
-    patchSize(patchSize) {
+#include <memory>
+#include <vector>
+
+#include "../D2Offset.h"
+
+D2Patch::D2Patch(const D2Offset& d2Offset, const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
 }
 
 bool D2Patch::applyPatches(const std::vector<std::shared_ptr<D2Patch>>& patches) {
@@ -39,12 +42,8 @@ bool D2Patch::applyPatches(const std::vector<std::shared_ptr<D2Patch>>& patches)
     return returnValue;
 }
 
-D2Offset D2Patch::getD2Offset() const {
+const D2Offset& D2Patch::getD2Offset() const {
     return d2Offset;
-}
-
-bool D2Patch::isRelative() const {
-    return relative;
 }
 
 size_t D2Patch::getPatchSize() const {
