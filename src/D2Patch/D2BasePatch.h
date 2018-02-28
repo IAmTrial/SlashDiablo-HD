@@ -25,8 +25,8 @@
 
 #pragma once
 
-#ifndef _D2PATCH_H
-#define _D2PATCH_H
+#ifndef _D2BASEPATCH_H
+#define _D2BASEPATCH_H
 
 #include <memory>
 #include <vector>
@@ -43,7 +43,6 @@ class D2BasePatch {
 public:
     static constexpr long long int NO_PATCH = 0x4000000000000000;
 
-    static bool applyPatches(const std::vector<std::shared_ptr<D2BasePatch>>& patches);
     virtual bool applyPatch() const = 0;
 
     const D2Offset& getD2Offset() const;

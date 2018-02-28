@@ -29,17 +29,8 @@
 
 #include "../D2Offset.h"
 
-D2BasePatch::D2BasePatch(const D2Offset& d2Offset, const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
-}
-
-bool D2BasePatch::applyPatches(const std::vector<std::shared_ptr<D2BasePatch>>& patches) {
-    bool returnValue = true;
-
-    for (const auto& patch : patches) {
-        returnValue = returnValue && patch->applyPatch();
-    }
-
-    return returnValue;
+D2BasePatch::D2BasePatch(const D2Offset& d2Offset,
+                         const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
 }
 
 const D2Offset& D2BasePatch::getD2Offset() const {

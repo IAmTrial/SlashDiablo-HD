@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patches.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2Patch.h                                                               *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,30 +17,36 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you declare all your patches, in order to inject     *
- *   your own code into the game. Each patch should be declared in the       *
- *   array, in order to be handled by D2Template's patcher                   *
+ *   A convenience file to include all patch types and to declare the        *
+ *   applyPatches functions to apply all patches in a vector.                *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2PATCHES_H
-#define _D2PATCHES_H
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
 
-#include <memory>
+#include <initializer_list>
 #include <vector>
 
-#include "D2Patch.h"
-#include "DLLmain.h"
+#include "D2Patch/D2AnyPatch.h"
+#include "D2Patch/D2BasePatch.h"
+#include "D2Patch/D2InterceptorPatch.h"
 
-static const std::vector<std::shared_ptr<D2BasePatch>> gptTemplatePatches = {
-    std::make_shared<D2AnyPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        {GameVersion::VERSION_113c, 0},
-    }), OpCode::NOP, false, 0),
-};
+namespace D2Patch {
+template<class T>
+bool applyPatches(const T patches) {
+    // For anyone encountering errors here:
+    // The function only accepts containers of D2BasePatch (smart) pointers.
+    bool returnValue = true;
 
-// end of file --------------------------------------------------------------
-#endif
+    for (const auto& patch : patches) {
+        returnValue = returnValue && patch->applyPatch();
+    }
+
+    return returnValue;
+}
+}
+
+#endif // _D2PATCH_H
