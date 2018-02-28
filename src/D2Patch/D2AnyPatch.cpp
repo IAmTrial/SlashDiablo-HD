@@ -34,15 +34,15 @@ D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data,
 }
 
 D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const OpCode opCode,
-                       const bool relative, size_t patchSize) : D2AnyPatch(d2Offset, patchSize,
-                                   (int)opCode, relative) {
+                       const bool relative, size_t patchSize) : D2AnyPatch(d2Offset,
+                                   (int)opCode, relative, patchSize) {
 }
 
 bool D2AnyPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
-    if ((getD2Offset().getCurrentOffset() & D2AnyPatch::NO_PATCH) ==
-            D2AnyPatch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2Patch::NO_PATCH) ==
+            D2Patch::NO_PATCH) {
         return true;
     }
 
@@ -73,13 +73,13 @@ bool D2AnyPatch::applyPatch() const {
         VirtualProtect(hAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &dwOldPage);
         nReturn = WriteProcessMemory(gameHandle, hAddress, buffer.get(), getPatchSize(),
                                      0);
-        VirtualProtect(hAddress, getPatchSize(), dwOldPage, 0);
+        VirtualProtect(hAddress, getPatchSize(), dwOldPage, &dwOldPage);
     } else {
         VirtualProtect(hAddress, sizeof(dwData), PAGE_EXECUTE_READWRITE,
                        &dwOldPage);
         nReturn = WriteProcessMemory(gameHandle, hAddress, &dwData,
                                      sizeof(dwData), 0);
-        VirtualProtect(hAddress, sizeof(dwData), dwOldPage, 0);
+        VirtualProtect(hAddress, sizeof(dwData), dwOldPage, &dwOldPage);
     }
 
     if (nReturn == 0) {
