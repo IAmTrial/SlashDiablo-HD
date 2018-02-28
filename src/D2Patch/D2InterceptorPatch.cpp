@@ -47,14 +47,14 @@ bool D2InterceptorPatch::applyPatch() const {
     }
 
     // Grab the address for the correct version.
-    LPVOID hAddress = (LPVOID) getD2Offset().getCurrentAddress();
+    LPVOID targetAddress = (LPVOID) getD2Offset().getCurrentAddress();
 
-    if (hAddress == 0) {
+    if (targetAddress == 0) {
         return false;
     }
 
     // Get the relative address of the function pointer. Add one due to opcode.
-    void* pRelativeFunc = (void*)((size_t) pFunc - ((DWORD)hAddress + sizeof(
+    void* pRelativeFunc = (void*)((size_t) pFunc - ((DWORD)targetAddress + sizeof(
                                       pFunc) + 1));
 
     // Cannot patch a function call with less than 5 bytes.
@@ -73,13 +73,13 @@ bool D2InterceptorPatch::applyPatch() const {
     }
 
     // Write the patch into the game's memory region.
-    DWORD dwOldPage;
-    VirtualProtect(hAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &dwOldPage);
-    bool nReturn = WriteProcessMemory(gameHandle, hAddress, buffer.get(),
-                                      getPatchSize(), 0);
-    VirtualProtect(hAddress, getPatchSize(), dwOldPage, 0);
+    DWORD oldProtect;
+    VirtualProtect(targetAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &oldProtect);
+    bool writeSuccess = WriteProcessMemory(gameHandle, targetAddress,
+                                           buffer.get(), getPatchSize(), nullptr);
+    VirtualProtect(targetAddress, getPatchSize(), oldProtect, &oldProtect);
 
-    if (!nReturn) {
+    if (!writeSuccess) {
         return false;
     }
 
