@@ -29,11 +29,11 @@
 #include <memory>
 
 #include "../D2Offset.h"
-#include "D2Patch.h"
+#include "D2BasePatch.h"
 
 D2InterceptorPatch::D2InterceptorPatch(const D2Offset& d2Offset,
                                        const OpCode& opCode, void* const pFunc,
-                                       const size_t patchSize) : D2Patch(d2Offset, patchSize), opCode(opCode),
+                                       const size_t patchSize) : D2BasePatch(d2Offset, patchSize), opCode(opCode),
     pFunc(pFunc) {
 }
 
@@ -41,8 +41,8 @@ bool D2InterceptorPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
     // Do not patch if the no patch flag is set.
-    if ((getD2Offset().getCurrentOffset() & D2Patch::NO_PATCH) ==
-            D2Patch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2BasePatch::NO_PATCH) ==
+            D2BasePatch::NO_PATCH) {
         return true;
     }
 

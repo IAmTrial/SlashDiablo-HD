@@ -29,10 +29,10 @@
 
 #include <windows.h>
 
-#include "D2Patch.h"
+#include "D2BasePatch.h"
 #include "../D2Offset.h"
 
-class D2AnyPatch : public D2Patch {
+class D2AnyPatch : public D2BasePatch {
 public:
     D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
             const size_t patchSize);

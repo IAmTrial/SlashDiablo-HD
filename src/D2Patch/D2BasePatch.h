@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patch.cpp                                                             *
+ *   D2BasePatch.h                                                           *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,35 +17,48 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file defines functions used by the D2Patch class, to define some   *
- *   of the functions used by more specific Diablo II patches.               *
+ *   This file declares the base patch class, which provides an interface    *
+ *   for more specific patches that are used for applying patches for        *
+ *   Diablo II.                                                              *
  *                                                                           *
  *****************************************************************************/
 
-#include "D2Patch.h"
+#pragma once
+
+#ifndef _D2PATCH_H
+#define _D2PATCH_H
 
 #include <memory>
 #include <vector>
 
 #include "../D2Offset.h"
 
-D2Patch::D2Patch(const D2Offset& d2Offset, const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
-}
+enum class OpCode : BYTE {
+    NOP = 0x90,
+    CALL = 0xE8,
+    JMP = 0xE9
+};
 
-bool D2Patch::applyPatches(const std::vector<std::shared_ptr<D2Patch>>& patches) {
-    bool returnValue = true;
+class D2BasePatch {
+public:
+    static constexpr long long int NO_PATCH = 0x4000000000000000;
 
-    for (const auto& patch : patches) {
-        returnValue = returnValue && patch->applyPatch();
-    }
+    static bool applyPatches(const std::vector<std::shared_ptr<D2BasePatch>>& patches);
+    virtual bool applyPatch() const = 0;
 
-    return returnValue;
-}
+    const D2Offset& getD2Offset() const;
+    bool isRelative() const;
+    size_t getPatchSize() const;
 
-const D2Offset& D2Patch::getD2Offset() const {
-    return d2Offset;
-}
+protected:
+    D2BasePatch(const D2Offset& d2Offset, const size_t patchSize);
+    D2BasePatch(D2BasePatch&& d2Patch) = default;
 
-size_t D2Patch::getPatchSize() const {
-    return patchSize;
-}
+private:
+    D2Offset d2Offset;
+    size_t patchSize;
+
+    D2BasePatch() = delete;
+};
+
+#endif

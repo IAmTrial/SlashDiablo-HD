@@ -32,10 +32,10 @@
 #include <any>
 #include <functional>
 
-#include "D2Patch.h"
+#include "D2BasePatch.h"
 #include "../D2Offset.h"
 
-class D2InterceptorPatch : public D2Patch {
+class D2InterceptorPatch : public D2BasePatch {
 public:
     D2InterceptorPatch(const D2Offset& d2Offset, const OpCode& opCode,
                        void* const pFunc, const size_t patchSize);

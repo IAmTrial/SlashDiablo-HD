@@ -35,14 +35,15 @@
 #include <vector>
 
 #include "D2Patch/D2AnyPatch.h"
-#include "D2Patch/D2Patch.h"
+#include "D2Patch/D2InterceptorPatch.h"
+#include "D2Patch/D2BasePatch.h"
 #include "DLLmain.h"
 
- static const std::vector<std::shared_ptr<D2Patch>> gptTemplatePatches = {
-     std::make_shared<D2AnyPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-         {GameVersion::VERSION_113c, 0},
-     }), (BYTE)OpCode::NOP, false, 0),
- };
+static const std::vector<std::shared_ptr<D2BasePatch>> gptTemplatePatches = {
+    std::make_shared<D2AnyPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        {GameVersion::VERSION_113c, 0},
+    }), OpCode::NOP, false, 0),
+};
 
 // end of file --------------------------------------------------------------
 #endif
