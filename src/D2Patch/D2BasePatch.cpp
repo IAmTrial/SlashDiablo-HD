@@ -1,8 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patches.h                                                             *
- *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
+ *   D2BasePatch.cpp                                                         *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -18,30 +17,26 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file is where you declare all your patches, in order to inject     *
- *   your own code into the game. Each patch should be declared in the       *
- *   array, in order to be handled by D2Template's patcher                   *
+ *   This file defines functions used by the base patch, to define some of   *
+ *   the functions used by more specific Diablo II patches.                  *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
-
-#ifndef _D2PATCHES_H
-#define _D2PATCHES_H
+#include "D2BasePatch.h"
 
 #include <memory>
 #include <vector>
 
-#include "D2Patch.h"
-#include "DLLmain.h"
+#include "../D2Offset.h"
 
-static const std::vector<std::shared_ptr<D2BasePatch>> gptTemplatePatches = {
-    std::make_shared<D2AnyPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        {GameVersion::VERSION_113c, 0},
-    }), OpCode::NOP, false, 0),
-};
+D2BasePatch::D2BasePatch(const D2Offset& d2Offset,
+                         const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
+}
 
-// end of file --------------------------------------------------------------
-#endif
+const D2Offset& D2BasePatch::getD2Offset() const {
+    return d2Offset;
+}
+
+size_t D2BasePatch::getPatchSize() const {
+    return patchSize;
+}
