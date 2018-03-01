@@ -79,7 +79,7 @@ bool __stdcall DllAttach() {
         return false;
     }
 
-    if (D2Version::getGameVersionID() == D2Version::GameVersionID::INVALID) {
+    if (D2Version::getGameVersion() == GameVersion::INVALID) {
         D2TEMPLATE_FatalError(
             L"SlashDiablo HD currently does not support this version of Diablo II.");
         return false;
@@ -111,8 +111,7 @@ bool __stdcall DllAttach() {
         D2Patch::applyPatches(controlPanel800Patches);
     }
 
-    if (D2Version::getGlide3xVersionID() ==
-            D2Version::Glide3xVersionID::VERSION_14e) {
+    if (D2Version::getGlide3xVersion() == Glide3xVersion::VERSION_14e) {
         D2Patch::applyPatches(glide3xPatches);
     }
 

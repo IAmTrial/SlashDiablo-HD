@@ -49,14 +49,14 @@
 #include <string>
 
 D2HD::D2HDCellContext::D2HDCellContext(const std::string& fileName) : fileName(fileName) {
-    switch (D2Version::getGameVersionID()) {
-    case D2Version::GameVersionID::VERSION_112:
+    switch (D2Version::getGameVersion()) {
+    case GameVersion::VERSION_112:
         pCellContext = std::unique_ptr<struct CellContext>(new CellContext_112);
         memset(pCellContext.get(), 0, sizeof(CellContext_112));
         break;
 
-    case D2Version::GameVersionID::VERSION_113c:
-    case D2Version::GameVersionID::VERSION_113d:
+    case GameVersion::VERSION_113c:
+    case GameVersion::VERSION_113d:
         pCellContext = std::unique_ptr<struct CellContext>(new CellContext_113);
         memset(pCellContext.get(), 0, sizeof(CellContext_113));
         break;
@@ -103,13 +103,13 @@ bool D2HD::D2HDCellContext::isFileLoaded() const {
 int D2HD::D2HDCellContext::getFrame() const {
     int frame = 0;
 
-    switch (D2Version::getGameVersionID()) {
-    case D2Version::GameVersionID::VERSION_112:
+    switch (D2Version::getGameVersion()) {
+    case GameVersion::VERSION_112:
         frame = ((CellContext_112*) pCellContext.get())->nFrame;
         break;
 
-    case D2Version::GameVersionID::VERSION_113c:
-    case D2Version::GameVersionID::VERSION_113d:
+    case GameVersion::VERSION_113c:
+    case GameVersion::VERSION_113d:
         frame = ((CellContext_113*) pCellContext.get())->nFrame;
         break;
 
@@ -122,13 +122,13 @@ int D2HD::D2HDCellContext::getFrame() const {
 }
 
 void D2HD::D2HDCellContext::setFrame(int frame) {
-    switch (D2Version::getGameVersionID()) {
-    case D2Version::GameVersionID::VERSION_112:
+    switch (D2Version::getGameVersion()) {
+    case GameVersion::VERSION_112:
         ((CellContext_112*) pCellContext.get())->nFrame = frame;
         break;
 
-    case D2Version::GameVersionID::VERSION_113c:
-    case D2Version::GameVersionID::VERSION_113d:
+    case GameVersion::VERSION_113c:
+    case GameVersion::VERSION_113d:
         ((CellContext_113*) pCellContext.get())->nFrame = frame;
         break;
 
@@ -141,13 +141,13 @@ void D2HD::D2HDCellContext::setFrame(int frame) {
 CellFile* D2HD::D2HDCellContext::getCellFilePtr() const {
     CellFile* pCellFile = nullptr;
 
-    switch (D2Version::getGameVersionID()) {
-    case D2Version::GameVersionID::VERSION_112:
+    switch (D2Version::getGameVersion()) {
+    case GameVersion::VERSION_112:
         pCellFile = ((CellContext_112*) pCellContext.get())->pCellFile;
         break;
 
-    case D2Version::GameVersionID::VERSION_113c:
-    case D2Version::GameVersionID::VERSION_113d:
+    case GameVersion::VERSION_113c:
+    case GameVersion::VERSION_113d:
         pCellFile = ((CellContext_113*) pCellContext.get())->pCellFile;
         break;
 
@@ -160,13 +160,13 @@ CellFile* D2HD::D2HDCellContext::getCellFilePtr() const {
 }
 
 void D2HD::D2HDCellContext::setCellFilePtr(CellFile* pCellFile) {
-    switch (D2Version::getGameVersionID()) {
-    case D2Version::GameVersionID::VERSION_112:
+    switch (D2Version::getGameVersion()) {
+    case GameVersion::VERSION_112:
         ((CellContext_112*) pCellContext.get())->pCellFile = pCellFile;
         break;
 
-    case D2Version::GameVersionID::VERSION_113c:
-    case D2Version::GameVersionID::VERSION_113d:
+    case GameVersion::VERSION_113c:
+    case GameVersion::VERSION_113d:
         ((CellContext_113*) pCellContext.get())->pCellFile = pCellFile;
         break;
 

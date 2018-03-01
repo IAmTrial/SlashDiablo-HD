@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Version.h                                                             *
+ *   D2IntercerptorPatch.h                                                   *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,44 +17,36 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   This file declares the D2InterceptorPatch class, which is specifically  *
+ *   designed to simplify replacing Diablo II code with interception         *
+ *   functions.                                                              *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef _D2INTERCEPTORPATCH_H
+#define _D2INTERCEPTORPATCH_H
 
 #include <windows.h>
-#include <string>
+#include <any>
+#include <functional>
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
+#include "D2BasePatch.h"
+#include "../D2Offset.h"
+
+class D2InterceptorPatch : public D2BasePatch {
+public:
+    D2InterceptorPatch(const D2Offset& d2Offset, const OpCode& opCode,
+                       void* const pFunc, const size_t patchSize);
+    D2InterceptorPatch(D2InterceptorPatch&& d2InterceptorPatch) = default;
+
+    virtual bool applyPatch() const override;
+    OpCode getOpCode() const;
+
+private:
+    OpCode opCode;
+    void* pFunc;
 };
-
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
-}
 
 #endif

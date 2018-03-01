@@ -1,7 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *   D2PatchConst.h                                                          *
- *   Copyright (C) Olivier Verville                                          *
+ *   D2BasePatch.h                                                           *
+ *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -17,29 +17,39 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   This file defines various expressions to simplify the declaration of    *
- *   patches in D2Patch.h, and you shouldn't modify this file unless you     *
- *   know what you're doing.                                                 *
+ *   This file declares the base patch class, which provides an interface    *
+ *   for more specific patches that are used for applying patches for        *
+ *   Diablo II.                                                              *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2PATCHCONST_H
-#define _D2PATCHCONST_H
+#ifndef _D2BASEPATCH_H
+#define _D2BASEPATCH_H
 
-#define PATCH_JMP               0x000000E9
-#define PATCH_CALL              0x000000E8
-#define PATCH_RETN              0x000000C3
-#define PATCH_RETN4             0x000004C2
-#define PATCH_RETN8             0x000008C2
-#define PATCH_RETN0C            0x00000CC2
-#define PATCH_RETN10            0x000010C2
-#define PATCH_RETN14            0x000014C2
-#define PATCH_RETN18            0x000018C2
-#define PATCH_RETN1C            0x00001CC2
-#define PATCH_NOPBLOCK          0x90909090
+#include <memory>
+#include <vector>
+
+#include "../D2Offset.h"
+
+class D2BasePatch {
+public:
+    virtual bool applyPatch() const = 0;
+
+    const D2Offset& getD2Offset() const;
+    bool isRelative() const;
+    size_t getPatchSize() const;
+
+protected:
+    D2BasePatch(const D2Offset& d2Offset, const size_t patchSize);
+    D2BasePatch(D2BasePatch&& d2Patch) = default;
+
+private:
+    D2Offset d2Offset;
+    size_t patchSize;
+
+    D2BasePatch() = delete;
+};
 
 #endif

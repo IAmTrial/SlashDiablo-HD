@@ -29,7 +29,10 @@
 
 #include <windows.h>
 
-#include <map>
+#include <unordered_map>
+#include <vector>
+
+#include "D2Version.h"
 
 enum class D2TEMPLATE_DLL_FILES
     : int {
@@ -52,39 +55,25 @@ enum class D2TEMPLATE_DLL_FILES
     D2DLL_D2SOUND,
     D2DLL_D2WIN,
     D2DLL_FOG,
+    D2DLL_GLIDE3X,
     D2DLL_IJL11,
     D2DLL_SMACKW32,
-    D2DLL_STORM,
-    D2DLL_GLIDE3X
-};
-
-struct DLLBaseStrc {
-    LPCWSTR wszName;
-    HMODULE dwAddress;
-};
-
-struct Offsets {
-    long long int _107, _108;
-    long long int _109, _109b, _109c, _109d;
-    long long int _110;
-    long long int _111, _111b;
-    long long int _112;
-    long long int _113c, _113d;
-    long long int _114a, _114b, _114c, _114d;
+    D2DLL_STORM
 };
 
 class D2Offset {
 public:
-    D2Offset(const D2TEMPLATE_DLL_FILES dllFile, const Offsets& offsets);
+    D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
+             const std::unordered_map<GameVersion, long long int>& offsets);
+
     long long int getCurrentOffset() const;
     DWORD getCurrentAddress() const;
 
 private:
-    static std::map<D2TEMPLATE_DLL_FILES, DLLBaseStrc> dllFiles;
     D2TEMPLATE_DLL_FILES dllFile;
-    Offsets offsets;
+    std::unordered_map<GameVersion, long long int> offsets;
 
-    static bool loadModules();
+    static HMODULE getDllAddress(D2TEMPLATE_DLL_FILES dllFile);
 };
 
 #endif

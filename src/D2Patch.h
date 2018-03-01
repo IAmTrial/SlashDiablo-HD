@@ -17,8 +17,8 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file declares the D2Patch class, which is used to for applying     *
- *   patches for Diablo II.                                                  *
+ *   A convenience file to include all patch types and to declare the        *
+ *   applyPatches functions to apply all patches in a vector.                *
  *                                                                           *
  *****************************************************************************/
 
@@ -27,23 +27,36 @@
 #ifndef _D2PATCH_H
 #define _D2PATCH_H
 
+#include <initializer_list>
 #include <vector>
-#include "D2Offset.h"
 
-class D2Patch {
-public:
-    D2Patch(const D2Offset& d2Offset, const DWORD data, const bool relative,
-            const size_t patchSize);
-    bool applyPatch() const;
-    static bool applyPatches(const std::vector<D2Patch>& patches);
+enum class OpCode : BYTE;
 
-    static constexpr long long int NO_PATCH = 0x4000000000000000;
+#include "D2Patch/D2AnyPatch.h"
+#include "D2Patch/D2BasePatch.h"
+#include "D2Patch/D2InterceptorPatch.h"
 
-private:
-    D2Offset d2Offset;
-    DWORD data;
-    bool relative;
-    size_t patchSize;
+enum class OpCode : BYTE {
+    NOP = 0x90,
+    CALL = 0xE8,
+    JMP = 0xE9
 };
 
-#endif
+namespace D2Patch {
+static constexpr long long int NO_PATCH = 0x4000000000000000;
+
+template<class T>
+bool applyPatches(const T patches) {
+    // For anyone encountering errors here:
+    // The function only accepts containers of D2BasePatch (smart) pointers.
+    bool returnValue = true;
+
+    for (const auto& patch : patches) {
+        returnValue = returnValue && patch->applyPatch();
+    }
+
+    return returnValue;
+}
+}
+
+#endif // _D2PATCH_H

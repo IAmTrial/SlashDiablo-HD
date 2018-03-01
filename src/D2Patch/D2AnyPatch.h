@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Version.h                                                             *
+ *   D2AnyPatch.h                                                            *
  *   Copyright (C) 2017 Mir Drualga                                          *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
@@ -17,44 +17,35 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   This file declares the D2AnyPatch class, which can be used to create    *
+ *   any patch for Diablo II.                                                *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef _D2ANYPATCH_H
+#define _D2ANYPATCH_H
 
 #include <windows.h>
-#include <string>
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
+#include "D2BasePatch.h"
+#include "../D2Offset.h"
+
+class D2AnyPatch : public D2BasePatch {
+public:
+    D2AnyPatch(const D2Offset& d2Offset, const DWORD data, const bool relative,
+            const size_t patchSize);
+    D2AnyPatch(const D2Offset& d2Offset, const OpCode opCode, const bool relative,
+            const size_t patchSize);
+    D2AnyPatch(D2AnyPatch&& d2AnyPatch) = default;
+
+    virtual bool applyPatch() const override;
+    bool isRelative() const;
+
+private:
+    DWORD data;
+    bool relative;
 };
-
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
-}
 
 #endif
