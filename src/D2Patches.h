@@ -495,157 +495,93 @@ static const std::vector<std::shared_ptr<D2BasePatch>> controlPanel800Patches = 
         { GameVersion::VERSION_113c, 0x50103 },
         { GameVersion::VERSION_113d, 0x21093 }
     }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
-/*
+
     // Active stats (level up) button position fix; Additional Pre-1.13c Patch
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4B7, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C4D4 - 0x3C4B7),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4B7, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_CALL, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C4B7 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawActiveStatsButtonInterception, true, 0),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C4B7 },
+        { GameVersion::VERSION_113c, D2Patch::NO_PATCH },
+        { GameVersion::VERSION_113d, D2Patch::NO_PATCH }
+    }), OpCode::CALL, (void*) D2HD::Draw::drawActiveStatsButtonInterception, 0x3C4D4 - 0x3C4B7),
 
     // Active stats (level up) button fix
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C2B7 + 1, 0x50447 + 1, 0x20E67 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C35C + 1, 0x504EC + 1, 0x20F0C + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C3D3 + 1, 0x50563 + 1, 0x20F83 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C438 + 1, 0x505C8 + 1, 0x20FE8 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C2B7 },
+        { GameVersion::VERSION_113c, 0x50447 },
+        { GameVersion::VERSION_113d, 0x20E67 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C35C },
+        { GameVersion::VERSION_113c, 0x504EC },
+        { GameVersion::VERSION_113d, 0x20F0C }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C3D3 },
+        { GameVersion::VERSION_113c, 0x50563 },
+        { GameVersion::VERSION_113d, 0x20F83 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C438 },
+        { GameVersion::VERSION_113c, 0x505C8 },
+        { GameVersion::VERSION_113d, 0x20FE8 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
 
     // Mouse over skill text position fix; Additional Pre-1.13c Patch
-    // NOP mouse active (level up) text draw comparison code.
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C16E, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C19A - 0x3C16E),
+    // Replace active (level up) text draw code.
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C16E },
+        { GameVersion::VERSION_113c, D2Patch::NO_PATCH },
+        { GameVersion::VERSION_113d, D2Patch::NO_PATCH }
+    }), OpCode::CALL, (void*) D2HD::Draw::drawSkillButtonTextInterception, 0x3C1C0 - 0x3C16E),
 
-    // NOP and replace active (level up) text draw code. Restore mouse comparison.
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1A2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C1C0 - 0x3C1A2),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1A2, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_CALL, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1A2 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawSkillButtonTextInterception, true, 0),
-
-    // NOP mouse inactive (greyed out) text draw comparison code.
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C22F, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C251 - 0x3C22F),
-
-    // NOP and replace inactive (greyed out) text draw code. Restore mouse comparison.
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C25A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C279 - 0x3C25A),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C25A, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_CALL, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C25A + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawSkillButtonTextInterception, true, 0),
+    // Replace inactive (greyed out) text draw code.
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C22F },
+        { GameVersion::VERSION_113c, D2Patch::NO_PATCH },
+        { GameVersion::VERSION_113d, D2Patch::NO_PATCH }
+    }), OpCode::CALL, (void*) D2HD::Draw::drawSkillButtonTextInterception, 0x3C279 - 0x3C22F),
 
     // Inactive skill (greyed out) button position fix; Additional Pre-1.13c Patch
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C279, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C297 - 0x3C279),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C279, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_CALL, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C279 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawInactiveSkillButtonInterception, true, 0),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C279 },
+        { GameVersion::VERSION_113c, D2Patch::NO_PATCH },
+        { GameVersion::VERSION_113d, D2Patch::NO_PATCH }
+    }), OpCode::CALL, (void*) D2HD::Draw::drawInactiveSkillButtonInterception, 0x3C297 - 0x3C279),
 
     // Inactive skill (greyed out) button fix
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1F3 + 1, 0x50023 + 1, 0x20DA3 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C1F3 },
+        { GameVersion::VERSION_113c, 0x50023 },
+        { GameVersion::VERSION_113d, 0x20DA3 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
 
     // Active skill (level up) button position fix; Additional Pre-1.13c Patch
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1C0, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_NOPBLOCK, false, 0x3C1DD - 0x3C1C0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1C0, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) PATCH_CALL, false, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C1C0 + 1, D2Patch::NO_PATCH, D2Patch::NO_PATCH,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::Draw::drawActiveSkillButtonInterception, true, 0),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C1C0 },
+        { GameVersion::VERSION_113c, D2Patch::NO_PATCH },
+        { GameVersion::VERSION_113d, D2Patch::NO_PATCH }
+    }), OpCode::CALL, (void*) D2HD::Draw::drawActiveSkillButtonInterception, 0x3C1DD - 0x3C1C0),
 
     // Active skill (level up) button fix
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3BFC7 + 1, 0x50207 + 1, 0x20B77 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C065 + 1, 0x502A5 + 1, 0x20C15 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C0DC + 1, 0x5031C + 1, 0x20C8C + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0),
-    D2Patch(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
-        0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0x3C140 + 1, 0x50380 + 1, 0x20CF0 + 1,
-        0, 0, 0, 0
-    }), (DWORD) D2HD::getPatchedResolutionModeInterception, true, 0)*/
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3BFC7 },
+        { GameVersion::VERSION_113c, 0x50207 },
+        { GameVersion::VERSION_113d, 0x20B77 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C065 },
+        { GameVersion::VERSION_113c, 0x502A5 },
+        { GameVersion::VERSION_113d, 0x20C15 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C0DC },
+        { GameVersion::VERSION_113c, 0x5031C },
+        { GameVersion::VERSION_113d, 0x20C8C }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
+    std::make_shared<D2InterceptorPatch>(D2Offset(D2TEMPLATE_DLL_FILES::D2DLL_D2CLIENT, {
+        { GameVersion::VERSION_112, 0x3C140 },
+        { GameVersion::VERSION_113c, 0x50380 },
+        { GameVersion::VERSION_113d, 0x20CF0 }
+    }), OpCode::CALL, (void*) D2HD::getPatchedResolutionModeInterception, 5),
 };
 
 // Patches inventory positions to be in the correct location. Credits to D2Ex.
