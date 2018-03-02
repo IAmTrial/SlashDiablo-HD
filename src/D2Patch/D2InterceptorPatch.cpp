@@ -41,8 +41,8 @@ bool D2InterceptorPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
     // Do not patch if the no patch flag is set.
-    if ((getD2Offset().getCurrentOffset() & D2BasePatch::NO_PATCH) ==
-            D2BasePatch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2Patch::NO_PATCH) ==
+            D2Patch::NO_PATCH) {
         return true;
     }
 

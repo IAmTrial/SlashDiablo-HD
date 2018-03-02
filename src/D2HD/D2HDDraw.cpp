@@ -434,7 +434,7 @@ void __stdcall D2HD::Draw::drawStatsButtonText() {
     bool isMouseOverStatsButton = false;
     D2HD::isMouseOverStatsButton(&isMouseOverStatsButton);
 
-    if (isMouseOverStatsButton) {
+    if (isMouseOverStatsButton && !*D2CLIENT_EscMenuOpened) {
         wchar_t* statsButtonText = D2LANG_GetLocaleText(3986);
         D2WIN_DrawFramedText(statsButtonText, (*D2CLIENT_WindowWidth / 2) - 179, *D2CLIENT_WindowHeight - 50, 0, 1);
     }
@@ -456,7 +456,7 @@ void __stdcall D2HD::Draw::drawSkillButtonText() {
     bool isMouseOverSkillButton = false;
     D2HD::isMouseOverSkillButton(&isMouseOverSkillButton);
 
-    if (isMouseOverSkillButton) {
+    if (isMouseOverSkillButton && !*D2CLIENT_EscMenuOpened) {
         wchar_t* skillButtonText = D2LANG_GetLocaleText(3987);
         D2WIN_DrawFramedText(skillButtonText, (*D2CLIENT_WindowWidth / 2) + 178, *D2CLIENT_WindowHeight - 50, 0, 1);
     }

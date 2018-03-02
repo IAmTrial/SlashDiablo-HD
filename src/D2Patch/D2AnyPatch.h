@@ -30,6 +30,7 @@
 #include <windows.h>
 
 #include "D2BasePatch.h"
+#include "../D2Patch.h"
 #include "../D2Offset.h"
 
 class D2AnyPatch : public D2BasePatch {

@@ -41,8 +41,8 @@ D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const OpCode opCode,
 bool D2AnyPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
-    if ((getD2Offset().getCurrentOffset() & D2BasePatch::NO_PATCH) ==
-            D2BasePatch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2Patch::NO_PATCH) ==
+            D2Patch::NO_PATCH) {
         return true;
     }
 

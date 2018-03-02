@@ -157,6 +157,11 @@ D2VAR(D2CLIENT, InventoryArrangeMode, int,
        { GameVersion::VERSION_113c, 0x11B99C },
        { GameVersion::VERSION_113d, 0x11D2B4 },
        { GameVersion::VERSION_114d, 0x3A5218 }));
+D2VAR(D2CLIENT, EscMenuOpened, bool,
+      ({ GameVersion::VERSION_112, 0x102B7C },
+       { GameVersion::VERSION_113c, 0xFADA4 },
+       { GameVersion::VERSION_113d, 0x11C8B4 },
+       { GameVersion::VERSION_114d, 0 }));
 
 D2VAR(D2CLIENT, VideoOptionCellFileStart, void*,
       ({ GameVersion::VERSION_112, 0xEC550 },

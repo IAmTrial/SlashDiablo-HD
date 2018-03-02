@@ -33,6 +33,7 @@
 #include <functional>
 
 #include "D2BasePatch.h"
+#include "../D2Patch.h"
 #include "../D2Offset.h"
 
 class D2InterceptorPatch : public D2BasePatch {
