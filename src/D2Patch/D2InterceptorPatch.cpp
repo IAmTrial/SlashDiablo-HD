@@ -74,7 +74,8 @@ bool D2InterceptorPatch::applyPatch() const {
 
     // Write the patch into the game's memory region.
     DWORD oldProtect;
-    VirtualProtect(targetAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &oldProtect);
+    VirtualProtect(targetAddress, getPatchSize(), PAGE_EXECUTE_READWRITE,
+                   &oldProtect);
     bool writeSuccess = WriteProcessMemory(gameHandle, targetAddress,
                                            buffer.get(), getPatchSize(), nullptr);
     VirtualProtect(targetAddress, getPatchSize(), oldProtect, &oldProtect);

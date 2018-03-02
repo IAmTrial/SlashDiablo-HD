@@ -27,8 +27,7 @@
 #ifndef _D2PATCH_H
 #define _D2PATCH_H
 
-#include <initializer_list>
-#include <vector>
+enum class OpCode : BYTE;
 
 enum class OpCode : BYTE;
 
@@ -48,7 +47,7 @@ static constexpr long long int NO_PATCH = 0x4000000000000000;
 template<class T>
 bool applyPatches(const T patches) {
     // For anyone encountering errors here:
-    // The function only accepts containers of D2BasePatch (smart) pointers.
+    // The function only accepts containers of (smart) D2BasePatch pointers.
     bool returnValue = true;
 
     for (const auto& patch : patches) {

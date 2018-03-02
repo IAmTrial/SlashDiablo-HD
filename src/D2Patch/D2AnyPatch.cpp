@@ -29,7 +29,8 @@
 #include "../D2Offset.h"
 
 D2AnyPatch::D2AnyPatch(const D2Offset& d2Offset, const DWORD data,
-                       const bool relative = false, size_t patchSize = 0) : D2BasePatch(d2Offset, patchSize),
+                       const bool relative = false, size_t patchSize = 0) : D2BasePatch(d2Offset,
+                                   patchSize),
     data(data), relative(relative) {
 }
 
