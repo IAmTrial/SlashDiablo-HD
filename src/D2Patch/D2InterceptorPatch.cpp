@@ -41,8 +41,8 @@ bool D2InterceptorPatch::applyPatch() const {
     HANDLE gameHandle = GetCurrentProcess();
 
     // Do not patch if the no patch flag is set.
-    if ((getD2Offset().getCurrentOffset() & D2BasePatch::NO_PATCH) ==
-            D2BasePatch::NO_PATCH) {
+    if ((getD2Offset().getCurrentOffset() & D2Patch::NO_PATCH) ==
+            D2Patch::NO_PATCH) {
         return true;
     }
 
@@ -74,7 +74,8 @@ bool D2InterceptorPatch::applyPatch() const {
 
     // Write the patch into the game's memory region.
     DWORD oldProtect;
-    VirtualProtect(targetAddress, getPatchSize(), PAGE_EXECUTE_READWRITE, &oldProtect);
+    VirtualProtect(targetAddress, getPatchSize(), PAGE_EXECUTE_READWRITE,
+                   &oldProtect);
     bool writeSuccess = WriteProcessMemory(gameHandle, targetAddress,
                                            buffer.get(), getPatchSize(), nullptr);
     VirtualProtect(targetAddress, getPatchSize(), oldProtect, &oldProtect);

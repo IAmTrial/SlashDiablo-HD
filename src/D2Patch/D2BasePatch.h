@@ -33,16 +33,8 @@
 
 #include "../D2Offset.h"
 
-enum class OpCode : BYTE {
-    NOP = 0x90,
-    CALL = 0xE8,
-    JMP = 0xE9
-};
-
 class D2BasePatch {
 public:
-    static constexpr long long int NO_PATCH = 0x4000000000000000;
-
     virtual bool applyPatch() const = 0;
 
     const D2Offset& getD2Offset() const;

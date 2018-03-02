@@ -40,7 +40,8 @@ D2Offset::D2Offset(const D2TEMPLATE_DLL_FILES dllFile,
 }
 
 long long int D2Offset::getCurrentOffset() const {
-    return offsets.at(D2Version::getGameVersion());
+    auto offset = offsets.find(D2Version::getGameVersion());
+    return (offset != offsets.cend()) ? offset->second : 0;
 }
 
 DWORD D2Offset::getCurrentAddress() const {

@@ -27,18 +27,25 @@
 #ifndef _D2PATCH_H
 #define _D2PATCH_H
 
-#include <initializer_list>
-#include <vector>
+enum class OpCode : BYTE;
 
 #include "D2Patch/D2AnyPatch.h"
 #include "D2Patch/D2BasePatch.h"
 #include "D2Patch/D2InterceptorPatch.h"
 
+enum class OpCode : BYTE {
+    NOP = 0x90,
+    CALL = 0xE8,
+    JMP = 0xE9
+};
+
 namespace D2Patch {
+static constexpr long long int NO_PATCH = 0x4000000000000000;
+
 template<class T>
 bool applyPatches(const T patches) {
     // For anyone encountering errors here:
-    // The function only accepts containers of D2BasePatch (smart) pointers.
+    // The function only accepts containers of (smart) D2BasePatch pointers.
     bool returnValue = true;
 
     for (const auto& patch : patches) {
