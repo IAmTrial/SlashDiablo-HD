@@ -283,7 +283,7 @@ D2VAR(D2GLIDE, SpritesInited, bool,
 D2FUNC(D2LANG, GetLocaleText, wchar_t*, __fastcall, (short nLocaleTxtNo),
       ({ GameVersion::VERSION_112, -10005 },
        { GameVersion::VERSION_113c, 0 },
-       { GameVersion::VERSION_113d, -10000 }));
+       { GameVersion::VERSION_113d, -10004 }));
 
 /*********************************************************************************
  *                                                                               *
