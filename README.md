@@ -1,17 +1,19 @@
-# D2Template
+# SlashDiablo HD
 
-D2Template is an open source community project that was developed in order to help modders getting started into advanced code editing on Diablo II. The library provides a basic and simple codebase, ready to be injected in-game, allowing you to quickly inject your own code, without the need to learn stuff like memory patching.
+SlashDiablo HD is an open source community project that was created by Mir Drualga to enable custom resolutions for Diablo II.
 
-The documentation can be found [here](https://github.com/olivierverville/D2Template/wiki)
+The documentation can be found [here](https://github.com/IAmTrial/SlashDiablo-HD/wiki)
 
-## What does the template include?
+## Features
 
-To start off, a patcher. This is pretty much the basic of basics, as you need to inject your code into the game at some point, right? You do not need to get into complicated memory patching coding, the template does it for you. Then you have some various utility files, for pointers importing from the game's library, variables declaration, etc.
+* Custom resolutions, with full support for restricting the width and height of the game
+* Customizable configuration, which can affect the aesthetics of the game
+* Support for versions: 1.12, 1.13c, 1.13d
 
-## What do I need to use this template?
+## How can I contribute?
 
-The template was created and compiled with Visual Studio 2012, so it is better if you get Visual Studio 2012 (or just Visual C++ 2012). It is in theory possible to get the template to work with any other IDE but you will not get any support on this from me. Tutorials/Modified templates for other IDE are welcome.
+See [here](https://github.com/IAmTrial/SlashDiablo-Tools/wiki/Contributing).
 
-## What should I know before using this template?
+## Can I use this HD mod file for my own purposes?
 
-First of all, get started with the basics of C/C++. Get used to the syntax, practice by creating basic programs, get at least a basic knowledge of the language. Next, get used with the IDE you're going to use to work with this template. And finally, basic ASM knowledge can also help you a lot.
+The GNU Affero GPL License version 3 permits you to utilize this project's binaries and code. However, you must follow the distribution rules of the license. I will not make any exceptions.
