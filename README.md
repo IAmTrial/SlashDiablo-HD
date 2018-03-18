@@ -16,13 +16,15 @@ See [here](https://github.com/IAmTrial/SlashDiablo-Tools/wiki/Contributing).
 
 ## Can I use this HD mod file for my own purposes?
 
+SlashDiablo HD is released under the GNU Affero GPL, version 3 or greater. This project contains a copy of the Apache License, version 2.0 in order to fulfill one of the license's requirements, but it is not licensed under the Apache License, version 2.0.
+
 The GNU Affero GPL, version 3 permits you to utilize this project's binaries and code. However, you must follow the distribution rules of the license. I will not make any exceptions.
 
 ## Previous revisions were licensed under the Apache License, version 2.0. Can I use these older revisions with this license?
 
 For most revisions, the answer is likely no. In fact, many of these revisions with the Apache License, version 2.0 are not valid and should have actually been licensed using the GNU Affero GPL, version 3. I am not a lawyer and I will not provide support for these older revisions.
 
-The main reason for making this change is due to license violations that have very likely occurred by utilizing the code of other GPL projects. The following (A)GPL projects were examined in order to ensure maximum comptability. In addition, various design patterns have been inspired by them:
+The main reason for making this change is due to license violations that have very likely occurred by utilizing the code of other GPL projects. The following (A)GPL projects were examined in order to ensure maximum compatability. In addition, various design patterns have been inspired by them:
 * PlugY
 * BH (planqi's branch)
 
