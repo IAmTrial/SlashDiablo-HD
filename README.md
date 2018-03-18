@@ -26,4 +26,4 @@ The main reason for making this change is due to license violations that have ve
 * PlugY
 * BH (planqi's branch)
 
-As a result, the project has been "relicensed" to Affero GPL v3+ in order to prevent potential violations.
+As a result, the project has been "relicensed" to Affero GPL v3+ in order to ward off claims of potential violations.
