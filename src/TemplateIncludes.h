@@ -1,7 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *  SlashDiablo HD                                                           *
- *  Copyright (C) 2017  Mir Drualga                                          *
+ * SlashDiablo HD                                                            *
+ * Copyright (C) 2017  Mir Drualga                                           *
  *                                                                           *
  *  This program is free software: you can redistribute it and/or modify     *
  *  it under the terms of the GNU Affero General Public License as published *
@@ -16,9 +16,8 @@
  *  You should have received a copy of the GNU Affero General Public License *
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
  *                                                                           *
- *****************************************************************************/
-
-/*****************************************************************************
+ * This file incorporates work covered by the following copyright and        *
+ * permission notice:                                                        *
  *                                                                           *
  *   TemplateIncludes.h                                                      *
  *   Copyright (C) Olivier Verville                                          *

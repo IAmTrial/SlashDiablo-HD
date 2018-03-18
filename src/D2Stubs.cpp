@@ -1,7 +1,7 @@
 /*****************************************************************************
  *                                                                           *
- *  SlashDiablo HD                                                           *
- *  Copyright (C) 2017  Mir Drualga                                          *
+ * SlashDiablo HD                                                            *
+ * Copyright (C) 2017  Mir Drualga                                           *
  *                                                                           *
  *  This program is free software: you can redistribute it and/or modify     *
  *  it under the terms of the GNU Affero General Public License as published *
@@ -18,8 +18,8 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *    Defines the functions that are used to help call functions in          *
- *    Diablo II that do not conform to standard calling conventions.         *
+ *   Defines the functions that are used to help call functions in           *
+ *   Diablo II that do not conform to standard calling conventions.          *
  *                                                                           *
  *****************************************************************************/
 
