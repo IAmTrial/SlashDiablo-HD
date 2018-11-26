@@ -1,8 +1,26 @@
 /*****************************************************************************
  *                                                                           *
+ * SlashDiablo HD                                                            *
+ * Copyright (C) 2017  Mir Drualga                                           *
+ *                                                                           *
+ *  This program is free software: you can redistribute it and/or modify     *
+ *  it under the terms of the GNU Affero General Public License as published *
+ *  by the Free Software Foundation, either version 3 of the License, or     *
+ *  (at your option) any later version.                                      *
+ *                                                                           *
+ *  This program is distributed in the hope that it will be useful,          *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
+ *  GNU Affero General Public License for more details.                      *
+ *                                                                           *
+ *  You should have received a copy of the GNU Affero General Public License *
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
+ *                                                                           *
+ * This file incorporates work covered by the following copyright and        *
+ * permission notice:                                                        *
+ *                                                                           *
  *   DLLmain.cpp                                                             *
  *   Copyright (C) Olivier Verville                                          *
- *   SlashDiablo-Tools Modifications: Copyright (C) 2017 Mir Drualga         *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -27,51 +45,15 @@
 #define _D2VARS_H
 
 #include "DLLmain.h"
+
+#include <fstream>
+
 #include "D2Patch.h"
 #include "D2Patches.h"
 
-DLLBaseStrc gptDllFiles[] = {
-        { L"Binkw32.dll", nullptr },
-        { L"BnClient.dll", nullptr },
-        { L"D2Client.dll", nullptr },
-        { L"D2CMP.dll", nullptr },
-        { L"D2Common.dll", nullptr },
-        { L"D2DDraw.dll", nullptr },
-        { L"D2Direct3D.dll", nullptr },
-        { L"D2Game.dll", nullptr },
-        { L"D2Gdi.dll", nullptr },
-        { L"D2Gfx.dll", nullptr },
-        { L"D2Glide.dll", nullptr },
-        { L"D2Lang.dll", nullptr },
-        { L"D2Launch.dll", nullptr },
-        { L"D2MCPClient.dll", nullptr },
-        { L"D2Multi.dll", nullptr },
-        { L"D2Net.dll", nullptr },
-        { L"D2Sound.dll", nullptr },
-        { L"D2Win.dll", nullptr },
-        { L"Fog.dll", nullptr },
-        { L"Ijl11.dll", nullptr },
-        { L"SmackW32.dll", nullptr },
-        { L"Storm.dll", nullptr } };
-
 void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage) {
-    MessageBoxW(NULL, wszMessage, L"D2Template", MB_OK | MB_ICONERROR);
+    MessageBoxW(nullptr, wszMessage, L"SlashDiablo HD", MB_OK | MB_ICONERROR);
     TerminateProcess(GetCurrentProcess(), -1);
-}
-
-bool __fastcall D2TEMPLATE_LoadModules() {
-    for (int i = 0; i < (int) D2TEMPLATE_DLL_FILES::D2DLL_INVALID; i++) {
-        DLLBaseStrc* hDllFile = &gptDllFiles[i];
-
-        HMODULE hModule = GetModuleHandleW(hDllFile->wszName);
-        if (!hModule) {
-            hModule = LoadLibraryW(hDllFile->wszName);
-        }
-
-        hDllFile->dwAddress = hModule;
-    }
-
-    return true;
 }
 
 bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
@@ -93,8 +75,9 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
     tokenPrivileges.PrivilegeCount = 1;
     tokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     tokenPrivileges.Privileges[0].Luid = luid;
+
     if (AdjustTokenPrivileges(hToken, 0, &tokenPrivileges,
-            sizeof(tokenPrivileges), 0, 0) == 0) {
+                              sizeof(tokenPrivileges), 0, 0) == 0) {
         D2TEMPLATE_FatalError(L"AdjustTokenPrivileges Failed");
         CloseHandle(hToken);
         return false;
@@ -107,18 +90,48 @@ bool __fastcall D2TEMPLATE_GetDebugPrivilege() {
 bool __stdcall DllAttach() {
     D2TEMPLATE_GetDebugPrivilege();
 
-   HANDLE hGame = GetCurrentProcess();
+    HANDLE hGame = GetCurrentProcess();
+
     if (!hGame) {
         D2TEMPLATE_FatalError(L"Failed to retrieve process");
         return false;
     }
 
-    if (!D2TEMPLATE_LoadModules()) {
-        D2TEMPLATE_FatalError(L"Failed to load modules");
+    if (D2Version::getGameVersion() == GameVersion::INVALID) {
+        D2TEMPLATE_FatalError(
+            L"SlashDiablo HD currently does not support this version of Diablo II.");
         return false;
     }
 
-    D2Patch::applyPatches(gptTemplatePatches);
+    config.readSettings();
+
+    if (!config.isEnableMod()) {
+        return true;
+    }
+
+    if constexpr (D2HD::D2HDConfig::ALLOW_LOAD_MPQ_ARCHIVE) {
+        if (config.isEnableArchive()) {
+            std::ifstream in(config.getArchiveName());
+
+            if (in.good()) {
+                in.close();
+                D2HD::Draw::d2mrArchive = loadMPQ(5000, "SlashDiabloHD.dll",
+                                                  config.getArchiveName().c_str(), "SlashDiabloHD", 0, nullptr);
+            }
+        }
+    }
+
+    D2Patch::applyPatches(requiredHDPatches);
+    D2Patch::applyPatches(requiredDrawPatches);
+    D2Patch::applyPatches(inventoryPatches);
+
+    if (config.isEnable800ControlPanel()) {
+        D2Patch::applyPatches(controlPanel800Patches);
+    }
+
+    if (D2Version::getGlide3xVersion() == Glide3xVersion::VERSION_14e) {
+        D2Patch::applyPatches(glide3xPatches);
+    }
 
     return true;
 }
@@ -128,6 +141,7 @@ BOOL __stdcall DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved) {
     case DLL_PROCESS_ATTACH: {
         if (!DllAttach())
             D2TEMPLATE_FatalError(L"Couldn't attach to Diablo II");
+
         break;
     }
     }

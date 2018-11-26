@@ -18,44 +18,39 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   This file declares the base patch class, which provides an interface    *
+ *   for more specific patches that are used for applying patches for        *
+ *   Diablo II.                                                              *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef _D2BASEPATCH_H
+#define _D2BASEPATCH_H
 
-#include <windows.h>
-#include <string>
+#include <memory>
+#include <vector>
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
+#include "../D2Offset.h"
+
+class D2BasePatch {
+public:
+    virtual bool applyPatch() const = 0;
+
+    const D2Offset& getD2Offset() const;
+    bool isRelative() const;
+    size_t getPatchSize() const;
+
+protected:
+    D2BasePatch(const D2Offset& d2Offset, const size_t patchSize);
+    D2BasePatch(D2BasePatch&& d2Patch) = default;
+
+private:
+    D2Offset d2Offset;
+    size_t patchSize;
+
+    D2BasePatch() = delete;
 };
-
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
-}
 
 #endif

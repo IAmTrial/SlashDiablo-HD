@@ -18,44 +18,32 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   Defines the interception functions that are to be used when there is    *
+ *   a need to replace Diablo II code with code that is declared under the   *
+ *   configurations scope.                                                   *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
+.intel_syntax
+.global _getConfigResolutionInterception@4
+.global _setConfigResolutionInterception@4
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+_getConfigResolutionInterception@4:
+    mov eax, dword ptr [esp + 4]
+    pushad
+    push eax
+    call _getConfigResolution@4
+    popad
 
-#include <windows.h>
-#include <string>
+    mov eax, 1
+    ret 4
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
-};
+_setConfigResolutionInterception@4:
+    mov eax, dword ptr [esp + 4]
+    pushad
+    push eax
+    call _setConfigResolution@4
+    popad
 
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
-}
-
-#endif
+    mov eax, 1
+    ret 4

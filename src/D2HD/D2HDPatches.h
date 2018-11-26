@@ -19,8 +19,11 @@
  * This file incorporates work covered by the following copyright and        *
  * permission notice:                                                        *
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
+ *   ==========================================================              *
+ *   D2Ex2                                                                   *
+ *   https://github.com/lolet/D2Ex2                                          *
+ *   ==========================================================              *
+ *   Copyright (c) 2011-2014 Bartosz Jankowski                               *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -33,39 +36,73 @@
  *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
  *   See the License for the specific language governing permissions and     *
  *   limitations under the License.                                          *
+ *   ==========================================================              *
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Declares the functions that expands Diablo II's standard functions to   *
+ *   allow changing to and using custom resolutions.                         *
  *                                                                           *
  *****************************************************************************/
+
+#include "../DLLmain.h"
+
 #pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+#ifndef D2HDPATCHES_H
+#define D2HDPATCHES_H
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+namespace D2HD {
+extern "C" {
+    void __stdcall getModeParams(int mode, int* width, int* height);
+    void getModeParamsInterception107();
+    void getModeParamsInterception111();
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
+    void repositionPanels();
+    void repositionPanelsInterception();
 
-#include <windows.h>
+    void __stdcall getPatchedResolutionMode(int* resolutionMode);
+    void getPatchedResolutionModeInterception();
 
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
+    void __stdcall resizeGameLogicResolution(int mode);
+    void resizeGameLogicResolutionInterception();
 
-#include "TemplateIncludes.h"
+    void __stdcall getGameWindowWidth(int* width);
+    void resizeGameWindowResizeWidthInterception();
 
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
+    void __stdcall getGameWindowHeight(int* height);
+    void resizeGameWindowResizeHeightInterception();
+
+    void __stdcall setResolutionMode(int* gameResolution, int configResolution);
+    void setResolutionModeEAXInterception();
+    void setResolutionModeEDIInterception();
+
+    void __stdcall setResolutionModeFromMenu(int* mode);
+    void setResolutionModeFromMenuInterception();
+
+    void __stdcall isMouseOverStatsButton(bool *isMouseOver);
+    void isMouseOverStatsButtonInterception();
+
+    void __stdcall isMouseOverSkillButton(bool *isMouseOver);
+    void isMouseOverSkillButtonInterception();
+
+    void setGDIRenderResolutionInterception();
+
+    void __stdcall setGDIForegroundRenderWidth(int mode);
+    void setGDIForegroundRenderWidthInterception();
+
+    void __stdcall setDirectDrawRenderResolution(int mode, int* width, int* height);
+    void setDirectDrawRenderResolutionInterception();
+
+    void __stdcall setDirect3DRenderResolution(int mode);
+    void setDirect3DRenderResolutionInterception();
+
+    void __stdcall setGlideRenderResolution(int newGameResolutionMode, int* glideResolutionMode);
+    void setGlideRenderResolutionInterception();
+
+    void __stdcall setupGlideWindowSize(int newGlideResolutionMode);
+    void setupGlideWindowSizeInterception();
+}
+}
 
 #endif

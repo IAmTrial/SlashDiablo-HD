@@ -19,8 +19,11 @@
  * This file incorporates work covered by the following copyright and        *
  * permission notice:                                                        *
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
+ *   ==========================================================              *
+ *   D2Ex2                                                                   *
+ *   https://github.com/lolet/D2Ex2                                          *
+ *   ==========================================================              *
+ *   Copyright (c) 2011-2014 Bartosz Jankowski                               *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -33,39 +36,30 @@
  *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
  *   See the License for the specific language governing permissions and     *
  *   limitations under the License.                                          *
+ *   ==========================================================              *
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   The file defines a set of functions that comes from D2Ex2 and are       *
+ *   used for correcting the position of items in the inventory.             *
  *                                                                           *
  *****************************************************************************/
+
 #pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+#ifndef D2HDINVENTORY_H
+#define D2HDINVENTORY_H
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+#include "../DLLmain.h"
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
-
-#include <windows.h>
-
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
-
-#include "TemplateIncludes.h"
-
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
+namespace D2HD {
+namespace Inventory {
+    void __stdcall getBeltPos(int nIndex, int nMode, BeltBox *out, int nBox);
+    void __stdcall getBeltsTxtRecord(int nIndex, int nMode, BeltsTxt *out);
+    void __stdcall getInventorySize(int nRecord, int nScreenMode, InventorySize *pOutRect);
+    void __stdcall getInventoryGrid(int nRecord, int nScreenMode, InventoryGrid *pOut);
+    void __stdcall getInventoryField(int nRecord, int nScreenMode, InventoryLayout *pOut, int nField);
+}
+}
 
 #endif

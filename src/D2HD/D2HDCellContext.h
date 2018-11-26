@@ -19,8 +19,11 @@
  * This file incorporates work covered by the following copyright and        *
  * permission notice:                                                        *
  *                                                                           *
- *   DLLmain.h                                                               *
- *   Copyright (C) Olivier Verville                                          *
+ *   ==========================================================              *
+ *   D2Ex2                                                                   *
+ *   https://github.com/lolet/D2Ex2                                          *
+ *   ==========================================================              *
+ *   Copyright (c) 2011-2014 Bartosz Jankowski                               *
  *                                                                           *
  *   Licensed under the Apache License, Version 2.0 (the "License");         *
  *   you may not use this file except in compliance with the License.        *
@@ -33,39 +36,50 @@
  *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
  *   See the License for the specific language governing permissions and     *
  *   limitations under the License.                                          *
+ *   ==========================================================              *
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   https://github.com/olivier-verville/D2Template                          *
- *                                                                           *
- *   D2Template core file, do not modify unless you know what you're doing   *
+ *   Declares a class that provides higher level abstraction for             *
+ *   CellContext, for the purpose of allowing it to work on different        *
+ *   versions of the game.                                                   *
  *                                                                           *
  *****************************************************************************/
+
+#include <memory>
+#include <string>
+
+#include "../DLLmain.h"
+
 #pragma once
 
-#ifndef _DLLMAIN_H
-#define _DLLMAIN_H
+#ifndef D2HDCELLCONTEXT_H
+#define D2HDCELLCONTEXT_H
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_DEPRECATE
+namespace D2HD {
+class D2HDCellContext {
+public:
+    D2HDCellContext(const std::string& fileName);
+    ~D2HDCellContext();
 
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x600
-#endif
+    void draw(int x, int y, unsigned int color, int transTable, unsigned char* pPalette) const;
+    void loadFileSafely();
+    void unloadFileSafely();
+    bool isFileLoaded() const;
 
-#include <windows.h>
+    int getFrame() const;
+    void setFrame(int frame);
+    CellFile* getCellFilePtr() const;
 
-#include "D2HD/D2HDResolution.h"
-#include "D2HD/D2HDConfig.h"
-#include "D2Version.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Stubs.h"
-#include "D2Ptrs.h"
-#include "D2Vars.h"
 
-#include "TemplateIncludes.h"
+private:
+    std::unique_ptr<struct CellContext> pCellContext;
+    std::string fileName;
 
-void __fastcall D2TEMPLATE_FatalError(LPCWSTR wszMessage);
+    void setCellFilePtr(CellFile* pCellFile);
 
-#endif
+    D2HDCellContext() = delete;
+};
+}
+
+#endif // D2HDCELLCONTEXT_H

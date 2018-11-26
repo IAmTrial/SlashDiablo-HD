@@ -1,24 +1,25 @@
 /*****************************************************************************
  *                                                                           *
- *   D2Patch.h                                                               *
- *   Copyright (C) 2017 Mir Drualga                                          *
+ * SlashDiablo HD                                                            *
+ * Copyright (C) 2017  Mir Drualga                                           *
  *                                                                           *
- *   Licensed under the Apache License, Version 2.0 (the "License");         *
- *   you may not use this file except in compliance with the License.        *
- *   You may obtain a copy of the License at                                 *
+ *  This program is free software: you can redistribute it and/or modify     *
+ *  it under the terms of the GNU Affero General Public License as published *
+ *  by the Free Software Foundation, either version 3 of the License, or     *
+ *  (at your option) any later version.                                      *
  *                                                                           *
- *   http://www.apache.org/licenses/LICENSE-2.0                              *
+ *  This program is distributed in the hope that it will be useful,          *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
+ *  GNU Affero General Public License for more details.                      *
  *                                                                           *
- *   Unless required by applicable law or agreed to in writing, software     *
- *   distributed under the License is distributed on an "AS IS" BASIS,       *
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*
- *   See the License for the specific language governing permissions and     *
- *   limitations under the License.                                          *
+ *  You should have received a copy of the GNU Affero General Public License *
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file declares the D2Patch class, which is used to for applying     *
- *   patches for Diablo II.                                                  *
+ *   A convenience file to include all patch types and to declare the        *
+ *   applyPatches functions to apply all patches in a vector.                *
  *                                                                           *
  *****************************************************************************/
 
@@ -27,21 +28,35 @@
 #ifndef _D2PATCH_H
 #define _D2PATCH_H
 
-#include <vector>
-#include "D2Offset.h"
+enum class OpCode : BYTE;
 
-class D2Patch {
-public:
-    D2Patch();
-    D2Patch(D2Offset d2Offset, DWORD data, bool relative, size_t patchSize);
-    bool applyPatch();
-    static bool applyPatches(std::vector<D2Patch> patches);
+enum class OpCode : BYTE;
 
-private:
-    D2Offset d2Offset;
-    DWORD data;
-    bool relative;
-    size_t patchSize;
+#include "D2Patch/D2AnyPatch.h"
+#include "D2Patch/D2BasePatch.h"
+#include "D2Patch/D2InterceptorPatch.h"
+
+enum class OpCode : BYTE {
+    NOP = 0x90,
+    CALL = 0xE8,
+    JMP = 0xE9
 };
 
-#endif
+namespace D2Patch {
+static constexpr long long int NO_PATCH = 0x4000000000000000;
+
+template<class T>
+bool applyPatches(const T patches) {
+    // For anyone encountering errors here:
+    // The function only accepts containers of (smart) D2BasePatch pointers.
+    bool returnValue = true;
+
+    for (const auto& patch : patches) {
+        returnValue = returnValue && patch->applyPatch();
+    }
+
+    return returnValue;
+}
+}
+
+#endif // _D2PATCH_H

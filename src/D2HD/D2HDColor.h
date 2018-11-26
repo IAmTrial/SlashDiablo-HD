@@ -18,44 +18,40 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   Declares a custom class that performs conversions of Diablo II color    *
+ *   representations of BGR to RGB, and vice versa.                          *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef D2HDCOLOR_H
+#define D2HDCOLOR_H
 
-#include <windows.h>
 #include <string>
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
-};
+namespace D2HD {
+class D2HDColor {
+public:
+    D2HDColor(const unsigned char red, const unsigned char green,
+              const unsigned char blue, const unsigned char tint);
+    unsigned int getBGRFormat() const;
+    unsigned int getRGBFormat() const;
 
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
+    static D2HDColor createFromRGBFormat(const unsigned int color);
+    static D2HDColor createFromRGBFormat(const std::string& color);
+    static D2HDColor createFromRGBFormat(const std::wstring& color);
 
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
+    static D2HDColor createFromBGRFormat(const unsigned int color);
+    static D2HDColor createFromBGRFormat(const std::string& color);
+    static D2HDColor createFromBGRFormat(const std::wstring& color);
+
+private:
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+    unsigned char tint;
+};
 }
 
 #endif

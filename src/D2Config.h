@@ -18,44 +18,45 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   Declares the configuration functions that stores settings and acts as   *
+ *   the parent class for derivative mods that also need to have a settings  *
+ *   file.                                                                   *
  *                                                                           *
  *****************************************************************************/
 
 #pragma once
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#ifndef D2CONFIG_H
+#define D2CONFIG_H
 
-#include <windows.h>
 #include <string>
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
+class D2Config {
+public:
+    static constexpr const wchar_t* DEFAULT_CONFIG_PATH =
+        L"./SlashDiablo-Tools.ini";
+
+    D2Config();
+    D2Config(const std::wstring& configPath);
+
+    bool readBool(const std::wstring& sectionName, const std::wstring& keyName,
+                  const bool defaultValue) const;
+    unsigned int readHex(const std::wstring& sectionName,
+                         const std::wstring& keyName, const unsigned int defaultValue) const;
+    int readInt(const std::wstring& sectionName, const std::wstring& keyName,
+                const int defaultValue) const;
+    std::string readString(const std::wstring& sectionName,
+                           const std::wstring& keyName, const std::string& defaultValue) const;
+    unsigned int readUnsignedInt(const std::wstring& sectionName,
+                                 const std::wstring& keyName, const unsigned int defaultValue) const;
+    std::wstring readWideString(const std::wstring& sectionName,
+                                const std::wstring& keyName, const std::wstring& defaultValue) const;
+
+    virtual void readSettings() = 0;
+    std::wstring getConfigPath() const;
+
+private:
+    std::wstring configPath;
 };
 
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
-}
-
-#endif
+#endif // D2CONFIG_H

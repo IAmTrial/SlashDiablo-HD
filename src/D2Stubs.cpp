@@ -18,44 +18,17 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   Defines the functions that are used to help call functions in           *
+ *   Diablo II that do not conform to standard calling conventions.          *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
+#include "D2Stubs.h"
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
-
-#include <windows.h>
-#include <string>
-
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
-};
-
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
+extern "C" {
+HANDLE __stdcall loadMPQStub(DWORD OrderFlag, const char* szDllFile, const char* szMpqFile, const char* szName, DWORD _1, BOOL(__stdcall *fnMPQMissing)(), DWORD func);
 }
 
-#endif
+HANDLE loadMPQ(DWORD OrderFlag, const char* szDllFile, const char* szMpqFile, const char* szName, DWORD _1, BOOL(__stdcall *fnMPQMissing)()) {
+    return loadMPQStub(OrderFlag, szDllFile, szMpqFile, szName, _1, fnMPQMissing, D2WIN_LoadMpq_I);
+}

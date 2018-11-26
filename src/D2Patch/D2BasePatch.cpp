@@ -18,44 +18,26 @@
  *                                                                           *
  *---------------------------------------------------------------------------*
  *                                                                           *
- *   This file is used to declare the Diablo II versions that are to be      *
- *   detected from Game.exe and the methods used to detect it.               *
+ *   This file defines functions used by the base patch, to define some of   *
+ *   the functions used by more specific Diablo II patches.                  *
  *                                                                           *
  *****************************************************************************/
 
-#pragma once
+#include "D2BasePatch.h"
 
-#ifndef _D2VERSION_H
-#define _D2VERSION_H
+#include <memory>
+#include <vector>
 
-#include <windows.h>
-#include <string>
+#include "../D2Offset.h"
 
-enum class GameVersion : int {
-    INVALID,
-    VERSION_107,
-    VERSION_108,
-    VERSION_109, VERSION_109b, VERSION_109c, VERSION_109d,
-    VERSION_110,
-    VERSION_111, VERSION_111b,
-    VERSION_112,
-    VERSION_113c, VERSION_113d,
-    VERSION_114a, VERSION_114b, VERSION_114c, VERSION_114d
-};
-
-enum class Glide3xVersion : int {
-    INVALID,
-    VERSION_14e,
-    RESURGENCE
-};
-
-namespace D2Version {
-GameVersion getGameVersion();
-GameVersion getGameVersion(std::string_view versionString);
-bool isGameVersion114Plus();
-Glide3xVersion getGlide3xVersion();
-Glide3xVersion getGlide3xVersion(std::string_view versionString);
-std::string determineVersionString(std::wstring_view filePath);
+D2BasePatch::D2BasePatch(const D2Offset& d2Offset,
+                         const size_t patchSize) : d2Offset(d2Offset), patchSize(patchSize) {
 }
 
-#endif
+const D2Offset& D2BasePatch::getD2Offset() const {
+    return d2Offset;
+}
+
+size_t D2BasePatch::getPatchSize() const {
+    return patchSize;
+}
