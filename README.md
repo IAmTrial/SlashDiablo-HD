@@ -1,3 +1,11 @@
+# This project has moved to [SGD2FreeRes](https://github.com/mir-diablo-ii-tools/SlashGaming-Diablo-II-Free-Resolution)
+
+This repository has been archived, and all further progress is moved to SGD2FreeRes. Absolutely no support is given to this project and all bug reports are ignored. Users are directed to SGD2FreeRes.
+
+While SGD2FreeRes shares similar behavior with D2HD, SGD2FreeRes is a full rewrite with a new core. This means that changes to this repository do not apply to the new repository.
+
+Also, backports of SGD2FreeRes fixes to D2HD under the Apache License 2.0 are not permitted. SGD2FreeRes (as implied by its name) is licensed under the Affero General Public License, version 3 or greater.
+
 # SlashDiablo HD
 
 SlashDiablo HD is an open source community project that was created by Mir Drualga to enable custom resolutions for Diablo II.
